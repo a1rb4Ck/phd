@@ -1,0 +1,189 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="fr">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title>Pierre's Thesis Burndown</title>
+  
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/modules/exporting.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+</head>
+<body>
+	<div id="container" style="min-width: 400px; width: 100%; min-height: 600px; margin: 0 auto"></div>
+</body>
+<footer>
+	<script type="text/javascript">
+ 
+	var burndown = [{
+		x: moment("02/25/2019").valueOf(),
+		y: 0
+	}, {
+		x: moment("02/27/2019").valueOf(),
+		y: 3
+	}, {
+		x: moment("05/10/2019").valueOf(),
+		y: 67
+	}, {
+		x: moment("06/05/2019").valueOf(),
+		y: 71
+	},
+	{
+		x: moment("06/06/2019").valueOf(),
+		y: 73
+	},
+	{
+		x: moment("06/07/2019").valueOf(),
+		y: 76
+	},
+    {
+        x: moment("06/12/2019").valueOf(),
+        y: 81
+    },
+    {
+        x: moment("08/23/2019").valueOf(),
+        y: 139
+    },
+    {
+        x: moment("09/03/2019").valueOf(),
+        y: 149
+    },
+    {
+        x: moment("09/10/2019").valueOf(),
+        y: 164
+    }];
+ 
+	var burndownPlanned = [{
+		x: moment("02/25/2019").valueOf(),
+		y: 0
+	}, {
+		x: moment("06/30/2019").valueOf(),
+		y: 150
+	}, {
+		x: moment("07/15/2019").valueOf(),
+		y: 150
+	}]
+ 
+	var burndownDanger = [{
+		x: moment("02/25/2019").valueOf(),
+		y: 0
+	}, {
+		x: moment("07/15/2019").valueOf(),
+		y: 150
+	}, {
+		x: moment("09/30/2019").valueOf(),
+		y: 150
+	}]
+ 
+	function interpolate(data) {
+		var resolution = 24 * 3600 * 1000,
+			interpolatedData = [];
+		data.forEach(function(point, i) {
+			var x;
+			if (i > 0) {
+				for (x = data[i - 1].x + resolution; x < point.x; x += resolution) {
+					interpolatedData.push({
+						x: Highcharts.correctFloat(x),
+						y: Highcharts.correctFloat(data[i - 1].y + (point.y - data[i - 1].y) * ((x - data[i - 1].x) / (point.x - data[i - 1].x))
+					)});
+				}
+			}
+			interpolatedData.push(point)
+		});
+		return interpolatedData;
+	}
+ 
+	Highcharts.chart('container', {
+		title: {
+			text: "Pierre's PhD thesis Burndown"
+		},
+		subtitle: {
+			text: "Deadline 2019, June. ehm.."
+		},
+		tooltip: {
+			shared: true,
+			valueDecimals: 1
+		},
+			xAxis: {
+				crosshair: true,
+			// must be timestamp
+				min: moment("02/25/2019").valueOf(),
+					max: moment("09/30/2019").valueOf(),
+				type: 'datetime',
+				tickInterval: 24 * 3600 * 1000	// ticks every day
+		},
+		yAxis: {
+			title: {
+			  text: 'Pages'
+			}
+		},
+		legend: {
+			enabled: false
+		},
+		plotOptions: {
+			area: {
+				fillColor: {
+					linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1},
+					stops: [
+					[0,
+				  Highcharts.Color(Highcharts.getOptions().colors[9]).setOpacity(0.3).get('rgba')],
+				[1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+				]
+			},
+			// lineWidth: 1,
+			marker: {
+				enabled: true
+			},
+			shadow: true,
+			states: {
+				hover: {
+					lineWidth: 2
+				}
+			},
+			threshold: null
+			}
+		},
+		series: [{
+			type: 'area',
+			name: 'Planned',
+			pointInterval: 24 * 3600 * 1000,
+			pointStart: Date.UTC(2019, 02, 25),
+			data: burndownPlanned,
+			enableMouseTracking: false,
+			color: 'green',
+		}, {
+				name: 'Planned',
+			data: interpolate(burndownPlanned),
+			color: 'transparent',
+			linkedTo: ':previous'
+		}, {
+			type: 'area',
+			name: 'Danger',
+			pointInterval: 24 * 3600 * 1000,
+			pointStart: Date.UTC(2019, 02, 25),
+			data: burndownDanger,
+			enableMouseTracking: false,
+			color: 'red'
+		}, {
+				name: 'Danger',
+			data: interpolate(burndownDanger),
+			color: 'transparent',
+			linkedTo: ':previous'
+		}, {
+			// type: 'areaspline',
+			// type: 'spline',
+			name: 'Done',
+			data: burndown,
+			enableMouseTracking: true,
+			color: 'green',
+		}, {
+				name: 'Done',
+			data: interpolate(burndown),
+			color: 'transparent',
+			linkedTo: ':previous'
+		}, ]
+ 
+	});
+	</script>
+</footer>
+</html>

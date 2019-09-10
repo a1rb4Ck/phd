@@ -1,0 +1,231 @@
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %                            PAQUETS USUELS                              %
+% %                                                   %
+% % How to install most of them:
+% %   tlmgr install texlive-latex-extra
+% % Complementary need package from texlive-2019:
+% %   mathpazo courier palatino collectbox ucs
+% %   adjustbox normalem ulem enumitem esvect SIstyle SIunits
+% %   fundus-calligra pgf-blur animate media9 ocgx2 blindtext symbol
+% %   quotchap lettrine minifp minitoc wrapfig multirow diagbox
+% %   pict2e makecell placeins helvetic avantgar bbm-macros
+% %   tikzsymbols algorithm2e ifoddpage relsize appendixnumberbeamer
+% %   calligra
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{mathptmx}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+%\usepackage[francais]{babel}
+\usepackage[french]{babel}  % francais = french babel
+\usepackage{meta-donnees} % page de garde
+\usepackage{meta-donnees2} %page de 4ième de couv
+\usepackage{amssymb}
+\usepackage{verbatim}
+\usepackage{array}	
+\usepackage{color}
+\usepackage{cite}
+\usepackage{xfrac}
+\usepackage{enumitem}
+\usepackage{esvect}
+\usepackage[squaren,Gray]{SIunits}
+\usepackage{sistyle}
+\usepackage{eurosym}  %pour obtenir le symbole Euro
+%\usepackage{gensymb} %pour obtenir le symbole \degree
+\usepackage{calligra}
+\usepackage{tikz}
+\usetikzlibrary{positioning,backgrounds,fadings,shadows.blur,shadows}
+\usetikzlibrary{fit,shapes.misc,shapes}
+
+%\usepackage{animate}
+\usepackage{blindtext}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%                   Notations personnalisées                    %%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \newcommand{\bigO}{\mathcal{O}} % BigO notation
+\newcommand{\bigO}{\operatorname{O}} % BigO notation
+% \newcommand{\bigO}{O} % BigO notation
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%           Packages pour les entetes et pied de page           %%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\usepackage{picins}
+\usepackage{fancyhdr}
+%\usepackage{psboxit}  %%% A Inserer avant babel !!!! 
+\usepackage{pifont}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%                   Packages et couleurs perso                  %%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{xcolor}  %%% Incompatibilité avec \usepackage{colortbl} ??????
+\definecolor{BleuCyan}{RGB}{0,190,190}  %%% Définition d'une couleur personnelle
+\definecolor{RoseRose}{RGB}{238,44,44}
+\definecolor{VertVert}{RGB}{10,255,118}
+\definecolor{Anthracite}{RGB}{91,124,151}
+\definecolor{GrisPasTropClair}{RGB}{83,135,135}
+\definecolor{BleuPetrole}{RGB}{0, 0 ,205}
+\definecolor{BleuClair}{RGB}{234, 255 ,255}
+\definecolor{Bleu1}{RGB}{26, 64 ,145}
+\definecolor{Rouge1}{RGB}{215, 19 ,24}
+\definecolor{myblue}{rgb}{.8, .8, 1}
+\definecolor{violet1}{rgb}{0.78,0.53,0.97}
+\definecolor{myblue2}{rgb}{0,0.41,0.54} % dark blue
+\definecolor{myred}{RGB}{192,0,0} % dark red
+\definecolor{mygreen2}{RGB}{0,120,0} % dark green
+\definecolor{myblue3}{HTML}{1a4091} % dark blue 	
+\definecolor{couleur_marie}{RGB}{0,102,204} % dark green
+\definecolor{couleur_pierre}{RGB}{6,69,173} % dark green
+
+%\newcommand*\maboite[1]{%
+%\fcolorbox{GrisPasTropClair}{BleuClair}{\hspace{1em}#1\hspace{1em}}}
+%\newcommand{\parttoccolor}{blue}
+%\newcommand{\chaptertoccolor}{red}
+%\newcommand{\sectiontoccolor}{green!70!black}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%            Packages pour les captions optimisés               %%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[font=small,font={it}]{caption} % \usepackage[small,hang]{caption2} apparement cpation2 est obsolette
+%\captionsetup[table]{position=bottom}
+%\renewcommand{\captionfont}{\it \small}
+%\renewcommand{\captionlabelfont}{\it \bf \small}
+% \renewcommand{\captionlabeldelim}{ :}  % Ne marche qu'avec caption2
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%           Packages pour les titres de chapitres               %%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\usepackage[Bjornstrup]{fncychap}
+\usepackage[avantgarde]{quotchap}
+
+\usepackage{lettrine}    %Lettrine exemple: \lettrine[lines=2]{L}{orem ipsum}
+\usepackage[francais]{minitoc}		% Pour ajouter une table des matières à chaque chapitre
+\setcounter{minitocdepth}{2}
+
+\usepackage{hyphenat}
+% \DeclareCaptionTextFormat{new}{\nohyphens{#1}}
+% \usepackage{titlesec}
+% \titleformat{\section}[<shape>]{<format>}{<label>}{<sep>}{<before-code>}[<after-code>]
+% \titleformat{\section}{}{}{}{\begin{raggedright}}[\end{raggedright}]
+
+% \renewcommand{\@seccntformat}[1]{\raggedright#1}
+% \renewcommand{\arabic{section}-}
+% \sectionfont{\raggedright\large\sffamily\bfseries}
+% \titleformat{\section}{\raggedright\large\sffamily\bf}{\thesection}{1em}{}
+
+%https://tex.stackexchange.com/questions/35686/avoid-hyphenation-in-chapter-title
+% \usepackage{etoolbox}% http://ctan.org/pkg/etoolbox
+% \patchcmd{\@maketitle}{#1}{\hyphenpenalty=10000 #1}{}{}% Patch \title
+% \begin{raggedright}
+% \end{raggedright}
+% \patchcmd{\@Soustitre}{#1}{\hyphenpenalty=10000 #1}{}{}% Patch \ThesisSubTitle
+% \patchcmd{\@ThesisSubTitle}{#1}{\hyphenpenalty=10000 #1}{}{}% Patch \ThesisSubTitle
+% \patchcmd{\@makechapterhead}{#1}{\hyphenpenalty=10000 #1}{}{}% Patch \chapter
+% \patchcmd{\@makeschapterhead}{#1}{\hyphenpenalty=10000 #1}{}{}% Patch \chapter*
+% \makeatother
+
+% https://tex.stackexchange.com/questions/184280/section-headings-with-long-titles
+\pretolerance=10000 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%                Packages pour les figures                      %%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{epsfig}
+\usepackage{wrapfig}  %%% Inserer du texte a droite ou à gauche de l'image
+%\usepackage{picins}  %%% Inserer du texte a droite ou à gauche de l'image
+\usepackage{float}
+\usepackage{graphicx}
+%\usepackage{subfigure}
+\usepackage{subcaption}
+\usepackage{placeins}
+\usepackage{media9}
+
+\usepackage{fancybox}
+\usetikzlibrary{arrows.meta, arrows}
+\usetikzlibrary{matrix,decorations.pathreplacing}
+\usepackage{adjustbox}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.15}
+% \pgfplotsset{compat=1.3} % also works for me
+% \pgfplotsset{compat=1.8} % also works for me`
+% \usepackage[edges]{forest}
+\usepackage{forest}
+\usepackage{ccicons}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%                  Packages pour les tableaux                   %%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{array}
+\usepackage{textcomp}
+\usepackage{booktabs}
+\usepackage{colortbl}  %%% Couleurs de cellule de tableau
+\usepackage{longtable}
+\usepackage{lscape}    %%% Rotation des tableaux
+\usepackage{makecell}
+\usepackage{multirow, hhline}
+\usepackage{tabularx}
+\usepackage{diagbox}  %%% slashbox is supersed by diagbox with backward comp
+\usepackage{pifont}
+%\usepackage[table]{xcolor}
+
+\usepackage{colortbl}
+
+\arrayrulecolor{myblue3}
+\let\oldtabular=\tabular 
+\def\tabular{\small\oldtabular}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%                  Packages pour les maths                  %%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsmath}
+\usepackage{bm}
+
+%\usepackage{empheq} % Pour encadrer les equations
+%pour utiliser plusieurs fichiers bibteX
+%\usepackage{biblist}
+
+
+
+%\usepackage{fourier}
+\usepackage{SIunits}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%              Packages pour les liens hypertexte               %%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[backref=page]{hyperref} %%%  Packages pour les liens hypertexte a mettre après tous les autres packages
+\hypersetup{
+ % backref=true,
+ % pagebackref=true,
+ colorlinks=true,
+ breaklinks=true, % permet le retour  la ligne dans les liens trop longs
+ % linkcolor=BleuCyan,
+ % linkcolor=couleur_marie,
+ linkcolor=couleur_pierre,
+ citecolor=BleuPetrole,
+ filecolor=VertVert,
+ % hyperindex=true,
+ % bookmarks=true, %cre des signets pour Acrobat
+ bookmarksopen=true,
+ pdftitle={Thèse de Doctorat}, %informations apparaissant dans
+ pdfauthor={Pierre Nagorny}, %dans les informations du document
+ pdfsubject={Contrôle Qualité} %sous Acrobat.
+ }
+
+%\usepackage[backref=page]{hyperref}
+%\renewcommand*{\backref}[1]{}
+%\renewcommand*{\backrefalt}[4]{%
+%	\ifcase #1 (Non cité.)%
+%	\or        (Cité page~#2.)%
+%	\else      (Cité pages~#2.)%
+%	\fi}

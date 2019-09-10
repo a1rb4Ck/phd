@@ -1,0 +1,218 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%                        Intro Générale                         %%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\phantomsection 
+\addcontentsline{toc}{chapter}{Introduction}
+\addtocontents{toc}{\protect\addvspace{10pt}}
+
+\vspace*{-1cm}
+\begin{flushright}
+\section*{\fontsize{20pt}{20pt}\selectfont\textnormal{Introduction générale}}
+\end{flushright}
+\vspace{2cm}
+
+\lhead[\fancyplain{}{Introduction}]
+      {\fancyplain{}{}}
+\chead[\fancyplain{}{}]
+      {\fancyplain{}{}}
+\rhead[\fancyplain{}{}]
+      {\fancyplain{}{Introduction}}
+\lfoot[\fancyplain{}{}]%
+      {\fancyplain{}{}}
+\cfoot[\fancyplain{}{\thepage}]
+      {\fancyplain{}{\thepage}}
+\rfoot[\fancyplain{}{}]%
+     {\fancyplain{}{\scriptsize}}
+     
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%                      Start part here                          %%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\lettrine[lines=1]{L}{ }'industrie manufacturière est en quête croissante d'une production à la qualité optimale.
+Le besoin du client final est la fonction du produit.
+Des besoins fonctionnels techniques, comme des besoins fonctionnels d'aspects, apparaissent aujourd'hui sur les mêmes pièces, avec des niveaux d'exigences croissants.
+La notion de qualité d'un produit est compliquée à spécifier.
+De nombreuses normes permettent de définir des tolérances sur les produits.
+Cependant, les normes ne permettent pas de spécifier toutes les caractéristiques d'un produit.
+C'est le cas de la spécification de la qualité d'aspect.
+Chaque profession a construit sa défauthèque et chaque entreprise du secteur l'a enrichie.
+L'exploitation de ces défauthèques, afin de construire une métrique de la qualité, est un véritable défi industriel.
+
+Pour atteindre la qualité optimale, il est nécessaire de maitriser le procédé de production, voir dans le meilleur des cas, de le réguler par optimisation en boucle fermée.
+La maîtrise de la qualité s'obtient après une démarche itérative.
+Il nécessaire de mesurer la qualité, ce qui demande la mise en place de système de métrologie couplée à une métrique de la qualité adaptée.
+La mesure robuste de la qualité permet de mettre sous contrôle le procédé par des moyens statistiques afin de détecter les dérives dans la qualité produite.
+Enfin, il devient possible d'effectuer une rétro-action sur les réglages du procédé afin d'optimiser la qualité produite.
+
+La non-qualité est l'ensemble des coûts qui sont engendrés par la fabrication de produits qui ne répondent pas au cahier des charges (ce sont des produits de "mauvaise" qualité).
+Les problématiques environnementales et économiques convergent autour de la nécessité de limiter la non-qualité.
+Il est coûteux tant économiquement qu'environnementale de procéder aux étapes successives de finitions du produit alors que celui-ci était de mauvaise qualité dès la première étape.
+Écarter les produits ne répondant pas au cahier des charges, dès la fin de l'étape du procédé, permet un gain économique conséquent.
+La gestion du cycle de vie des produits de mauvaise qualité est également rendue possible.
+Un circuit spécifique de recyclage peut être mis en place à chaque étape de production.
+Plus encore, détecter une dérive de qualité produite sur le procédé permet d'alerter et de stopper le moyen de production.
+Sur des procédés de productions stables où les opérateurs humains interviennent peu, cela permet d'économiser la matière première de plusieurs centaines, voire de plusieurs milliers de pièces.
+
+Plusieurs contraintes industrielles et technologiques entre en jeux dans la conception d'un système de mesure de la qualité.
+En premier lieu, le temps de cycle du procédé industriel doit être respecter. Il ne doit pas être impacté par la technologie de mesure.
+La notion de qualité doit être spécifiée afin de réaliser une mesure répétable.
+Enfin, le coût économique du moyen de métrologie doit être inférieur au coût de la production de rebuts. 
+
+L'injection-moulage des thermoplastiques est un procédé à haute cadence, peu coûteux car répétable.
+Une fois la machine de production réglée, le procédé est souvent très stable.
+Il peut produire de manière continue plusieurs milliers de pièces sans intervention humaine.
+Le coût de la matière première pour le moulage est faible en comparaison du coût des étapes de finitions suivantes, telles que les étapes de peintures.
+Éviter aux pièces de mauvaise qualité d'être peintes est une priorité.
+En second temps, un système de rétroaction pourra être déployé sur le procédé, afin de maximiser la qualité produite.
+% Ce n'est pas la priorité économique.
+
+Le procédé d'injection-moulage des thermoplastiques consiste à injecter un polymère visqueux dans un outillage massif refroidi ; à maintenir une pression de compactage pendant une durée spécifique ; puis à éjecter la pièce tout en préparant en parallèle la matière nécessaire au cycle suivant.
+Il est possible d'ajuster précisément les pressions et les durées d'ouvertures et de fermetures de multiples buses d'injection de manière séquentiel.
+Ainsi, l'espace des variables de pilotage est grand et les variables sont continues.
+
+\noindent
+La production de pièce par moulage des thermoplastiques suit généralement la séquence suivante :
+\begin{enumerate}
+\item Injection-moulage de la pièce
+\item Stockage tampon des pièces
+\item Étapes de peintures
+\item Stockage
+\item Expédition
+\end{enumerate}
+
+Afin de minimiser les coûts d'immobilisation du stockage, on cherche à réduire au maximum le stockage entre les étapes.
+Les défauts géométriques et d'aspect apparaissent majoritairement lors des étapes de déplacements des pièces entre les étapes successives de la production.
+Pour des pièces techniques au cahier des charges rigoureux, un contrôle qualité avant expédition est donc obligatoire.
+Les défauts géométriques et d'aspect sont également produits lors de l'étape initiale d'injection-moulage.
+De nombreux défauts dit "d'aspect" sont des défauts géométriques à l'échelle de la centaine de micromètres.
+Ceux-ci modifient les réflexions des lumières incidentes et cause des changements de luminosité brusques, qui ne sont pas acceptables pour le cahier des charges du produit fini.
+Les étapes de peintures peuvent mettre en valeurs des défauts en introduisant des surfaces spéculaires.
+
+
+\bigskip
+\paragraph{Le FUI SAPRISTI : un projet de recherche collaborative de 2016 à 2019}\mbox{} \\
+
+L’obtention d’une chaîne de production compétitive passe par le développement, l’optimisation et l’automatisation de chacune de ces étapes.
+Dans cette optique, différents consortiums constitués d’industriels et d’académiques travaillent sur des projets de recherche collaboratives (FUI).
+Ces travaux s'inscrivent dans le projet collaboratif FUI\footnote{FUI : Fond Unique Interministériel} SAPRISTI\footnote{SAPRISTI : Système Autocorrectif pour la PRoduction zéro défaut de pIèces pLaSTIques} du \textit{21\up{ème} appel à projet FUI Régions.}\footnote{\href{https://competitivite.gouv.fr/les-appels-a-projets-de-r-d-fui/le-21e-appel-a-projets/les-resultats-du-21e-appel-a-projets-787.html}{Résultats du 21\up{ème} appel à projets FUI sur competitivite.gouv.fr} : \textit{60 projets bénéficieront d’une aide de l’État de 43 Millions d'Euros ainsi que d’une aide des collectivités territoriales et des fonds communautaires (FEDER) de 37,8 Millions d'Euros.}}.
+Le projet FUI SAPRISTI est labellisé par trois pôles de compétitivités :
+\begin{itemize}
+	\item \href{http://www.plastipolis.fr/}{Plastipolis},
+	\item \href{https://www.id4car.org}{iDforCAR},
+	\item \href{https://www.montblancindustries.com/}{Mont-Blanc Industries}.
+\end{itemize}
+\noindent
+Les partenaires du consortium FUI SAPRISTI sont :
+\begin{itemize}
+\item \href{http://www.acsysteme.com/}{Acsystème}, développeur et intégrateur de solutions en automatique et traitement de l'information,
+\item Le \href{https://ct-ipc.com/}{Centre Technique CT-IPC}, acteur européen en développement et recherche pour le secteur de la plasturgie,
+\item Le \href{https://lamcos.insa-lyon.fr/}{laboratoire LaMCoS} de l'\href{https://www.insa-lyon.fr/}{INSA de Lyon}, expert de la modélisation du procédé d'injection-moulage des thermoplastiques,
+\item \href{https://www.plasticomnium.com/}{Plastic Omnium}, équipementier automobile mondial
+\item \href{https://www.renault.fr/}{Renault}, automobiliste concepteur et équipementier de ses équipements,
+\item \href{http://www.sise-plastics.com/}{SISE}, acteur européen de la régulation des procédés en plasturgie, dont notamment le contrôle de l'injection séquentiel,
+\item Le \href{http://www.symme.univ-smb.fr/}{laboratoire SYMME}\footnote{SYMME : SYstèmes et Matériaux pour la MÉcatronique} de l'\href{https://www.univ-smb.fr/}{Université Savoie Mont Blanc}, expert en réglage automatique et en optimisation de procédés industriels, dans le cadre de son axe de recherche sur la Maîtrise de la Qualité des Produits pour l'Industrie.
+\end{itemize}
+
+L'injection-moulage des thermoplastiques est un procédé de production bas coût haut-volume (\textit{Low-Cost, High Volume}) particulièrement prisé des industriels. Le marché de la plasturgie représente en France 3500 entreprises pour 30,2 Milliards de Chiffre d'Affaires en 2018\footnote{Synthèse 2018 du secteur réalisée par la Fédération Française de la Plasturgie.}. Dans ce contexte, l’enjeu du projet FUI SAPRISTI est triple. Le projet a pour triple objectifs de :
+\begin{itemize}
+	\item Déterminer des indicateurs pertinents à mettre sous contrôle.
+	\item Mieux comprendre les phénomènes physiques qui entrent en jeu dans le procédé, afin de modéliser le procédé en prenant en compte les indicateurs sélectionnés.
+	\item Optimiser le procédé en boucle fermé à partir de la modélisation et des indicateurs, afin de produire une qualité optimale.
+\end{itemize}
+
+Dans ce cadre, les objectifs pour le laboratoire SYMME sont dans un premier temps de trouver quelles sont les variables pertinentes à étudier sur le procédé.
+Ces variables peuvent être des mesures directes sur le procédé ou bien des mesures réalisées sur les produits.
+Dans cette démarche, les contraintes industrielles de sont pris en compte pour choisir des moyens de mesures compatibles avec le procédé.
+Ensuite, il s'agit de modéliser les effets de ces variables avec la qualité finale des produits.
+Pour cela, nous utiliserons des modèles construits par apprentissage statistique.
+L'objectif final du FUI SAPRISTI est de mettre sous contrôle le procédé afin de maximiser la qualité produite.
+Cet objectif ne peut être atteint que si les précédents objectifs sont résolus.
+Cette nécessité de disposer d'un moyen de contrôle automatique de la qualité des produits a donné lieu à notre problématique de recherche.
+
+\bigskip
+\paragraph{Problématique de recherche}\mbox{} \\
+
+Dans le cas de l’injection-moulage des thermoplastiques, aucun système de mesure de la qualité ne répond actuellement aux exigences des partenaires du FUI SAPRISTI \ ; que se soient en matière de robustesse de la mesure, ou en matière de compatibilité avec les contraintes posées par le procédé.
+Dans ce cadre, ce travail de doctorat cherche à développer un dispositif de mesures non-invasif de la qualité des produits, dès la sortie de la machine, qui répond aux problématiques industrielles.
+
+Nous avons identifié trois verrous au déploiement massif du contrôle qualité à cent pour-cent dès la sortie de la machine :
+\begin{itemize}
+	\item économique
+	\item technologique
+	\item humain
+\end{itemize}
+Nous évaluerons et chercherons à résoudre chacun de ces verrous afin de proposer un moyen de mesure industriellement viable.
+Nous présentons les méthodes et les moyens retenus pour lever ces verrous.
+
+Des échanges avec les partenaires du FUI SAPRISTI nous ont permis de prendre un compte les limites que posent le procédé industriel.
+La pratique industrielle actuelle propose d'utiliser des mesures intégrées dans l'outillage.
+L'intégration des capteurs nécessaire à ces mesures est invasive : l'ingénierie nécessaire à la conception de l'outillage avec capteur est couteuse \ ; l'instrumentation des capteurs est fragile et la maintenance nécessite un arrêt prolongé de la production puisque c'est l'outillage qui doit être expertisé.
+
+La notion de qualité est subjective.
+Malgré les normes, la notion de qualité est souvent dépendante des connaissances holistiques du responsable expert qualité.
+Il est difficile de modéliser ce savoir dans un système de contrôle automatisé.
+Les récentes avancées en apprentissage statistique, dont les réseaux de neurones profonds (\textit{Deep Learning}), permettent de concevoir un système qui intègre un modèle de la notion de qualité.
+Ce modèle est construit à partir de l’expertise humaine, par apprentissage supervisé.
+L’apprentissage du modèle est réalisé au fur et à mesure de la production, de manière a être intégré au procédé de production.
+Ce dispositif de mesure s'appuie également sur l'apport de l'imagerie non-conventionnelle qui permettent d'acquérir des informations que l'œil de l'expert humain ne peut percevoir.
+Des essais expérimentaux réalisés avec un prototype de dispositif de mesures montrent des résultats encourageants.
+
+\bigskip
+\paragraph{Démarche de recherche}\mbox{} \\
+
+% TODO: Modèles phénoménologique -> faire des expériences, démarche empirique basée sur l'expérience.
+
+Afin d'identifier les variables du procédé d'injection-moulage des thermoplastiques qui sont susceptibles de contenir une information sur la qualité finale du produit, nous avons étudié la littérature.
+Notre État de l'Art propose une revue des publications majeures sur le pilotage du procédé d'injection-moulage, depuis 1975 à ce jour.
+
+Afin de répondre aux verrous qui limitent le déploiement du contrôle qualité, nous n'avons pas retenu la mesure invasive dans nos travaux.
+Aussi, nous avons choisi de définir le périmètre de notre recherche au contrôle qualité non-invasif pour le procédé industriel.
+Cela permet de limiter la complexité de la mise en place des dispositifs de mesure.
+
+L'expérimentation occupe une part importante de ces travaux.
+Dans un premier temps, cela nous a permis de comprendre le procédé et la pratique industrielle.
+Nous avons étudié l'utilisation de moyens de mesures issus de l'imagerie non-conventionnel : scanner laser, thermographie, polarimétrie, ainsi que de mesures intégrées dans l'outillage que nous n'avons pas retenu.
+Par la suite, nous avons cherché à valider par itérations successives notre dispositif de mesure.
+
+À partir des mesures, il s'agit de concevoir un système capable de discerner les pièces de bonne qualité, des pièces de mauvaise qualité.
+Nous orientons nos travaux dans l'utilisation de méthode d'apprentissage supervisé.
+L'expert qualité humain transmet son savoir holistique au système qui réalise le contrôle de manière autonome.
+
+Le développement du système de mesures s'inscrit dans une démarche de validation de l'ensemble de nos propositions.
+Les modèles construits par apprentissage statistique nécessitent un jeu de données d'apprentissage.
+Posséder un dispositif de mesures nous permet d'enregistrer les données requises pour l'apprentissage du modèle.
+Le dispositif de mesures est conçu par une intégration verticale de l'imagerie au traitement des données.
+Cela permet de maitriser l'ensemble de la chaîne d'acquisition et d'analyse des données, et de pouvoir l'optimiser dans son ensemble, pour répondre à notre problème.
+La validation du système est alors réalisée en condition industrielle.
+
+% TODO: Contributions avant Organisation?
+
+\bigskip
+\paragraph{Organisation du manuscrit}\mbox{} \\
+
+Ce manuscrit est constitué de quatre chapitres qui peuvent être indépendamment parcourus.
+Le lecteur sera orienté au gré de sa lecture, vers les sections d'autres chapitres, lorsque des informations complémentaires pourront lui être utiles.
+Le premier chapitre \ref{ch:1} présente de manière détaillée (i) le contexte industriel du travail de doctorat ; (ii) les objectifs de recherche pour le déploiement du contrôle qualité dès la sortie de l'injection-moulage.
+Le deuxième chapitre \ref{ch:2} a pour objectifs de (i) présenter les différentes technologies de métrologies existantes ; (ii) le choix de l'imagerie non-conventionnelle.
+Le troisième chapitre \ref{ch:3} propose d'étudier les moyens de formalisation de la notion de Qualité par apprentissage et de les évaluer sur notre cas d'application industriel.
+Le quatrième chapitre \ref{ch:4} détaille (i) la conception d'un nouveau dispositif de mesures \ ; (ii) son évaluation industrielle.
+Enfin, en conclusion de ce manuscrit un bilan concernant les travaux de ces trois années de doctorat est dressé et une discussion est proposée concernant les nombreuses perspectives.
+
+\bigskip
+\paragraph{Contributions}\mbox{} \\
+
+Ces travaux de thèse proposent une large étude des techniques disponibles qui sont requises pour mettre en place le contrôle automatique des produits sur les chaînes de production.
+Le travail s'intéresse à l'apport de l'imagerie non-conventionnelle, aux méthodes d'apprentissages automatiques et à la conception d'un système complet de contrôle automatique de la qualité.
+
+Ces travaux de thèse ont permis le développement d'un système de contrôle automatique de la qualité des pièces plastiques, dès la sortie du moule, de manière non-invasive, sans contact avec la pièce et avec un impact minimal sur le procédé.
+Ce système associe un banc de mesures spécialement développé pour répondre aux contraintes industrielles, ainsi qu'un logiciel afin d'intégrer et de réaliser le traitement des sources d'information.
+Le logiciel peut tirer partie des possibilités de calculs distribués offert par les solutions \textit{Cloud}.
+Une interface homme-machine sous forme d'\textit{application web} a été développé pour permettre l'apprentissage supervisé.
+Ce système a été évalué sur le procédé d'injection-plastique des thermoplastiques, sur des productions industrielles.
+
+\bigskip
+Notre système de mesures de la qualité a été lauréat du sixième concours \textit{OutOfLab}\footnote{\href{http://outoflabs.linksium.fr/resultats/}{Résultats de la sixième édition du concours \textit{OutOfLabs}}}, organisé par la \textit{SATT}\footnote{\textit{SATT} : Société d'Accélération du Transfert de Technologies} \href{https://www.linksium.fr/}{Linksium Grenoble Alpes}.
+Ce prix nous permet de poursuivre la recherche et les développements vers une utilisation commerciale.
+
+\bigskip
+Ces travaux de thèse ont fait l’objet de communications en congrès scientifiques internationaux \cite{nagorny_towards_2017, nagorny_injection_2017, nagorny_quality_2017, nagorny_generative_2018, nagorny_polarimetric_2019}.

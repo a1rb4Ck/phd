@@ -1,0 +1,71 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%                          Notations                            %%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\phantomsection 
+\addcontentsline{toc}{section}{Notations}
+\addtocontents{toc}{\protect\addvspace{5pt}}
+
+\vspace*{-1cm}
+\begin{flushright}
+\section*{\fontsize{20pt}{20pt}\selectfont\textnormal{Notations}}
+\end{flushright}
+\vspace{2cm}
+
+\fancyhf{}
+%\lhead[\fancyplain{}{Notations}]
+%{\fancyplain{}{}}
+%\chead[\fancyplain{}{}]
+%{\fancyplain{}{}}
+%\rhead[\fancyplain{}{}]
+%{\fancyplain{}{Notations}}
+\lfoot[\fancyplain{}{}]
+{\fancyplain{}{}}
+\cfoot[\fancyplain{}{\thepage}]
+{\fancyplain{}{\thepage}}
+\rfoot[\fancyplain{}{}]
+{\fancyplain{}{\scriptsize}}
+
+
+\paragraph{Statistique}\mbox{} \\
+$
+\begin{array}{ll}
+	{p(x)} & {\text {Distribution de probabilité des valeurs } x} \\
+	{\hat x} & {\text {Approximation/prédiction des valeurs de } x} \\
+	{\overline x} & {\text {Moyenne des valeurs } x} \\
+	{\sigma} & {\text {Ecart-type}} \\
+	{\sigma^{2}} & {\text {Variance}} \\
+	{\mathcal{N}} & {\text {Distribution Gaussienne}}
+\end{array}
+$
+
+\paragraph{Algorithmique et informatique}\mbox{} \\
+$
+\begin{array}{ll}
+	{\operatorname{O}(n)} & {\text {Complexité algorithmique Grand O \ \ (}\operatorname{O}(n)\text { note ici une complexité linéaire)}} \\
+	%, soit } f(n)=O(g(n)) \text { tel que } |f(n)|  \leq  |g(n)| \text{, avec } n\to +\infty \text{ et } k > 0
+	{\text{GPU}} & {\text{\textit{Graphical Process Unit} : Processeur graphique qui accélère les calculs massivement parallèles}} \\
+	{\text{RAM}} & {\text{\textit{Random Access Memory} : Mémoire opérationnelle nécessaire au support des calculs}}
+\end{array}
+$
+
+\paragraph{Apprentissage automatique}\mbox{} \\
+$
+\begin{array}{ll}
+{\text{Modèle}} & {\text{Application qui réalise une tâche (classification, régression, etc.)}} \\
+{\text{Apprentissage}} & {\text{Ajustement des poids du modèle pour réaliser l'objectif}} \\
+{\text{Hyper-paramètres}} & {\text{Variables qui modifient les performances d'un algorithme d'apprentissage}} \\
+{\mathcal{L}} & {\text{Fonction de coût que l'ont cherche à minimiser lors de l'apprentissage d'un modèle}}\\
+{\mathbf{W}} & {\text{Matrice des poids du modèle}} \\
+{\mathbf{x}} & {\text{Variables d'entrée du modèle}} \\
+{y} & {\text{Variable de sortie du modèle}} \\
+{\|\mathbf{x}\|_1} & {\text{Norme } \ell_{1} \text{ , absolue de }\mathbf{x}} \\
+{\|\mathbf{x}\|_2^2 = \|\mathbf{x}\|^2} & {\text{Norme } \ell_{2} \text{ , euclidienne de }\mathbf{x}} \\
+{\eta} & {\text {Facteur d'apprentissage, coefficient d'ajustement des poids à chaque itération}} \\
+{\theta} & {\text{Paramètres du modèle, tel que } f_{\theta}(x) \text{ ait pour variable } x \text{ et pour paramètres } \theta} \\
+{\text{ACP}} & {\text{Analyse en Composante Principale}} \\
+\end{array}
+$
+
+\vspace{5mm} %5mm vertical space
+Dans ce travail, nous utiliserons les conventions de notations suivantes : les variables scalaires sont en minuscule ($x$), les vecteurs sont en minuscule grasse ($\mathbf{x}$) et les matrices sont en majuscule grasse ($\mathbf{X}$).
+Lorsque cela est nécessaire, ces notations sont augmentées en indice d' identifiants de références ($x_a$) ou d'indexation des valeurs des vecteurs ($\mathbf{x}_i$ pour $i \in [0 ; k]$).
