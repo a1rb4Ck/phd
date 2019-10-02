@@ -22,9 +22,8 @@
 \usepackage{meta-donnees2} %page de 4ième de couv
 \usepackage{amssymb}
 \usepackage{verbatim}
-\usepackage{array}	
+\usepackage{array}
 \usepackage{color}
-\usepackage{cite}
 \usepackage{xfrac}
 \usepackage{enumitem}
 \usepackage{esvect}
@@ -79,8 +78,8 @@
 \definecolor{myred}{RGB}{192,0,0} % dark red
 \definecolor{mygreen2}{RGB}{0,120,0} % dark green
 \definecolor{myblue3}{HTML}{1a4091} % dark blue 	
-\definecolor{couleur_marie}{RGB}{0,102,204} % dark green
-\definecolor{couleur_pierre}{RGB}{6,69,173} % dark green
+\definecolor{couleurmarie}{RGB}{0,102,204} % dark green
+\definecolor{couleurpierre}{RGB}{6,69,173} % dark green
 
 %\newcommand*\maboite[1]{%
 %\fcolorbox{GrisPasTropClair}{BleuClair}{\hspace{1em}#1\hspace{1em}}}
@@ -111,7 +110,7 @@
 \usepackage[francais]{minitoc}		% Pour ajouter une table des matières à chaque chapitre
 \setcounter{minitocdepth}{2}
 
-\usepackage{hyphenat}
+% \usepackage{hyphenat}
 % \DeclareCaptionTextFormat{new}{\nohyphens{#1}}
 % \usepackage{titlesec}
 % \titleformat{\section}[<shape>]{<format>}{<label>}{<sep>}{<before-code>}[<after-code>]
@@ -134,7 +133,15 @@
 % \makeatother
 
 % https://tex.stackexchange.com/questions/184280/section-headings-with-long-titles
-\pretolerance=10000 
+\pretolerance=10000
+
+% \usepackage{etoolbox}
+% \apptocmd{\sloppy}{\hbadness 10000\relax}{}{}
+
+% Alternatively (and without possible adverse affects), you could typeset the bibliography \raggedright:
+% \usepackage{etoolbox}
+% \apptocmd{\sloppy}{\hbadness 10000\relax}{}{}
+% \apptocmd{\thebibliography}{\raggedright}{}{}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%                Packages pour les figures                      %%%%%%
@@ -152,7 +159,7 @@
 \usepackage{fancybox}
 \usetikzlibrary{arrows.meta, arrows}
 \usetikzlibrary{matrix,decorations.pathreplacing}
-\usepackage{adjustbox}
+\usepackage[export]{adjustbox}
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.15}
 % \pgfplotsset{compat=1.3} % also works for me
@@ -184,43 +191,104 @@
 \def\tabular{\small\oldtabular}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%                  Packages pour les maths                  %%%%%%
+%%%%%                  Packages pour les mathématiquess             %%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{amsmath}
 \usepackage{bm}
 
 %\usepackage{empheq} % Pour encadrer les equations
-%pour utiliser plusieurs fichiers bibteX
-%\usepackage{biblist}
-
-
 
 %\usepackage{fourier}
 \usepackage{SIunits}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%                  Packages pour la bibliographie               %%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% For use with oldschool bibtex, without biblatex
+%\usepackage{biblist}  % pour utiliser plusieurs fichiers bibteX
+% \usepackage{natbib}  % is better than \usepackage{cite}
 
+% Bibliography with hyperlink from the HAL field
+\usepackage{filecontents}
+
+\begin{filecontents*}{eprint-hal.dbx}
+	\ProvidesFile{eprint-hal.dbx}[2018/09/26 HAL/TEL eprints]
+	\DeclareDatamodelFields[type=field,datatype=verbatim]{arxiv,hal}
+	\DeclareDatamodelEntryfields{hal}
+	\DeclareDatamodelFields[type=field,datatype=literal]{arxivclass}
+	\DeclareDatamodelEntryfields{arxivclass}
+\end{filecontents*}
+
+% \usepackage[style=alphabetic]{biblatex}
+% \usepackage[style=numeric,backend=biber]{biblatex}
+\usepackage[backend=biber,
+			% style=ieee,
+			% bibencoding=ascii,
+			backref=true,
+			style=alphabetic,  % citestyle
+			% style=authoryear, % style de citation auteur-année
+			% style=reading,
+			% style=numeric,
+			% sorting=ynt,  % trier par année, nom, titre
+			sorting=nyt,  % trier par nom, année, titre
+			% maxnames=3,  % nombre d’auteurs au-delà duquel on ajoute « et al. ».
+			% minnames=1,  % le nombre d’auteurs à citer si on dépasse le seuil précédent
+			maxbibnames=99,  % dans la biblio
+			maxcitenames=3,  % dans les citations
+			% firstinits=true,  % tous les prénoms et noms intermédiaires sous forme d’initiales
+			url=false,
+			% eprint=false,
+			% isbn=false,
+			% doi=false,
+			datamodel=eprint-hal,
+			]{biblatex}
+\addbibresource{../Conclusion/bibliographie.bib}
+
+\DeclareFieldFormat{hal}{%
+	\mkbibacro{HAL}\addcolon\space
+	\ifhyperref
+	{\href{https://hal.archives-ouvertes.fr/#1}{\nolinkurl{#1}}}
+	{\nolinkurl{#1}}}
+
+\DeclareFieldAlias{eprint:hal}{hal}
+\DeclareFieldAlias{eprint:HAL}{eprint:hal}
+
+\renewbibmacro*{eprint}{%
+	\printfield{hal}%
+	\newunit\newblock
+	\iffieldundef{eprinttype}
+	{\printfield{eprint}}
+	{\printfield[eprint:\strfield{eprinttype}]{eprint}}}
+
+% Find shitty Unicode
+\DeclareUnicodeCharacter{022F}{i}  % ĭ
+\DeclareUnicodeCharacter{0306}{g}  % ğ
+% bash$ ag '[अ-व]'
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%              Packages pour les liens hypertexte               %%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\usepackage[backref=page]{hyperref} %%%  Packages pour les liens hypertexte a mettre après tous les autres packages
+%%%  Package pour les liens hypertextes, a mettre après tous les autres packages
+% \usepackage[backref=page]{hyperref}  % For use with oldschool bibtex, without biblatex
+\usepackage{hyperref}
 \hypersetup{
- % backref=true,
- % pagebackref=true,
- colorlinks=true,
- breaklinks=true, % permet le retour  la ligne dans les liens trop longs
- % linkcolor=BleuCyan,
- % linkcolor=couleur_marie,
- linkcolor=couleur_pierre,
- citecolor=BleuPetrole,
- filecolor=VertVert,
- % hyperindex=true,
- % bookmarks=true, %cre des signets pour Acrobat
- bookmarksopen=true,
- pdftitle={Thèse de Doctorat}, %informations apparaissant dans
- pdfauthor={Pierre Nagorny}, %dans les informations du document
- pdfsubject={Contrôle Qualité} %sous Acrobat.
- }
+	% backref=true,
+	% pagebackref=true,
+	colorlinks=true,
+	breaklinks=true, % permet le retour  la ligne dans les liens trop longs
+	% linkcolor=BleuCyan,
+	% linkcolor=couleurmarie,
+	linkcolor=couleurpierre,
+	urlcolor=blue,
+	citecolor=BleuPetrole,
+	filecolor=VertVert,
+	% hyperindex=true,
+	% bookmarks=true, %cre des signets pour Acrobat
+	bookmarksopen=true,
+	pdftitle={Thèse de Doctorat}, %informations apparaissant dans
+	pdfauthor={Pierre Nagorny}, %dans les informations du document
+	pdfsubject={Contrôle automatique non-invasif de la Qualité des produits} % sous Acrobat.
+}
 
 %\usepackage[backref=page]{hyperref}
 %\renewcommand*{\backref}[1]{}

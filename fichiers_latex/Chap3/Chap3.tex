@@ -20,8 +20,8 @@
 %%%%%                      Start part here                          %%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\chapter{Modélisation de la notion de Qualité par apprentissage}
-\label{ch:3}
+\chapter{Modélisation de la notion de qualité par apprentissage}
+\label{ch:metric_learning}
 
 % Epigraphe
 %PSYCHOHISTOIRE : Gaal Dornick a défini la
@@ -78,11 +78,12 @@
 \begin{minipage}{0.7\linewidth}
 \smallskip
 
-\textit{Dans ce chapitre, nous étudierons les différentes méthodes de la littérature permettant de modéliser la notion de qualité par apprentissage statistique.
-    L'objectif est de construire un modèle qui permet à partir d'images, d'inférer la qualité des pièces.
-    Nous discuterons de l'optimisation de l'apprentissage de ces modèles.
-    Le diagramme \ref{fig:deep_flowchart} synthétise cette démarche.
-    C'est sous le prisme des contraintes industrielles que nous discuterons des limites au déploiement de ces méthodes sur les lignes de production.
+\textit{
+	Dans ce chapitre, nous étudierons les différentes méthodes de la littérature permettant de modéliser la notion de qualité par apprentissage statistique.
+	L'objectif est de construire un modèle qui permet à partir d'images, d'inférer la qualité des pièces.
+	Nous discuterons de l'optimisation de l'apprentissage de ces modèles.
+	Le diagramme \ref{fig:deep_flowchart} synthétise cette démarche.
+	C'est sous le prisme des contraintes industrielles que nous discuterons des limites au déploiement de ces méthodes sur les lignes de production.
 }
 
 %\smallskip
@@ -135,9 +136,10 @@
         \node [block_center] (deployement) {Déploiement du modèle en production};
         & \node [block_noborder] {Classification de la qualité en sortie de machine}; \\
     };% end matrix
+	\draw[decorate,transform canvas={xshift=-1em},thick,align=center] (data_collection.south west) -- node[left=2pt] {Mesure \\ en ligne §\ref{sec:dataset}} (data_collection.north west);
     \draw[decorate,transform canvas={xshift=-1em},thick,align=center] (classification.south west) -- node[left=2pt] {Deep \\ Learning \\ §\ref{sec:metric_learning}} (extraction.north west);
     \draw[decorate,transform canvas={xshift=-6em},thick,align=center] (validation.south west) -- node[left=2pt] {AutoML \\ §\ref{section:auto_ml}} (extraction.north west);
-    \draw[decorate,transform canvas={xshift=-11em},thick,align=center] (deployement.south west) -- node[left=2pt] {Pilotage \\ de la \\ qualité} (data_collection.north west);
+    \draw[decorate,transform canvas={xshift=-11em},thick,align=center] (deployement.south west) -- node[left=2pt] {Contrôle \\ de la \\ qualité \\ par \\ apprentissage} (data_collection.north west);
     % connecting nodes with paths
     \begin{scope}[every path/.style=line]
     % paths for enrollemnt rows
@@ -155,13 +157,13 @@
 \newpage
 
 % \begin{raggedright}
-\section{Construction du jeu de données d'apprentissage à partir de l'expertise humaine} \label{sec:dataset}
+\section{Construction du jeu de données d'apprentissage à partir de l'expertise humaine} \label{ch:dataset}
 % \end{raggedright}
 Tout système d'apprentissage statistique nécessite un jeu de données représentatif du modèle à construire.
 Ces travaux nous ont permis d'évaluer différentes méthodes de construction du jeu de données d'apprentissage vis à vis des contraintes industrielles.
 Le Tableau \ref{tab:dataset} présente les méthodes que nous avons évaluées.
 
-\begin{table}[]
+\begin{table}[hbtp]
     \arrayrulecolor{black}
     \hspace*{-8mm}
     \begin{tabular}{|l|l|l|}
@@ -177,7 +179,7 @@ Le Tableau \ref{tab:dataset} présente les méthodes que nous avons évaluées.
     \label{tab:dataset}
 \end{table}
 
-\subsection{Plan d'expériences}
+\subsection{Exploration du procédé par plan d'expériences} \label{subsec:l12_doe}
 Pour construire un jeu de données représentatif du procédé d'injection-moulage et de la pièce en présence, il est nécessaire de parcourir la plus grande variété possible de réglages machine.
 C'est l'intérêt des plans d'expériences.
 L'analyse des résultats obtenus permet d'obtenir une modélisation de la réponse en fonction des variables de réglages.
@@ -191,19 +193,21 @@ Dans le cadre d'une première série d'essais, il est intéressant de choisir un
 Cela permettra d'étudier les interactions sous forme linéaire, afin de pouvoir affiner le modèle dans un plan suivant.
 
 En amont du travail de modélisation, il est nécessaire de sélectionner les variables à étudier.
-L'expertise des partenaires du projet FUI SAPRISTI a permis de retenir 11 variables pertinentes à prendre en compte dans notre étude.
+L'expertise des partenaires du projet FUI SAPRISTI a permis de retenir 11 variables pertinentes à prendre en compte dans l'étude du procédé d'injection-moulage.
 Ces variables sont celles qui influencent le plus la qualité des pièces plastiques. Le Tableau \ref{tab:doe_choice} référence les variables de réglage du procédé sélectionnées.
-Les variables "critiques" ne sont pas étudiées.
-Leurs bons réglages sont nécessaires pour produire une pièce complète.
-C'est pourquoi le réglage est réalisé en amont du plan d'expérience. Un ordre de priorité est défini d'après les connaissances des experts.
-Le procédé d'injection-moulage est séquentiel, c'est pourquoi il est possible de régler des séquences temporelles, par exemple des paliers successifs de pression de maintien en fonction de l'avancement du cycle d'injection.
+Les variables "critiques" ne sont pas étudiées dans le plan d'expériences.
+En effet, leur bon réglage est nécessaire pour produire une pièce complète.
+C'est pourquoi le réglage est réalisé en amont du plan d'expérience.
+Suite à la sélection des variables étudiés, un ordre de priorité est défini, d'après les connaissances des experts.
+Le procédé d'injection-moulage est séquentiel, c'est pourquoi il est possible de régler certaines consignes sous la forme de séquences temporelles ; par exemple des paliers successifs de pression de maintien, en fonction de l'avancement du cycle d'injection.
 En pratique, sur notre pièce simple, cette possibilité n'est pas réalisée.
 En injection multi-buses séquentielle, le réglage des séquences temporelles est à contrario crucial pour obtenir une pièce de bonne qualité.
-Le nombre de valeurs de réglages de ces paramètres séquentiels est très élevé, c'est pourquoi les plans d'expériences ne sont plus adaptés à leurs études exhaustives.
-Un point de fonctionnement doit être initialement défini par un réglage initial satisfaisant.
+Le nombre de valeurs de réglages de ces paramètres séquentiels est très élevé, c'est pourquoi les plans d'expériences ne sont plus adaptés à leur étude exhaustive.
+Un point de fonctionnement doit être initialement trouvé : c'est l'étape du réglage initial.
+Elle est réalisée par le technicien régleur.
 Par la suite, une exploration du procédé pourra être réalisée autour de ce point de fonctionnement.
 
-\begin{table}[]
+\begin{table}[hbtp]
     \centering
     \arrayrulecolor{black}\begin{tabular}{|l|l|l|l|l|l|l|}
         \arrayrulecolor{black}
@@ -231,16 +235,18 @@ Par la suite, une exploration du procédé pourra être réalisée autour de ce 
 \end{table}
 
 Nous avons conduit deux expérimentations par plans d'expériences sur des machines industrielles.
-Dans un premier temps, un plan d'expérience de criblage \textit{L12} a été utilisé \cite{plackett_design_1946} : 11 variables sur 2 niveaux.
-La Section \ref{subsec:doe} discute des plans d'expériences.
-Nous avons ajouté deux essais au centre pour étudier la répétabilité du procédé et deux essais de validation, détaillés dans le Tableau \ref{tab:doe_screening}.
+Dans un premier temps, un plan d'expérience de criblage \textit{L12} a été utilisé : 11 variables sur 2 niveaux \cite{plackett_design_1946}.
+La Section \ref{subsec:doe} discute des constructions possibles de plans d'expériences et de l'intérêt des plans de criblage.
+Nous avons ajouté deux essais au centre pour étudier la répétabilité du procédé et deux essais de validation.
+Notre plan est détaillés dans le Tableau \ref{tab:doe_screening}.
 La réalisation pratique de ce plan d'expériences a demandé 4 journées de 8 heures.
 Il a été choisi d'attendre la stabilisation du procédé avant de réaliser les mesures.
-En pratique, la production de 20 à 40 pièces est requise pour être certain de la stabilité.
-La contrainte principale est la capacité thermique du moule.
+La production de 20 à 40 pièces est requise pour être certain de la stabilité.
+Nous n'avons pas mesuré les 30 premières pièces produites lors du début de chaque expérience.
+Du point de vue de l'organisation des essais, la contrainte principale est la capacité thermique du moule.
 Aux vues de la masse d'acier en présence, la montée et la descente en température de l'outillage est très longue.
-Un travail réalisé en parallèle de ce doctorat \cite{collomb_2018} a récemment réduit la durée du cycle d'injection RTM en optimisant la capacité thermique et en isolant l'outillage.
-C'est pourquoi nous avons ordonné les essais pour réaliser une montée progressive de la température de l'outillage.
+C'est pourquoi nous avons ordonné les essais pour réaliser une montée progressive de la température de l'outillage\footnote{En parallèle de ce travail de doctorat, \citeauthor{collomb_2018} a récemment proposé de réduire au maximum la capacité thermique de l'outillage et d'isoler les parois. Cela a permis de réduire le temps de cycle du moulage des composites \cite{collomb_2018}.
+Il serait intéressant d'étudier cette démarche, par exemple est prenant en compte les déformations de l'outillage sous les contraintes pour l'alléger.}.
 
 % Conditionnal formating table: https://tex.stackexchange.com/a/488568
 \makeatletter
@@ -252,8 +258,9 @@ C'est pourquoi nous avons ordonné les essais pour réaliser une montée progres
 % Please add the following required packages to your document preamble:
 % \usepackage[table,xcdraw]{xcolor}
 % If you use beamer only pass "xcolor=table" option, i.e. \documentclass[xcolor=table]{beamer}
-\begin{table}[]
+\begin{table}[hbtp]
     \centering
+    \hspace*{-8mm}
     \arrayrulecolor{black}\begin{tabular}{m|m|m|m|m|m|m|m|m|m|m|m|}
         \arrayrulecolor{black}
         % \cline{2-12}
@@ -294,7 +301,7 @@ Deux solutions sont possibles :
 
 \subsubsection{Exploration humaine en cycle de production}
 Nous avons conduit deux expérimentations sur des machines industrielles, sans planification préalable des configurations de réglages de la machine.
-Ces essais ont permis d'obtenir des retours sur la faisabilité et la fiabilité de notre dispositif de mesures de la qualité.
+Ces essais ont permis d'obtenir des retours sur la faisabilité et la fiabilité de notre dispositif de mesure de la qualité.
 Afin d'explorer les plages de fonctionnement des réglages du procédé, nous recommandons d'acquérir les données en particulier pendant ces évènements :
 \begin{itemize}
 \item pendant la phase de réglage,
@@ -304,95 +311,116 @@ Afin d'explorer les plages de fonctionnement des réglages du procédé, nous re
 Ces recommandations permettent de maximiser la variance du jeu de données.
 Nous notons que c'est pendant la phase de réglages que la variance des données est maximale.
 En effet, le réglage de la machine est un processus itératif qui nécessite d'appliquer successivement plusieurs points de fonctionnement au procédé.
+Les 20 pièces produites pendant le réglage possèdent des caractéristiques de qualité variées.
 
 \subsubsection{Pilotage automatique du procédé pour la création d'un jeu de données}
 Nous définissons le pilotage d'un procédé comme la sélection d'un point de fonctionnement initial (phase de réglage), son optimisation et sa régulation.
 Le réglage est aujourd'hui réalisé par un opérateur humain.
 Dans le cas où la phase de réglage est automatisée, il devient possible d'explorer le procédé, tout en optimisant les réglages, à l'aide des méthodes d'optimisation que nous présentons dans la Section \ref{section:auto_ml}.
 Les plans d'expériences §\ref{subsec:doe} sont particulièrement adaptés à l'acquisition de données sur l'ensemble de l'espace.
-Il est possible de compléter un plan d'expériences par de nouveaux essais dans les régions qui possèdent les meilleurs performances.
+Il est possible de compléter un plan d'expériences par de nouveaux essais, dans les plages de réglages qui possèdent les meilleurs performances.
 
 \section{Annotation humaine du jeu de données en contexte industriel}
-Le coût de l'annotation humaine est conséquent.
-\cite{bearman_what_2015} évalue les durées effectives de différents types d'annotations.
+C'est par l'annotation d'un jeu de données que l'expert humain transfert sa connaissance au système informatique.
+
+Nous distinguons deux méthodes d'annotation humaine d'un jeu de données d'apprentissage :
+\begin{itemize}
+    \item l'annotation "hors ligne", qui est effectuée à posteriori de la production des données,
+    \item l'annotation "en ligne", qui est effectuée pendant la production des données.
+\end{itemize}
+Dans le cadre de la pratique industrielle, on parlera d'annotation "en ligne" lorsqu'elle est réalisée au fur et à mesure de la production des pièces.
+Dans ce cas, l'annotation est effectué directement depuis la ligne de production.
+À contrario, l'annotation hors ligne peut être réalisée en dehors de la ligne de production.
+
+Une des principales limites au déploiement de système par apprentissage est le coût de l'annotation.
+En effet, le coût de l'annotation humaine est conséquent car il monopolise un expert du domaine.
+En 2015, \citeauthor{bearman_what_2015} évalue les durées moyennes de différents types d'annotations \cite{bearman_what_2015}.
 % https://hbilen.github.io/wsl-cvpr18.github.io/assets/wsod.pdf
 % Berman et al., What’s the Point: Semantic Segmentation with Point Supervision, ECCV 16
 Le Tableau \ref{tab:annotation} présente ces résultats.
 Dans le cadre industriel, la durée d'annotation définit le coût économique du travail de l'expert qualité qui la réalise.
-Ainsi, il n'est pas envisageable de réaliser une segmentation précise.
+Ainsi, il n'est pas envisageable de réaliser une segmentation précise depuis une ligne de production.
+Nous discuterons dans la suite de la faisabilité de l'annotation d'un jeu de données dans un contexte industriel.
 
-\begin{table}[]
-    \centering
-    \arrayrulecolor{black}
-    \begin{tabular}{|l|r|r|}
-        \arrayrulecolor{black}
-        \hline
-        Méthode           & Durée par classe & Qualité de localisation \\
-        \hline
-        \hline
-        Label de présence & 1.0 s & Aucune localisation \\
-        \hline
-        Label + point & 2.4 s & Localisation globale \\
-        \hline
-        Label + rectangle & 10 s & Localisation locale \\
-        \hline
-        Label + masque & 78 s & Segmentation précise \\
-        \hline
-    \end{tabular}
-    \caption{Durées d'annotations d'une image pour un humain.}
-    \label{tab:annotation}
+\begin{table}[tbp]
+	\centering
+	\arrayrulecolor{black}
+	\begin{tabular}{|l|r|r|c|}
+		\arrayrulecolor{black}
+		\hline
+		Méthode & Durée par classe & Qualité de localisation & Illustration de l'annotation\\
+		\hline
+		\hline
+		Label de présence & 1,0 s & Aucune localisation & \includegraphics[width=3.5cm,keepaspectratio,valign=c,margin=1mm 1mm]{../Chap3/Figures/163-35_r.jpeg}
+		\\
+		\hline
+		Label + point & 2,4 s & Localisation globale & \includegraphics[width=3.5cm,keepaspectratio,valign=c,margin=1mm 1mm]{../Chap3/Figures/163-35_r_point.jpeg} \\
+		\hline
+		Label + rectangle & 10 s & Localisation locale & \includegraphics[width=3.5cm,keepaspectratio,valign=c,margin=1mm 1mm]{../Chap3/Figures/163-35_r_box.jpeg} \\
+		\hline
+		Label + masque & 78 s & Segmentation précise & \includegraphics[width=3.5cm,keepaspectratio,valign=c,margin=1mm 1mm]{../Chap3/Figures/163-35_r_segm.jpeg} \\
+		\hline
+	\end{tabular}
+	\caption{Durées d'annotations moyenne d'une image pour un humain.}
+	\label{tab:annotation}
 \end{table}
-
-Nous distinguons deux méthodes d'annotation humaine de la base d'apprentissage :
-\begin{itemize}
-    \item l'annotation "hors ligne", qui est effectuée à posteriori de la production des données.
-    \item l'annotation "en ligne", qui est effectuée pendant la production des données.
-\end{itemize}
 
 \subsection{Annotation hors ligne}
 Nous proposons une méthode de notation de la qualité basée sur l'expertise humaine.
-De précédents travaux sur l'évaluation visuelle de la qualité par de multiples experts \cite{baudet_visual_2011} ont montrés la difficulté d'accorder les avis d'experts humains.
-L'évaluation de la qualité de 18 produits est réalisée par cinq contrôleurs experts.
-Ce groupe d'experts possédait une variance maximale sur l'ensemble des niveaux de qualité de 50\%.
-Ce travail montre qu'il est nécessaire de formaliser l'évaluation.
-Il faut également former les experts pour harmoniser les évaluations.
+De précédents travaux sur l'évaluation visuelle de la qualité par de multiples experts ont montrés la difficulté d'accorder les avis d'experts humains \cite{baudet_visual_2011}.
+\citeauthor{baudet_visual_2011} étudie l'évaluation de la qualité de 18 produits, par un panel de cinq contrôleurs humains.
+Les résultats de l'évaluation de ce panel possédait une variance maximale de 50\% sur l'ensemble des niveaux de qualité.
+Cette variance est très élevée.
+Elle n'est pas acceptable pour un moyen de mesure.
+Cette étude montre qu'il est nécessaire de formaliser l'évaluation.
+Il faut également former les contrôleurs humains pour harmoniser les évaluations.
 % Une analyse R\&R aurait pu être effectuée pour mesurer la précision de notre méthode.
-Afin d'évaluer la variabilité des évaluations humaines,  \cite{baudet_maitrise_2012} propose une évolution de la méthode \textit{R\&R} \cite{automotiveindustryactiongroup_measurement_2010} (\textit{Repetability \& Reproductibility}) qui a été initialement proposée pour évaluer la variabilité des systèmes de mesures.
+Afin d'évaluer la variabilité des évaluations humaines,  \citeauthor{baudet_maitrise_2012} \cite{baudet_maitrise_2012} propose une évolution de la méthode \textit{R\&R} (\textit{Repetability \& Reproductibility}) qui a été initialement proposée par le \citeauthor{automotiveindustryactiongroup_measurement_2010} pour évaluer la variabilité des moyens de mesure \cite{automotiveindustryactiongroup_measurement_2010}.
 La variabilité peut avoir deux causes : un problème de répétabilité de la mesure ou un problème de reproductibilité.
-Pour que le système de mesures soit conforme et puisse être utilisé, la pratique industrielle accepte généralement une variabilité inférieure à 30\%
-Dans notre cas, nous chercherons à obtenir un système de contrôle qui réalise moins de 10\% d'erreurs de classification.
+Pour que le système de mesure soit conforme et puisse être utilisé, la pratique industrielle accepte généralement une variabilité inférieure à 30\%
+Dans notre cas, nous chercherons à concevoir un système de contrôle qui réalisera moins de 10\% d'erreurs de classification.
 
-Sur un cas d'application, nous avons expérimenté la définition d'une métrique de la qualité.
+\paragraph{Expérimentation de l'annotation hors ligne}\mbox{} \label{parag:offline_annotation} \\
+Sur le cas d'application "boîte noire", présenté dans le Chapitre \ref{ch:measure}, nous avons expérimenté une méthode de construction d'une métrique de la qualité des pièces.
 L'échelle de notation est construite au fur et à mesure, par comparaison entre les niveaux de défauts des pièces.
-Les pièces sont classées par comparaison.
-Afin d'obtenir une évaluation répétable et reproductible, l'évaluation de la qualité est réalisée par quatre experts humains qui débattent jusqu'à être d'accord.
+Les pièces sont classées sur une grande table, par comparaison manuelle.
+Afin d'obtenir une évaluation répétable et reproductible de la qualité, ce classement est réalisée par quatre experts humains qui débattent jusqu'à être d'accord.
 Nous justifions cette démarche par la nécessité de limiter la dispersion inter-classes.
 Si nous ne sommes pas capables de différencier deux pièces, alors ces pièces appartiennent à la même classe.
-Nous n'avons pas réalisé d'analyse \textit{R\&R}.
-Cela reste une étude intéressante à réaliser.
-Les photographies de la Figure \ref{fig:annotation} présentent la réalisation de l'annotation hors-ligne.
-Les numéros indiquent la valeur attribuée sur l'échelle de qualité créée.
+Nous n'avons pas réalisé d'analyse de répétabilité \textit{R\&R} du panel de quatre experts.
+C'est une perspective intéressante pour des travaux complémentaires.
 
 \begin{figure}[hbtp]
-    \centering
-    \begin{subfigure}[c]{0.70\textwidth}
-    \includegraphics[width=1\textwidth,height=\textheight,keepaspectratio]{../Chap3/Figures/annotation_1.jpg}
-    \end{subfigure}
-    \begin{subfigure}[c]{0.29\textwidth}
-        \centering
-        \includegraphics[width=1\textwidth,height=\textheight,keepaspectratio]{../Chap3/Figures/annotation_2.jpg}
-    \end{subfigure}
-    \caption{Annotation hors-ligne par les experts humains.}
-    \label{fig:annotation}
+	\centering
+	\begin{subfigure}[c]{0.70\textwidth}
+		\includegraphics[width=1\textwidth,height=\textheight,keepaspectratio]{../Chap3/Figures/annotation_1.jpg}
+	\end{subfigure}
+	\begin{subfigure}[c]{0.29\textwidth}
+		\centering
+		\includegraphics[width=1\textwidth,height=\textheight,keepaspectratio]{../Chap3/Figures/annotation_2.jpg}
+	\end{subfigure}
+	\caption{Annotation hors-ligne par les experts humains.}
+	\label{fig:annotation}
 \end{figure}
+Les photographies de la Figure \ref{fig:annotation} présentent la réalisation de l'annotation hors-ligne.
+Les numéros sous les colonnes de pièces indiquent la valeur attribuée à chaque colonne sur l'échelle de qualité.
+L'échelle a été construite de manière dynamique.
+Elle va de 1 \textemdash niveau de qualité le meilleur \textemdash à 7 \textemdash les pièces qui possèdent les pires caractéristiques.
 
+Il s'est avéré difficile pour les contrôleurs humains de donner une note qui prend en compte plusieurs types de défauts.
+Les contrôleurs experts possèdent un a-priori de la notion de qualité qui s'appuie sur des types de défauts.
+C'est pourquoi nous avons identifié trois défauts présents sur les : la retassure, le givrage et les brulures.
+La démarche de notation par comparaison a été réalisé trois fois de suite, pour les trois types de défauts différents.
+Une moyenne géométrique des notes combine les trois types de défauts et produit l'évaluation finale de la qualité de chaque pièce.
+
+\noindent
 Nous identifions trois limites à ce processus d'annotation humaine :
 \begin{itemize}
-\item la durée de 3 heures avec 3 experts pour évaluer 200 pièces, soit 60 pièces par heure. Cette cadence est équivalente au temps de cycle de production d'une pièce par heure. 
-\item la surface de travail nécessaire pour organiser les pièces et que les trois experts puissent les manipuler librement
-\item les risques liés à la détérioration des pièces entre leur production et l'étape d'annotation.
+\item La durée de 3 heures avec 3 experts pour évaluer 200 pièces, soit 60 pièces par heure. Cette cadence est équivalente au temps de cycle de production d'une pièce par heure.
+\item La surface de travail nécessaire pour organiser les pièces et que les trois experts puissent les manipuler librement.
+\item Les risques liés à la détérioration des pièces entre leur production et l'étape d'annotation.
 \end{itemize}
-C'est pourquoi, nous recommandons de réaliser l'annotation au plus près du procédé d'injection-moulage, dès la sortie des pièces du moule d'injection.
+C'est pourquoi, nous recommandons de réaliser l'annotation au plus près du procédé d'injection-moulage ; si possible dès la sortie des pièces du moule d'injection.
 
 \subsection{Annotation en ligne de production}
 Réaliser l'annotation en ligne de production permet d'éliminer deux risques d'erreurs critiques sur le jeu de données d'apprentissage :
@@ -403,12 +431,13 @@ Réaliser l'annotation en ligne de production permet d'éliminer deux risques d'
 En contrepartie, la durée disponible pour l'annotation est très limitée. En plus de la durée de l'annotation, l'expert humain doit assister les opérations de manutention des pièces et les opérations connexes.
 Nous estimons la disponibilité de l'expert humain à une trentaine de secondes pour un temps de cycle de procédé d'une minute.
 
-Le Tableau \ref{tab:annotation} présente les durées de la tâche d'annotation.
-Dans le cas d'une annotation au fil de la production de pièces, il n'est pas envisageable de réaliser une segmentation précise à cause de sa durée.
+Le Tableau \ref{tab:annotation} présente les durées moyenne de la tâche d'annotation.
+Dans le cas d'une annotation au fil de la production de pièces, il n'est pas envisageable de réaliser une segmentation précise, à cause de sa durée élevée.
 Nous obtenons de ces résultats l'intérêt de réaliser une annotation rapide, sans nécessairement chercher à localiser les défauts.
 Indiquer la présence ou l'absence de défauts est rapide.
-Ensuite, nous pouvons préciser le niveau de la qualité en proposant une échelle discrète simple, par exemple à cinq niveaux de qualité. Afin de répondre à ce problème de vitesse d'annotation, une interface logicielle a été spécifiquement développée.
-Nous la présenterons dans le chapitre suivant.
+Ensuite, nous pouvons préciser le niveau de la qualité en proposant une échelle discrète simple, par exemple à cinq niveaux de qualité.
+Afin de répondre à ce problème de vitesse d'annotation, une interface logicielle a été spécifiquement développée.
+Nous discutons de cette interface dans le Chapitre \ref{ch:theeye}.
 
 \subsection{Intégration de l'humain dans le système d'apprentissage}
 L'expertise humaine est indispensable à la modélisation par apprentissage statistique.
@@ -441,7 +470,7 @@ Dans certains cas, l'expertise humaine ne permet pas de différencier la qualit�
 Plusieurs limites humaines peuvent être la cause d'une telle situation :
 \begin{itemize}
     \item L'expert ne peut pas mémoriser les caractéristiques de l'ensemble des pièces produites.
-    \item L'expert humain ne peut pas comparer les pièces car les pièces ne lui sont plus accessibles.
+    \item l'expert humain ne peut pas comparer les pièces car les pièces ne lui sont plus accessibles.
     \item L'expert humain ne dispose pas d'assez de temps pour comparer les pièces.
 \end{itemize}
 
@@ -499,14 +528,14 @@ Pour obtenir un détecteur de nouveauté, il reste à définir un seuil à parti
 Ce seuil est soit imposé, soit défini de manière automatique.
 Dans le cas d'un seuil automatique, on choisira un seuil égal à la distance de Mahalanobis de l'ensemble des pièces actuellement dans la base d'apprentissage ; ce sont les pièces existantes et nous cherchons à détecter les nouvelles.
 La distance de toute pièce nouvelle dépassera alors ce seuil et la nouveauté sera détectée.
-Cette démarche est employée avec succès dans les travaux de Thomas Lacombe \cite{lacombe_exploitation_2018a} sur le contrôle visuel automatique par système multi-éclairage.
+Cette démarche est employée avec succès dans les travaux de \citeauthor{lacombe_exploitation_2018a} sur le contrôle visuel automatique par système multi-éclairage \cite{lacombe_exploitation_2018a}.
 % https://scikit-learn.org/stable/auto_examples/covariance/plot_mahalanobis_distances.html
 % Rousseeuw, P.J., Van Driessen, K. “A fast algorithm for the minimum covariance determinant estimator” Technometrics 41(3), 212 (1999)
 
 \paragraph{Machine à Vecteurs Supports à une classe}\mbox{} \\
-À partir d'un classifieur Machine à vecteurs de support §\ref{parag:svm}, supervisé, \cite{scholkopf_support_1999, scholkopf_estimating_2001} propose de chercher à classifier l'ensemble des données existantes dans une unique classe.
+À partir d'un classifieur machine à vecteurs de support §\ref{parag:svm}, \citeauthor{scholkopf_support_1999} proposent de chercher à classifier l'ensemble des données existantes dans une unique classe \cite{scholkopf_support_1999, scholkopf_estimating_2001}.
 C'est la méthode \textit{One-Class SVM}.
-À l'aide de noyau gaussien, cette méthode permet de prendre en compte des données aux propriétés plus complexes que la matrice de covariance précédente de la distance de Malhanobis.
+À l'aide de noyau gaussien, cette méthode permet de prendre en compte des données aux propriétés plus complexes, que la matrice de covariance précédente de la distance de Malhanobis.
 Le paramètre de marge $b$ correspond à la probabilité de classifier un nouvel échantillon, qui serait situé en dehors de l'hyperplan de marge maximal, comme nouveau.
 % TODO: One-Class SVM: Figure de résumé de la démarche
 
@@ -536,80 +565,12 @@ Dans le cas de l'injection des thermoplastiques, suite à un réglage, une dizai
 C'est pourquoi nous proposons d'enregistrer deux pièces précédant la modification des réglages, ainsi que les dix pièces suivant la modification.
 Cette contrainte dimensionne la capacité de mémoire informatique du système d'apprentissage.
 Dans le cas de douze pièces, la mémoire tampon sera de l'ordre de mille mégaoctets.
+
 Nous n'avons pas pu évaluer notre proposition dans le cadre de ce travail, car cela nécessite l'enregistrement automatique de la valeur des réglages de la machine.
-Cette intégration doit être réalisée en lien avec les automaticiens constructeurs des presses d'injection-plastique ou bien les intégrateurs de ces machines ; ou par rétro-ingénierie, ce qui demandera des ressources conséquentes.
+Cette intégration doit être réalisée en lien avec les constructeurs des presses d'injection-plastique ; ou par rétro-ingénierie, ce qui demandera des ressources conséquentes.
 L'évaluation de cette proposition est une piste de travail importante pour la suite de nos travaux.
 
-\vfill
-\newpage
-\section{Extraction de l'information pertinente} \label{sec:extraction}
-Nous supposons dans cette section que l'information pertinente est contenue dans les mesures brutes issues des capteurs.
-Les algorithmes ne peuvent pas extraire d'information si elle n'est pas présente.
-Aussi, les résultats de ce travail sont liés à l'association de moyens de mesures et d'algorithmes adaptés.
-L'objectif à long terme de nos travaux est de proposer l'ajustement en boucle fermée de la qualité produite.
-C'est pourquoi le dispositif de contrôle doit respecter le temps de cycle du procédé, afin de pouvoir corriger les paramètres du procédé dès la pièce suivante.
-Doivent alors être inscrits dans le temps de cycle de production d'une pièce : le déplacement de la pièce devant le système de mesure, la durée de la mesure, le dépôt de la pièce, le positionnement du robot préhenseur pour la prochaine pièce et en parallèle la durée du traitement de la mesure.
-La durée de la mesure est de dix secondes.
-La durée d'inférence de la qualité à partir des mesures doit être proche de la seconde.
-L'exécution du traitement des données doit être effectué sur un système de calcul embarqué au plus proche des moyens de mesures de types caméras.
-En effet, nous avions envisagé de réaliser l'inférence sur un serveur distant, cependant la majorité des ateliers n'est pas équipée en infrastructure de réseau informatique filaire au pied des machines.
-En pratique, nous avons eu des problèmes insolubles de latence sur les infrastructures réseaux radiofréquence présentes dans certains ateliers de production.
-% en émission sur la connexion radio-fréquence (WiFi) qui ne permettait pas de réaliser l'inférence à distance.
-% Les données mesurées peuvent atteindre un méga octet par pièce et les pertes de paquets sur la connexion WiFi sont dues au mouvement des bras robotiques préhenseurs métalliques.
-Sans évolution de l'infrastructure réseau, le traitement de la mesure doit être effectué sur le système embarqué.
-L'inférence de modèles d'apprentissage supervisé, dont les réseaux de neurones profonds, est inférieur à la seconde.
-Plus la dimension de l'information issue des capteurs est réduite, plus l'inférence est rapide.
-La réduction de dimensions est aussi appelée "extraction de l'information" ou "compression de l'information".
-
-Enfin, la réduction de l'information est un objectif crucial afin de pouvoir piloter en boucle fermée le procédé.
-En effet, le pilotage multivarié des procédés industriels est possible dans un espace de dimensions faibles (de dimensions dix à cent).
-
-Dans cette section, nous présentons des méthodes d'extraction de l'information pertinente à l'aide d'une sélection automatique de descripteurs statistiques des images.
-Nous utilisons ici des descripteurs de références de la littérature.
-Il n'y a pas d'apprentissage, à la différence des méthodes présentées dans la Section \ref{sec:metric_learning} suivante.
-La limite est ici le manque de variété des descripteurs existants.
-L'apprentissage permet de créer les descripteurs adaptés spécifiquement aux problèmes à résoudre.
-
-\subsection{Sélection automatique de descripteurs d'images pertinents}
-Nous présentons les descripteurs évalués dans ces travaux.
-Dans \cite{nagorny_quality_2017}, nous avons choisi de balayer un large spectre de la vision par ordinateur.
-25 descripteurs statistiques ont été évalués : minimum, maximum, moyenne, médiane, écart-type, quantile 75, quantile 90, quantile 95, mode, asymétrie (\textit{skewness}), kurtosis ; ainsi que les 11 paramètres de Haralick \cite{haralick_textural_1973}.
-% - Décomposition Modale Discrète, utilisée avec succès dans les travaux de doctorat de Thomas Lacombe \cite{lacombe_exploitation_2018a}.
-
-La sélection automatique des descripteurs est réalisée par la méthode des Forêts d'arbres décisionnels.
-Pour chaque arbre, il est possible d'obtenir le nombre de variables qui sont associées.
-On obtient une valeur sur l'importance relative des variables.
-La Figure \ref{fig:random_forest} montre les résultats de cette étude.
-Dans notre cas de contrôle de la qualité d'aspect, les paramètres de Haralick sont intéressants.
-Ils ont été développés pour l'analyse de textures.
-
-\begin{figure}[hbtp]
-    \centering
-    \includegraphics[width=0.7\textwidth,height=\textheight,keepaspectratio]{../Chap3/Figures/random_forest_importance.png}
-    \caption{Importance des descripteurs par Forêt d'arbres décisionnels.}
-    \label{fig:random_forest}
-\end{figure}
-% Random Forests
-% Test du Khi-Dheu.
-% Test sur le F1-score.
-% Sélection par validation croisée
-% Des méthodes de sélection plus avancées sont détaillées 
-
-Enfin, le travail \cite{nagorny_quality_2017} compare les performances de classification de la qualité de ces descripteurs, avec les performances obtenues à l'aide de classifieurs à réseaux de neurones de convolutions.
-Le meilleur classifieur qui utilise les 25 descripteurs précités obtient une erreur en classification de 0.33\%, tandis que les réseaux de convolutions ont une erreur de 14.6\%.
-Ces résultats ont orienté nos travaux dans l'utilisation des réseaux de neurones de convolutions pour le contrôle de la qualité.
-Ils sont l'objet de la suite de ce chapitre §\ref{sec:metric_learning}.
-
-% \subsection{Traitement d'image amont}
-% Nous avons étudié la possibilité de mettre en valeur la présence des défauts d'aspect que nous souhaitons discriminer.
-% L'hypothèse de ce travail est simple : si un traitement d'image fait ressortir les défauts pour un humain, cela améliorera les performances du système informatique de détection des défauts.
-%
-% Une étude nous permet d'évaluer différents traitements proposés.
-%Dans le cadre de cette étude : l'algorithme d'apprentissage est considéré comme le meilleur possible afin de négliger son influence.
-% C'est pourquoi cette étude s'appuie sur une sélection et une optimisation automatique de l'algorithme d'apprentissage supervisé qui est détaillée dans la Section \ref{section:auto_ml}.
-% TODO: Traitement image
-
-\section{Construction d'une métrique de la Qualité par apprentissage} \label{sec:metric_learning}
+\section{Construction d'une métrique de la qualité par apprentissage} \label{sec:metric_learning}
 La notion de qualité d'un produit est spécifiée dans le cahier des charges.
 Cependant, lorsque les spécifications ne sont pas normées, elles entrainent souvent une traduction subjective.
 C'est pourquoi la notion de qualité d'un produit, lorsqu'elle intègre les aspects sensoriels en plus des tolérances géométriques, est souvent subjective.
@@ -632,10 +593,10 @@ La transformation $f : X \times X \rightarrow \Re_{0}^{+} $ dans un espace vecto
 Dans le cas de la construction d'une métrique par apprentissage, il est probable que l'identité des indiscernables ne soit pas remplie.
 Aussi, nous cherchons dans ce travail à apprendre une pseudo-métrique et non pas une véritable métrique.
 La littérature sur ce sujet est vaste, c'est pourquoi ce travail de doctorat n'a pas permis d'explorer de manière exhaustive l'ensemble des méthodes d'apprentissage de métriques proposées dans la littérature.
-Un excellent état de l'art sur le sujet est la thèse d'Aurélien Bellet \cite{bellet_supervised_2012}.
+Un excellent état de l'art sur le sujet est le doctorat de \citeauthor{bellet_supervised_2012} \cite{bellet_supervised_2012}.
 Nous nous sommes intéressés aux méthodes les plus pertinentes compte-tenu de notre problématique d'analyse d'images.
 Ce travail de doctorat a permis de comparer différents algorithmes sur notre problème de classification binaire de la qualité des pièces.
-Pour cette étude, nous nous sommes uniquement intéressés à l'utilisation de données de mesures sous forme d'images numériques.
+Pour cette étude, nous nous sommes uniquement intéressés à l'utilisation de données de mesure sous forme d'images numériques.
 Nous présenterons les algorithmes supervisés étudiés, puis les algorithmes semi-supervisés qui permettent de limiter le temps d'annotation nécessaire.
 Enfin, nous présenterons les moyens disponibles pour optimiser les performances des classifieurs utilisés par sélection automatique des hyper-paramètres.
 
@@ -662,8 +623,8 @@ $\mathbf{W}$ est alors une matrice de poids et $\vec{\mathbf{b}}$ est un vecteur
 \end{equation}
 
 Plusieurs distances mathématiques peuvent être utilisées pour estimer l'écart entre deux populations.
-La distance de Mahalanobis \cite{mahalanobis_generalised_1936} a été utilisée dans les travaux de doctorat de Thomas Lacombe \cite{lacombe_exploitation_2018a} sur une problématique similaire de contrôle automatique de la qualité à partir de mesures visuelles.
-Cependant l'utilisation de la distance de Mahalanobis est limitée aux espaces linéaires, ce qui rend difficile la séparation de motifs visuels complexes.
+La distance de \citeauthor{mahalanobis_generalised_1936} \cite{mahalanobis_generalised_1936} a été utilisée dans les travaux de doctorat de \citeauthor{lacombe_exploitation_2018a} sur une problématique similaire de contrôle automatique de la qualité à partir de mesures visuelles \cite{lacombe_exploitation_2018a}.
+Cependant l'utilisation de la distance de \citeauthor{mahalanobis_generalised_1936} est limitée aux espaces linéaires, ce qui rend difficile la séparation de motifs visuels complexes.
 Il est alors nécessaire de transformer les données pour les rendre linéairement séparables, en amont de la mesure de distance.
 Nous détaillons l'utilisation de la distance de Mahalanobis dans la Section \ref{subsubsec:triplet}.
 Nous avons choisi dans ce travail de comparer des approches traditionnelles d'apprentissage supervisé, avec des approches par réseaux de neurones de convolutions profonds.
@@ -674,7 +635,7 @@ Ces types de classifieurs représentent aujourd'hui l'état de l'art académique
 \subsubsection{Métrique de performances d'un classifieur}
 Pour exprimer la performance d'un classifieur, de nombreuses métriques ont été proposées dans la littérature.
 Une métrique rend compte de l'écart entre la réponse donnée par un classifieur et la vérité.
-La métrique la plus couramment employée est la justesse définie par \cite{metz_basic_1978}, Équation \ref{eq:accuracy}.
+La métrique la plus couramment employée est la justesse définie par \citeauthor{metz_basic_1978} \cite{metz_basic_1978}, Équation \ref{eq:accuracy}.
 Cette métrique est adaptée au cas où de multiples classes $j$ sont présentes dans le problème.
 Nous rapporterons ici toutes les métriques sur le nombre d'échantillons total.
 \begin{equation} \label{eq:accuracy}
@@ -682,13 +643,15 @@ Nous rapporterons ici toutes les métriques sur le nombre d'échantillons total.
 \end{equation}
 
 Le procédé d'injection-moulage des thermoplastiques est stable.
-Lorsqu'un point de fonctionnement satisfaisant pour obtenir une pièce de bonne qualité est obtenu, la dérive du procédé au cours du temps est sensible à l'échelle de la journée. Ainsi, peu de pièces mauvaises sont produites.
+Lorsqu'un point de fonctionnement satisfaisant pour obtenir une pièce de bonne qualité est obtenu.
+La dérive du procédé au cours du temps est de l'ordre de la journée.
+Ainsi, peu de pièces mauvaises sont produites.
 C'est pourquoi une population traditionnelle de pièce moulées comportera peu d'individus de mauvaise qualité et une majorité d'individus de bonne qualité.
 Ainsi, le choix de la métrique d'évaluation des performances doit tenir compte de la répartition non égalitaire des classes dans l'échantillon.
 La justesse ne prend pas en compte les répartitions inégalitaires de classes dans la population, c'est pourquoi ce n'est pas une métrique adaptée à notre problème \cite{japkowicz_class_2002}.
 
 \paragraph{Justesse équilibrée}\mbox{} \\
-La justesse équilibrée \cite{brodersen_balanced_2010, mosley_balanced_2013}, Équation \ref{eq:balanced_accuracy} est une métrique qui tient compte de ce problème en intégrant une matrice de poids $\mathbf{W}$ qui compense les déséquilibres inter-classes.
+La justesse équilibrée, Équation \ref{eq:balanced_accuracy}, est une métrique qui tient compte de ce problème en intégrant une matrice de poids $\mathbf{W}$ qui compense les déséquilibres inter-classes \cite{brodersen_balanced_2010, mosley_balanced_2013}.
 Dans le cas où la répartition des classes est équilibrée, la justesse équilibrée est égale à la justesse.
 
 \begin{equation} \label{eq:balanced_accuracy}
@@ -788,7 +751,7 @@ Nous présenterons ici la méthode des K-partitions stratifiées par classes (\t
 D'autres méthodes existent mais nous retenons cette dernière par sa robustesse au jeu de données où les classes ne sont pas égales.
 Cette méthode est également extensible aux problèmes à classes multiples.
 La stratification consiste à associer dans chaque partition une proportion d'échantillons de chaque classe équivalente.
-\cite{kohavi_study_1995} conclue ainsi sur l'intérêt de la stratification, en matière de réduction du biais des modèles.
+\citeauthor{kohavi_study_1995} conclue ainsi sur l'intérêt de la stratification, en matière de réduction du biais des modèles \cite{kohavi_study_1995}.
 Le nombre de partition $k$ est choisi en fonction du nombre d'échantillons disponible.
 Dans nos problèmes où les jeux de données sont inférieurs à mille échantillons, nous fixons $k=3$.
 Dans nos travaux, nous utiliserons l'implémentation de la librairie \textit{Scikit-Learn} \cite{pedregosa_scikit-learn_2011}.
@@ -813,8 +776,8 @@ Nous emploierons cette répartition dans l'ensemble de nos travaux.
     \centering
     \begin{tabular}{| C{8.1cm} | C{2.7cm} | C{2.7cm} |}
         \hline
-        Apprentissage           & Validation           & Test                          \\ \hline\hline
-        60\%                    & 20\%                 & 20\%                          \\ \hline
+        Apprentissage & Validation & Test \\ \hline\hline
+        60\% & 20\% & 20\% \\ \hline
         Apprentissage du modèle & Validation du modèle & Validation du meilleur modèle \\ \hline
     \end{tabular}
     \caption{Répartition du jeu de données : apprentissage, validation et test.}
@@ -830,11 +793,11 @@ Ces derniers seront présentés et discutés dans la Section \ref{subsubsec:deep
 
 \paragraph{Machine à vecteurs de support}\mbox{\label{parag:svm}} \\
 Soit les couples d'échantillons et leurs annotations de classe binaire associées $(\mathbf{x}_i, y_i)$.
-\cite{vapnik_patterns_1963} propose une solution au problème de classification binaire dans un espace à grandes dimensions, permettant de prédire l'annotation $y_i$ à partir des données $\mathbf{x}_i$.
-Une Machine à vecteurs de support (\textit{Support Vector Machine}) cherche à trouver l'hyperplan qui sépare au mieux les deux classes (Figure \ref{fig:svm}). $\vec{\mathbf{w}}$  est orthogonal à l'hyperplan.
+\citeauthor{vapnik_patterns_1963} \cite{vapnik_patterns_1963} proposent une solution au problème de classification binaire dans un espace à grandes dimensions, permettant de prédire l'annotation $y_i$ à partir des données $\mathbf{x}_i$.
+Une machine à vecteurs de support (\textit{Support Vector Machine}) cherche à trouver l'hyperplan qui sépare au mieux les deux classes (Figure \ref{fig:svm}). $\vec{\mathbf{w}}$  est orthogonal à l'hyperplan.
 L'hyperplan est choisi tel que la distance $b$ entre le plan et les échantillons de $\mathbf{x}_i \in \mathbf{X}$ les plus proches de ce dernier, soit maximale : c'est la recherche de la marge maximale $\frac{b}{\|\vec{\mathbf{w}}\|}$.
 L'hyperplan obtenu est alors défini par ses vecteurs supports $\mathbf{x}_i$.
-\cite{cortes_supportvector_1995, vapnik_support_1997} propose l'utilisation d'une fonction de marge dite \textit{soft} basée sur le coût de \textit{hinge}.
+\citeauthor{cortes_supportvector_1995} proposent l'utilisation d'une fonction de marge dite \textit{soft} basée sur le coût de \textit{hinge} \cite{cortes_supportvector_1995, vapnik_support_1997}.
 Ils introduisent un terme de régularisation $C$. Trouver le classifieur optimal revient alors à la résolution du problème d'optimisation de l'Équation \ref{eq:svm}.
 
 \begin{equation} \label{eq:svm}
@@ -845,8 +808,8 @@ f_{SVM}(\mathbf{x}_i, y_i) = \arg \min \left[\frac{1}{n} \sum_{i=1}^{n} \max \le
 \end{split}
 \end{equation}
 
-Lorsque les échantillons ne sont pas linéairement séparables, \cite{boser_training_1992} propose d'effectuer une transformation $\varphi$ de l'espace des données, afin de trouver un espace où les échantillons sont linéairement séparables.
-La transformation $\varphi$ a pour noyau une forme choisie (c'est le \textit{kernel trick}, proposé par \cite{aizerman_theoretical_1964}).
+Lorsque les échantillons ne sont pas linéairement séparables, \citeauthor{boser_training_1992} \cite{boser_training_1992} proposent d'effectuer une transformation $\varphi$ de l'espace des données, afin de trouver un espace où les échantillons sont linéairement séparables.
+La transformation $\varphi$ a pour noyau une forme choisie (c'est le \textit{kernel trick}, proposé par \citeauthor{aizerman_theoretical_1964} \cite{aizerman_theoretical_1964}).
 Soit $\mathbf{c}$ et $\varphi$ tel que $\vec{\mathbf{w}}=\sum_{i=1}^{n} \cdot c_{i} \cdot y_{i} \cdot \varphi\left(\vec{\mathbf{x}}_{i}\right)$, on a le noyau $K\left(X, X^{\prime}\right) = \varphi \left(X\right) \cdot \varphi\left(X^{\prime}\right)$.
 Cette démarche de transformation vectorielle est utilisée dans de nombreux autres algorithmes.
 Les noyaux non linéaires les plus employés sont les noyaux polynomiaux et les noyaux gaussiens de bases radiales (\textit{Radial Basis Function}), Équations \ref{eq:kernels}.
@@ -880,12 +843,12 @@ Enfin, $\gamma$ pondère l'influence d'un unique échantillon sur l'hyperplan.
 
 La librairie \textit{LIBSVM} \cite{chang_libsvm_2011} permet de résoudre le problème avec différents noyaux non linéaires, dans un ordre de grandeur de $\bigO(N^2)$ à $\bigO(N^3)$.
 Aussi, elle n'est plus utilisable lorsque le nombre d'échantillon dépasse dix mille.
-Dans nos travaux, nous utilisons la librairie \textit{LIBLINEAR} de \cite{fan_liblinear_2008}, au travers de l'interface de la libraire \textit{SciKit-Learn} \cite{pedregosa_scikit-learn_2011}.
+Dans nos travaux, nous utilisons la librairie \textit{LIBLINEAR} de \citeauthor{fan_liblinear_2008} \cite{fan_liblinear_2008}, au travers de l'interface de la libraire \textit{SciKit-Learn} de \citeauthor{pedregosa_scikit-learn_2011} \cite{pedregosa_scikit-learn_2011}.
 La complexité de l'apprentissage, avec des noyaux linéaires, est de l'ordre de $\bigO(N)$, avec $N$ le nombre d'échantillons ce qui rend cette méthode intégrable sur des systèmes embarqués modernes aux vues des puissances de calculs aujourd'hui disponibles.
 L'apprentissage d'un modèle peut être effectué pendant le cycle de production et le système de calcul peut être intégré directement au cœur de l'atelier de production, au plus près du procédé d'injection-moulage.
 
 \paragraph{K-plus-proches voisins} \mbox{} \label{parag:knn} \\
-La méthode des k-plus-proches voisins a été proposée par \cite{fix_discriminatory_1951} et développée par \cite{cover_nearest_1967}.
+La méthode des k-plus-proches voisins a été proposée par \citeauthor{fix_discriminatory_1951} \cite{fix_discriminatory_1951} et développée par \citeauthor{cover_nearest_1967} \cite{cover_nearest_1967}.
 Cette méthode est à l'origine de méthodes d'apprentissages non supervisées, par exemple celles basées sur les variétés et l'analyse spectrale.
 Cette méthode ne cherche pas à construire de modèle générique au problème de classification.
 Elle enregistre les positions des échantillons du jeu d'apprentissage dans l'espace des données.
@@ -898,7 +861,7 @@ Cette méthode est particulièrement efficace lorsque la séparation entre les �
 
 \paragraph{Bagging}\mbox{\label{parag:bagging}} \\
 Le \textit{bagging} (\textit{\emph{B}ootstrap \emph{agg}regat\emph{ing}}) est une méthode d'association ensembliste de modèles simples afin d'obtenir un méta-modèle aux performances supérieures.
-Il est défini par \cite{breiman_bagging_1996}.
+Il est défini par \citeauthor{breiman_bagging_1996} \cite{breiman_bagging_1996}.
 La technique permet de limiter le sur-apprentissage.
 Pour un jeu de données $\mathbf{X}$ de taille $n$, on génère $b$ lots $\mathbf{X}_b \in \mathbf{X}$ contenant $\sim 10 < m < n$ échantillons tirés aléatoirement selon une distribution uniforme.
 Les échantillons, uniques dans $X$, peuvent être répétés dans $\mathbf{X}_b$.
@@ -909,7 +872,7 @@ La méthode est employée dans les \textit{Random Forests} et elle est souvent c
 La méthode de référence pour calculer le nombre optimal $b$ de fonctions est la sélection du meilleur score par validation croisée \ref{subsubsec:cross_val}.
 
 Une métrique intéressante se base sur la performance individuelle de chaque modèle $f_b$ vis à vis de son jeu de données partiel $\mathbf{X}_b$.
-\cite{breiman_bagging_1996} définit l'erreur \textit{Out-of-Bag} comme la moyenne, de l'erreur de prédiction pour chaque échantillon $\mathbf{x}_{i,\bar{b}}$, des modèles $f_b$ avec $ \mathbf{x}_{\bar{b}} \notin \mathbf{X}_b$ qui n'ont pas été entrainés avec les échantillons $x_i$.
+\citeauthor{breiman_bagging_1996} \cite{breiman_bagging_1996} définit l'erreur \textit{Out-of-Bag} comme la moyenne, de l'erreur de prédiction pour chaque échantillon $\mathbf{x}_{i,\bar{b}}$, des modèles $f_b$ avec $ \mathbf{x}_{\bar{b}} \notin \mathbf{X}_b$ qui n'ont pas été entrainés avec les échantillons $x_i$.
 Cette erreur est similaire à une erreur de prédiction qui serait calculée sur des échantillons de validation.
 Elle permet ainsi de se passer de jeu de données de validation.
 Elle est utilisé par les \textit{Random Forests} \ref{parag:random_forests} pour mesurer l'influence des variables sur la prédiction.
@@ -926,9 +889,10 @@ Ainsi, le modèle obtenu peut être facilement interprété par l'humain.
 Le modèle obtenu est cependant peu robuste aux perturbations des variables d'entrée.
 La complexité du modèle est souvent égale au nombre de variables d'entrée ce qui est une cause de sur-apprentissage.
 Son utilisation pour des échantillons d'entrée qui comporte une dimension supérieure à dix mille est difficile (par exemple les pixels d'une image).
-C'est pourquoi \cite{ho_random_1995, ho_random_1998} propose un modèle comportant de multiples arbres de décisions (une forêt), chacun entrainés sur une unique partie des variables des échantillons.
+C'est pourquoi \citeauthor{ho_random_1995}
+\cite{ho_random_1995, ho_random_1998} propose un modèle comportant de multiples arbres de décisions (une forêt), chacun entrainés sur une unique partie des variables des échantillons.
 La prédiction du modèle est donnée par la moyenne des prédictions de l'ensemble des arbres. 
-\cite{breiman_random_2001} fait évolué la méthode : les arbres sont choisis pour ne pas être corrélés entre eux et leurs sorties sont agrégées par \textit{bagging} \ref{parag:bagging}.
+\citeauthor{breiman_random_2001} \cite{breiman_random_2001} fait évolué la méthode : les arbres sont choisis pour ne pas être corrélés entre eux et leurs sorties sont agrégées par \textit{bagging} \ref{parag:bagging}.
 
 Une utilité indirecte de la notion stochastique des forêts d'arbres décisionnels est la possibilité de mesurer l'influence des variables sur le modèle.
 Lors de l'entrainement, l'erreur \textit{Out-of-Bag} \ref{parag:bagging} (équivalente à une erreur de prédiction sur un échantillon de validation) est moyennée pour l'ensemble des arbres.
@@ -940,11 +904,11 @@ Il est enfin possible de normaliser la valeur de l'importance par l'écart-type 
 Nous utiliserons cette méthode pour sélectionner les variables pertinentes.
 
 \paragraph{Boosting}\mbox{\label{parag:boosting}} \\
-\cite{kearns_thoughts_1988} pose l'hypothèse de l'existence d'un méta-classifieur qui utiliserait une association de classifieurs aux performances non optimales (légèrement supérieure à une réponse aléatoire) pour obtenir de bonnes performances : le \textit{boosting}.
+\citeauthor{kearns_thoughts_1988} \cite{kearns_thoughts_1988} pose l'hypothèse de l'existence d'un méta-classifieur qui utiliserait une association de classifieurs aux performances non optimales (légèrement supérieure à une réponse aléatoire) pour obtenir de bonnes performances : le \textit{boosting}.
 Dans un tel ensemble, chaque classifieur est ainsi faiblement corrélé avec la totalité des données.
-\cite{schapire_strength_1990} vérifie l'hypothèse et par la suite \cite{breiman_bias_1996, breiman_arcing_1997} développe la méthode.
+\citeauthor{schapire_strength_1990} \cite{schapire_strength_1990} vérifie l'hypothèse et par la suite \citeauthor{breiman_bias_1996} \cite{breiman_bias_1996, breiman_arcing_1997} développe la méthode.
 De nombreux algorithmes sont dérivés de cette méthode.
-Par la suite, \cite{mason_boosting_1999, friedman_greedy_2001} propose le \textit{boosting} avec descente de gradient (\textit{Gradient Boosting}) et \cite{friedman_stochastic_2002} ajoute une dimension stochastique : \textit{Stochastic Gradient Boosting}.
+Par la suite, \citeauthor{mason_boosting_1999, friedman_greedy_2001} \cite{mason_boosting_1999, friedman_greedy_2001} proposent le \textit{boosting} avec descente de gradient (\textit{Gradient Boosting}) et \citeauthor{friedman_stochastic_2002} \cite{friedman_stochastic_2002} ajoute une dimension stochastique : \textit{Stochastic Gradient Boosting}.
 Cette idée est motivée par le \textit{bagging} \ref{parag:bagging}.
 Chaque classifieurs est entrainé sur des partitions aléatoires différentes du jeu de données, mais sans aucune répétition des échantillons initiaux.
 Une partition qui a pour dimensions la moitié du jeu de données initial produit une augmentation de performance significative du méta-classifieur.
@@ -956,11 +920,11 @@ Les réseaux de \textit{Deep Learning} dépassent cette limite en apprenant l'al
 Enfin, les idées issues du \textit{bagging} et du \textit{boosting} sont utilisées dans les méthodes d'apprentissages des réseaux de neurones profonds.
 
 \paragraph{Réseaux de neurones}\mbox{} \label{parag:neural_networks} \\
-Le travail de \cite{mcculloch_logical_1943} interroge sur la méthode de fonctionnement du cerveau humain : de nombreuses cellules élémentaires connectées entre elles permettent de résoudre des problèmes complexes, ce qui pose la problématique de la recherche Connexionniste.
+Le travail de \citeauthor{mcculloch_logical_1943} \cite{mcculloch_logical_1943} interroge sur la méthode de fonctionnement du cerveau humain : de nombreuses cellules élémentaires connectées entre elles permettent de résoudre des problèmes complexes, ce qui pose la problématique de la recherche Connexionniste.
 Ils proposent de concevoir des neurones, sous la forme de portes logiques élémentaires.
 Pour des valeurs d'entrée $\mathbf{x}_i$, un neurone calcule la somme pondérée par une matrice de poids $\mathbf{W}$, puis si la valeur obtenue est supérieure à une valeur $b$, la sortie est zéro, sinon la sortie est un, Équation \ref{eq:perceptron}.
 Cet algorithme permet de convertir des variables continues en valeurs booléennes discontinues.
-Par la suite, \cite{rosenblatt_perceptron_1958} propose le \textit{perceptron}, en s'appuyant sur la connaissance de l'époque du système de la vision biologique : de la rétine au cerveau.
+Par la suite, \citeauthor{rosenblatt_perceptron_1958} \cite{rosenblatt_perceptron_1958} propose le \textit{perceptron}, en s'appuyant sur la connaissance de l'époque du système de la vision biologique : de la rétine au cerveau.
 Le \textit{perceptron} permet d'agréger à l'aide d'un réseau de neurones à une couche, des données représentant des variables pertinentes extraites d'images (\textit{pre-processing}).
 La thématique de recherche Connexionnisme sera peu développée par la suite car les ressources informatiques nécessaires sont importantes et les résultats obtenus sont limités en comparaison des attentes de l'époque.
 Les autres méthodes présentées dans cette section seront préférées, jusqu'aux récents succès du \textit{Deep Learning}, §\ref{subsubsec:deep_learning}.
@@ -969,14 +933,14 @@ Les autres méthodes présentées dans cette section seront préférées, jusqu'
 f_{perceptron}(x_i)=\left\{\begin{array}{ll}{1} & {\text { si } \mathbf{w}_i \cdot x_i + b_i > 0} \\ {0} & {\text { sinon }}\end{array}\right.
 \end{equation}
 
-Suite à la proposition de réseaux de neurones à multiples couches successives \cite{fukushima_neocognitron_1980}, \cite{rumelhart_learning_1985} applique une méthode d'ajustement itératif des poids en utilisant la rétro-propagation de l'erreur.
-La rétro-propagation de l'erreur s'appuie sur les travaux sur la dérivation automatique des fonctions composées, initiés par \cite{linnainmaa_taylor_1976}.
-De plus, \cite{rumelhart_learning_1985} étend les capacités du réseau à répondre aux problèmes où les données ne sont pas linéairement séparables, en introduisant des fonctions d'activations non linéaires, en lieu et place de la simple condition inférieure/supérieure.
+Suite à la proposition de réseaux de neurones à multiples couches successives de \citeauthor{fukushima_neocognitron_1980} \cite{fukushima_neocognitron_1980}, \citeauthor{rumelhart_learning_1985} \cite{rumelhart_learning_1985} applique une méthode d'ajustement itératif des poids en utilisant la rétro-propagation de l'erreur.
+La rétro-propagation de l'erreur s'appuie sur les travaux sur la dérivation automatique des fonctions composées, initiés par \citeauthor{linnainmaa_taylor_1976} \cite{linnainmaa_taylor_1976}.
+De plus, \citeauthor{rumelhart_learning_1985} \cite{rumelhart_learning_1985} étend les capacités du réseau à répondre aux problèmes où les données ne sont pas linéairement séparables, en introduisant des fonctions d'activations non linéaires, en lieu et place de la simple condition inférieure/supérieure.
 La particularité des réseaux de neurones est leur capacité à modéliser des problèmes fortement non linéaires.
 La prochaine étape est la construction de réseaux aux architectures plus complexes et l'utilisation de fonctions de convolution, §\ref{subsubsec:deep_learning}.
 
 \subsubsection{Réseaux profonds de convolutions, Deep Learning} \label{subsubsec:deep_learning}
-Les réseaux de neurones de convolutions, proposés par \cite{lecun_backpropagation_1989}, ont un comportement non linéaire particulièrement adapté à l'analyse de données complexes, telles que des images, et à l'apprentissage de représentations de ces données.
+Les réseaux de neurones de convolutions, proposés par \citeauthor{lecun_backpropagation_1989} \cite{lecun_backpropagation_1989}, ont un comportement non linéaire particulièrement adapté à l'analyse de données complexes, telles que des images, et à l'apprentissage de représentations de ces données.
 La couche de convolution est l'élément principal du réseau.
 Les couches de convolutions sont associées les unes à la suite des autres pour former un réseau profond (d'où le nom de \textit{Deep Learning}).
 Entre chaque couche peuvent être ajoutées des couches composées de fonctions d'activations non linéaires, des couches de moyennes globales ou locales, ou d'autres fonctions avancées.
@@ -995,10 +959,10 @@ Le gain est considérable lorsque les données d'entrée ont de grandes dimensio
 Il est bien plus efficient de créer des architectures profondes, supérieures à $c$ couches de convolutions successives avec des noyaux de petite dimension $k$, car $c$ est très petit devant $m$.
 
 Ces réseaux ont profité de la disponibilité croissante de la puissance de calcul des processeurs graphiques.
-En 2006, le premier réseau de convolution est implémenté sur processeur graphique \cite{chellapilla_high_2006}, avec des performances quatre fois supérieures à l'implémentation sur processeur classique.
+En 2006, le premier réseau de convolution est implémenté sur processeur graphique par \citeauthor{chellapilla_high_2006} \cite{chellapilla_high_2006}, avec des performances quatre fois supérieures à l'implémentation sur processeur classique.
 En 2011, un réseau de convolution accéléré sur processeur graphique (60 fois plus rapide) dépasse les performances de l'humain sur une tâche de classification de panneaux signalétiques routiers \cite{ciresan_flexible_2011}.
-En 2012, le réseau AlexNet \cite{krizhevsky_imagenet_2012} gagne le challenge annuel de classification d'images \textit{ImageNet} \cite{deng_imagenet_2009} avec un très grand écart de 10,8\% sur le score, avec l'ensemble des concurrents.
-La performance d'\textit{AlexNet} (8 couches) est dépassée en 2013 par \cite{zeiler_visualizing_2013} une version identique aux hyper-paramètres optimisés, puis en 2014 par \textit{VGG16-19} \cite{simonyan_very_2014} (16 et 19 couches) et \textit{GoogleNet} (22 couches).
+En 2012, le réseau AlexNet de \citeauthor{krizhevsky_imagenet_2012} \cite{krizhevsky_imagenet_2012} gagne le challenge annuel de classification d'images \textit{ImageNet} \cite{deng_imagenet_2009} avec un très grand écart de 10,8\% sur le score, avec l'ensemble des concurrents.
+La performance d'\textit{AlexNet} (8 couches) est dépassée en 2013 une version identique aux hyper-paramètres optimisés \cite{zeiler_visualizing_2013}, puis en 2014 par \textit{VGG16-19} (16 et 19 couches) \cite{simonyan_very_2014}  et \textit{GoogleNet} (22 couches).
 Ce dernier est dépassé en 2015, par le réseau \textit{ResNet101} \cite{he_deep_2015} contenant plus de 150 couches.
 L'architecture massive de ces réseaux évolue depuis 2011 vers des architectures de plus en plus profondes \cite{he_deep_2015} et qui sont plus efficientes sur le plan de la mémoire à allouer et puissances de calculs, mais aussi de plus en plus complexes, §\ref{subsubsec:ResNet}.
 Les architectures de l'état de l'art de la littérature dépassent aujourd'hui les capacités d'ingénierie humaine ; elles sont générées automatiquement, §\ref{section:auto_ml}.
@@ -1020,8 +984,9 @@ Chaque classe a préalablement été encodée sous la forme d'un vecteur à la d
 \end{equation}
 
 
-Ce modèle à réseau de neurones est pleinement différentiable. C'est pourquoi la méthode traditionnelle d'ajustement des poids des neurones du réseau est la rétro-propagation de l'erreur proposée, par \cite{rumelhart_learning_1985} qui est adaptée aux réseaux de convolutions à couches multiples par \cite{lecun_backpropagation_1989}.
-Par la suite, \cite{lecun_efficient_1998} développe l'apprentissage progressif stochastique des poids du réseau, aussi appelée descente de gradient stochastique : l'apprentissage est réalisé successivement sur une portion des données choisie aléatoirement  (les \textit{mini-batch}), car  calculer le gradient pour la totalité du jeu de données serait trop coûteux en matière de puissance de calcul.
+Ce modèle à réseau de neurones est pleinement différentiable.
+C'est pourquoi la méthode traditionnelle d'ajustement des poids des neurones du réseau est la rétro-propagation de l'erreur proposée, par \citeauthor{rumelhart_learning_1985} \cite{rumelhart_learning_1985} qui est adaptée aux réseaux de convolutions à couches multiples par \citeauthor{lecun_backpropagation_1989} \cite{lecun_backpropagation_1989}.
+Par la suite, \citeauthor{lecun_efficient_1998} \cite{lecun_efficient_1998} développe l'apprentissage progressif stochastique des poids du réseau, aussi appelée descente de gradient stochastique : l'apprentissage est réalisé successivement sur une portion des données choisie aléatoirement  (les \textit{mini-batch}), car  calculer le gradient pour la totalité du jeu de données serait trop coûteux en matière de puissance de calcul.
 
 \cite{vapnik_principles_1992} définit dans la théorie Vapnik–Tchervonenkis la notion d'apprentissage statistique comme un problème d'optimisation, Équation \ref{eq:VC_error}, où on cherche à minimiser l'erreur empirique $E$, en fonction des poids $\mathbf{W}$ du réseau et d'un terme de régularisation $\lambda$ sur les poids $\mathbf{W}$ (régularisation de Tikhonov §\ref{parag:weights_decay}).
 
@@ -1042,7 +1007,7 @@ Elle mesure la quantité de données minimale nécessaire pour encoder l'informa
 
 Dans le cas de l'apprentissage supervisé, on cherche à trouver la fonction $F$ qui minimise la perte de l'information entre l'approximation finale et le jeu de données initial.
 Aussi, en comparant les entropies d'une distribution source $y$ et d'une approximation de $\hat{y}$, on mesure la quantité d'informations, perdue par la méthode d'approximation $F$ apprise (aussi appelée méthode d'encodage).
-C'est la divergence de Kullback-Leibler \cite{kullback_information_1951}, Équation \ref{eq:D_KL} et nous cherchons ici à la minimiser.
+C'est la divergence de \citeauthor{kullback_information_1951} \cite{kullback_information_1951}, Équation \ref{eq:D_KL} et nous cherchons ici à la minimiser.
 
 \begin{equation} \label{eq:D_KL}
 Divergence_{K L}(y \| \hat{y})=\sum_{i=1}^{N} y\left(\mathbf{x}_{i}\right) \cdot\left(\log y\left(\mathbf{x}_{i}\right)-\log \hat{y}\left(\mathbf{x}_{i}\right)\right)
@@ -1065,7 +1030,7 @@ Le calcul est simplifié en combinant la fonction d'activation sigmoïde et la f
 \end{equation}
 
 A chaque itération, la dérivée de cette erreur est rétro-propagée pour ajuster chacun des poids du réseau.
-Le lecteur pourra se référer à \cite{sadowski_notes_2016} pour le détail du calcul de la dérivée.
+Le lecteur pourra se référer à la note de référence de \citeauthor{sadowski_notes_2016} pour le détail du calcul de la dérivée \cite{sadowski_notes_2016}.
 De plus, la dérivée est pondérée par un facteur $0 < \eta < 1$ qui est appelée le facteur d'apprentissage.
 Le facteur $\eta$ est critique pour obtenir la convergence de l'erreur vers zéro.
 Plus le réseau est complexe, plus le problème d'optimisation en présence est non-linéaire et non-convexe ; il possède de nombreux minima locaux.
@@ -1073,15 +1038,16 @@ C'est pourquoi, un facteur $\eta$ trop petit demandera un grand nombre d'itérat
 A contrario, un facteur $\eta$ trop grand empêchera la convergence car le gradient oscillera.
 Les deux problèmes critiques à éviter lors de l'ajustement par descente de gradients sont l'effondrement du gradient qui occasionne une convergence globale des poids du réseau vers zéro et l'explosion du gradient qui occasionne une divergence globale des poids du réseau vers l'infini \cite{bengio_learning_1994, hochreiter_gradient_2001}.
 Des algorithmes avancés existent pour limiter ces problèmes.
-La vaste littérature sur le sujet ne nous permettra pas de détailler l'intérêt des différentes méthodes proposées, aussi, nous utiliserons dans l'ensemble de nos travaux l'algorithme d'optimisation récent \textit{Adam} proposé par \cite{kingma_adam_2014}.
 
+La vaste littérature sur le sujet ne nous permettra pas de détailler l'intérêt des différentes méthodes proposées, aussi, nous utiliserons dans l'ensemble de nos travaux l'algorithme d'optimisation récent \textit{Adam} proposé par \citeauthor{kingma_adam_2014} \cite{kingma_adam_2014}.
 Ce dernier permet l'ajustement automatique du facteur d'apprentissage  $\eta$ au fur et à mesure des itérations.
 De plus, des facteurs de régularisation sur la dérivée seconde (aussi appelé "moment") sont ajoutés pour accélérer la convergence et éviter les minimums locaux.
 
-Nous récapitulons dans le Tableau \ref{tab:cnn_hyperparameters} les différents hyper-paramètres critiques de l'apprentissage par descente de gradient stochastique des réseaux de neurones profonds. Dans ce travail, nous ne présenterons pas de manière exhaustive les contraintes qui existent sur l'architecture des réseaux de convolutions. Le choix des nombres de couches, des dimensions des noyaux de convolutions, des décalages, remplissages (\textit{padding}), réduction (\textit{pooling}, §\ref{parag:pooling}). Nous invitons le lecteur à se référer à l'excellente synthèse \cite{dumoulin_guide_2016}.
+Nous récapitulons dans le Tableau \ref{tab:cnn_hyperparameters} les différents hyper-paramètres critiques de l'apprentissage par descente de gradient stochastique des réseaux de neurones profonds. Dans ce travail, nous ne présenterons pas de manière exhaustive les contraintes qui existent sur l'architecture des réseaux de convolutions. Le choix des nombres de couches, des dimensions des noyaux de convolutions, des décalages, remplissages (\textit{padding}), réduction (\textit{pooling}, §\ref{parag:pooling}). Nous invitons le lecteur à se référer à l'excellente synthèse de \citeauthor{dumoulin_guide_2016} \cite{dumoulin_guide_2016}.
 
 \begin{table}[]
     \centering
+    \hspace*{-8mm}
     \begin{tabular}{|l|c|l|}
         \hhline{---}
         Hyper-paramètres         & Valeurs de la littérature         & Description  \\
@@ -1112,7 +1078,7 @@ De plus, pour réaliser l'inférence à l'aide de ces modèles, ils doivent êtr
 Les modèles qui possèdent un grand nombre de poids nécessitent de grandes quantités de mémoires ce qui limite leur utilisation dans des systèmes embarqués positionnés au cœur des ateliers de production.
 La faible quantité de données annotées dont nous disposons est une problématique industrielle qui a orienté nos travaux vers le transfert de modèles profonds, préalablement appris sur de grandes quantités de données annotées, §\ref{subsec:transfer_learning}.
 
-\begin{table}[]
+\begin{table}[hbtp]
     \centering
     \arrayrulecolor{black}
     \begin{tabular}{|l|r|r|r|r|r|r|}
@@ -1137,7 +1103,7 @@ Construire des réseaux de neurones aux architectures profondes permet de limite
 La problématique principale des réseaux profonds est l'entrainement.
 La rétro-propagation a une faible incidence sur les poids situés les plus en amont du réseau.
 Cela rend l'entrainement des réseaux aux couches supérieures à dix très difficile.
-C'est pourquoi des connections intermédiaires ont été introduites par \cite{srivastava_highway_2015, srivastava_training_2015} : les \textit{Highway Networks}.
+C'est pourquoi des connections intermédiaires ont été introduites par \citeauthor{srivastava_highway_2015} \cite{srivastava_highway_2015, srivastava_training_2015} : les \textit{Highway Networks}.
 Elles permettent à la rétro-propagation d'agir sur toutes les couches, y compris les couches en amonts.
 Cette architecture est inspirée des connections intermédiaires pondérées des réseaux récurrents \textit{Long Short-Term Memory}.
 Soit $y_{i+1}$ la sortie d'une couche $i$ qui est composée d'une fonction affine et d'une activation non linéaire $f_{i+1}$ dont les poids sont $\mathbf{W}_f$.
@@ -1152,10 +1118,10 @@ y_{i+1} = f_{i+1}\left(y_{i}, \mathbf{W}_f\right) \cdot T_{i+1}\left(y_{i}, \mat
 \end{equation}
 %TODO: plot highway cell
 
-Par la suite, \cite{he_deep_2015} propose l'architecture \textit{ResNet} qui est un cas particulier de \textit{Highway Network} où $\mathbf{W}_T \equiv 0,5$, Équation \ref{eq:resnet}.
+Par la suite, \citeauthor{he_deep_2015} \cite{he_deep_2015} propose l'architecture \textit{ResNet} qui est un cas particulier de \textit{Highway Network} où $\mathbf{W}_T \equiv 0,5$, Équation \ref{eq:resnet}.
 Les données sont transmises de manière équivalente entre la transformation et la connexion intermédiaire.
 \cite{he_identity_2016} compare les performances des deux méthodes et montre que la plus simple architecture \textit{ResNet} offre de meilleures performances.
-Cependant, \cite{srivastava_highway_2015} montre que la valeur apprise de $\mathbf{W}_t$ est différentes de $0.5$.
+Cependant, \citeauthor{srivastava_highway_2015} \cite{srivastava_highway_2015} montrent que la valeur apprise de $\mathbf{W}_t$ est différente de $0.5$.
 On a particulièrement souvent $\mathbf{W}_T > 0.5$ : le réseau a appris à utiliser en priorité les connections intermédiaires, ce qui simplifie le réseau mais impacte les performances.
 De plus, les poids $\mathbf{W}_T$ augmentent le nombre de paramètres à apprendre, ce qui pourrait diminuer la performance.
 
@@ -1167,10 +1133,10 @@ y_{i+1} = f_{i+1}\left(y_{i}, \mathbf{W}_f\right)+y_{i}
 Par la suite, ces idées amènent à l'architecture \textit{DenseNet} \cite{huang_densely_2016} : les connections intermédiaires sont présentes entre toutes les couches et non plus seulement d'une couche à l'autre.
 Toutes les couches peuvent alors avoir accès à l'information de bas niveau, comme par exemple l'image originale et combiner cette information pour résoudre le problème.
 La Figure \ref{fig:densenet} présente l'architecture d'un bloc \textit{Dense}.
-\footnote{Les architectures présentées dans ce travail sont générées avec l'aide des scripts développés par \cite{harisiqbal_harisiqbal88_2018}.}
+\footnote{Les architectures présentées dans ce travail sont générées avec l'aide des scripts développés par \citeauthor{harisiqbal_harisiqbal88_2018} \cite{harisiqbal_harisiqbal88_2018}.}
 Un réseau complet enchaine successivement quatre blocs \textit{dense}.
 
-\begin{figure}[hbtp]
+\begin{figure}[tbp]
     \centering
     \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{../Chap3/Figures/densenet.pdf}
     \caption{Architecture d'un bloc DenseNet.}
@@ -1181,7 +1147,7 @@ La dernière évolution des réseaux résiduels est l'introduction de multiples 
 C'est l'architecture \textit{ResNext} \cite{xie_aggregated_2016}, une dimension $C$ dite de "cardinalité" qui définit le nombre de bloc présent dans chaque couche. Les auteurs montrent l'intérêt d'une architecture où $c = 32$ : chaque bloc est répété 32 fois par neurones. 
 
 Les performances sont améliorées bien que cela représente une augmentation conséquente des paramètres du réseau.
-Dernièrement, \cite{mahajan_exploring_2018} a réussi à augmenter les performances sur \textit{ImageNet} en réalisant un pré-apprentissage sur 940 millions d'images issues d'\textit{Instagram}.
+Dernièrement, \citeauthor{mahajan_exploring_2018} \cite{mahajan_exploring_2018} ont réussi à augmenter les performances sur \textit{ImageNet} en réalisant un pré-apprentissage sur 940 millions d'images issues d'\textit{Instagram}.
 La capacité (au sens de la théorie VC \cite{vapnik_principles_1992}) du modèle \textit{ResNext} est bien supérieure à la seule base \textit{ImageNet} et un plus grand nombre de données réelles permet d'augmenter les performances, par la généralisation du problème.
 
 Cependant, l'augmentation du nombre de paramètres des réseaux n'est pas nécessairement significative de meilleures performances.
@@ -1189,8 +1155,8 @@ Dernièrement, le réseau \textit{EfficientNet} dépasse l'état de l'art sur \t
 Précédemment, les réseaux \textit{MobileNetV1} \cite{howard_mobilenets_2017} et \textit{MobileNetV2} \cite{sandler_mobilenetv2_2018} cherchent à obtenir les meilleures performances sur dispositifs embarqués tels que les smartphones.
 Il s'agit de limiter le nombre de paramètres et le nombre d'opérations à réaliser (additions et multiplications).
 \textit{MobileNetV1} obtient une performance supérieure à \textit{GoogLeNet}, avec trois fois moins d'opérations à réaliser.
-Il égale \textit{VGG19} avec trente fois moins d'opérations et d'occupation mémoire.
-\textit{MobileNetV1} utilise un bloc de convolution efficient, proposé dans l'architecture \textit{Xception} \cite{chollet_xception_2016} : la convolution est effectuée indépendamment sur chaque canal, avec un poids différent pour chaque canal, puis les résultats sont concaténés.
+Il égale \textit{VGG19} avec trente fois moins d'opérations et dix fois moins d'occupation mémoire.
+\textit{MobileNetV1} utilise un bloc de convolution efficient, proposé dans l'architecture \textit{Xception} de \citeauthor{chollet_xception_2016} \cite{chollet_xception_2016} : la convolution est effectuée indépendamment sur chaque canal, avec un poids différent pour chaque canal, puis les résultats sont concaténés.
 Pour une convolution traditionnelle de fenêtre $3 \times 3$, la réduction du nombre d'opérations de calcul à effectuer est d'un facteur $9$.
 \textit{MobileNetV2} ajoute ensuite l'utilisation de connexions intermédiaires entre chaque couche, à la manière des réseaux résiduels.
 Les performances de ces réseaux sont inférieures à l'état de l'art mais ils permettent d'exécuter l'inférence avec des performances satisfaisantes sur des systèmes embarqués.
@@ -1203,9 +1169,9 @@ Pour éviter les deux problèmes de l'explosion ou de l'effondrement de la valeu
 La fonction d'activation est une non-linéarité qui suit traditionnellement l'opération de convolutions.
 Elle permet de modéliser une réponse à un problème non linéaire.
 Les fonctions d'activation historiques sont la tangente hyperbolique et la sigmoïde.
-\cite{nair_rectified_2010} propose la fonction \textit{ReLU} (\textit{Rectified Linear Unit}) qui une approximation de la sigmoïde par trois et obtient de meilleures performances, en diminuant le coût du calcul.
+\citeauthor{nair_rectified_2010} \cite{nair_rectified_2010} proposent la fonction \textit{ReLU} (\textit{Rectified Linear Unit}) qui une approximation de la sigmoïde par trois et obtient de meilleures performances, en diminuant le coût du calcul.
 
-\begin{table}[]
+\begin{table}[hbtp]
     \centering
     \setlength{\tabcolsep}{2em} % for the horizontal padding
     \renewcommand{\arraystretch}{1.5}% for the vertical padding
@@ -1224,13 +1190,13 @@ Les fonctions d'activation historiques sont la tangente hyperbolique et la sigmo
 \end{table}
 
 Le principal problème est que la fonction \textit{ReLU} vaut zéro pour des valeurs négatives.
-C'est pourquoi \cite{maas_rectifier_2013} introduit le \textit{LeakyReLU} : une section de deux droites affines, dont la pente de la droite pour les valeurs négatives est non nulle, mais très faible ($0,01 \cdot x$).
-Par la suite, \cite{he_delving_2015} introduit le \textit{PreLU} (\textit{Parametric ReLU}) dont un paramètre $\alpha \geq 0$ définit la pente de la droite pour les valeurs négatives.
+C'est pourquoi \citeauthor{maas_rectifier_2013} \cite{maas_rectifier_2013} introduisent le \textit{LeakyReLU} : une succession de deux droites affines, dont la pente de la droite pour les valeurs négatives est non nulle, mais très faible ($0,01 \cdot x$).
+Par la suite, \citeauthor{he_delving_2015} \cite{he_delving_2015} introduisent le \textit{PreLU} (\textit{Parametric ReLU}) dont un paramètre $\alpha \geq 0$ définit la pente de la droite pour les valeurs négatives.
 $\alpha$ est appris au cours de l'apprentissage tout comme les matrices de poids du réseau.
 La valeur de $\alpha$ peut également être indépendante pour chaque canal.
 Ces fonctions sont discontinues et ne sont pas dérivables en zéro.
 Cela peut entrainer des problèmes de convergence lors de la rétro-propagation du gradient.
-C'est pourquoi dernièrement, \cite{clevert_fast_2015} propose le \textit{ELU} (\textit{Exponential Linear Unit}) qui est dérivable.
+C'est pourquoi dernièrement, \citeauthor{clevert_fast_2015} proposent le \textit{ELU} (\textit{Exponential Linear Unit}) qui est dérivable \cite{clevert_fast_2015}.
 L'ensemble des graphes de ces fonctions est présenté dans la Figure \ref{fig:activation}, leurs dérivées dans le Tableau \ref{tab:activations}.
 
 \begin{figure}[hbtp]
@@ -1243,22 +1209,22 @@ L'ensemble des graphes de ces fonctions est présenté dans la Figure \ref{fig:a
 % https://tikzcd.yichuanshen.de/
 
 \subsubsection{Méthode de régularisation pour limiter le sur-apprentissage}
-Le nombre de degrés de liberté d'un modèle à réseaux de neurones profonds est supérieur au million.
+Le nombre de degrés de liberté d'un modèle à réseaux de neurones profonds est supérieur à un million.
 C'est pourquoi, il est courant que le modèle se spécialise afin d'obtenir un très bon score de justesse sur les échantillons d'apprentissages, mais un mauvais score sur de nouveaux échantillons : c'est le problème du \emph{sur-apprentissage}.
 Plusieurs méthodes de régularisation permettent de limiter ce problème et nous détaillerons dans cette section les méthodes que nous utilisons.
-\cite{goodfellow_deep_2016} propose une définition du terme "régularisation" spécifique à l'alchimie du \textit{Deep Learning} :
+\citeauthor{goodfellow_deep_2016} proposent une définition du terme "régularisation", spécifique à l'alchimie du \textit{Deep Learning} \cite{goodfellow_deep_2016} :
 \begin{quote}
     « La régularisation est toute modification faite à un algorithme d'apprentissage afin que l'erreur de généralisation soit réduite, mais pas l'erreur d'apprentissage. »
 \end{quote}
 
 \paragraph{Dropout}\mbox{} \label{parag:dropout} \\
-\cite{srivastava_dropout_2014} propose l'utilisation d'une couche dite de \textit{dropout} : la valeur de sortie de cette couche est aléatoirement, selon un pourcentage de chances $\alpha$ choisi, fixée à zéro. Le \textit{dropout} est actuellement la méthode de régularisation la plus performante pour limiter le sur-apprentissage.
+\citeauthor{srivastava_dropout_2014} \cite{srivastava_dropout_2014} proposent l'utilisation d'une couche dite de \textit{dropout} : la valeur de sortie de cette couche est aléatoirement, selon un pourcentage de chances $\alpha$ choisi, fixée à zéro. Le \textit{dropout} est actuellement la méthode de régularisation la plus performante pour limiter le sur-apprentissage.
 Ainsi, l'optimisation est réalisée sur une mauvaise valeur (zéro) de sortie du modèle pour un pourcentage $\alpha$ d'échantillons d'un \textit{mini-batch}.
 La valeur de $\alpha$ est souvent fixée entre $[0 ; 0,5]$.
 Lors de l'utilisation du modèle pour inférence, la valeur de $\alpha$ est nulle : la couche de \textit{dropout} n'est jamais activée, pour ne pas fausser les prédictions.
 
 \paragraph{Normalisation de lots}\mbox{} \label{parag:batchnorm} \\
-La couche de normalisation de lots (\textit{Batch Normalization}) a été proposée par \cite{ioffe_batch_2015}.
+La couche de normalisation de lots (\textit{Batch Normalization}) a été proposée par \citeauthor{ioffe_batch_2015} \cite{ioffe_batch_2015}.
 Elle nécessite l'emploi de l'entrainement par descente de gradient stochastique qui découpe le jeu de données d'apprentissage en \textit{mini batch} répartis aléatoirement.
 On définit les valeurs $x_i$ en entrée de la couche pour un \textit{mini batch} $B \in X$.
 On calcule la variance $\sigma_B^2$ de l'entrée et la moyenne $\mu_B$.
@@ -1276,8 +1242,8 @@ La couche \textit{BN} normalise les valeurs des entrées $x_i$ en $\bar{x}_{i}$ 
 
 La couche \textit{BN} limite les variations importantes de la covariance des entrées. S'il n'y a pas de normalisation, lors de la rétro-propagation, l'ajustement des poids devra être fait pour chaque distribution différente de \textit{mini-batch}.
 Avec la normalisation, la sortie aura toujours une distribution normalisée sur zéro et ainsi la valeur des poids à ajuster ne sera pas extrême.
-\cite{ioffe_batch_2015} suggère d'utiliser en priorité des couches \textit{BN} plutôt que le \textit{dropout}, car ce dernier fait perdre la totalité de l'information du réseau lorsqu'elle est active, ce qui pénalise fortement la vitesse d'apprentissage.
-Les architectures de réseaux profonds antérieures à 2015 (exemple : VGG16) n'utilisent pas de couches \textit{BN}, tandis que la majorité des architectures postérieures à 2015 en utilisent.
+\citeauthor{ioffe_batch_2015} \cite{ioffe_batch_2015} suggère d'utiliser en priorité des couches \textit{BN} plutôt que le \textit{dropout}, car ce dernier fait perdre la totalité de l'information du réseau lorsqu'elle est active, ce qui pénalise fortement la vitesse d'apprentissage.
+Les architectures de réseaux profonds antérieures à 2015 (par exemple VGG16) n'utilisent pas de couches \textit{BN}, alors que la majorité des architectures postérieures à 2015 en utilisent.
 Lors de l'utilisation du modèle pour inférence, la valeur de $\mu_{B}$ et $\sigma_B^2$ est fixée pour tous les \textit{mini batch} : ce sont leurs moyennes respectives sur tous les \textit{mini batch} de l'entrainement.
 % https://arthurdouillard.com/post/normalization/
 % How To Be Confident In Your Neural Network Confidence : Temperature Scaling on SoftMax
@@ -1302,7 +1268,7 @@ Cette couche est appliquée sur un certain nombre de valeurs adjacentes.
 Des dimensions courantes sont de $2 \times 2$ à $4 \times 4$, en fonction de la dimension des caractéristiques des échantillons que l'on cherche à mettre en valeur.
 Une fenêtre de $2 \times 2$ réduit la dimension d'un facteur 4.
 
-\begin{table}[]
+\begin{table}[hbtp]
     \centering
     \begin{tabular}{|c|c||c|c|}
         \hline
@@ -1323,8 +1289,8 @@ Une fenêtre de $2 \times 2$ réduit la dimension d'un facteur 4.
     \label{tab:maxpooling}
 \end{table}
 
-\cite{boureau_theoretical_2010} analyse l'influence du choix de la fonction et montre la supériorité du \textit{max pooling} lorsque les valeurs à détecter sont peu fréquentes.
-\cite{scherer_evaluation_2010} obtient également des performances supérieures avec le \textit{max pooling} qui permet d'extraire les caractéristiques de petites dimensions spatiales.
+\citeauthor{boureau_theoretical_2010} \cite{boureau_theoretical_2010} analysent l'influence du choix de la fonction et montre la supériorité du \textit{max pooling} lorsque les valeurs à détecter sont peu fréquentes.
+\citeauthor{scherer_evaluation_2010} \cite{scherer_evaluation_2010} obtient également des performances supérieures avec le \textit{max pooling} qui permet d'extraire les caractéristiques de petites dimensions spatiales.
 Une particularité du \textit{max pooling} est d'être très simple à calculer lors de la rétro-propagation : seul le poids associé à la valeur maximale est ajusté.
 La Figure \ref{fig:pooling} illustre l'effet du \textit{max pooling} et de l'\textit{average pooling} pour quatre filtres de convolutions différents.
 
@@ -1363,7 +1329,7 @@ La Figure \ref{fig:pooling} illustre l'effet du \textit{max pooling} et de l'\te
     \label{fig:pooling}
 \end{figure}
 
-\cite{oquab_object_2015} étudie l'utilisation du \textit{global max pooling} : seule une unique valeur maximale de la couche présente $z$ est conservée, Équation \ref{eq:GMP}.
+\citeauthor{oquab_object_2015} \cite{oquab_object_2015} étudie l'utilisation du \textit{global max pooling} : seule une unique valeur maximale de la couche présente $z$ est conservée, Équation \ref{eq:GMP}.
 Cela fait émerger une propriété intéressante : la possibilité d'utiliser la valeur de la couche précédente $z$ comme une carte de saillance de la localisation des différentes classes.
 Cette carte est générée à partir d'un jeu de données sans information sur la localisation des objets, de manière semi-supervisée.
 La couche de \textit{global max pooling} force le réseau à détecter la position de la meilleure classe dans l'image.
@@ -1376,7 +1342,7 @@ De récentes analyses montrent que le \textit{max pooling} est une source majeur
 C'est pourquoi les architectures récentes cherchent à le remplacer par des couches de sous-échantillonnage par moyenne (\textit{average pooling}).
 Dans son réseau composé de sous blocs denses, \cite{lin_network_2013} introduit le \textit{Global Average Pooling}, Équation \ref{eq:GAP}.
 \cite{zhou_learning_2015} montre l'intérêt du \textit{Global Average Pooling} lors de l'apprentissage, ce qui permet d'obtenir des cartes de saillance de la localisation des objets dans l'image.
-Cette démarche est similaire à \cite{oquab_object_2015} avec le \textit{global max pooling}, mais l'utilisation de la moyenne force le réseau à détecter l'ensemble des régions où la classe est présente.
+Cette démarche est similaire aux travaux de \citeauthor{oquab_object_2015} \cite{oquab_object_2015} avec le \textit{global max pooling}, mais l'utilisation de la moyenne force le réseau à détecter l'ensemble des régions où la classe est présente.
 Cette carte de saillance par classes $z$ est nommée \textit{Class Activation Map}.
 
 \begin{equation} \label{eq:GAP}
@@ -1387,13 +1353,13 @@ y_{i+1} = \frac{1}{N} \sum_{j, k} z_{j, k}(y_i)
 % http://webia.lip6.fr/~cord/pdfs/news/2017CordPoolingDeepNets.pdf
 
 \paragraph{Pénalisation sur les poids}\mbox{} \label{parag:weights_decay} \\
-Proposé par \cite{krogh_simple_1991}, il s'agit d'ajouter un terme de pénalisation $E$ de la valeur des poids à la fonction de coût $\mathcal{L}$ que l'on cherche à optimiser.
+Proposé par \citeauthor{krogh_simple_1991} \cite{krogh_simple_1991}, il s'agit d'ajouter un terme de pénalisation $E$ de la valeur des poids à la fonction de coût $\mathcal{L}$ que l'on cherche à optimiser.
 Un facteur $\lambda$ pondère la valeur des poids $\mathbf{W}$ du réseau.
 Cette méthode permet de rendre le réseau robuste aux perturbations ce qui améliore les performances.
 C'est une méthode simple et efficace, dont l'utilisation est indispensable pour atteindre les performances de l'état de l'art de la littérature.
 La pondération peut être effectuée sur la norme $\ell_{1}$, ce qui pénalisera tous les poids différents de zéro.
 Mais la pondération est généralement réalisée sur la norme $\ell_{2}$, ce qui pénalisera les grandes valeurs des poids.
-Dans ce cas, cette démarche est équivalente à la régularisation de Tikhonov \cite{tikhonov_stability_1943, tikhonov_solutions_1977} par une matrice $\Gamma$, avec $\Gamma=\lambda I$.
+Dans ce cas, cette démarche est équivalente à la régularisation de \citeauthor{tikhonov_stability_1943} \cite{tikhonov_stability_1943, tikhonov_solutions_1977} par une matrice $\Gamma$, avec $\Gamma=\lambda I$.
 On cherche à amener un maximum de poids du réseau à zéro.
 La méthode est d'autant plus critique que les erreurs d'arrondis, inhérentes à la représentation des nombres informatiques, doivent être évitées lors de l'optimisation par descente du gradient.
 
@@ -1410,7 +1376,7 @@ L'objectif est d'augmenter la variance du jeu de données initial.
 Les taux de modifications optimaux doivent être choisis par validation croisée pour obtenir les meilleures performances possibles sur le problème spécifique.
 Nous observons de bonnes performances avec des rotations jusqu'à cinq degrés et des cadrages qui varient de dix pour-cent des dimensions originales, illustrés dans la Figure \ref{fig:augmentor}.
 
-\begin{figure}[hbtp]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{../Chap3/Figures/imgA_augmentor.pdf}
     \caption{Augmentation d'une image par translations et rotations.}
@@ -1463,15 +1429,15 @@ Il vaut mieux que l'expert humain passe du temps pour annoter une pièce avec ce
 C'est pourquoi, les méthodes d'apprentissage qui nécessitent peu d'exemples par classe (\textit{few-shot learning}), voire un unique exemple par classe (\textit{one-shot learning}), sont très utiles.
 De plus, l'apprentissage semi-supervisé permet d'utiliser des échantillons qui n'ont pas été annotés.
 Le jeu de données d'apprentissage est alors plus grand et les performances en classification sont augmentées.
-L'apprentissage semi-supervisé repose sur plusieurs hypothèses sur la structure des données \ref{it:manifold_hypothesis}, synthétisées dans la monographie de référence sur le sujet \cite{chapelle_semi-supervised_2010}.
-Plus récemment, la thèse de Thibault Durand \cite{durand_weakly_2017} propose trois méthodes de classification semi-supervisées qui utilisent des réseaux de convolutions profonds.
+L'apprentissage semi-supervisé repose sur plusieurs hypothèses sur la structure des données §\ref{it:manifold_hypothesis}, synthétisées dans la monographie de référence sur le sujet \citetitle{chapelle_semi-supervised_2010} \cite{chapelle_semi-supervised_2010}.
+Plus récemment, la thèse de \citeauthor{durand_weakly_2017} \cite{durand_weakly_2017} propose trois méthodes de classification semi-supervisées qui utilisent des réseaux de convolutions profonds.
 
-\begin{itemize} \label{it:manifold_hypothesis}
-    \item Hypothèse de continuité : les points qui sont proches dans l'espace des données ont plus de chances d'appartenir à la même classe.
-    \item Hypothèse d'ensembles : les points sont souvent regroupés en ensembles discrets (paquets ou \textit{clusters}). Les points dans le même ensemble ont plus de chances d'appartenir à la même classe.
-    \item Hypothèse de densité faible pour la séparation des classes : la limite entre deux classes devrait se situer dans une région de l'espace où la densité de présence d'ensembles de différentes classes est faible.
-    \item Hypothèse de variétés : pour un espace de données initial, il existe un espace latent de dimensions réduites qui conserve les propriétés des données, pour les trois hypothèses précédentes.
-\end{itemize}
+\begin{description} \label{it:manifold_hypothesis}
+    \item[Hypothèse de continuité] : les points qui sont proches dans l'espace des données ont plus de chances d'appartenir à la même classe.
+    \item[Hypothèse d'ensembles] : les points sont souvent regroupés en ensembles discrets (paquets ou \textit{clusters}). Les points dans le même ensemble ont plus de chances d'appartenir à la même classe.
+    \item[Hypothèse de densité faible] : du point de vue de la séparation des classes, la limite entre deux classes devrait se situer dans une région de l'espace où la densité de présence d'ensembles de différentes classes est faible.
+    \item[Hypothèse de variétés] : pour un espace de données initial, il existe un espace latent de dimensions réduites qui conserve les propriétés des données, pour les trois hypothèses précédentes.
+\end{description}
 
 L'hypothèse de variétés rend possible l'apprentissage de la transformation vers l'espace latent à l'aide de l'ensemble des données (annotées ou non), puis d'apprendre le classifieur dans l'espace latent.
 Ainsi, les données non annotées permettent de mieux capturer la distribution des données dans l'espace initial, puis dans l'espace latent.
@@ -1495,7 +1461,7 @@ Une alternative à l'ACP est l'utilisation de réseau de neurones pour réduire 
 On se rapporte alors à l'apprentissage par transfert de domaine présenté dans la Section \ref{subsec:transfer_learning}.
 Le coût d'utilisation de ces deux méthodes est élevé : $\bigO(N^3)$, avec $N$ le nombre d'échantillons en présence.
 
-\cite{zhu_learning_2002} propose de construire le graphe qui relie l'ensemble des échantillons par le chemin le plus court.
+Dès 2002, \citeauthor{zhu_learning_2002} \cite{zhu_learning_2002} proposent de construire le graphe qui relie l'ensemble des échantillons par le chemin le plus court.
 L'apprentissage est réalisé de manière itérative en propageant les annotations à partir des échantillons annotés, vers les échantillons non annotés.
 La convergence de la méthode est obtenue lorsque tous les échantillons sont annotés.
 Soit $Y_{L}=\left\{y_{1} \ldots y_{l}\right\}$ les annotations des $l$ échantillons annotés et $Y_{U}=\left\{y_{l+1} \ldots y_{l+U}\right\}$ les annotations des $u$ échantillons non annotés.
@@ -1509,7 +1475,7 @@ L'algorithme consiste alors à appliquer $T$ à $Y$ ($Y = Y \cdot T$) jusqu'à o
 Dans le cas où $\alpha = 0.1$, seul 10\% des annotations seront ajustées et 90\% des annotations initiales seront conservées à la suite d'une itération.
 Cette description succincte omet les différents termes de régularisation et le lecteur pourra se référer à la publication initiale pour plus de détails.
 
-Par la suite, \cite{zhou_learning_2003} fait évoluer la méthode de construction du graphe de transition en utilisant une matrice laplacienne normalisée : $T_{laplacienne} = I - D^{-1/2} T D^{-1/2}$, avec $T$ la matrice d'adjacence précédemment utilisée, I l'identité et D la matrice des degrés, diagonale, qui renseigne le nombre de liens de chaque sommets.
+Par la suite, \citeauthor{zhou_learning_2003} \cite{zhou_learning_2003} font évoluer la méthode de construction du graphe de transition en utilisant une matrice laplacienne normalisée : $T_{laplacienne} = I - D^{-1/2} T D^{-1/2}$, avec $T$ la matrice d'adjacence précédemment utilisée, I l'identité et D la matrice des degrés, diagonale, qui renseigne le nombre de liens de chaque sommets.
 Cette matrice de transition modélise les distances entre les échantillons.
 
 Enfin, la matrice d'adjacence $w_{ij}$ peut être approximée par la méthode des K-plus-proches-voisins.
@@ -1557,10 +1523,10 @@ Sur notre problème qui peut comporter 1000 échantillons, le gain est déjà d'
 
 \subsubsection{Réseau de neurones siamois profond} \label{subsubsec:siamese}
 Un réseau siamois (\textit{Siamese Networks}) est un réseau de neurones qui contient deux sous-réseaux identiques.
-Le premier réseau siamois a été appliqué à la vérification d'empreintes digitales \cite{baldi_neural_1993}.
+Le premier réseau siamois a été appliqué à la vérification d'empreintes digitales, en 1992 \cite{baldi_neural_1993}.
 Deux réseaux de convolutions identiques sont utilisés pour l'analyse de similitude entre deux échantillons.
 Puis la distance entre la sortie des deux réseaux est calculée.
-Les distances employées sont souvent la norme, la norme Euclidienne ou la fonction de coût de contraste proposée par \cite{hadsell_dimensionality_2006}, Équation \ref{eq:contrastive_loss}.
+Les distances employées sont souvent la norme, la norme Euclidienne ou la fonction de coût de contraste proposée par \citeauthor{hadsell_dimensionality_2006} \cite{hadsell_dimensionality_2006}, Équation \ref{eq:contrastive_loss}.
 
 Enfin, une fonction exponentielle normalisée (\textit{SoftMax}) sur ces valeurs retourne la probabilité de similarité entre les deux échantillons.
 Ce travail détaille la méthode employée pour prétraiter les images à partir des données enregistrées.
@@ -1569,10 +1535,10 @@ Un modèle à réseau de neurones est spécifiquement utilisé pour exploiter pl
 Ces deux travaux montrent des résultats supérieurs à 95\% de bonnes réponses en classification, dès 1992.
 
 La montée en performance du calcul sur processeur graphique à permis de multiplier les couches de convolutions.
-L'utilisation de réseaux siamois profonds a ainsi été proposée en 2015 et est devenue une thématique prolifique.
-\cite{koch_siamese_2015} les utilisent par exemple pour la détection de caractère sur de multiples alphabets.
+L'utilisation de réseaux siamois profonds a ainsi été proposée en 2015 et est devenue une thématique de recherche prolifique.
+\citeauthor{koch_siamese_2015} \cite{koch_siamese_2015} les utilisent par exemple pour la détection de caractère sur de multiples alphabets.
 La Figure \ref{fig:siamese} montre l'architecture d'un tel réseau.
-L'architecture présentée est celle utilisée par \cite{rao_deep_2016} pour la détection de similarité entre différentes expressions de visages.
+L'architecture présentée est celle utilisée par \citeauthor{rao_deep_2016} \cite{rao_deep_2016} pour la détection de similarité entre différentes expressions de visages.
 
 \begin{figure}[hbtp]
     \centering
@@ -1600,15 +1566,15 @@ La valeur de la marge peut être choisie selon les résultats de précision et d
 Dans notre cas de contrôle qualité, nous souhaitons par exemple limiter les faux positifs : les pièces mauvaises qui sont classées comme étant bonnes.
 Minimiser le coût de contraste revient à positionner toutes les images d'une même classe en un unique point de l'espace.
 Cette propriété peut devenir une limite lorsque des images d'une même classe possèdent des caractéristiques d'autres classes.
-C'est pourquoi la fonction de coût de triplet a été proposée, nous la détaillons dans la Section \ref{subsubsec:triplet}.
+C'est pourquoi la fonction de coût de triplet a été proposée et nous la détaillons dans la Section suivante \ref{subsubsec:triplet}.
 
 % https://m2dsupsdlclass.github.io/lectures-labs/slides/09_imbalanced_classif_metric_learning/
 
 \subsubsection{Réseau de neurones de triplets profond} \label{subsubsec:triplet}
 Basé sur la même idée que le réseau siamois, le réseau de triplets (\textit{Triplet Networks}) utilise trois réseaux de convolutions en parallèles.
-Les trois sorties des convolutions sont utilisées par la fonction de coût de triplets (\textit{Triplet Loss}, Équation \ref{eq:triplet_loss}), proposée par \cite{wang_learning_2014}, appliquée à la détection des images au contenu similaire.
+Les trois sorties des convolutions sont utilisées par la fonction de coût de triplets (\textit{Triplet Loss}, Équation \ref{eq:triplet_loss}), proposée par \cite{wang_learning_2014} \citeauthor{wang_learning_2014}, appliquée à la détection des images au contenu similaire.
 
-La fonction de coût de triplets est dérivée de la fonction de coût \textit{LMNN} (\textit{Large Margin Nearest Neighbor}), Équations \ref{eq:lmnn_loss}, proposées par \cite{weinberger_distance_2006}. \textit{LMNN} s'appuient sur la distance de Mahalanobis \cite{mahalanobis_generalised_1936} (ici notée $\mathbf{L}_{Maha}$) pour la classification par la méthode des K-plus-proches voisins.
+La fonction de coût de triplets est dérivée de la fonction de coût \textit{LMNN} (\textit{Large Margin Nearest Neighbor}), Équations \ref{eq:lmnn_loss}, proposées par \citeauthor{weinberger_distance_2006} \cite{weinberger_distance_2006}. \textit{LMNN} s'appuient sur la distance de \citeauthor{mahalanobis_generalised_1936} \cite{mahalanobis_generalised_1936} (ici notée $\mathbf{L}_{Maha}$) pour la classification par la méthode des K-plus-proches voisins.
 Le terme $\varepsilon_{\text{éloignement}}$ pénalise les petites distances entre les points. Il garantit également que les exemples négatifs sont éloignés des exemples de la classe $i$. $\mu \in [0 ; 1]$ permet de balancer les deux termes (en pratique $\mu=0,5$ est satisfaisant).
 \begin{equation} \label{eq:lmnn_loss}
 \begin{split}
@@ -1625,15 +1591,15 @@ Cette méthode est proche de la méthode employée par les Machines à Vecteurs 
 La fonction de coût $\varepsilon_{\text{éloignement}}$ est composée du coût de \textit{hinge} (\textit{Hinge loss}, $\mathcal{L}_{Hinge}(z)=\max (0, z)$) aussi utilisé par les \textit{SVM}.
 Cependant, contrairement aux \textit{SVM}, la méthode peut être utilisée pour de la classification multi-classes, sans modification et avec de meilleures performances que l'algorithme \textit{SVM}.
 
-Récemment, \cite{schroff_facenet_2015} a fait évoluer le coût $\mathcal{L}_{\mathrm{LMNN}}$ et propose la fonction de coût de triplet $\mathcal{L}_{\mathrm{triplet}}$ Équation \ref{eq:triplet_loss}.
+Récemment, \citeauthor{schroff_facenet_2015} \cite{schroff_facenet_2015} ont fait évoluer le coût $\mathcal{L}_{\mathrm{LMNN}}$ et propose la fonction de coût de triplet $\mathcal{L}_{\mathrm{triplet}}$ Équation \ref{eq:triplet_loss}.
 Trois images sont présentées en entrée au réseau : une image A de référence, une image Positive d'une catégorie et une image Négative d'une autre catégorie.
 La distance entre l'image R de Référence et l'image P Positive doit être plus petite que la distance entre l'image R et l'image N Négative.
 La fonction de coût de triplets cherche à entrainer le réseau afin séparer la paire positive $($image R, image P$)$ de la paire négative $($image A, image N$)$ par une distance de marge : c'est à dire minimiser la distance entre $($images R, image P$)$ et maximiser la distance entre $($image R, image N$)$.
 
-Les travaux de \cite{wang_learning_2014} et \cite{schroff_facenet_2015} proposent également l'utilisation d'architectures de réseaux de convolutions profonds issues de la littérature sans les modifier (\textit{AlexNet} modifié par \cite{zeiler_visualizing_2013} et \textit{GoogleLeNet-InceptionV1} par \cite{szegedy_going_2014}), à la manière de boites noires, et d'entrainer l'ensemble du réseau ainsi constitué.
+Les travaux de \citeauthor{wang_learning_2014} \cite{wang_learning_2014} et \citeauthor{schroff_facenet_2015} \cite{schroff_facenet_2015} proposent également l'utilisation d'architectures de réseaux de convolutions profonds issues de la littérature sans les modifier (\textit{AlexNet} modifié \cite{zeiler_visualizing_2013} et \textit{GoogleLeNet-InceptionV1} \cite{szegedy_going_2014}), à la manière de boites noires, et d'entrainer l'ensemble du réseau ainsi constitué.
 A la suite du réseau, la norme Euclidienne entre les trois branches est calculée.
 Ainsi, la distance entre toutes les images qui sont de la même catégorie sera petite, tandis que la distance entre les paires d'images de différentes catégories sera grande.
-\cite{wu_sampling_2017} justifie l'utilisation de la norme Euclidienne au lieu de la norme Euclidienne élevée au carré utilisée dans \cite{schroff_facenet_2015}.
+\citeauthor{wu_sampling_2017} \cite{wu_sampling_2017} justifient l'utilisation de la norme Euclidienne au lieu de la norme Euclidienne élevée au carré utilisée dans \citeauthor{schroff_facenet_2015} \cite{schroff_facenet_2015}.
 
 A la différence de la fonction de coût de contraste (Équation \ref{eq:contrastive_loss}) qui cherche à positionner toutes les images d'une même classe en un unique point de l'espace latent, la fonction de coût de triplet cherche à maximiser une marge entre chaque paire d'images de catégories différentes.
 Ainsi, les images similaires peuvent être positionnées librement à des points différents de l'espace latent, sous réserve que la condition sur la marge entre les catégories différentes soit remplie.
@@ -1696,7 +1662,7 @@ C'est pourquoi \cite{schroff_facenet_2015} introduit une troisième condition, �
 \end{equation}
 
 Il s'agit de sélectionner des images "négatives-modérées", c'est à dire des images qui sont plus éloignées de l'image de référence que les images positives, mais qui ont une similarité élevée avec l'image de référence.
-Dans la même démarche, \cite{shi_embedding_2016} propose de sélectionner en plus les images "positives-modérées".
+Dans la même démarche, \citeauthor{shi_embedding_2016} \cite{shi_embedding_2016} proposent de sélectionner en plus les images "positives-modérées".
 La Figure \ref{fig:triplet_learning} récapitule la méthode d'apprentissage d'un réseau de triplets.
 \begin{figure}[hbtp]
     \centering
@@ -1748,7 +1714,7 @@ Les jeux de données actuels sont souvent trop volumineux pour pouvoir être cha
 C'est pourquoi il a été proposé de réaliser ce calcul pendant l'apprentissage \cite{wang_learning_2014,schroff_facenet_2015}.
 Pour maximiser les performances du calcul de la méthode d'optimisation des poids par descente de gradient sur processeur graphique, les données d'apprentissage sont séparées en paquets (\textit{mini-batch}) avant d'être présentées en entrée du réseau pour l'apprentissage.
 Pour chaque paquet, les couples d'images "négatives-modérées" sont alors sélectionnées de manière itérative, en parallèle de l'apprentissage.
-Récemment, \cite{hermans_defense_2017, yu_correcting_2018} proposent de sélectionner les images négatives-difficiles dans les paquets.
+Récemment, \citeauthor{hermans_defense_2017} \cite{hermans_defense_2017, yu_correcting_2018} proposent de sélectionner les images négatives-difficiles dans les paquets.
 Sur leur problème spécifique de la détection de visages, ils montrent qu'il n'est pas nécessaire d'introduire la condition de marge modérée car le fait de découper le jeu de données en paquets aléatoires garantie une certaine variété d'images dans les paquets.
 
 \begin{figure}[hbtp]
@@ -1758,18 +1724,18 @@ Sur leur problème spécifique de la détection de visages, ils montrent qu'il n
     \label{fig:triplet_result}
 \end{figure}
 
-La Figure \ref{fig:triplet_result} présente les valeurs de la dernière couche d'un réseau triplet de dimensions 200, projetée en deux dimensions par l'algorithme \textit{t-SNE} §\ref{subsubsec:tsne}.
+La Figure \ref{fig:triplet_result} présente les valeurs de la dernière couche d'un réseau de triplets, de 200, projetée en deux dimensions par l'algorithme \textit{t-SNE} §\ref{subsubsec:tsne}.
 Les différentes classes annotées par les experts humains sont bien séparées.
 Les pièces non annotées sont également positionnées dans les bonnes classes.
 Enfin, il est intéressant d'observer qu'un paquet correspondant à une erreur de mesure, comme par exemple l'absence de pièces et la capture du bras robotique préhenseur est mis en évidence.
 
 L'apprentissage de métrique est un domaine de recherche actif.
-\cite{sohn_improved_2016} généralise par exemple ces méthodes à N-paires d'images et montre l'intérêt d'une fonction de coût à 72-paires en comparaison des triplets (3-paires).
-\cite{song_deep_2015} propose une méthode d'adaptation de domaine : un modèle pré-appris peut être compléter à l'aide de nouveaux échantillons.
-\cite{wang_deep_2017} propose d'utiliser une fonction de coût basée sur une projection dans un espace angulaire.
-\cite{duan_deep_2018} propose la méthode \textit{DAML} (\textit{Deep Adversarial Metric Learning}) qui utilise un réseau antagoniste génératif (détaillé dans la Section \ref{subsubsec:GAN}) afin de produire une image négative-difficile artificielle, à partir d'un triplet défini.
+\citeauthor{sohn_improved_2016} \cite{sohn_improved_2016} généralisent par exemple ces méthodes à N-paires d'images et montre l'intérêt d'une fonction de coût à 72-paires en comparaison des triplets (3-paires).
+\citeauthor{song_deep_2015} \cite{song_deep_2015} proposent une méthode d'adaptation de domaine : un modèle pré-appris peut être compléter à l'aide de nouveaux échantillons.
+\cite{wang_deep_2017} \citeauthor{wang_deep_2017} proposent d'utiliser une fonction de coût basée sur une projection dans un espace angulaire.
+\citeauthor{duan_deep_2018} \cite{duan_deep_2018} proposent la méthode \textit{DAML} (\textit{Deep Adversarial Metric Learning}) qui utilise un réseau antagoniste génératif (détaillé dans la Section \ref{subsubsec:GAN}) afin de produire une image négative-difficile artificielle, à partir d'un triplet d'images défini.
 Les résultats obtenus montrent l'intérêt de la méthode dans le cas où le nombre d'échantillons est faible.
-Dernièrement, \cite{zheng_hardness-aware_2019} propose une comparaison de ces méthodes (N-paires, métrique angulaire et \textit{DAML}) sur trois jeux de données de références.
+Dernièrement, \citeauthor{zheng_hardness-aware_2019} \cite{zheng_hardness-aware_2019} proposent une comparaison de ces méthodes (N-paires, métrique angulaire et \textit{DAML}) sur trois jeux de données de références.
 
 % Local similarity-aware deep feature embedding propose le Position-Dependent Deep Metric (PDDM)
 
@@ -1786,7 +1752,7 @@ Dernièrement, \cite{zheng_hardness-aware_2019} propose une comparaison de ces m
 % Deep Metric Learning with Hierarchical Triplet Loss
 
 \subsubsection{Intérêt des méthodes issues de l'apprentissage par renforcement}
-Les récents succès des méthodes de l'apprentissage par renforcement peuvent également être inclus dans cette section.
+Les récents succès des méthodes d'apprentissage par renforcement peuvent également être inclus dans cette section.
 À chaque itération, l'algorithme choisit de réaliser une action et il obtient, pour cette action, une récompense, positive en cas d'amélioration de l'objectif, ou négative dans le cas inverse.
 L'apprentissage par renforcement est particulièrement adapté au réglage optimal des procédés.
 Il est nécessaire de disposer d'un environnement capable de recevoir une action et produire une récompense.
@@ -1825,7 +1791,7 @@ La réduction de dimensions et le \textit{clustering}\footnote{Nous employons le
 Dans un premier temps on réduit la dimension de l'information, puis on regroupe par paquet les échantillons (\textit{clustering}) à partir de l'espace réduit.
 
 \subsubsection{K-moyennes} \label{subsubsec:kmeans}
-L'algorithme des K-moyennes (\textit{K-means}), proposé par \cite{macqueen_methods_1967, lloyd_least_1982} cherche à séparer les échantillons $X$ en $C$ groupes de classes telle que la variance soit égale entre les groupes.
+L'algorithme des K-moyennes (\textit{K-means}), proposé par \citeauthor{macqueen_methods_1967} \cite{macqueen_methods_1967, lloyd_least_1982} cherche à séparer les échantillons $X$ en $C$ groupes de classes telle que la variance soit égale entre les groupes.
 C'est une méthode de \textit{clustering} spatial dans l'espace des données initiales.
 Soit $c_j$ le barycentre d'un groupe dans l'espace des données, l'algorithme cherche à minimiser la distance Euclidienne des échantillons au point $c$.
 Il s'agit de minimiser l'inertie\footnote{L'inertie est la somme des distances Euclidiennes entre les échantillons du groupe.} du groupe d'échantillon $c_j \in C$.
@@ -1842,7 +1808,7 @@ C(X) = \arg \ \min _{c_{j} \in C} \ \sum_{j=1}^{n_C} \sum_{i=1}^{n} \left(\left\
 La convergence est nécessairement atteinte mais elle peut être un minimum locale.
 Le résultat final est fortement dépendant de la position initiale des points centroïdes $c$.
 C'est pourquoi l'algorithme complet est répété de nombreuses fois avec des initialisations de $c_j$ différentes.
-La méthode d'initialisation \textit{k-means++}, plus performante, a été proposée par \cite{arthur_kmeans_2007}. Elle propose de positionner les points centroïdes $c$ de manière à les éloigner au maximum entre eux. Les résultats obtenus sont ainsi meilleurs.
+La méthode d'initialisation \textit{k-means++}, plus performante, a été proposée par \citeauthor{arthur_kmeans_2007} \cite{arthur_kmeans_2007}. Elle propose de positionner les points centroïdes $c$ de manière à les éloigner au maximum entre eux. Les résultats obtenus sont ainsi meilleurs.
 Enfin, la distance Euclidienne $\ell_{2}$ est une métrique qui répond mal aux problèmes en très grandes dimensions ou aux formes de groupes allongées ou irrégulières.
 Cette distance ne prend pas en compte la variation de la densité des points dans l'espace.
 C'est pourquoi une transformation de l'espace des données est souvent réalisée en amont de cet algorithme (ACP, \textit{kernel trick} ...).
@@ -1852,7 +1818,7 @@ La complexité de l'algorithme K-moyennes est de l'ordre de  $\bigO(N \log(N))$.
 C'est la méthode de \textit{clustering} la plus efficiente qui existe.
 
 \subsubsection{HDBSCAN} \label{subsubsec:hdbscan}
-\cite{ester_densitybased_1996} propose la méthode \textit{DBSCAN} (\textit{Density-Based Spatial Clustering of Applications with Noise}) qui s'appuie sur l'organisation spatiale, en matière de densité, des données.
+\citeauthor{ester_densitybased_1996} \cite{ester_densitybased_1996} proposent la méthode \textit{DBSCAN} (\textit{Density-Based Spatial Clustering of Applications with Noise}) qui s'appuie sur l'organisation spatiale, en matière de densité, des données.
 L'algorithme distingue en amont trois catégories d'échantillons dans les données.
 Pour chaque point $c$, on distingue : les points centraux s'ils sont entourés d'un nombre minimal $MinPts$ de voisins et sont situés dans un rayon $\epsilon$ du point $c$ ; les points de bordures s'ils ont moins de $nb\_min\_points$ voisins et sont situés dans un rayon $\epsilon$ ; et les points de bruit, dont la distance avec $c$ est supérieure à $\epsilon$.
 Ainsi, le nombre de paquets est défini par $nb\_min\_points$ et les points de bordures sont associés au paquet par leur point $c$ correspondant.
@@ -1860,15 +1826,16 @@ Ainsi, le nombre de paquets est défini par $nb\_min\_points$ et les points de b
 Néanmoins, les performances de la méthode \textit{DBSCAN} sont limités sur les problèmes où les échantillons ont de grandes dimensions. On cherchera à réduire la dimension de l'information, par exemple lorsque l'on traite des images, avant d'appliquer cette méthode.
 Les hyper-paramètres $nb\_min\_points$ et $\epsilon$ doivent être optimisés. Trouver un couple optimal peut être difficile, dans le cas où les données sont réparties de manière fortement non homogène ; c'est à dire lorsque les différences de densités de la répartition des points sont grandes.
 
-Récemment, \cite{campello_densitybased_2013} introduit la méthode \textit{HDBSCAN} (\textit{Density-Based Clustering Based on Hierarchical Density Estimates}) qui fait évoluer \textit{DBSCAN} en prenant en compte l'organisation spatiale des données.
+Récemment, \citeauthor{campello_densitybased_2013} \cite{campello_densitybased_2013} introduisent la méthode \textit{HDBSCAN} (\textit{Density-Based Clustering Based on Hierarchical Density Estimates}) qui fait évoluer \textit{DBSCAN} en prenant en compte l'organisation spatiale des données.
+\textit{HDBSCAN} ne nécessite pas de paramètre $\epsilon$.
+
 De nombreuses méthodes de \textit{clustering} s'appuient sur l'organisation hiérarchique des données.
 C'est le \textit{clustering} hiérarchique, qui utilise les arbres binaires de tri.
-Le résultat est souvent visualisé sous forme de dendogrammes.
+Le résultat est souvent visualisé sous forme de dendrogrammes.
 Une évolution du \textit{clustering} hiérarchique ajoute l'utilisation de l'analyse spectrale.
 Ce sont les méthodes de \textit{clustering} spectral qui proposent des solutions à ces limites.
 Il s'agit d'utiliser les relations entre les échantillons au sein des paquets, par la construction de graphes et par l'analyse spectrale, c'est à dire l'utilisation des vecteurs propres des données.
-Nous invitons le lecteur à consulter l'excellent tutoriel \cite{vonluxburg_tutorial_2007} sur les méthodes de \textit{clustering} spectrales, qui ne peuvent être approfondies dans le cadre de ce travail.
-\textit{HDBSCAN} ne nécessite pas de paramètre $\epsilon$.
+Nous invitons le lecteur à consulter l'excellent tutoriel \citetitle{vonluxburg_tutorial_2007} \cite{vonluxburg_tutorial_2007} sur les méthodes de \textit{clustering} spectrales, qui ne peuvent être approfondies dans le cadre de ce travail.
 
 \begin{figure}[hbtp]
     \centering
@@ -1883,7 +1850,7 @@ La dimension des données a préalablement été réduite par l'algorithme \text
 Les différents niveaux de qualité annotés par l'expertise humaine sont détectés.
 
 \subsubsection{Analyse en Composante Principale} \label{subsubsec:ACP}
-Dès 1901, \cite{pearson_lines_1901, hotelling_analysis_1933} proposent la méthode d'Analyse en Composante Principale (\textit{Principal Component Analysis}).
+Dès 1901, \citeauthor{pearson_lines_1901, hotelling_analysis_1933} \cite{pearson_lines_1901, hotelling_analysis_1933} proposent la méthode d'Analyse en Composante Principale (\textit{Principal Component Analysis}).
 C'est la méthode de réduction de dimensions de référence qui s'appuie sur une factorisation de la matrice représentative des données.
 Pour un jeu de données $X$ de $N$ échantillons, on calcule la matrice de covariance $\overline{C}$, Équation \ref{eq:cov}.
 
@@ -1919,14 +1886,14 @@ Lorsque l'on utilise 100 composantes, l'erreur de reconstruction est négligeabl
 Des artefacts restent néanmoins présents.
 Dans les sections suivantes, nous étudierons des méthodes qui permettent de supprimer la présence d'artefacts et de prendre en compte les caractéristiques locales des images.
 
-\begin{figure}[hbtp]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=1\textwidth,height=\textheight,keepaspectratio]{../Chap3/Figures/visualize_reconstructed_PCA_components_images.jpg}
     \caption{Compression par ACP.}
     \label{fig:pca_reconstruction}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[hbtp]
     \centering
     \begin{adjustbox}{width=0.80\textwidth}
         \begin{tikzpicture}
@@ -2033,7 +2000,7 @@ C'est une méthode très efficiente de réduction de l'information.
 
 \subsubsection{ACP à noyau}\label{subsubsec:kpca}
 L'ACP à noyau (\textit{Kernel-PCA}) réalise une ACP dans l'espace transformé par un noyau $K$ (voir la méthode de construction d'un noyau, §\ref{parag:svm}).
-Elle a été proposée par \cite{scholkopf_kernel_1997, scholkopf_nonlinear_1998}.
+Elle a été proposée par \citeauthor{scholkopf_kernel_1997} \cite{scholkopf_kernel_1997, scholkopf_nonlinear_1998}.
 La méthode de la transformée par noyau utilise une transformation $\varphi$ de l'espace initial des données, vers un espace où les données sont linéairement séparables.
 On applique alors la méthode de l'ACP dans ce nouvel espace pour trouver les $k$ vecteurs propres $\mathbf{V}$, Équation \ref{eq:kernel_pca}.
 
@@ -2126,7 +2093,7 @@ De plus, la difficulté apparait dans le cas où le jeu de données est grand ($
 
 \subsubsection{t-SNE} \label{subsubsec:tsne}
 % https://scikit-learn.org/stable/modules/clustering.html#spectral-clustering
-La méthode \textit{t-SNE} (\textit{t-Distributed Stochastic Neighbor Embedding}) est proposée par \cite{maaten_visualizing_2008}. C'est une méthode de réduction de l'information itérative particulièrement adaptée à la visualisation des données dans un espace à deux ou trois dimensions.
+La méthode \textit{t-SNE} (\textit{t-Distributed Stochastic Neighbor Embedding}) est proposée par \citeauthor{maaten_visualizing_2008} \cite{maaten_visualizing_2008}. C'est une méthode de réduction de l'information itérative particulièrement adaptée à la visualisation des données dans un espace à deux ou trois dimensions.
 \textit{t-SNE} est une évolution de la méthode \textit{SNE} (\textit{Stochastic Neighbor Embedding}) \cite{hinton_stochastic_2003}.
 Les deux méthodes utilisent la même démarche.
 Une distribution de probabilité $P$ est générée afin de modéliser la distribution des distances entre les points, pour le jeu de données initial.
@@ -2173,18 +2140,12 @@ C'est pourquoi de nouvelles méthodes de réduction de l'information ont été p
 Nous nous intéresserons en particulier à la méthode \textit{UMAP} §\ref{subsubsec:umap}, qui utilise la géométrie riemannienne pour résoudre ces limites.
 
 La complexité de l'algorithme t-SNE est de l'ordre de $\bigO(d N^2)$, avec $d$ la dimension de l'espace réduit.
-\cite{maaten_accelerating_2014} propose d'accélérer l'algorithme à une complexité de $\bigO(d N \log N)$, dans le cas où $d \le 3$ en approximant le gradient par l'algorithme à arbres binaires de recherche de Barnes et Hut \cite{barnes_hierarchical_1986}.
+\cite{maaten_accelerating_2014} propose d'accélérer l'algorithme à une complexité de $\bigO(d N \log N)$, dans le cas où $d \le 3$ en approximant le gradient par l'algorithme à arbres binaires de recherche de \citeauthor{barnes_hierarchical_1986} \cite{barnes_hierarchical_1986}.
 
 \subsubsection{UMAP} \label{subsubsec:umap}
-La méthode de réduction de l'information \textit{UMAP} est proposée par \cite{mcinnes_umap_2018, mcinnes_umap_2018a}.
+La méthode de réduction de l'information \textit{UMAP} est proposée par \citeauthor{mcinnes_umap_2018} \cite{mcinnes_umap_2018, mcinnes_umap_2018a}.
 Elle s'appuie sur l'apprentissage de variété (\textit{manifold learning}).
 On cherche, dans l'espace de dimensions initiales, une variété (des surfaces topologiques), pour laquelle les données sont au plus proche de celle-ci.
-
-
-
-
-
-
 
 La variété obtenue est alors une représentation des données dans un espace de dimensions réduites.
 Alors que l'ACP réalise une projection dans un espace euclidien, \textit{UMAP} projette les données dans un espace riemannien.
@@ -2197,18 +2158,16 @@ Afin d'utiliser cette démarche, trois hypothèses sont faites :
 \item L'espace riemannien utilisé est connexe.
 \end{itemize}
 
-
-Le théorème de Nerve affirme qu'il est possible de représenter la topologie de la variété $\mathbb{V}$ par des simplexes (c'est à dire par les éléments topologiques les plus simples possibles).
+Le théorème du nerf \cite{zisman_topologie_1972} affirme qu'il est possible de représenter la variété topologique $\mathbb{V}$ par un n-simplexe\footnote{Un simplexe est l'élément topologique le plus simple possible.}.
 % https://ncatlab.org/nlab/show/nerve+theorem
 % K. Borsuk, On the imbedding of systems of compacta in simplicial complexes , Fund. Math 35, (1948) 217-234
 % J. Leray. Sur la forme des espaces topologiques et sur les points fixes des représentations. J. Math. Pures Appl. 24:95–167, 1945
 Dans ce cas, $\mathbb{V}$ et sa représentation en simplexes sont équivalentes.
 Il est alors possible de modéliser ces simplexes par une distribution combinatoire $P$, en appliquant la logique floue (topologie-floue).
-Nous invitons le lecteur qui souhaite approfondir la méthode, à consulter le papier original des auteurs de l'algorithme \cite{mcinnes_umap_2018}.
-Par la suite, représenter les données dans un espace de petites dimensions, revient à trouver la variété de petites dimensions qui possède la distribution $Q$ la plus similaire possible avec la distribution $P$ de la variété des données initiales.
+Nous invitons le lecteur qui souhaite approfondir ce raisonnement à consulter la publication originale des auteurs de l'algorithme \textit{UMAP} \cite{mcinnes_umap_2018}.
+Par la suite, représenter les données dans un espace de petites dimensions, revient à trouver la variété de petites dimensions qui possède la distribution $Q$ la plus similaire possible, avec la distribution $P$ de la variété des données initiales.
 Cela revient à trouver la distribution $Q$ telle que l'entropie croisée entre les deux distributions $P$ et $Q$ soit minimale.
 Cette démarche est similaire à la minimisation de la divergence de Kullback-Leibler de \textit{t-SNE} §\ref{subsubsec:tsne} qui met en évidence la structure locale des données, mais elle permet également de préserver la structure globale.
-
 % -> I am using the UMAP for Dimensionality Reduction. It's implementation really bods well with my data. I have a question regarding the feature importance. Suppose, after the dimensionality reduction, the UMAP separates out the labels clearly and creates the 3 subgroups containing all labels. Can I somehow get the list of features corresponding to each group? Which features were more relevant to which group?
 % -> One option that I have seen done is to build a classifier based on the clusters and then use SHAP or LIME to get interpretations of what separates the clusters.
 
@@ -2229,7 +2188,7 @@ Ce paquet contient quelques pièces des niveaux 3 et 4 ; aussi cela indique que 
 En comparaison des résultats obtenus avec un réseau de triplets, Figure \ref{fig:triplet_result}, cette méthode présente une séparation des paquets identiques, mais sans annotation humaine et avec un coût de calcul plus de cent fois moindre.
 L'approche topologique permet d'améliorer les performances et la méthode \textit{UMAP} montre son intérêt dans le cadre d'une approche non-supervisée de suggestion d'annotation à l'expert humain.
 
-Afin de trouver le graphe de la représentation en petites dimensions, \textit{UMAP} utilise l'algorithme (\textit{Nearest-Neighbor-Descent}) d'optimisation de graphes proposé par \cite{dong_efficient_2011}.
+Afin de trouver le graphe de la représentation en petites dimensions, \textit{UMAP} utilise l'algorithme (\textit{Nearest-Neighbor-Descent}) d'optimisation de graphes proposé par \citeauthor{dong_efficient_2011} \cite{dong_efficient_2011}.
 Les auteurs évaluent empiriquement la complexité de leur méthode de l'ordre de $\bigO(N^{1.14})$.
 Aussi, la complexité de la méthode \textit{UMAP} est limitée par cet algorithme.
 Elle est de l'ordre de $\bigO(N \log N)$.
@@ -2241,10 +2200,10 @@ Elle est de l'ordre de $\bigO(N \log N)$.
 Un auto-encodeur cherche à reproduire la donnée entrée, avec le minimum de paramètres (ou Degrés De Liberté).
 Aucune annotation des données n'est requise.
 C'est une méthode qui permet d'apprendre la représentation des données dans un espace de dimensions réduites (aussi appelé \textit{feature learning} ou \textit{representation learning}).
-En 1987, \cite{lecun_modeles_1987, gallinari_memoires_1987} proposent un réseau auto-encodeur utilisant des réseaux de neurones, afin de supprimer le bruit d'images.
+En 1987, \citeauthor{lecun_modeles_1987, gallinari_memoires_1987} proposent un réseau auto-encodeur utilisant des réseaux de neurones, afin de supprimer le bruit d'images \cite{lecun_modeles_1987, gallinari_memoires_1987}.
 Dans leurs travaux, ils étudient la capacité du réseau à mémoriser les caractéristiques des images initiales, en fonction de son architecture.
-En parallèle, \cite{ballard_modular_1987} propose un auto-encodeur (appelé ici \textit{systèmes auto-associatifs}) à trois couches.
-Dans ces travaux, les poids des neurones sont ajustés par rétro-propagation du gradient, récemment proposée.
+En parallèle, \citeauthor{ballard_modular_1987} propose un auto-encodeur (appelé dans ce texte \textit{systèmes auto-associatifs}) à trois couches \cite{ballard_modular_1987}.
+Dans ces travaux, les poids des neurones sont ajustés par rétro-propagation du gradient, qui a été récemment proposée.
 
 Un auto-encodeur se compose de deux parties : un encodeur $z = f(x)$ qui compresse l'information initiale dans un espace de dimensions réduites (appelé \textit{espace latent}) et un décodeur $\hat x = g(z)$ qui reconstruit ensuite une approximation de $x$ à partir de $z$.
 $f$ et $g$ sont généralement des réseaux de convolutions profonds, dont les poids respectifs sont $\mathbf{W}_f$ et $\mathbf{W}_g$.
@@ -2302,7 +2261,7 @@ Enfin, il est intéressant d'observer qu'un paquet correspondant à une erreur d
 
 Un auto-encodeur modélise une application (encodeur $x \rightarrow z$) et l'application inverse (générateur $z \leadsto \hat x$).
 Cependant, il est difficile d'interpoler les valeurs de $z$ afin de générer des $\hat x$, car l'espace $z$ n'a pas de contrainte de continuité ; aussi $z$ est généralement discontinue.
-Récemment, l'auto-encodeur variationnel (\textit{Variational Auto-Encoder}) est proposé par \cite{kingma_autoencoding_2013, rezende_stochastic_2014}.
+Récemment, l'auto-encodeur variationnel (\textit{Variational Auto-Encoder}) est proposé par \citeauthor{kingma_autoencoding_2013, rezende_stochastic_2014} \cite{kingma_autoencoding_2013, rezende_stochastic_2014}.
 Il utilise une méthode d'inférence variationnelle.
 À la différence d'un auto-encodeur, un VAE modélise le générateur $g$ sous la forme d'une distribution de probabilité $p(x | z)$ sur les données.
 De même, l'encodeur $f$ sera une distribution $q(z | x)$.
@@ -2349,7 +2308,7 @@ Le bras robotique est néanmoins très peu présent dans $z$ en comparaison des 
 Les réseaux génératifs permettent de palier de manière intéressante au manque de variétés des échantillons dans les petits jeux de données.
 Cependant, les images générées sont souvent floues, ce qui est souvent dû à la fonction de coût, l'erreur moyenne entre $x$ et $\hat x$, utilisée lors de l'apprentissage.
 En effet, l'erreur moyenne ne permet pas la prise en compte dans $z$ des motifs complexes qui sont peu présents dans le jeu de données.
-Dernièrement, \cite{kingma_introduction_2019} propose une synthèse exhaustive des solutions à cette problématique : construire des modèles plus profonds, ajouter des contraintes plus pertinentes dans la fonction de coût, comme par exemple des tâches de classification auxiliaires, et mettre à jour de manière plus judicieuse les poids lors de l'apprentissage du modèle.
+Dernièrement, \citeauthor{kingma_introduction_2019} \cite{kingma_introduction_2019} propose une synthèse exhaustive des solutions à cette problématique : construire des modèles plus profonds, ajouter des contraintes plus pertinentes dans la fonction de coût, comme par exemple des tâches de classification auxiliaires, et mettre à jour de manière plus judicieuse les poids lors de l'apprentissage du modèle.
 Un autre type de modèle génératif propose également d'améliorer le réalisme des images générées.
 L'apprentissage n'est pas réalisé sur l'erreur entre $x$ et $\hat x$, mais de manière indirecte à partir de la valeur retournée par un second modèle.
 Ce principe permet d'améliorer le réalisme en prenant en compte des motifs complexes lors de la reconstruction.
@@ -2392,7 +2351,7 @@ Avec les ressources informatiques actuelles, une mise à jour journalière de ce
 % Nous proposons l'architecture suivante : split_coef doit être un diviseur de 1920 et un carré parfait : [1, 4, 16, 32, 64]
 
 \subsubsection{Réseaux antagonistes génératifs} \label{subsubsec:GAN}
-Proposés par \cite{goodfellow_generative_2014}, les réseaux antagonistes génératifs (\textit{Generative Adversarial Networks}) permettent de raffiner le modèle de l'espace latent.
+Proposés par \citeauthor{goodfellow_generative_2014} \cite{goodfellow_generative_2014}, les réseaux antagonistes génératifs (\textit{Generative Adversarial Networks}) permettent de raffiner le modèle de l'espace latent.
 En comparaison avec les auto-encodeurs, les images issues du générateur sont plus proches des images originales.
 Les \textit{GAN} s'appuient sur une association de deux modèles qui sont entrainés en concurrence : un générateur $g$ génère $\hat x = g(z)$ et un classifieur $d$ (appelé \textit{discriminateur}) calcule la probabilité $p$ que $\hat x$ appartienne au jeu de donnée réel, $p = d(x)$.
 L'objectif du générateur est de générer $\hat x$ tel que $\hat x \simeq x$, tandis que l'objectif du discriminateur est de distinguer les $\hat x$ générés par le générateur, des $x$ réels, issues du jeu de données initial.
@@ -2407,12 +2366,12 @@ g_{optimal}  = \min _{g} \max _{d} = \mathbb{E}_{\mathbf{x} \sim p_{\text { rée
 \end{equation}
 
 Le modèle \textit{GAN} fait partie des nombreux modèles proposés depuis les années 1990, qui s'appuient sur un apprentissage non-supervisé par affrontement de deux modèles qui s'opposent dans un jeu de minimisation-maximisation.
-\cite{schmidhuber_unsupervised_2019} propose une revue des travaux fondateurs sur le sujet.
+\citeauthor{schmidhuber_unsupervised_2019} propose une revue des travaux fondateurs sur le sujet \cite{schmidhuber_unsupervised_2019}.
 Le dynamisme actuel de la littérature sur les modèles de type \textit{GAN}, ainsi que la disponibilité des implémentations ouvertes par leurs auteurs, nous a permis d'évaluer ces modèles sur notre problématique.
 De nombreux modèles utilisant des idées proches restent à évaluer.
 Ils pourraient permettre d'obtenir de meilleures performances sur notre problématique d'analyse de la qualité.
 
-À la suite de la proposition originale, \cite{radford_unsupervised_2015} propose des règles pour adapter les \textit{GAN} à la reconstruction d'images : remplacer les couches de moyenne (\textit{pooling}, §\ref{parag:pooling}) par des convolutions de noyaux $1 \times 1$, utiliser la normalisation de lot \ref{parag:batchnorm}, ne pas utiliser de couches pleinement connectées, utiliser l'activation \textit{ReLU} \ref{subsubsec:activation} pour le générateur sauf pour la dernière couche \textit{tanh}, utiliser \textit{LeakyReLU} pour le discriminateur et enfin des règles de construction de l'architecture du réseau qu'ils nomment \textit{DCGAN}.
+À la suite de la proposition originale des \textit{GAN}, \citeauthor{radford_unsupervised_2015} \cite{radford_unsupervised_2015} proposent des règles pour adapter les \textit{GAN} à la reconstruction d'images : remplacer les couches de moyenne (\textit{pooling}, §\ref{parag:pooling}) par des convolutions de noyaux $1 \times 1$, utiliser la normalisation de lot \ref{parag:batchnorm}, ne pas utiliser de couches pleinement connectées, utiliser l'activation \textit{ReLU} \ref{subsubsec:activation} pour le générateur sauf pour la dernière couche \textit{tanh}, utiliser \textit{LeakyReLU} pour le discriminateur et enfin des règles de construction de l'architecture du réseau qu'ils nomment \textit{DCGAN}.
 Ce travail évalue ces règles avec comme objectif d'encoder des jeux de données d'images complexes dans un espace latent de dimensions 100.
 Enfin, le travail montre l'intérêt des \textit{GAN} pour réaliser une classification d'images de manière non-supervisée (pas d'annotation des données d'apprentissage).
 Il s'agit d'utiliser le générateur comme fonction d'extraction des valeurs pertinentes d'une image (espace latent), puis ensuite d'utiliser un classifieur \textit{SVM} \ref{parag:svm} sur ces dimensions de l'espace latent.
@@ -2420,7 +2379,8 @@ Les performances sont légèrement inférieures à celles obtenues par une appro
 Le \textit{GAN}, puisqu'il est entrainé pour reconstruire une image à partir des dimensions réduites de l'espace latent, permet également d'extraire l'information pertinente des images.
 Cette approche est particulièrement intéressante et nous chercherons à l'utiliser afin de répondre aux problèmes industriels où les jeux de données sont petits.
 
-Par la suite, \cite{salimans_improved_2016} complète les règles du modèle \textit{DCGAN} et \cite{odena_semisupervised_2016, salimans_improved_2016} proposent en parallèle de réaliser l'apprentissage de manière semi-supervisée.
+Par la suite, \citeauthor{salimans_improved_2016} \cite{salimans_improved_2016} complètent les règles du modèle \textit{DCGAN}.
+\citeauthor{odena_semisupervised_2016, salimans_improved_2016} \cite{odena_semisupervised_2016, salimans_improved_2016} proposent en parallèle de réaliser l'apprentissage de manière semi-supervisée.
 L'objectif est de créer un discriminateur qui soit également capable de répondre au problème de classification d'un jeu de données annotées.
 Il s'agit d'introduire dans le jeu de données annotées une nouvelle classe "image générée".
 Pour un jeu de données comportant $K$ classes, on obtient un jeu de données de $K+1$ classes.
@@ -2434,12 +2394,13 @@ L'intérêt est double : augmentation artificielle du jeu de données et robuste
 g_{optimal}  = \min _{g} \max _{d} = \mathbb{E}_{\mathbf{x} \sim p_{\text { réelle }}} \log d(\boldsymbol{x})+\mathbb{E}_{\boldsymbol{x} \sim p_{\text { générée }}} \log (1-d(\boldsymbol{x}))
 \end{equation}
 
-Par la suite, des améliorations importantes sont apportées à la méthode. \cite{arjovsky_wasserstein_2017} propose de modifier la fonction de coût du discriminateur qui évalue la qualité de la reconstruction en utilisant la distance de Wasserstein.
+Par la suite, des améliorations importantes sont apportées à la méthode.
+\citeauthor{arjovsky_wasserstein_2017} \cite{arjovsky_wasserstein_2017} proposent de modifier la fonction de coût du discriminateur qui évalue la qualité de la reconstruction en utilisant la distance de Wasserstein.
 \cite{gulrajani_improved_2017}, ainsi que la normalisation spectrale \cite{miyato_spectral_2018}.
 
 L'ensemble de la littérature évalue les performances de ces modèles sur la base de données \textit{ImageNet}.
-Dans notre cas, le nombre de classes est faible (deux classes : qualité bonne ou qualité mauvaise, voir au maximum une dizaine de classes par typologie de défauts).
-C'est pourquoi un réseau génératif simple est capable de réaliser une synthèse fidèle des images.
+En comparaison, dans notre cas d'application, le nombre de classes est très faible, de deux classes à une dizaine de classes : pour représenter une échelle qualité bonne — qualité mauvaise, ou pour représenter différentes typologies de défauts.
+C'est pourquoi un réseau génératif simple est capable de réaliser une synthèse fidèle des nos images.
 En revanche, sur une base de données qui comporte une grande variété de classes, comme \textit{ImageNet}, il apparait que les modèles génératifs ne permettent pas de modéliser les associations entre des éléments géométriques qui doivent nécessairement être présents dans les images d'une classe.
 Un exemple est celui de la représentation d'un chien, auquel la texture de pelage est bien appliquée par le modèle \textit{GAN}, mais qui ne possède pas quatre pattes attachées au corps.
 %https://lilianweng.github.io/lil-log/2018/06/24/attention-attention.html
@@ -2448,15 +2409,15 @@ Par exemple, l'opérateur de convolution ne peut pas associer la valeur du pixel
 De plus, lors de l'ajustement des poids par rétro-propagation du gradient, il n'y a pas de relation spatiale entre la valeur en sortie de convolution et les valeurs en entrées.
 Cette problématique est critique dans le domaine du traitement de textes et la traduction (\textit{Natural Language Processing}) : la sémantique d'une phrase dépend de la position des mots dans la phrase.
 % Also, Neural Turing Machines, by Alex Graves, Greg Wayne, Ivo Danihelka, Oct 2014, https://arxiv.org/abs/1410.5401
-C'est pourquoi le mécanisme d'\textit{attention} a été proposé par \cite{bahdanau_neural_2014} pour la traduction de texte, puis étendu à l'analyse d'images par des convolutions par \cite{xu_show_2015}.
-Par la suite, \cite{vaswani_attention_2017} propose l'architecture de couche \textit{transformer}, qui généralise la méthode en éliminant l'usage de réseaux récurrents.
+C'est pourquoi le mécanisme d'\textit{attention} a été proposé par \citeauthor{bahdanau_neural_2014} \cite{bahdanau_neural_2014} pour la traduction de texte, puis étendu à l'analyse d'images par un réseau de convolutions par \cite{xu_show_2015}.
+Par la suite, \citeauthor{vaswani_attention_2017} \cite{vaswani_attention_2017} propose l'architecture de couche \textit{transformer}, qui généralise la méthode en éliminant l'usage de réseaux récurrents.
 % http://www.peterbloem.nl/blog/transformers
 Ils montrent qu'un réseau constitué uniquement de couches d'\textit{attention} permet d'atteindre les performances de l'état de l'art en traduction de texte.
 L'\textit{attention} est depuis utilisée dans toutes les méthodes de l'état de l'art en traduction automatique.
 Une couche d'\textit{attention} pondère la valeur d'entrée par une distribution de probabilité, dont les paramètres sont appris, et qui dépend de la position spatiale de la valeur entrée.
 Cette démarche est similaire aux portes d'activations des réseaux \textit{LSTM}, ainsi qu'à l'architecture des \textit{Highway Networks}, §\ref{subsubsec:ResNet}, §\ref{eq:highway}.
 
-Dernièrement, \cite{zhang_selfattention_2018} propose le modèle \textit{SAGAN} (\textit{Self-Attention Generative Adversarial Networks}) qui associe l'utilisation de multiples méthodes et introduit l'utilisation du mécanisme d'\textit{attention}.
+Dernièrement, \citeauthor{zhang_selfattention_2018} \cite{zhang_selfattention_2018} propose le modèle \textit{SAGAN} (\textit{Self-Attention Generative Adversarial Networks}) qui associe l'utilisation de multiples méthodes et introduit l'utilisation du mécanisme d'\textit{attention}.
 Il s'agit pour la couche d'\textit{attention} de modéliser une relation de dépendance pour un pixel, entre tous les autres pixels.
 Il n'y a ainsi plus de restriction spatiale aux convolutions.
 
@@ -2539,7 +2500,7 @@ Certaines de ces optimisations peuvent prendre plusieurs jours, c'est pourquoi i
 \subsection{Optimisation par recherche aléatoire} \label{subsec:random_search}
 Afin de réaliser l'optimisation, il s'agit d'évaluer la performance de la méthode sur la plage de valeurs de chacun des hyper-paramètres.
 Il est possible d'évaluer l'ensemble de la plage de valeurs de manière exhaustive, par une grille d'essais régulière, ce qui est coûteux sur le plan du calcul.
-Une démarche plus économique est le tirage aléatoire sur la plage de valeurs, proposé par \cite{bergstra_random_2012}.
+Une démarche plus économique est le tirage aléatoire sur la plage de valeurs, proposée par \citeauthor{bergstra_random_2012} \cite{bergstra_random_2012}.
 
 \begin{figure}[hbtp]
     \centering
@@ -2557,8 +2518,8 @@ Des méthodes plus évoluées qui ont été proposées.
 % https://slideslive.com/38917537/towards-semiautomated-machine-learning
 % https://joaquinvanschoren.github.io/ML-course/slides_pdf/AutoML%20-%20Introduction.pdf
 
-En 2011, \cite{bergstra_algorithms_2011} réalise un état de l'art des méthodes d'optimisations d'hyper-paramètres, pour les modèles à réseaux de neurones profonds.
-Ce travail montre l'intérêt de l'optimisation itérative, basée sur le critère de la prédiction de l'amélioration de performance du modèle (\textit{Expected Improvement}, proposée par \cite{jones_taxonomy_2001}).
+En 2011, \citeauthor{bergstra_algorithms_2011} \cite{bergstra_algorithms_2011} réalisent un état de l'art des méthodes d'optimisations d'hyper-paramètres, pour les modèles à réseaux de neurones profonds.
+Ce travail montre l'intérêt de l'optimisation itérative, basée sur le critère de la prédiction de l'amélioration de performance du modèle (\textit{Expected Improvement}, proposée par \citeauthor{jones_taxonomy_2001} \cite{jones_taxonomy_2001}).
 L'étude introduit deux méthodes d'optimisation.
 Une méthode cherche à modéliser le problème d'optimisation par des processus stochastiques gaussiens et la seconde méthode \textit{TPE} propose une modélisation par noyaux, §\ref{subsubsec:tpe_opt}.
 Ces méthodes s'appuient sur la construction de méta-modèles.
@@ -2570,12 +2531,12 @@ Il s'agit de méthodes permettant d'ordonner la réalisation d'essais expérimen
 L'objectif est de limiter le nombre d'essais à réaliser.
 Il est également possible d'associer la complexité (ou le degré polynomial) du modèle, avec le nombre d'essais pouvant être réalisé.
 Un petit nombre d'essais permettra de construire un modèle linéaire, tandis qu'un plus grand nombre d'essais pourrait permettre de réaliser un modèle quadratique.
-En 1935, \cite{fisher_design_1974} propose un ouvrage de référence sur le sujet de la construction et de l'analyse des plans d'expériences.
+En 1935, \citeauthor{fisher_design_1974} \cite{fisher_design_1974} propose un ouvrage de référence sur le sujet de la construction et de l'analyse des plans d'expériences.
 Nous ne discuterons pas des critères d'optimalité des plans que nous présentons. Nous invitons le lecteur à se référer à cet ouvrage pour étudier cette notion importante pour la construction de plans utilisables.
 La Figure \ref{fig:doe} représente l'espace de la valeur de trois variables comme un cube.
 Les valeurs des trois niveaux des variables, obtenues pour différents plans d'expériences, sont représentées par les cercles.
 
-\begin{figure}[hbtp]
+\begin{figure}[htbp]
     \tikzset{
         vertex/.style={
             circle, minimum size=20pt, inner sep=0pt, fill=gray},
@@ -2716,16 +2677,16 @@ Ce modèle est complété en réalisant des essais pour les valeurs médianes de
 Enfin, on réalise des essais où chaque variable est ajustée indépendamment des autres (\textit{essais axiaux}).
 Un coefficient $\alpha$ définit la valeur de la variation de la variable par rapport à l'essai au centre.
 Pour un nombre $n$ de variables à étudier, on choisit généralement $\alpha = \sqrt{n}$.
-D'autres méthodes de choix de $\alpha$ sont possibles et nous invitons le lecteur à consulter un ouvrage de référence sur la théorie des plans de surfaces de réponses tel que \cite{myers_response_1971}.
+D'autres méthodes de choix de $\alpha$ sont possibles et nous invitons le lecteur à consulter un ouvrage de référence sur la théorie des plans de surfaces de réponses tel que \citetitle{myers_response_1971} \cite{myers_response_1971}.
 Le \textit{plan central-composite} réduit le nombre d'essais à réaliser en comparaison du \textit{plan factoriel}.
 Le plan de \textit{Box-Behnken} propose de réduire le nombre d'essais en n'utilisant pas un plan factoriel comme plan de référence.
 % Box-Behnken designs usually have fewer design points than central composite designs, thus, they are less expensive to run with the same number of factors. They can efficiently estimate the first- and second-order coefficients; however, they can't include runs from a factorial experiment. Box-Behnken designs always have 3 levels per factor, unlike central composite designs which can have up to 5. Also unlike central composite designs, Box-Behnken designs never include runs where all factors are at their extreme setting, such as all of the low settings.
-Les plans de Plackett-Burman \cite{plackett_design_1946} proposent de réduire le nombre d'essais pour une étude à deux niveaux, dans le cas où le nombre d'essais est un multiple de 4 ($N=12, N=20, N=24 \dots$).
+Les plans de \citeauthor{plackett_design_1946} \cite{plackett_design_1946} proposent de réduire le nombre d'essais pour une étude à deux niveaux, dans le cas où le nombre d'essais est un multiple de 4 ($N=12, N=20, N=24 \dots$).
 Ces plans sont idéaux pour réaliser une étude de nombreuses variables en peu d'essais et construire un modèle linéaire.
 
 \paragraph{Plan hypercube latin}\mbox{\label{parag:doe_lhs}} \\
 L'objectif de ce plan est de couvrir la plage de valeurs des variables de manière quasi-aléatoire.
-La méthode de construction de ce plan a été proposée par \cite{mckay_comparison_1979}. % Eglājs in 1977
+La méthode de construction de ce plan a été proposée par \citeauthor{mckay_comparison_1979} \cite{mckay_comparison_1979}. % Eglājs in 1977
 
 Soit une grille à deux dimensions qui représente les valeurs de deux variables que l'on étudie.
 On positionne sur cette grille des essais.
@@ -2737,7 +2698,7 @@ Cette méthode garantit que les essais soient réalisés sur l'ensemble de la va
 Les plans d'hypercubes latins sont les plus utilisés dans la littérature de l'optimisation d'hyper-paramètres.
 
 Il est également possible d'utiliser une séquence quasi-aléatoire pour réaliser le choix des essais.
-La séquence de Sobol (\cite{sobol_distribution_1967}) est la plus utilisée dans la littérature.
+La séquence de \citeauthor{sobol_distribution_1967} \cite{sobol_distribution_1967} est la plus utilisée dans la littérature.
 Lorsque le nombre de variables est inférieur à $100$, il permet une répartition plus intéressante que l'hypothèse des hypercubes latins.
 % A Sobol sequence is a low discrepancy quasi-random sequence. Sobol sequences were designed to cover the unit hypercube with lower discrepancy than completely random sampling (e.g. Random Search). Optunity supports Sobol sequences in up to 40 dimensions (e.g. 40 hyperparameters).
 % The figures below show the differences between a Sobol sequence and sampling uniformly at random. These figures can be recreated using the code in bin/examples/python/sobol_vs_random.py.
@@ -2788,7 +2749,7 @@ L'Équation \ref{eq:hp_optimization} présente ce problème dans le cas où la s
 \boldsymbol{x}_{\star} \in \underset{\boldsymbol{x} \in \mathcal{X}}{\arg \min } f(\boldsymbol{x})
 \end{equation}
 
-$f$ est approximée par un méta-modèle $\mathcal{M}$, sous la forme de procédés gaussiens \cite{matheron_principles_1963} (cette démarche est aussi appelée \textit{krigeage} \cite{krige_statistical_1951}), qui permet de prendre en compte l'incertitude sur les futures évaluations de $m$, Équation \ref{eq:hp_gp}.
+$f$ est approximée par un méta-modèle $\mathcal{M}$, sous la forme de procédés gaussiens\footnote{La théorie des procédés gaussiens a été développée par \citeauthor{matheron_principles_1963} \cite{matheron_principles_1963}. Cette démarche est aussi appelée \textit{krigeage}, d'après les travaux originaux de \citeauthor{krige_statistical_1951} \cite{krige_statistical_1951}.}, qui permet de prendre en compte l'incertitude sur les futures évaluations de $m$, Équation \ref{eq:hp_gp}.
 \begin{equation} \label{eq:hp_gp}
 y = f(\boldsymbol{x}) \sim \mathcal{M}\left(\mu(\boldsymbol{x}), k\left(\boldsymbol{x}, \boldsymbol{x}^{\prime}\right)\right)
 \end{equation}
@@ -2806,14 +2767,13 @@ Il est également nécessaire de choisir judicieusement les points d'évaluation
 Il n'est pas judicieux de choisir $\boldsymbol{x}_{n+1} = \mu{x_{n}}$ dans le cas où des minima locaux existeraient.
 Le dilemme de l'optimisation itérative apparait : c'est le choix entre l'\textit{exploration} de $f$ pour construire un modèle $\mathcal{M}$ pertinent qui représente tous les minimas (dont le minimum de $f$), et l'\textit{exploitation} des valeurs de $y = f(\boldsymbol{x}_{n+1})$ qui permet d'atteindre le minimum $y_{\star}$ et trouver $\boldsymbol{x}^{\star}$.
 Dans le cas de l'optimisation bayésienne, l'\textit{exploration} cherche à choisir un point qui diminuera les régions où l'incertitude du modèle est grande.
-C'est pourquoi \cite{jones_efficient_1998} propose le critère de la prédiction de l'amélioration de performance prédite (\textit{Expected Improvement}), Équation \ref{eq:ei}.
-
- Lors de la prochaine évaluation de $f$, les valeurs $\boldsymbol{x}_{n+1}$ seront choisies pour maximiser ce critère.
+C'est pourquoi \citeauthor{jones_efficient_1998} \cite{jones_efficient_1998} proposent le critère de la prédiction de l'amélioration de performance prédite (\textit{Expected Improvement}), Équation \ref{eq:ei}.
 
 \begin{equation} \label{eq:ei}
 {EI}_{p(f | D)}\left[\max \left(y_{\star}-f(\boldsymbol{x}), 0\right)\right]
 \end{equation}
 
+Lors de la prochaine évaluation de $f$, les valeurs $\boldsymbol{x}_{n+1}$ seront choisies pour maximiser ce critère.
 Cela permet de choisir les valeurs des hyper-paramètres optimales pour l'évaluation suivante de $f$.
 D'autres critères, que nous ne pouvons détailler ici, existent.
 Ils sont étudiés en réponse aux problèmes de bandits à N bras.
@@ -2823,10 +2783,10 @@ Ils sont étudiés en réponse aux problèmes de bandits à N bras.
 
 \subsubsection{Forêts d'Arbres décisionnels} \label{subsubsec:rf_opt}
 % Random Forests [Hutter et al. 2011, Feurer et al. 2015]
-La méthode \textit{SMAC} (\textit{Sequential Model-Based Algorithm Configuration}) est proposée par \cite{hutter_sequential_2011}.
+La méthode \textit{SMAC} (\textit{Sequential Model-Based Algorithm Configuration}) est proposée par \citeauthor{hutter_sequential_2011} \cite{hutter_sequential_2011}.
 La démarche est identique à la modélisation gaussienne, mais elle utilise ici des Forêts d'Arbres décisionnels (§\ref{parag:random_forests}).
 La sélection des premiers essais à réaliser peut être effectuée à partir des plans d'expériences, §\ref{subsec:doe}.
-Un plan hypercube latin ou une séquence de Sobol §\ref{parag:doe_lhs} est généralement utilisé.
+Un plan hypercube latin ou une séquence de \citeauthor{sobol_distribution_1967} §\ref{parag:doe_lhs} est généralement utilisé.
 % F. Hutter. Automated Configuration of Algorithms for Solving Hard Computational Problems. PhD thesis, University of British Columbia, 2009.
 % SMAC3:sequential model-based algorithm configuration
 % - Factorial
@@ -2840,16 +2800,16 @@ Un plan hypercube latin ou une séquence de Sobol §\ref{parag:doe_lhs} est gén
 La librairie \textit{auto-sklearn} \cite{feurer_efficient_2015} utilise également les Forêts d'arbres décisionnels.
 % https://www.kdnuggets.com/2016/10/interview-auto-sklearn-automated-data-science-machine-learning-team.html
 % Combined Algorithm Selection and Hyperparameter optimization (CASH):
-Elle utilise la majorité des algorithmes de la librairie \textit{Scikit-Learn} \cite{pedregosa_scikit-learn_2011}.
+Cette librairie utilise la majorité des algorithmes de la librairie \textit{Scikit-Learn} \cite{pedregosa_scikit-learn_2011}, afin de construire automatiquement le modèle optimal.
 Cela représente la possibilité d'utiliser 15 classifieurs et 14 méthodes de prétraitement des données, ce qui introduit un nombre conséquent de 110 hyper-paramètres.
 Cet algorithme utilise un méta-modèle préalablement appris sur un grand nombre de jeux de données, afin de sélectionner les valeurs des hyper-paramètres initiaux.
-Cette démarche a été proposée par \cite{feurer_initializing_2015}.
+Cette démarche a été proposée par \citeauthor{feurer_initializing_2015} \cite{feurer_initializing_2015}.
 À la manière d'un expert humain qui a appris à prioriser certains algorithmes en fonction du jeu de données auquel il fait face, un méta-modèle est construit sur 140 jeux de données.
 Ce méta-modèle permet de sélectionner les hyper-paramètres initiaux en fonction du jeu de données en présence.
 Ce travail montre la pertinence du méta-modèle pour la sélection des essais initiaux, en comparaison d'une sélection basée, par exemple, sur un plan latin hypercube §\ref{parag:doe_lhs}.
-Enfin, \textit{auto-sklearn} propose de construire un modèle qui agrège plusieurs méthodes différentes en fonction de leurs performances de manière ensembliste §\ref{parag:bagging}.
+Enfin, \textit{auto-sklearn} propose de construire un modèle qui agrège plusieurs méthodes différentes en fonction de leurs performances, dans une démarche ensembliste §\ref{parag:bagging}.
 
-La Figure \ref{fig:autosk_result} montre le résultat de l'exploration des multiples classifieurs.
+La Figure \ref{fig:autosk_result} montre le résultat de l'exploration des multiples classifieurs par \textit{auto-sklearn}.
 Le classifieur le plus performant est ici le \textit{Stochastic Gradient Boosting} §\ref{parag:boosting}, à contrario d'une durée d'apprentissage importante.
 
 \begin{figure}[hbtp]
@@ -2861,8 +2821,7 @@ Le classifieur le plus performant est ici le \textit{Stochastic Gradient Boostin
 
 
 \subsubsection{Estimateur par noyaux structuré en arbre} \label{subsubsec:tpe_opt}
-La libraire \textit{hyperopt} \cite{bergstra_making_2013} (\textit{HYPER-parameter OPTimization}) implémente la recherche aléatoire §\ref{subsec:random_search} et l'algorithme \textit{TPE} (\textit{Tree-structured Parzen Estimator}) \cite{bergstra_algorithms_2011} qui réalise une approximation de la fonction $f$ par densité de noyaux (\textit{kernel density estimator}, aussi appelée méthode de Parzen-Rosenblatt).
-% initiée par Rosenblatt en 1956 et développée par Parzen en 1962
+La libraire \textit{hyperopt} \cite{bergstra_making_2013} (\textit{HYPER-parameter OPTimization}) implémente la recherche aléatoire §\ref{subsec:random_search} et l'algorithme \textit{TPE} (\textit{Tree-structured Parzen Estimator}) \cite{bergstra_algorithms_2011} qui réalise une approximation de la fonction $f$ par estimation par noyau \footnote{L'estimation par noyau (\textit{kernel density estimator}) est aussi appelée méthode de Parzen-Rosenblatt, car elle a été initiée par Rosenblatt en 1956 et développée par Parzen en 1962.}.
 % Parzen E. (1962). On estimation of a probability density function and mode, Ann. Math. Stat. 33, pp. 1065-1076
 % http://jaberg.github.io/hyperopt/
 % https://optunity.readthedocs.io/en/latest/index.html
@@ -2894,7 +2853,7 @@ C'est pourquoi des démarches ont récemment été proposées.
 % I We often have access to cheap-to-evaluate approximations ˜f(·, b) of the true objective functionf(·), so called fidelities.
 
 \subsubsection{Évaluations partielles des configurations dans une durée limitée} \label{subsubsec:successive_halving}
-Dans le cadre des algorithmes bandits, \cite{jamieson_nonstochastic_2015} propose la méthode \textit{Successive Halving} qui permet de réduire le coût de l'optimisation de $f$.
+Dans le cadre des algorithmes bandits, \citeauthor{jamieson_nonstochastic_2015} \cite{jamieson_nonstochastic_2015} propose la méthode \textit{Successive Halving} qui permet de réduire le coût de l'optimisation de $f$.
 Il s'agit d'évaluer uniquement les configurations d'hyper-paramètres qui présentent un apprentissage de $f$ rapide.
 Dans cet objectif, plusieurs évaluations de $f$ sont lancées en parallèle.
 Une durée maximale $b$ pour les évaluations est définie.
@@ -2908,7 +2867,7 @@ Cette méthode s'appuie sur l'hypothèse que le meilleur modèle $f$ aura une vi
 La limite de cette méthode est qu'il y a un risque de ne pas explorer des configurations d'hyper-paramètres qui donneraient de meilleures performances, mais qui sont plus lentes que de mauvaises configurations.
 C'est une hypothèse forte qui a été vérifiée dans ce travail sur des bases de données d'apprentissages conséquentes.
 
-\begin{figure}
+\begin{figure}[tbp]
     \centering
     \begin{subfigure}{.475\textwidth}
         \centering
@@ -2943,14 +2902,14 @@ L'augmentation de $b$ permet d'augmenter les performances du modèle.
 % Smaller learning rates often go hand in hand with more resources, more trees in case of (extreme) gradient boosting or more epochs for neural networks.
 % How can we tune such a choice? HyperBand proposes a solution, but this one is for next time!
 
-L'utilisation de l'arrêt prématuré §\ref{parag:early_stopping} pendant l'apprentissage de chaque modèle $f$ est également proposée par \cite{domhan_speeding_2015}.
+L'utilisation de l'arrêt prématuré §\ref{parag:early_stopping} pendant l'apprentissage de chaque modèle $f$ est également proposée par \citeauthor{domhan_speeding_2015} \cite{domhan_speeding_2015}.
 Ce travail introduit l'utilisation d'un modèle prédictif de l'évolution de l'erreur d'apprentissage.
 Pour cela, pendant l'apprentissage de $f$, un modèle bayésien (méthode Monte-Carlo par chaînes de Markov) est construit pour prédire l'évolution future de l'erreur d'apprentissage.
 Si l'évolution est défavorable, l'apprentissage est stoppé avant la fin du nombre d'itérations prédéfinies.
 Dans le cas d'une utilisation de cette méthode pour l'optimisation des hyper-paramètres de réseaux de neurones profonds, les auteurs évaluent le gain à un facteur deux.
 
 \subsubsection{Évaluation de $f$ sur un sous-ensemble des données} \label{subsec:subsampling}
-\cite{klein_fast_2016} propose d'évaluer $f$ sur une partition réduite du jeu de données, (cette méthode est appelée \textit{Fabolas}).
+\citeauthor{klein_fast_2016} \cite{klein_fast_2016} propose d'évaluer $f$ sur une partition réduite du jeu de données, (cette méthode est prénommée \textit{Fabolas}).
 La dimension du sous-ensemble du jeu de données est progressivement augmentée au fur et à mesure que des configurations d'hyper-paramètres satisfaisantes sont trouvées.
 La vitesse de l'optimisation est augmentée d'un facteur 10 en comparaison d'une optimisation bayésienne ou de la méthode \textit{Hyperband} §\ref{subsec:bandit}.
 Associée à l'évaluation partielle par arrêt prématuré, cette méthode est très efficace pour limiter le coût de l'évaluation.
@@ -2959,10 +2918,11 @@ Associée à l'évaluation partielle par arrêt prématuré, cette méthode est 
 % https://medium.com/criteo-labs/hyper-parameter-optimization-algorithms-2fe447525903
 % https://maelfabien.github.io/machinelearning/HyperOpt/
 Les méthodes bandits à N bras consistent en l'évaluation massivement parallèle de multiples modèles, et en la sélection des meilleurs, à chaque itération.
-La méthode \textit{Hyperband} est proposée par \cite{li_hyperband_2016}.
+La méthode \textit{Hyperband} est proposée par \citeauthor{li_hyperband_2016} \cite{li_hyperband_2016}.
 Elle utilise la démarche d'arrêt prématuré de l'apprentissage §\ref{subsubsec:successive_halving}.
 % https://openreview.net/forum?id=ry18Ww5ee
-L'étude démontre que dans le cas où l'espace des hyper-paramètres est organisé de la pire des façons pour l'algorithme, cela amènera à un coût d'optimisation 5 fois plus grand qu'avec une recherche aléatoire, §\ref{subsec:random_search}, et un coût 10 fois moins grand dans le meilleur cas.
+L'étude des auteurs démontre que, dans le cas où l'espace des hyper-paramètres est organisé de la pire des façons pour l'algorithme, la recherche d'une solution optimale amènera à un coût d'optimisation 5 fois plus grand qu'avec une recherche aléatoire §\ref{subsec:random_search}.
+À contrarior, dans le cas où l'espace des hyper-paramètres est organisé dans le meilleur cas, la méthode à un coût 10 fois moins grand qu'une recherche aléatoire.
 La méthode utilise également l'apprentissage progressif sur des sous-ensembles des données §\ref{subsec:subsampling}.
 Les auteurs concluent sur la possibilité d'utiliser les plans d'expériences §\ref{subsec:doe} pour sélectionner les configurations d'hyper-paramètres à évaluer en premier.
 % from BOHB:
@@ -2971,7 +2931,7 @@ Les auteurs concluent sur la possibilité d'utiliser les plans d'expériences §
 % In practice HB performs very well for small to medium budgets and typically outperforms random search and vanilla BO quite easily in that setting. However, its convergence is limited by its reliance on randomly-drawn configurations: with larger budgets its advantage over random search diminishes. An example of this is given in the plot below.
 %
 
-Récemment, la méthode \textit{BOHB} (\textit{Bayesian Optimization and HyperBand}) a été proposée par \cite{falkner_combining_2017, falkner_bohb_2018}.
+Récemment, la méthode \textit{BOHB} (\textit{Bayesian Optimization and HyperBand}) a été proposée par \citeauthor{falkner_combining_2017} \cite{falkner_combining_2017, falkner_bohb_2018}.
 % http://ais.informatik.uni-freiburg.de/teaching/ws18/deep_learning_lab/presentation_automl.pdf
 % Combining Hyperband with Bayesian Optimization [Falkner et al., 2017]
 % https://www.automl.org/blog_bohb/
@@ -3003,14 +2963,14 @@ La sélection des configurations à évaluer est plus pertinente, ce qui permet 
 % • Optimize the structure and hyperparameters simultaneously by building a surrogate model to predict confguration performance
 % • Bayesian surrogate model: MOSAIC [Rakotoarison et al. 2019]
 
-Afin d'observer l'influence des différents hyper-paramètres sur la performance du modèle, nous réalisons une analyse de la variance des hyper-paramètres pour $f$ (\textit{ANAVAR}/\textit{ANOVA}), en utilisant la librairie \cite{hutter_efficient_2014}.
+Afin d'observer l'influence des différents hyper-paramètres sur la performance du modèle, nous réalisons une analyse de la variance des hyper-paramètres pour $f$ (\textit{ANAVAR}/\textit{ANOVA}), en utilisant la librairie \citeauthor{hutter_efficient_2014} \cite{hutter_efficient_2014}.
 Lorsque le nombre d'évaluations du modèle est assez grand ($> 100$), cela permet de rendre compte des interactions possibles entre les hyper-paramètres.
 La Figure \ref{fig:fanova} présente les résultats pour deux couples d'hyper-paramètres (\textit{beta} est ici un terme de pénalisation des poids §\ref{parag:weights_decay}).
 On observe que les surfaces de réponses sont complexes.
-De plus, le nombre d'hyper-paramètres présent est ici de 38 et d'autres interactions existent.
+De plus, le nombre d'hyper-paramètres présent est ici de 38 et des interactions existent entre les hyper-paramètres.
 C'est pourquoi un expert humain aurait eu des difficultés à réaliser cette optimisation manuellement, dans un espace continu de dimensions 38.
 
-\begin{figure}
+\begin{figure}[tbp]
     \centering
     \begin{subfigure}{.49\textwidth}
         \centering
@@ -3026,11 +2986,10 @@ C'est pourquoi un expert humain aurait eu des difficultés à réaliser cette op
     \label{fig:fanova}
 \end{figure}
 
-
-\subsection{Optimisation par algorithmes évolutionnistes}
+\subsection{Optimisation par algorithmes évolutionnistes} \label{subsec:evolution}
 % http://automl.info/tpot/
-Proposée en 2016 dans \cite{olson_evaluation_2016, olson_automating_2016}, \textit{TPOT} (\textit{Tree-Based Pipeline Optimization Tool}) s'appuie sur un algorithme génétique pour explorer les configurations d'hyper-paramètres et sur une Forêt d'Arbres décisionnels §\ref{parag:random_forests} pour optimiser le meilleur modèle.
-%https://rstudio-pubs-static.s3.amazonaws.com/423824_f67e5db15f6e4e59bcf284208e441cfd.html
+Proposée en 2016 dans \citeauthor{olson_evaluation_2016, olson_automating_2016} \cite{olson_evaluation_2016, olson_automating_2016}, \textit{TPOT} (\textit{Tree-Based Pipeline Optimization Tool}) s'appuie sur un algorithme génétique pour explorer les configurations d'hyper-paramètres et sur une Forêt d'Arbres décisionnels §\ref{parag:random_forests} pour optimiser le meilleur modèle.
+% https://rstudio-pubs-static.s3.amazonaws.com/423824_f67e5db15f6e4e59bcf284208e441cfd.html
 % Tree-based pipeline optimization
 % • Start with random pipelines, best of every generation will cross-over or mutate
 % • GP primitives include data copy and feature joins: trees
@@ -3038,13 +2997,13 @@ Proposée en 2016 dans \cite{olson_evaluation_2016, olson_automating_2016}, \tex
 % • Easy to parallelize
 % • Asynchronous evolution (GAMA)
 % copy, change, insert, shrink
-%
-Nous avons appliqué cette méthode dans \cite{nagorny_polarimetric_2019} sur notre problématique de l'apprentissage supervisé d'un modèle pour le contrôle de la qualité.
+
+Nous avons appliqué cette méthode dans \citetitle{nagorny_polarimetric_2019} \cite{nagorny_polarimetric_2019}, sur notre problématique de l'apprentissage supervisé d'un modèle pour le contrôle de la qualité.
 Sur des images de dimensions $331 \times 331$ pixels, l'évaluation de 300 modèles $f$ est effectuée en 14 heures.
 Le gain de performances suite à l'optimisation des hyper-paramètres est de 2\%.
 L'algorithme a trouvé le meilleur modèle possible en une demi-journée.
-Un expert humain n'aurait certainement pas réussi à en faire autant aux vues du nombre de modèles différents évalués.
-Malgré la durée qui est importante, \textit{TPOT} permet de remplacer une demi-journée d'expertise d'un ingénieur en sciences des données.
+Un expert humain n'aurait certainement pas réussi à trouver le meilleur modèle en si peu de temps.
+Malgré la durée qui est importante, \textit{TPOT} permet de remplacer plusieurs journées d'expertise d'un ingénieur en sciences des données.
 
 %% Dernièrement, l'algorithme GAMA: Gijsbers, Vanschoren 2019
 %
@@ -3058,41 +3017,46 @@ Malgré la durée qui est importante, \textit{TPOT} permet de remplacer une demi
 Afin qu'un modèle à réseaux de neurones profonds soit fonctionnel, son architecture doit être optimisée.
 Il est nécessaire d'effectuer une recherche de différentes architectures.
 Deux solutions apparaissent : une étude bibliographique des meilleurs modèles proposés sur le problème (aussi appelée \textit{Grad-Student Descent}), ou l'automatisation du processus de recherche (aussi appelée \textit{Neural Architecture Search}), que nous présentons dans la suite.
-Le coût de la recherche et de l'optimisation de ces modèles est très important.
-C'est pourquoi il est nécessaire de disposer de ressources de calculs conséquentes.
-Dans le cas où ces ressources ne sont pas disponibles, on préférera utiliser un apprentissage par transfert de domaine §\ref{subsec:transfer_learning}.
+Le coût de la recherche et de l'optimisation de ces modèles est très important, à cause de l'infinité d'architecture possibles et des nombreux hyper-paramètres.
+C'est pourquoi, il est nécessaire de disposer de ressources de calculs conséquentes.
+Dans le cas où ces ressources ne sont pas disponibles, on préférera utiliser un démarche d'apprentissage par transfert de domaine §\ref{subsec:transfer_learning}.
 
-\cite{zoph_neural_2016} propose de réaliser un apprentissage automatique de l'architecture de réseaux profonds.
+\citeauthor{zoph_neural_2016} \cite{zoph_neural_2016} propose de réaliser un apprentissage automatique de l'architecture de réseaux profonds : c'est le \textit{Neural Architecture Search}.
 % This paper addresses the scalability challenge of architecture search by formulating the task in a differentiable manner. Unlike conventional approaches of applying evolution or reinforcement learning over a discrete and non-differentiable search space, our method is based on the continuous relaxation of the architecture representation, allowing efficient search of the architecture using gradient descent. Extensive experiments on CIFAR-10, ImageNet, Penn Treebank and WikiText-2 show that our algorithm excels in discovering high-performance convolutional architectures for image classification and recurrent architectures for language modeling, while being orders of magnitude faster than state-of-the-art non-differentiable techniques.
 La méthode permet de proposer l'architecture \textit{NASNet} \cite{zoph_learning_2017} qui établit un nouvel état de l'art en matière de performance de classification sur les jeux de données \textit{ImageNet} et \textit{CIFAR-10} \cite{krizhevsky2009learning}.
-Nous avons utilisé la librairie \textit{Auto-Keras} \cite{jin_autokeras_2018} dans \cite{nagorny_polarimetric_2019} sur notre problématique.
-Cette méthode propose d'utiliser des architectures de la littérature comme solutions initiales, puis de les modifier progressivement, en utilisant les principes de \cite{zoph_neural_2016}.
-Un méta-modèle bayésien §\ref{subsec:bayesian_opt} est construit pour parcourir et optimiser les hyper-paramètres associés.
-L'architecture du modèle est contrainte à la dimension de la mémoire du processeur graphique sur lequel le modèle est stocké.
-Dans le cas de notre expérimentation, les 11 Giga octets de notre processeur graphique était limitant.
-Il n'a pas été possible d'obtenir de meilleures performances suite à l'optimisation.
 
-La recherche d'architecture de réseaux de neurones possède de grands enjeux car il est difficile pour les humains d'inventer des architectures plus performantes, aux vues de leurs complexités grandissantes.
+Nous avons étudié l'intérêt de cette démarche d'optimisation de l'architecture d'un réseau de neurones.
+Dans notre étude \cite{nagorny_polarimetric_2019}, nous avons utilisé la librairie \textit{Auto-Keras} \cite{jin_autokeras_2018} sur notre problématique.
+Cette méthode propose d'utiliser des architectures de la littérature comme solutions initiales, puis de les modifier progressivement, en utilisant les principes de \textit{Neural Architecture Search} \cite{zoph_neural_2016}.
+Un méta-modèle bayésien §\ref{subsec:bayesian_opt} est construit pour parcourir et optimiser les hyper-paramètres associés au réseau.
+Les modèles à réseaux de neurones profonds nécessitent d'être optimisé sur processeur graphique.
+Aussi, l'architecture du modèle est contrainte à la dimension de la mémoire de travail du processeur graphique sur lequel le modèle est stocké.
+Dans le cas de notre expérimentation, les 11 Giga octets de notre processeur graphique était limitant.
+Il n'a pas été possible d'obtenir de meilleures performances que celles obtenues par une optimisation manuelle du réseau.
+
+La recherche d'architecture de réseaux de neurones possède de grands enjeux, car il est difficile pour les humains d'inventer des architectures plus performantes, aux vues de leurs complexités grandissantes.
 Dernièrement, \cite{elsken_neural_2018} propose un état de l'art exhaustif de la littérature \textit{AutoML}.
 Les dernières avancées s'appuient sur l'apprentissage par renforcement pour proposer une recherche d'architecture efficiente.
-
+C'est une perspective de recherche importante pour la modélisation par apprentissage.
 
 \subsection{Conclusion : AutoML pour l'industrie}
+% Robustesse : ablation study 
 L'utilisation de solutions d'optimisation automatique de modèles rejoint une double question économique.
 Est-il avantageux d'optimiser le modèle pour le procédé industriel ? C'est à dire d'augmenter les performances, par exemple dans le cadre du contrôle de la qualité.
 De même, est-il plus coûteux d'optimiser manuellement les hyper-paramètres d'un modèle, ou d'investir dans la puissance de calcul nécessaire à l'automatisation ?
 Il est aujourd'hui plus avantageux d'utiliser les méthodes \textit{AutoML}.
 
 % https://github.com/openml/automlbenchmark/blob/master/docs/results.md
-Dernièrement, \cite{gijsbers_open_2019} réalise une comparaison de 4 méthodes sur 39 jeux de données.
-Ils montrent que sur certaines tâches, l'optimisation n'apporte pas nécessairement de gain en comparaison d'un classifieur à Arbres de Forêts décisionnels.
-De plus, les méthode \textit{auto-sklearn} et \textit{TPOT} obtiennent des performances similaires dans la majorité des cas.
+Dernièrement, \citeauthor{gijsbers_open_2019} \cite{gijsbers_open_2019} réalise une comparaison de 4 méthodes sur 39 jeux de données.
+Ils montrent que sur certaines tâches, l'optimisation n'apporte pas nécessairement de gain, en comparaison d'un classifieur à Arbres de Forêts décisionnels.
+Les méthodes \textit{auto-sklearn} et \textit{TPOT} obtiennent des performances similaires dans la majorité des cas.
+Dans de nombreux cas d'applications, il n'est pas nécessaire d'utiliser un modèle compliqué.
 
 Notre problématique industrielle impose des contraintes en matière de puissance de calcul disponible.
 C'est pourquoi dans notre cadre, l'optimisation de modèles complexes, tels que les réseaux de neurones profonds, peut être effectuée à une fréquence hebdomadaire.
-Le coût d'une optimisation journalière est encore trop conséquent pour être envisagé pour l'industrie de la plasturgie.
-Sur des domaines techniques à fortes valeurs ajoutées, le modèle doit avoir les meilleures performances.
-Il est alors envisageable d'investir dans de plus grandes infrastructures de calculs afin d'envisager une optimisation journalière.
+Le coût d'une optimisation journalière est encore trop conséquent pour être envisagé pour l'industrie.
+En revanche, sur des cas d'applications à fortes valeurs ajoutées, le modèle doit avoir les meilleures performances possible.
+Il est alors envisageable d'investir dans de plus grandes infrastructures de calculs, afin de réaliser une optimisation journalière des modèles.
 
 % Reinforcement Learning
 % Meta-RL https://lilianweng.github.io/lil-log/2019/06/23/meta-reinforcement-learning.html
@@ -3117,7 +3081,7 @@ C'est l'apprentissage des modèles et leurs mises à jour, qui sont coûteux.
 
 % TODO: Compare methods : embeddable/on-cloud, cost of computing, model update with respect to industrial process time
 % https://ai.stackexchange.com/questions/5728/what-is-the-time-complexity-for-training-a-neural-network-using-back-propagation
-\begin{table}[h]
+\begin{table}[tbp]
     \centering
     \arrayrulecolor{black}\begin{tabular}{|l|l|l|l|l|l|l|}
         \arrayrulecolor{black}
@@ -3129,7 +3093,7 @@ C'est l'apprentissage des modèles et leurs mises à jour, qui sont coûteux.
         Réseaux de convolutions & $\bigO(N \ T \ W)$, $T$ nb. itérations, $W$ dim. des poids & §\ref{subsubsec:deep_learning}\\
         \hhline{=:=:=:} %\hline
         Analyse en Composantes Principales & $\bigO(N)$          & §\ref{subsubsec:ACP}\\ \hline
-        ACP à noyau                        & $\bigO(N^3)$        & §\ref{subsubsec:kpca}\\ \hline
+        ACP à noyau                        & $\bigO(N^3)$        & §\ref{subsubsec:kpca}\\
         \hhline{=:=:=:}
         k-moyennes                         & $\bigO(N \log(N))$  & §\ref{subsubsec:kmeans} \\ \hline
         t-SNE                              & $\bigO(N^2)$        & §\ref{subsubsec:tsne}\\ \hline
@@ -3137,7 +3101,7 @@ C'est l'apprentissage des modèles et leurs mises à jour, qui sont coûteux.
         Auto-encodeur variationnel        & $\bigO(T \ D)$, $T$ nb. itérations, $D$ dim. échantillon  & §\ref{subsubsec:vae}\\ \hline
         Réseaux antagonistes adversaires   & $\bigO(T \ D)$, $T$ nb. itérations, $D$ dim. échantillon & §\ref{subsubsec:GAN}\\ \hline
     \end{tabular}
-    \caption{Complexité de l'apprentissage des méthodes étudiées, $N$ nombre d'échantillons.}
+    \caption{Complexité de l'apprentissage des méthodes étudiées en fonction du nombre d'échantillons du jeu de données $N$.}
     \label{tab:overview}
 \end{table}
 
@@ -3147,11 +3111,11 @@ Si les calculs doivent être effectués au plus près de la production, sur des 
 Enfin, il est possible de s'appuyer sur les services de solutions de calculs distribués distantes (\textit{Cloud}), qui limitent la nécessité de maintenance locale des moyens de calculs.
 Elle nécessite néanmoins le déploiement d'une infrastructure de réseau informatique fiable.
 
-\paragraph{Vers un modèle robuste de la Qualité} \mbox{} \\
+\paragraph{Vers un modèle robuste de la qualité} \mbox{} \\
 La dernière limite est certainement la plus importante.
 Il s'agit du nombre d'échantillons présent dans le jeu de données.
 Nous disposons actuellement de jeux de données qui contiennent moins de mille échantillons.
-L’état de l’art en \textit{Deep Learning}, nous permet d’envisager la quantité de données nécessaire afin de rendre robuste le système, pour toute machine, avec dix mille pièces dans le jeu de données d’apprentissage (\textit{CIFAR-10} \cite{krizhevsky2009learning} propose 6000 images par classes).
+L’état de l’art en \textit{Deep Learning}, nous permet d’envisager la quantité de données nécessaire afin de rendre robuste le système, pour toute machine, avec dix mille pièces dans le jeu de données d’apprentissage (le jeu de données \textit{CIFAR-10} \cite{krizhevsky2009learning} propose 6000 images par classes).
 
 La faisabilité du transfert de la modélisation de la qualité apprise sur une machine, vers une autre machine produisant la même pièce, est en cours d’évaluation.
 À terme, cette démarche permettra de réaliser l’apprentissage supervisé de la notion de qualité sur une unique machine, puis de déployer le modèle sur un parc machines complet.

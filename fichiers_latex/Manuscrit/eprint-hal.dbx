@@ -1,0 +1,5 @@
+ \ProvidesFile{eprint-hal.dbx}[2018/09/26 HAL/TEL eprints]
+ \DeclareDatamodelFields[type=field,datatype=verbatim]{arxiv,hal}
+ \DeclareDatamodelEntryfields{hal}
+ \DeclareDatamodelFields[type=field,datatype=literal]{arxivclass}
+ \DeclareDatamodelEntryfields{arxivclass}
