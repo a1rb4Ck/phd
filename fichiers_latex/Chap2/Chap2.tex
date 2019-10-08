@@ -148,7 +148,7 @@ Dans le cas de pièces techniques à forte valeur ajoutée, les exigences du cli
 Il est alors indispensable de réaliser le contrôle qualité sur cent pourcent des pièces, avant l'envoi au client.
 Ce contrôle présente un coût et il devient intéressant de l'automatiser.
 
-\begin{figure}[tbp]
+\begin{figure}[htbp]
 	\centering
 	\includegraphics[width=\textwidth]{../Chap2/Figures/integration_controle_qualite.pdf}
 	\caption{Intégration du contrôle de la qualité}
@@ -178,7 +178,11 @@ Ainsi, la mesure de la qualité est rarement réalisée et on parle de contrôle
 Les causes sont discutées dans le Chapitre \ref{ch:objectives} §\ref{sec:research_objectives}.
 Afin de réaliser une mesure de la qualité, notre travail propose également de définir une métrique de la qualité par apprentissage, à partir des données issues des capteurs, Chapitre \ref{sec:metric_learning}.
 
-\begin{figure}[htbp]
+Dans ce chapitre, nous discuterons du choix des capteurs à mettre en œuvre, pour mesurer en ligne de production.
+La littérature a proposé de réaliser des mesures indirectes\footnote{On parle d'une mesure indirecte lorsqu'il ne s'agit pas de mesurer directement la caractéristique de la pièce. La mesure de pression dans l'outillage est une mesure indirecte des caractéristiques finales de la pièces. C'est un indicateur des caractéristiques du produit.} de la qualité, comme par exemples des mesures de température ou de pression sur le moyen de production.
+C'est pourquoi nous discuterons également de la pertinence des mesures.
+
+\begin{figure}[hbtp]
 	\centering
 	\begin{tikzpicture}
 	\begin{scope}[blend group=lighten] % blend group= soft light
@@ -197,14 +201,18 @@ Afin de réaliser une mesure de la qualité, notre travail propose également de
 	\label{fig:venn_choice}
 \end{figure}
 
-Dans ce chapitre, nous discuterons du choix des capteurs à mettre en œuvre, pour mesurer en ligne de production.
-La littérature a proposé de réaliser des mesures indirectes\footnote{On parle d'une mesure indirecte lorsqu'il ne s'agit pas de mesurer directement la caractéristique de la pièce. La mesure de pression dans l'outillage est une mesure indirecte des caractéristiques finales de la pièces. C'est un indicateur des caractéristiques du produit.} de la qualité, comme par exemples des mesures de température ou de pression sur le moyen de production.
-C'est pourquoi nous discuterons également de la pertinence des mesures.
 La Figure \ref{fig:venn_choice} positionne le dispositif de mesure adéquate, comme l'intersection entre les contraintes industrielles et la pertinence de la mesure, pour les caractéristiques qualité de la pièce.
 % Les contraintes industrielles ont limité le déploiement de la mesure de la qualité au sein de la ligne de production.
-Les contraintes qui s'appliquent à la réalisation de la mesure du produit, au sein de la ligne de production, sont synthétisées dans le Tableau \ref{tab:industrial_constaints}.
+Les contraintes qui s'appliquent à la réalisation de la mesure du produit, au sein de la ligne de production, sont synthétisées dans le Tableau \ref{tab:industrial_constraints}.
 
-\begin{table}[tbp]
+Une des contraintes du contrôle en ligne de production est que, si une mesure par prélèvement est réalisée, alors la pièce prélevée ne peut pas être ré-intégrée  au flux de production.
+À cette contrainte s'ajoute les bénéfices de réaliser un contrôle à cent pourcent :
+\begin{itemize}
+	\item du point de vue de la traçabilité des pièces pour le client, qui dispose d'une fiche de qualité pour chaque pièce, \item pour l'analyse des performances du procédé et son optimisation,
+	\item du point de vue de l'assurance de respecter les exigences du nombres de pièces défectueuses par lot.
+\end{itemize}
+
+\begin{table}[bthp]
 	\arrayrulecolor{black}
 	\centering
 	%\hspace*{-3mm}
@@ -222,7 +230,7 @@ Les contraintes qui s'appliquent à la réalisation de la mesure du produit, au 
 		Dimensions de la pièce & 10 à 200 centimètres \\ \hline
 		\hline
 		Distance à la pièce & 0 à 200 centimètres \\ \hline
-		Dimensions du moyen de mesure & Inférieure à $1 m^3$ \\ \hline
+		Dimensions du moyen de mesure & Inférieure à 1 m$^3$ \\ \hline
 		\hline
 		Taux de faux positifs & 1 à 8 pièces par journée \\ \hline
 		Taux de faux négatifs & 100 à 5 pièces par million \\ \hline
@@ -231,12 +239,6 @@ Les contraintes qui s'appliquent à la réalisation de la mesure du produit, au 
 	\label{tab:industrial_constraints}
 \end{table}
 
-Une des contraintes du contrôle en ligne de production est que, si une mesure par prélèvement est réalisée, alors la pièce prélevée ne peut pas être ré-intégrée  au flux de production.
-À cette contrainte s'ajoute les bénéfices de réaliser un contrôle à cent pourcent :
-\begin{itemize}
-	\item du point de vue de la traçabilité des pièces pour le client, qui dispose d'une fiche de qualité pour chaque pièce, \item pour l'analyse des performances du procédé et son optimisation,
-	\item du point de vue de l'assurance de respecter les exigences du nombres de pièces défectueuses par lot.
-\end{itemize}
 Le contrôle à cent pour-cent nécessite alors d'être réalisée pendant le temps de cycle du procédé.
 La durée de la mesure est d'autant plus réduite que la pièce doit être amenée devant le dispositif de mesure.
 Il est nécessaire d'inclure la durée des convoyages aller et retour.
@@ -266,19 +268,20 @@ En général, un modèle est construit afin de prédire une caractéristique du 
 L'argumentaire de ces travaux est que la mesure de variables au plus porche de la matière fondue permet de prédire au mieux les caractéristiques finales de la pièce.
 % De plus, ce type de mesures peut utiliser les capteurs qui sont déjà présents sur les machines d'injection-moulage.
 
-\begin{figure}[tbp]
-	\centering
-	\includegraphics[width=\textwidth]{../Chap2/Figures/part1_std_signals.png}
-	\caption{Mesures de variables physiques dans l'outillage.}
-	\label{fig:inmold_signals}
-\end{figure}
-
 Nous avons réalisé une étude afin de vérifier la pertinence de ce type de mesures indirectes.
 L'étude \citetitle{nagorny_quality_2017} propose de construire un modèle qui détermine la valeur d'cotation géométrique de la pièce produite, à partir de mesures sur le procédé \cite{nagorny_quality_2017}.
 À partir des signaux de capteurs de pressions et de températures mesurés dans le moule pendant le cycle du procédé, une valeur géométrique continue est prédite.
 Un capteur de pression et un capteur de température sont positionnées au contact de la matière.
 La position optimale des capteurs est définie dans l'étude de \citeauthor{agazzi_optimal_2013} \cite{agazzi_optimal_2013}.
 Les signaux sont acquis à une fréquence de 100 Hertz, sans filtrage\footnote{Acquisition réalisée à l'aide du système \textit{PSP} de la \href{http://www.sise-plastics.com/}{société \textit{SISE}}.}.
+
+\begin{figure}[bthp]
+	\centering
+	\includegraphics[width=\textwidth]{../Chap2/Figures/part1_std_signals.png}
+	\caption{Mesures de variables physiques dans l'outillage.}
+	\label{fig:inmold_signals}
+\end{figure}
+
 La Figure \ref{fig:inmold_signals} présente ces signaux pour une pièce.
 Ce travail s'appuie sur une production de 204 pièces, où les paramètres de la machine ont été variés suivant un plan d'expérience de criblage, discuté dans le Chapitre \ref{ch:dataset} §\ref{subsec:l12_doe}.
 Le modèle qui prédit au mieux la géométrie à partir des mesures s'appuie sur des réseaux de neurones récurrents \textit{LSTM}.
@@ -292,17 +295,17 @@ Aussi, l'erreur obtenue par le modèle \textit{LSTM} est à la limite de faisabi
 Il faudrait une erreur dix fois moindre pour garantir la possibilité d'utilisation de ce modèle prédictif.
 Un jeu de données de pièces plus conséquent, ainsi qu'un modèle plus raffiné, sont des pistes pour améliorer ces performances.
 
-\begin{figure}[tbp]
+Dans une démarche de surveillance de l'état du procédé d'injection-moulage, la mesure de variables sur la machine est importante.
+Une mise sous surveillance statistique MSP §\ref{subsubsec:spc} permet de détecter les situations hors-contrôle et les défaillances du procédé.
+Nous invitons le lecteur qui s'intéresse aux mesures réalisées sur le procédé, plutôt que sur le produit, à consulter l'état de l'art récent et exhaustif de \citeauthor{ageyeva_inmold_2019} \cite{ageyeva_inmold_2019}.
+% Nous ajoutons la possibiliter d'analyser les vibrations de la machine.
+
+\begin{figure}[bthp]
 	\centering
 	\includegraphics[width=0.8\textwidth]{../Chap2/Figures/1LSTM_Cross_val_MSE_013splited_Ystd.png}
 	\caption{Résultats du modèle LSTM sur le jeu de données de test.}
 	\label{fig:signals_lstm}
 \end{figure}
-
-Dans une démarche de surveillance de l'état du procédé d'injection-moulage, la mesure de variables sur la machine est importante.
-Une mise sous surveillance statistique MSP §\ref{subsubsec:spc} permet de détecter les situations hors-contrôle et les défaillances du procédé.
-Nous invitons le lecteur qui s'intéresse aux mesures réalisées sur le procédé, plutôt que sur le produit, à consulter l'état de l'art récent et exhaustif de \citeauthor{ageyeva_inmold_2019} \cite{ageyeva_inmold_2019}.
-% Nous ajoutons la possibiliter d'analyser les vibrations de la machine.
 
 Dans notre objectif, nous cherchons à mesurer les caractéristiques d'aspects des pièces.
 À la différence de notre travail sur la prédiction d'une cotation géométrique, les caractéristiques d'aspect sont difficilement représentées par une unique variable continue.
@@ -310,7 +313,7 @@ La représentation des caractéristiques d'aspect la plus commune est l'image nu
 Elle se compose de plusieurs milliers de valeurs entières, encodées sur 8 bits, entre 0 et 254.
 Nous n'avons pas réussi à construire un modèle qui prédit les caractéristiques de l'aspect des pièces à partir des seules mesures dans le moule.
 Aussi, nous pensons qu'il est nécessaire de capturer une image de l'aspect des pièces, dès leur sortie du moule, afin d'établir une mesure de l'aspect.
-La mesure directe est l'objet du paragraphe suivant.
+La mesure directe est l'objet de la section suivante.
 
 \subsection{Mesures directes des caractéristiques du produit}
 %Quelles sont les propriétés physico chimique que l'ont peut regarder ?
@@ -704,13 +707,13 @@ Aussi, l'interprétation d'une telle mesure est compliquée.
 Dans la suite de nos travaux, nous avons choisis de ne pas exploiter cette mesure à cause des performances non-adaptées de notre matériel.
 L'étude de cette démarche de mesure devra être évaluée à l'aide d'un profilomètre laser ou d'un scanner tridimensionnel qui possède une fréquence de balayage laser plus rapide, afin de limiter les trous dans le nuage de points.
 
-\begin{figure}[tbhp]
+\begin{figure}[tb]
 	\centering
-	\begin{subfigure}[c]{0.48\textwidth}
+	\begin{subfigure}[c]{0.49\textwidth}
 		\includegraphics[width=\textwidth]{../Chap2/Figures/Capture_2019-09-23-13_43_11.jpg}
 		\caption{Interpolation du nuage de points à l'aide du logiciel \textit{\href{https://www.autodesk.fr/products/powerinspect/}{PowerInspect2017}} de Autodesk.}
 	\end{subfigure}
-	\begin{subfigure}[c]{0.48\textwidth}
+	\begin{subfigure}[c]{0.49\textwidth}
 		\includegraphics[width=\textwidth]{../Chap2/Figures/Capture_2019-09-23_13_42_00.jpg}
 		\caption{Interprétation de l'écart des points de mesures à l'aide de la librairie Python \href{https://matplotlib.org/}{Matplotlib} \cite{hunter_matplotlib_2007, caswell_matplotlib_2019}.}
 	\end{subfigure}
@@ -1055,8 +1058,8 @@ Des caméras industrielles plus robustes peuvent être utilisées avec la même 
 \begin{figure}[tbhp]
 	\centering
 	\includegraphics[width=\textwidth]{vis_matches.jpeg}
-	\label{fig:mecaruco}
 	\caption{Détection et association de marqueurs \textit{ChAruco} entre deux caméras.}
+	\label{fig:mecaruco}
 \end{figure}
 
 Afin de compenser la parallaxe, sans système optique, nous utilisons une transformation logicielle.
@@ -1455,7 +1458,7 @@ La solution analytique de la valeur des modes $w_n$ de vibration d'une poutre au
 \label{eq:plate_vibration}
 \end{equation}
 
-\begin{figure}[btph]
+\begin{figure}[p]
 	\centering
 	\includegraphics[width=\textwidth]{../Chap2/Figures/DMD_100modes_10x10_scaled.jpg}
 	\caption{Représentation des 100 premiers modes de notre base $B$.}
@@ -1468,7 +1471,7 @@ Il est intéressant de noter que nous construisons une représentation erronée 
 L'application de la transformée modale au filtrage d'images est directe : on décrit l'image en la projetant dans la base modale.
 On peut également reconstituer l'image originale par la transformée inverse.
 
-\begin{figure}[htbp]
+\begin{figure}[htb]
 	\centering
 	\begin{subfigure}[l]{0.37\textwidth}
 		\centering
@@ -1484,7 +1487,7 @@ On peut également reconstituer l'image originale par la transformée inverse.
 	\begin{subfigure}[r]{0.20\textwidth}
 		$\ = 1,326$
 	\end{subfigure}
-	\caption{Filtrage de la photographie d'une pièce par un mode de la base $B$.}
+	\caption{Filtrage de la photographie d'une pièce par le mode n°24 de la base $B$.}
 	\label{fig:dmd_filtering}
 \end{figure}
 
@@ -1494,9 +1497,9 @@ Nous proposons d'utiliser cette paramétrisation DMD sur les images polarimétri
 % La Décomposition Modale Discrète décrit une image à partir de ses modes de vibrations spatiaux.
 % C'est une méthode de décomposition qui produit un spectre représentatif de la géométrie, car les modes de vibrations sont ceux de plaques physiques.
 
-\begin{figure}[htbp]
+\begin{figure}[htb]
 	\centering
-	\includegraphics[width=\textwidth]{../Chap2/Figures/DMD_reconstruction_27modes.png}
+	\includegraphics[width=0.75\textwidth]{../Chap2/Figures/DMD_reconstruction_27modes.png}
 	\caption{Base modale moyenne obtenue par sélection des 27 modes par validation croisée. Reconstruction d'une image d'une pièce conforme et d'une image d'une pièce non-conforme, après description modale.}
 	\label{fig:dmd_reconstruction}
 \end{figure}
@@ -1537,9 +1540,9 @@ L'homogénéité telles que définis par \citeauthor{haralick_textural_1973} est
 L'entropie évalue la présence de motifs aléatoires.
 Dans notre cas, la présence de défauts entraine un écart plus important de ces valeurs, par rapport à une image conforme, ce qui permet de classifier.
 
-\begin{figure}[hbtp]
+\begin{figure}[hbt]
 	\centering
-	\includegraphics[width=0.7\textwidth,height=\textheight,keepaspectratio]{../Chap3/Figures/random_forest_importance.png}
+	\includegraphics[width=0.55\textwidth,height=\textheight,keepaspectratio]{../Chap3/Figures/random_forest_importance.png}
 	\caption{Importance des descripteurs par Forêt d'arbres décisionnels.}
 	\label{fig:random_forest}
 \end{figure}
