@@ -414,7 +414,7 @@ En revanche, nous n'étudierons pas l'utilisations des rayonnements X et Térahe
 		Densité plane & Radiographie & 10 µm & 20 s & 12 €/h & 300 000 € & 9,99 c€/p \\ \hline
 		Densité volumique & Tomographie rayons X & 10 µm & 120 s & 40 €/h & 1 000 000 € & 33,33 c€/p \\ \hline
 		\hline
-		\multicolumn{7}{|l|}{Champ de température} \\ \hline
+		\multicolumn{7}{|l|}{Champ de températures} \\ \hline
 		Champ °C & Thermographie & 1000 µm & 1 s & 0,40 €/h & 10 000 € & 0,33 c€/p \\ \hline
 		Évolution du champ & Thermographie dynamique & 1000 µm & 120 s & 1,20 €/h & 30 000 € & 1,00 c€/p \\ \hline
 		\hline
@@ -684,7 +684,7 @@ La méthode de triangulation laser possède quatre contraintes principales :
 La Figure \ref{fig:online_scan} présente notre mise en place cette mesure, en cycle industriel.
 Le scanner tridimensionnel que nous utilisons est le \textit{Handyscan 3D ZSCANNER 700}\footnote{\href{https://www.creaform3d.com/fr/soutien-la-clientele/produits-retires/handyscan-3d-de-1re-generation-zscanner-700}{Caractéristiques techniques} du scanner Handyscan 3D ZSCANNER 700 sur le site du fabricant Créaform.}.
 Nous avons évalué la répétabilité de ce scanner à 100 micromètres.
-Une pièce étalon a été mesurée sur une machine de mesures tridimensionnelle, puis elle est mesurée à l'aide du scanner.
+Une pièce étalon a été mesurée sur une machine de mesure tridimensionnelle, puis elle est mesurée à l'aide du scanner.
 Les résultats ont été comparés à l'aide du logiciel GéoVérif \cite{pairel_maitrise_2016}.
 La durée de la mesure est de 40 secondes.
 Le scanner est fixe et une rotation complète de la pièce est exécutée devant le scanner, à l'aide d'un bras robotique, Figure \ref{fig:online_scan}.
@@ -694,11 +694,11 @@ Un temps de cycle court impose de réaliser des déplacements rapides devant le 
 \begin{figure}[hbtp]
 	\centering
 	\includegraphics[width=0.5\textwidth]{../Chap2/Figures/online_3d_scan.png}
-	\caption{Nuage de points de la pièce obtenu en cycle industriel.}
+	\caption{Nuage de points de la pièce obtenue en cycle industriel.}
 	\label{fig:online_scan_result}
 \end{figure}
 Dans notre cas d'application, la pièce mesurée possède des cotés qui occultent la réflexion.
-Il est nécessaire de réaliser des rotations sous différents angles pour mesurer toute les surfaces de la pièce, ce qui nécessiterait plus d'un tour complet.
+Il est nécessaire de réaliser des rotations sous différents angles pour mesurer toutes les surfaces de la pièce, ce qui nécessiterait plus d'un tour complet.
 De plus, la vitesse de déplacement que nous avons dû utiliser est trop élevée en comparaison de la fréquence de balayage du laser.
 La Figure \ref{fig:online_scan_result} présente le résultat de la mesure.
 On observe la présence de trous dans le maillage du nuage de points.
@@ -766,7 +766,7 @@ Nous n'avons pas non plus étudier son évolution (nous discutons de cette persp
 Nous souhaitons obtenir le champ de températures sur la surface de la pièce.
 Ainsi, la connaissance de l'émissivité du matériau n'est pas nécessaire.
 La principale difficulté de notre approche est l'analyse pertinente de l'ensemble des pixels de l'images.
-Il s'agit d'extraire une information pertinente à propos des caractéristiques de la pièces, à partir du champ de température.
+Il s'agit d'extraire une information pertinente à propos des caractéristiques de la pièce, à partir du champ de températures.
 
 \begin{figure}[tbp]
 	\centering
@@ -785,9 +785,9 @@ Nous n'avons pas caractérisé l'émissivité thermique du polypropylène utilis
 Une émissivité $\epsilon=0,97$, "classique" pour le polypropylène, est utilisée pour calculer la température de surface, dans les figures suivantes.
 
 L'instant de mesure a été rendu répétable par l'utilisation d'un bras robotique et la synchronisation temporelle de la mesure.
-3 jours après la production, nous avons mesuré la surface qui a été imagée à l'aide d'une Machine de Mesures Tridimensionnel (MMT).
+Trois jours après la production, nous avons mesuré la surface qui a été imagée à l'aide d'une Machine de Mesures Tridimensionnel (MMT).
 1000 points de mesures ont été réalisés à l'aide d'un capteur laser temps de vol.
-La Figure \ref{fig:thermo_geom} présente le résultats des deux mesures réalisées :thermique et géométrique.
+La Figure \ref{fig:thermo_geom} présente le résultats des deux mesures réalisées : thermique et géométrique.
 Une soustraction des deux mesures montre qu'il n'y a pas de correspondance directe entre la géométrie et l'image thermique.
 Il semble exister une relation entre le point chaud central de la pièce (buse d'injection) et l'inflexion géométrique du plan.
 
@@ -908,13 +908,21 @@ Si l'écart inertiel à la géométrique de référence de la pièce est grand, 
 Cependant, cette démarche nécessite de disposer de la géométrie de référence sous un format informatisé.
 Cette information de référence est rarement disponible en injection-moulage ; en particulier car les outillages sont souvent retouchés au cours de leur vie, sans forcement numériser les retouches effectuées.
 Nous souhaitons proposer une méthode de contrôle de la qualité des pièces la plus simplifiée possible, c'est pourquoi nous choisissons pour la suite de notre travail de ne pas utiliser de modèle prédictif de la géométrie.
-En revanche, nous utiliserons la démarche d'extraction de l'information à l'aide de réseau de neurones profonds, qui a ici montrée des possibilités intéressantes.
+En revanche, nous utiliserons la démarche d'extraction de l'information à l'aide de réseau de neurones profonds, qui a ici montrée des possibilités intéressantes (voir le Chapitre \ref{ch:metric_learning}).
 
 % Remarque : Dans le spectre infrarouge, l'état de surface des pièces plastiques ne permet pas la réflexion spéculaire.
 % L'émission des pièces chaudes est isotrope.
 % Cependant, la conductivité électrique de certains matériaux chargés en atome conducteur (carbone) supporte les propriétés spéculaires.
 % Sur certaines pièces, en particulier celles pigmentées noires, des reflets de sources de chaleurs dans l'atelier de production parasitait l'imagerie thermique (moteurs de ponts roulants, chauffages ...).
 % Il est possible de positionner un filtre polarisant devant la caméra thermique, orthogonal aux surfaces de la pièce, pour limiter ce problème.
+
+\miniconclusion{Conclusion}{
+	La conclusion principale de cette étude est que l'image thermique contient l'information de la géométriede la pièce finale.
+	Ainsi, suivre une dérive de l'image thermique revient à suivre une dérive de la géométrie.
+
+	Dans un objectif de contrôle de la qualité, l'analyse de l'imagerie thermique permettrait de définir si une pièce est conforme ou est non-conforme, d'un point de vue géométrique.
+}
+
 
 \subsection{Apport de la polarimétrie pour le contrôle des défauts d'aspect} \label{subsec:polarimetry}
 La mesure du Degré de POlarisation Linéaire (DOLP) est utilisée dans de nombreux domaines techniques, dont le contrôle de la qualité de pièces composites\footnote{Le Fraunhofer Institute for Integrated Circuits IIS a présenté la \href{https://www.iis.fraunhofer.de/en/ff/sse/ims/tech/polarisationskamera.html}{solution de polarimétrie POLKA} pour le contrôle de pièces composites, lors du salon \href{https://www.control-messe.de/en/}{Control Stuttgart 2018}.} et de bouteilles en verre \cite{atkinson_highsensitivity_2018}.
@@ -959,6 +967,11 @@ Pour des questions de coût de l'équipement, nous utiliserons un capteur polari
 % Jusqu'en 1993, la composante diffuse est considérée comme lambertienne (orthotrope).
 % \citeauthor{hanrahan_reflection_1993} \cite{hanrahan_reflection_1993} propose de modéliser la réflection diffuse à partir des propriétés de réflections des différentes couches successives qui composent un matériau et qui ont des propériétés optiques différentes.
 
+La mesure des composantes de réflexions spéculaire et diffuse d'un matériau est un enjeu important pour les rendus d'images photo-réalistes.
+En 1997, \citeauthor{nayar_separation_1997} \cite{nayar_separation_1997} propose de mesurer la composante spéculaire, séparément de la composante diffuse, en utilisant un filtre polarisant.
+Selon les équations de Fresnel, une réflexion spéculaire est linéairement polarisée selon son plan d'incidence : réflexion (a) Fig. \ref{fig:polarized_defect}.
+À contrario, une réflexion diffuse n'est pas polarisée : réflexion (b) Fig. \ref{fig:polarized_defect}.
+
 %\begin{figure}[htpb]
 %	\centering
 %	\begin{subfigure}[c]{0.33\textwidth}
@@ -980,7 +993,7 @@ Pour des questions de coût de l'équipement, nous utiliserons un capteur polari
 %	\label{fig:specular_diffuse}
 %\end{figure}
 
-\begin{figure}[bthp]
+\begin{figure}[bhtp]
 	\begin{center}
 		\begin{tabular}{c}
 			\includegraphics[width=\textwidth]{imgComponentsR.pdf}
@@ -991,17 +1004,12 @@ Pour des questions de coût de l'équipement, nous utiliserons un capteur polari
 	\caption{Acquisition des composantes de réflexions spéculaire et diffuse.}
 	\label{fig:specular_diffuse}
 \end{figure}
-
-La mesure des composantes de réflexions spéculaire et diffuse d'un matériau est un enjeu important pour les rendus d'images photo-réalistes.
-En 1997, \citeauthor{nayar_separation_1997} \cite{nayar_separation_1997} propose de mesurer la composante spéculaire, séparément de la composante diffuse, en utilisant un filtre polarisant.
-Selon les équations de Fresnel, une réflexion spéculaire est linéairement polarisée selon son plan d'incidence : réflexion (a) Fig. \ref{fig:polarized_defect}.
-À contrario, une réflexion diffuse n'est pas polarisée : réflexion (b) Fig. \ref{fig:polarized_defect}.
 En positionnant un filtre polarisant linéaire devant une caméra et en l'orientant selon un angle orthogonal à l'angle d'incidence, on capture uniquement la composante diffuse \cite{debevec_acquiring_2000}.
 La même démarche, réalisée avec le polarisant orienté selon le même angle que l'angle d'incidence, permet de capturer la composante spéculaire, ainsi que la moitié de la composante diffuse.
 Il est alors possible de séparer la réflexion spéculaire et la réflexion diffuse, telle que la Figure \ref{fig:specular_diffuse} le présente.
 Sur ces images, on observe que, selon l'hypothèse émise, les défauts de forme géométrique du fond de la boîte sont mis en valeur dans l'image spéculaire, mais pas dans l'image diffuse.
 En revanche, les défauts qui ont modifiés la structure de la matière (ici des tâches de givrage et des impuretés) apparaissent peu dans l'image spéculaire, mais ils sont présents, de couleur sombre, dans l'image diffuse.
-Dans la suite de ce travail, nous chercherons à évaluer quantitativement l'apport de la polarimétrie pour améliorer les performances de la détection des défauts.
+Dans la suite de ce travail, nous chercherons à évaluer quantitativement l'apport de la polarimétrie pour les performances de la détection des défauts.
 
 \subsubsection{Conception d'un capteur polarimétrique bas-coût}
 Les capteurs polarimétriques commerciaux actuellement disponibles sont coûteux (> 5000€).
@@ -1026,21 +1034,18 @@ On parle de \textit{division de l'ouverture} lorsque la surface du capteur est s
 Plusieurs lentilles focalisent une image, qui a été polarisée par un filtre, sur une région différente du capteur.
 Cette méthode nécessite une compensation de l'écart de parallaxe créé par l'écart des différentes lentilles \cite{riou_calibration_2015}.  % riou=550x550
 
-Enfin, on parle de \textit{division du plan focal} lorsque ce sont les pixels du capteur qui sont directement polarisé.
-Des filtres polarisés directement intégrés sur le plan du capteur \cite{yamazaki_fourdirectional_2016} (CMOS Sony \textit{IMX250-MZR}, 5 millions de pixels\footnote{\href{https://www.sony-semicon.co.jp/products_en/IS/sensor5/index.html}{Informations sur le capteur polarimétrique \textit{IMX250-MZR}}, sur le site Internet du fabriquant Sony.}).
-Cela supprime la complexité optique, mais réduit la résolution finale de l'image par un facteur 4.
-Il est possible d'interpoler entre les angles de polarisation pour limiter cette perte, à la manière de la reconstruction d'une image couleur à partir de la matrice de filtre de Bayer.
-Le capteur \textit{IMX250-MZR} dispose néanmoins d'une résolution d'acquisition de $2448\times 2048$ pixels, soit une résolution  de $1223\times 1023$ pixels, ce qui est suffisant pour utiliser nos algorithmes.
-
-% IMX250-MZR_test.bmp
-% IMX250-MZR_Pola_fake_RGB.jpeg
-
-\begin{figure}[tbhp]
+\begin{figure}[bht]
 	\centering
 	\includegraphics[width=0.7\textwidth]{Polarimetric_imager_overview_and_calibration.png}
 	\caption{Notre polarimètre et le procédé de calibration par homographie.}
 	\label{fig:sensor}
 \end{figure}
+
+Enfin, on parle de \textit{division du plan focal} lorsque ce sont les pixels du capteur qui sont directement polarisé.
+Des filtres polarisés directement intégrés sur le plan du capteur \cite{yamazaki_fourdirectional_2016} (CMOS Sony \textit{IMX250-MZR}, 5 millions de pixels\footnote{\href{https://www.sony-semicon.co.jp/products_en/IS/sensor5/index.html}{Informations sur le capteur polarimétrique \textit{IMX250-MZR}}, sur le site Internet du fabriquant Sony.}).
+Cela supprime la complexité optique, mais réduit la résolution finale de l'image par un facteur 4.
+Il est possible d'interpoler entre les angles de polarisation pour limiter cette perte, à la manière de la reconstruction d'une image couleur à partir de la matrice de filtre de Bayer.
+Le capteur \textit{IMX250-MZR} dispose néanmoins d'une résolution d'acquisition de $2448\times 2048$ pixels, soit une résolution  de $1223\times 1023$ pixels, ce qui est suffisant pour utiliser nos algorithmes.
 
 Nous avons étudié la possibilité de réalisation d'un capteur polarimétrique au coût limité (< 1000€), avec une résolution satisfaisante de $1920\times 1080$ pixels \cite{nagorny_polarimetric_2019}.
 En comparaison, le coût des caméras basées sur un capteur à division de plan focal est de l'ordre de 2000€.
@@ -1055,19 +1060,19 @@ Une source de lumière polarisée linéairement à 0° éclaire les pièces.
 Nous utilisons des webcams grands publics Logitech C922\footnote{\href{https://www.logitech.fr/fr-fr/product/c922-pro-stream-webcam}{Informations sur la webcam C922} sur le site Internet de la société Logitech.}, pour leurs simplicités d'implémentation en USB et leurs qualités en condition de basse luminosité.
 Des caméras industrielles plus robustes peuvent être utilisées avec la même méthode.
 
-\begin{figure}[tbhp]
-	\centering
-	\includegraphics[width=\textwidth]{vis_matches.jpeg}
-	\caption{Détection et association de marqueurs \textit{ChAruco} entre deux caméras.}
-	\label{fig:mecaruco}
-\end{figure}
-
 Afin de compenser la parallaxe, sans système optique, nous utilisons une transformation logicielle.
 Dans un premier temps, nous calibrons la position du plan de fusion à l'aide d'une planche de référence composée de marqueurs \textit{ChAruco} \cite{garrido-jurado_automatic_2014, garrido-jurado_generation_2016, romero-ramirez_speeded_2018}.
 Ensuite, nous utilisons la bibliothèque \textit{OpenCV} \cite{opencv_library} pour calculer une transformation homographique entre les trois caméras.
 La détection des marqueurs et l'association entre deux images est présentée dans la Figure \ref{fig:mecaruco}.
 Le logiciel de fusion polarimétrique est distribué sous licence libre MIT, sous la forme d'un paquet Python.
 Le code source du paquet \href{https://github.com/a1rb4Ck/camera-fusion}{camera-fusion est disponible en ligne}.
+
+\begin{figure}[thb]
+	\centering
+	\includegraphics[width=\textwidth]{vis_matches.jpeg}
+	\caption{Détection et association de marqueurs \textit{ChAruco} entre deux caméras.}
+	\label{fig:mecaruco}
+\end{figure}
 
 Il est important de noter que la parallaxe est compensée sur un plan unique.
 Ainsi, le vecteur de Stokes ne peut être reconstruit que dans ce plan.
@@ -1090,7 +1095,7 @@ La Figure \ref{fig:specular_diffuse} utilisait cette propriété pour séparer l
 Cela peut être limitant pour la définition de cette image, dans le cas où la sensibilité du capteur est trop limitée.
 Il est recommander de ne pas orienté les filtres des caméras perpendiculaires à la polarisation de la source lumière.
 
-\begin{figure}[bthp]
+\begin{figure}[htbp]
 	\centering
 	\includegraphics[width=\textwidth]{stats_part151-1.png}
 	\caption{Images de la même pièce par les 3 caméras, sous 3 angles de polarisation différents.}
@@ -1230,8 +1235,8 @@ La durée de l'apprentissage du meilleur classifieur est de 15 heures.
 	\begin{center} 
 		\begin{tabular}{|c|c|c|c|}
 			\hline
-			\hline
 			Angle & \textit{dataset\_pola} & \textit{dataset\_nopola} & \textit{dataset\_bench}\\
+			\hline
 			\hline
 			3 angles   & \textbf{0,921} & 0,851 & \textbf{0,948} \\
 			0\degree   &         0,841  & 0,831 & \textbf{0,923} \\
@@ -1244,7 +1249,7 @@ La durée de l'apprentissage du meilleur classifieur est de 15 heures.
 	\label{tab:perfAutoML}
 \end{table}
 
-Le Tableau \ref{perfAutoML} présente les scores de justesse obtenus avec le meilleur algorithme de classification, pour différentes conditions d'éclairage et de polarisation.
+Le Tableau \ref{tab:perfAutoML} présente les scores de justesse obtenus avec le meilleur algorithme de classification, pour différentes conditions d'éclairage et de polarisation.
 La première ligne indique le score dans le cas où les images des trois caméras ont été utilisées.
 Les images brutes des capteurs sont concaténées dans une matrice de dimensions $993\times 331$.
 Les lignes suivantes indiquent le score dans le cas où seule une caméra polarisée à un certain angle est utilisée.
@@ -1261,6 +1266,23 @@ De plus, les filtres polarisants pourraient dégrader une partie de cette inform
 Enfin, il est possible que notre système à faible coût occasionne un biais pour les données.
 Nous n'avons pas réussi à mettre en évidence de biais.
 Une perspective importante de nos travaux sera de réaliser la même étude à l'aide d'un polarimètre calibré, afin de valider définitivement si c'est la polarimétrie qui apporte de l'information, ou bien les différents points de vues des caméras.
+
+\bigskip
+
+\bigskip
+
+\miniconclusion{Conclusion}{
+	Notre étude montre l'intérêt de la polarimétrie pour la mise en valeur des défauts sur les pièces plastiques.
+
+	Les variations de la courbure de la géométrie des pièces peuvent être observées par la variation de l'angle de polarisation des réflexions spéculaires.
+	Cela permet de mettre en évidence les défauts de retassure.
+	
+	Les défauts qui modifient la structure de la matière peuvent être observés dans les réflexions diffuses, qui ne sont pas polarisées. 
+
+	Pour le contrôle de la qualité, l'analyse de l'imagerie polarimétrique permettrait de déterminer le type de défaut en présence.
+	Une étude approfondie reste à réaliser pour valider quantitativement l'intérêt de la polarimétrie, en comparaison de la seule analyse de plusieurs points de vue.
+}
+\newpage
 
 \section{Traitement et fusion de l'information issue de mesures multimodales} \label{sec:multimodal}
 Dans le cadre de nos travaux, nous avons évalué l'intérêt de deux techniques d'imageries non-conventionnelles, polarimétrie et thermographie, pour la mesure des caractéristiques d'une pièce.
@@ -1284,7 +1306,7 @@ Enfin, nous détaillerons l'intégration logicielle des méthodes de fusion sur 
 
 \subsection{Nécessité de l'extraction de l'information pertinente} \label{subsec:extraction}
 Nous supposons dans cette section que l'information pertinente est contenue dans les mesures issues des capteurs.
-Aucun algorithme ne peut extraire de l'information si elle n'existe pas présente.
+Aucun algorithme ne peut extraire de l'information si elle n'existe pas.
 Nous avons discuté de la pertinence des mesures thermique et polarimétrique dans la Section\ref{sec:non_conventional_imaging}.
 % La performance d'un dispositif de mesure est lié à l'association de moyens de mesure pertinent et d'algorithmes de traitement adaptés.
 
@@ -1320,7 +1342,7 @@ Notre hypothèse est simple : si un traitement d'image fait ressortir les défau
 Nous avons étudié l'effet de différentes méthodes de traitement d'image sur la performance de la classification de la qualité des pièces.
 La Figure \ref{fig:preprocessing} présente les différents traitements étudiés.
 
-\begin{figure}[bthp]
+\begin{figure}[tbhp]
 	\begin{center}
 		\begin{tabular}{c}
 			\begin{subfigure}[b]{0.245\linewidth}
@@ -1449,6 +1471,13 @@ La surface mesurée est alors projeté dans cette base propre ; elle est exprim�
 La base est construite à partir de la solution à un problème de mécanique vibratoire \cite{goic_multiscale_2016}.
 Récemment, \citeauthor{goic_multi_2011} \cite{goic_multi_2011} a montré que la DMD peut être utilisée pour caractériser des géométries globales (défauts de formes), ainsi que des géométries locales (rugosités).
 
+\begin{figure}[p]
+	\centering
+	\includegraphics[width=\textwidth]{../Chap2/Figures/DMD_100modes_10x10_scaled.jpg}
+	\caption{Représentation des 100 premiers modes de notre base $B$.}
+	\label{fig:plate_eigenmodes}
+\end{figure}
+
 Lorsque la DMD est utilisée pour un problème de géométrie plane, les modes correspondent aux modes propres de la vibration d'une plaque plane.
 Contrairement aux publications précédentes qui s'appuient sur des logiciels d'analyse par éléments finis pour obtenir les modes de vibrations (théorie des poutres épaisses de Timoshenko \cite{timoshenko_vibration_1937}), nous construisons une base modale à partir de la théorie de Euler–Bernoulli.
 La solution analytique de la valeur des modes $w_n$ de vibration d'une poutre aux conditions aux limites libre-libre est donnée par l'Équation \ref{eq:plate_vibration}\footnote{Afin de réaliser l'application numérique, nous fixons arbitrairement les valeurs de l'amplitude $A=1 \text{m}$,  module de Young $E = 1.0E^{+10} \text{Pa}$, du moment d'inertie $I_{{xx}} = 1.0E^{-08} \text{kg}\cdot \text{m}^2$, la masse par unité de longueur $\mu = 3.0E^{+02} \text{kg}\cdot \text{m}^{-1}$.}.
@@ -1458,18 +1487,20 @@ La solution analytique de la valeur des modes $w_n$ de vibration d'une poutre au
 \label{eq:plate_vibration}
 \end{equation}
 
-\begin{figure}[p]
-	\centering
-	\includegraphics[width=\textwidth]{../Chap2/Figures/DMD_100modes_10x10_scaled.jpg}
-	\caption{Représentation des 100 premiers modes de notre base $B$.}
-	\label{fig:plate_eigenmodes}
-\end{figure}
-
 Les modes obtenues pour une poutre sont combinés par un simple produit afin d'obtenir la base modale $B_ij = w_i \cdot w_j$.
 La Figure \ref{fig:plate_eigenmodes} présente les modes plans obtenus.
+
 Il est intéressant de noter que nous construisons une représentation erronée des modes de vibrations d'une plaque, pour des conditions aux limites libre-libre : les modes à la symétrie horizontale et verticale (colonne 1 et ligne 1) n'existent pas\footnote{La théorie des plaques de Kirchhoff–Love permettrait une modélisation réaliste des modes de vibration d'une plaque libre ; dans le cas du filtrage d'image, cela permettrait de supprimer la présence de modes orthogonaux.}.
 L'application de la transformée modale au filtrage d'images est directe : on décrit l'image en la projetant dans la base modale.
 On peut également reconstituer l'image originale par la transformée inverse.
+
+Les travaux de doctorat de \citeauthor{pitard_metrologie_2016} \cite{pitard_metrologie_2016} ont montré l'intérêt de la Décomposition Modale Discrète pour la reconstruction du champ de luminance d'un objet, à partir de mesures par un dôme multi-éclairages.
+Par la suite, les travaux de doctorat de \citeauthor{lacombe_exploitation_2018a} \cite{lacombe_exploitation_2018a} exploitent la DMD pour décrire les mesures d'un dôme multi-éclairages pour le contrôle de l'aspect de produits.
+Nous proposons d'utiliser cette paramétrisation DMD sur les images polarimétrique et thermique.
+La Figure \ref{fig:dmd_filtering} présente le filtrage d'une image de pièce non-conforme par un mode : on obtient une unique valeur scalaire.
+
+% La Décomposition Modale Discrète décrit une image à partir de ses modes de vibrations spatiaux.
+% C'est une méthode de décomposition qui produit un spectre représentatif de la géométrie, car les modes de vibrations sont ceux de plaques physiques.
 
 \begin{figure}[htb]
 	\centering
@@ -1491,13 +1522,9 @@ On peut également reconstituer l'image originale par la transformée inverse.
 	\label{fig:dmd_filtering}
 \end{figure}
 
-Les travaux de doctorat de \citeauthor{pitard_metrologie_2016} \cite{pitard_metrologie_2016} ont montré l'intérêt de la Décomposition Modale Discrète pour la reconstruction du champ de luminance d'un objet, à partir de mesures par un dôme multi-éclairages.
-Par la suite, les travaux de doctorat de \citeauthor{lacombe_exploitation_2018a} \cite{lacombe_exploitation_2018a} exploitent la DMD pour décrire les mesures d'un dôme multi-éclairages pour le contrôle de l'aspect de produits.
-Nous proposons d'utiliser cette paramétrisation DMD sur les images polarimétrique et thermique.
-% La Décomposition Modale Discrète décrit une image à partir de ses modes de vibrations spatiaux.
-% C'est une méthode de décomposition qui produit un spectre représentatif de la géométrie, car les modes de vibrations sont ceux de plaques physiques.
+\bigskip
 
-\begin{figure}[htb]
+\begin{figure}[bht]
 	\centering
 	\includegraphics[width=0.75\textwidth]{../Chap2/Figures/DMD_reconstruction_27modes.png}
 	\caption{Base modale moyenne obtenue par sélection des 27 modes par validation croisée. Reconstruction d'une image d'une pièce conforme et d'une image d'une pièce non-conforme, après description modale.}
@@ -1505,7 +1532,7 @@ Nous proposons d'utiliser cette paramétrisation DMD sur les images polarimétri
 \end{figure}
 
 Nous proposons d'appliquer la DMD à la description des images d'une pièce conforme et d'une pièce non-conforme, Figure \ref{fig:dmd_reconstruction}.
-La base modale a été ici optimisée par validation croisée §\ref{subsubsec:cross_val} afin de maximiser les performances de classification des pièces conformes/non-conformes §\ref{sec:AutoML}.
+La base modale a été ici optimisée par validation croisée §\ref{subsubsec:cross_val} afin de maximiser les performances de classification des pièces conformes / non-conformes §\ref{sec:auto_ml}.
 Les 27 meilleurs modes ont été retenus.
 La moyenne des modes de la base est représentée dans la première image de la Figure \ref{fig:dmd_reconstruction}.
 Les deux dernières images de la Figure \ref{fig:dmd_reconstruction} présentent le résultat d'une reconstruction d'une image d'une pièce conforme et d'une image d'une pièce non-conforme, à partir d'une description modale.
@@ -1519,6 +1546,13 @@ L'objectif de cette démarche est d'obtenir un nombre réduit de valeurs qui con
 À partir de ces valeurs, un algorithme de classification est utilisé pour déterminer la qualité de la pièce.
 Nous discutons des méthodes existantes pour construire ce modèle classifieur dans le Chapitre \ref{ch:metric_learning} suivant.
 
+\begin{figure}[bth]
+	\centering
+	\includegraphics[width=0.55\textwidth,height=\textheight,keepaspectratio]{../Chap3/Figures/random_forest_importance.png}
+	\caption{Importance des descripteurs par Forêt d'arbres décisionnels.}
+	\label{fig:random_forest}
+\end{figure}
+
 Nous avons retenu comme méthode de sélection automatique des descripteurs les Forêts d'arbres décisionnels pour leurs meilleurs performances sur nos cas d'études.
 % D'autres méthodes de sélection ont été proposés :
 % - Méthode statistique
@@ -1529,10 +1563,11 @@ Nous avons retenu comme méthode de sélection automatique des descripteurs les 
 % - Méthode empirique par apprentissage :
 % Validation croisée
 % Deep Learning
-L% a sélection automatique des descripteurs est réalisée par la méthode des Forêts d'arbres décisionnels.
+% La sélection automatique des descripteurs est réalisée par la méthode des Forêts d'arbres décisionnels.
 Pour chaque arbre, il est possible d'obtenir le nombre de variables qui sont associées.
 On obtient ainsi une valeur sur l'importance relative des variables.
 Plus une variable est associée a un grand nombre d'arbre, plus cette variable est importante.
+
 La Figure \ref{fig:random_forest} montre les résultats de cette méthode dans le cadre de l'étude de classification de la qualité à partir des images thermiques §\ref{subsec:thermography} \cite{nagorny_quality_2017}.
 Les paramètres de Haralick §\ref{subsubsec:haralick} sont les plus représentés.
 En particulier, l'homogénéité, la variance et l'entropie sont les plus pertinents.
@@ -1540,12 +1575,6 @@ L'homogénéité telles que définis par \citeauthor{haralick_textural_1973} est
 L'entropie évalue la présence de motifs aléatoires.
 Dans notre cas, la présence de défauts entraine un écart plus important de ces valeurs, par rapport à une image conforme, ce qui permet de classifier.
 
-\begin{figure}[hbt]
-	\centering
-	\includegraphics[width=0.55\textwidth,height=\textheight,keepaspectratio]{../Chap3/Figures/random_forest_importance.png}
-	\caption{Importance des descripteurs par Forêt d'arbres décisionnels.}
-	\label{fig:random_forest}
-\end{figure}
 % Random Forests
 % Sélection par validation croisée
 % Des méthodes de sélection plus avancées sont détaillées 
@@ -1587,7 +1616,27 @@ Nous discutons en particulier du coût des calculs des différentes méthodes et
 % \subsection{Techniques de fusion multimodales}
 %
 
-\section{Synthèse et perspectives}  \label{measure_perspective}
+\bigskip
+
+\bigskip
+
+\miniconclusion{Conclusion}{
+	Les images capturées par nos capteurs ont une grande dimension.
+	Il est nécessaire d'extraire l'information pertinente de ces images, afin de pouvoir utiliser le résultat pour classifier si les pièces sont conformes ou non-conformes.
+	
+	Nous avons présenté différentes méthodes issues de l'a littérature du traitement d'images.
+	En particulier, les paramètres de Haralick et le filtrage par décomposition modale sont intéressants dans le cadre du contrôle d'aspect.
+	Enfin, nous avons présenté la méthode de sélection automatique des variables les plus pertinentes par les
+	forêts d'arbres décisionnels, que nous avons retenue.
+	
+	Cependant, les méthodes d'extractions de descripteurs que nous avons présenté sont limitées à l'imagination humaine qui définit les descripteurs.
+	Dans la suite de ce travail, Chapitre \ref{ch:metric_learning}, nous nous intéresserons aux méthodes qui utilisent des réseaux de neurones profonds afin de construire automatiquement les descripteurs les plus appropriés au problème en présence.
+}
+
+\newpage
+
+
+\section{Synthèse et perspectives}  \label{sec:measure_perspective}
 Pour conclure ce chapitre, nous réalisons une synthèse de l'apport de notre travail au contrôle de la qualité des pièces plastiques.
 Nous proposons ensuite plusieurs pistes de recherche à privilégier.
 
@@ -1607,7 +1656,7 @@ La polarimétrie permet de mettre en valeur différents types de défauts : les 
 C'est également une méthode de mesure rapide que nous avons mis en place avec succès en cycle industriel.
 Nous avons conçu un polarimètre bas-coût pour réaliser cette mesure et il sera nécessaire de confronter nos mesures à un capteur calibré.
 
-Enfin, nous avons discuté de différentes méthodes de traitements de ces mesures multi-modales.
+Enfin, nous avons discuté de différentes méthodes de traitement de ces mesures multi-modales.
 Dans le Chapitre \ref{ch:metric_learning}, nous discuterons en particulier de l'exploitation de ces mesures par apprentissage statistique.
 L'objectif est de réaliser un système qui classifie la qualité des pièces à partir des mesures brutes.
 
@@ -1702,7 +1751,7 @@ L’erreur de prédiction maximale est de 7\%, ce qui montre l'intérêt de la m
 
 Cependant, ce système de dôme de réflectance est difficile à intégrer sur les lignes de production, en raison de sa taille.
 Plus l'objet à mesurer est grand, plus le diamètre du dôme augmente.
-Pour une application de contrôle de pièces automobiles de 1 mètre de long, le dôme peut atteindre plus de 10 mètres de diamètres.
+Pour une application de contrôle de pièces automobiles de 1 mètre de long, le dôme peut atteindre plus de 10 mètres de diamètre.
 
 Un système d'éclairage mono-point est plus simple à intégrer en production, mais il nécessite un positionnement précis de l'équipement d'éclairage et du capteur.
 Enfin, il n’est pas robuste aux décalages de positionnement de la pièce.
@@ -1731,7 +1780,7 @@ Enfin, il reste à commander un éclairage afin de faire varier son angle de pol
 
 À partir de la mesure de la matrice de Mueller, \citeauthor{queau_learning_2019} calculent des iamges de dépolarisation qu'ils utilisent pour identifier la classe de différents matériaux \cite{queau_learning_2019}.
 Les résultats qu'ils obtiennent sont encourageants et l'approche de l'exploitation des données brutes par apprentissage est similaire à la notre.
-L'introduction de la polarimétrie pour le contrôle des défauts sur les pièces plastiques ouvre un large champ de recherche.
+L'introduction de la polarimétrie de Mueller pour le contrôle des défauts sur les pièces plastiques pourrait ouvrir un large champ de recherche.
 
 % \begin{equation}\label{eq:mueller_matrix}
 %  Mueller

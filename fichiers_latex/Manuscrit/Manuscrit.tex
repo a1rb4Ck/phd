@@ -5,8 +5,8 @@
 \documentclass[11pt,a4paper,table]{Classe_SYMME}
 % \documentclass[a4paper,twoside,openany,final,11pt]{book}
 
-% https://github.com/asherikov/phd-thesis/blob/master/thesis.tex
 % What to include (useful if you want to send certain portions for review).
+% https://github.com/asherikov/phd-thesis/blob/master/thesis.tex
 %\includeonly{
 %  title,
 %  abstract,
@@ -16,6 +16,16 @@
 %  ch2,
 %  0_backmatter
 %}
+
+% How to compress with GhostScript
+% https://askubuntu.com/a/982732
+% -dPDFSETTINGS=/default : classic image compression
+% -dPDFSETTINGS=/screen : heavy image compression
+
+% gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 % -dPDFSETTINGS=/default \
+% -dNOPAUSE -dQUIET -dBATCH -dDetectDuplicateImages \
+% -dCompressFonts=true -r150 -sOutputFile=input_compressed.pdf input.pdf
+
 %----------------------------------------------------------------------
 
 \setcounter{secnumdepth}{3} % levels under \section are not numbered
