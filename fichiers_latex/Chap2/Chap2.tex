@@ -46,29 +46,31 @@
 \minitoc
 \newpage
 
-\section{Qualité d'un produit en injection-moulage des thermoplastiques}
+\section{Qualité d'un produit en injection-moulage des thermoplastiques} \label{sec:quality_definition}
 
 La norme ISO9000 \cite{ISO_9000_2015} spécifie la notion de qualité comme l'\textit{aptitude d'un ensemble de caractéristiques intrinsèques d'un objet à satisfaire des exigences}.
-Dans notre cadre des produits industriels, les exigences sont celles du client finale ou du donneur d'ordre.
-Elles sont spécifiées dans le cahier des charges du produit.
-Nous distinguons cinq grands types de caractéristiques :
+Dans notre cadre des produits industriels, les exigences sont celles du client final ou du donneur d'ordre.
+Elles sont spécifiées dans dans la documentation technique du produit, dont le dessin.
+Des caractéristiques sont mesurées sur le produit.
+Puis les résultats sont comparées aux exigences, c'est à dire des limites d'acceptation, des intervalles de tolérances.
+Nous distinguons cinq grands types de caractéristique :
 \begin{itemize}
-	\item géométriques : normes ISO GPS \textit{Global Product Specifications} \cite{ISO_8015_2011},
+	\item géométriques  % : normes ISO GPS \textit{Geometrical Product Specifications} \cite{ISO_8015_2011},
 	\item mécaniques,
 	\item sensoriels : visuelles, haptiques, olfactives,
 	\item chimiques,
 	\item économiques.
 \end{itemize}
 
-Les pièces industrielles sur lesquelles nous avons travaillées sont fabriquées par injection-moulage de thermoplastiques.
-Dans le cadre de ce procédé, les caractéristiques chimiques sont définies par le choix de la matière initiale.
-Les caractéristiques économiques sont les coûts associés à la production des pièces.
-Les caractéristiques mécaniques dépendent du choix du matériau, de la géométrie des pièces et des paramètres du procédé d'injection-moulage.
+%Les pièces industrielles sur lesquelles nous avons travaillées sont fabriquées par injection-moulage de thermoplastiques.
+%Dans le cadre de ce procédé, les caractéristiques chimiques sont définies par le choix de la matière initiale.
+%Les caractéristiques économiques sont les coûts associés à la production des pièces.
+%Les caractéristiques mécaniques dépendent du choix du matériau, de la géométrie des pièces et des paramètres du procédé d'injection-moulage.
 
-Dans le cadre de ce travail, nous nous intéressons en particulier aux caractéristiques géométriques et aux caractéristiques d'aspects.
-La maîtrise de ces deux types de caractéristiques est un enjeu important pour le secteur de la plasturgie.
-Les tolérances dimensionnelles sont de plus en plus élevées.
-À celles-ci s'ajoutent l'exigence d'aucune non-conformité de l'aspect des pièces.
+Dans le cadre de ce travail, nous nous intéressons en particulier aux caractéristiques géométriques et d'aspect.
+La maîtrise de ces deux types de caractéristique est un enjeu important pour le secteur de la plasturgie.
+Les tolérances dimensionnelles sont de plus en plus serrées.
+À celles-ci s'ajoutent l'exigence de peu de non-conformité de l'aspect des pièces.
 Enfin, l'amélioration de la qualité est un facteur important de rentabilité et de compétitivité des entreprises.
 Dès 1950, \citeauthor{deming_quality_1982} \cite{deming_quality_1982} décrit la réaction en chaîne que permet d'initier l'amélioration de la qualité : réduction des coûts des rebuts, diminution du prix de revient, gain de marchés et, à terme, création d'emplois.
 
@@ -81,10 +83,10 @@ Dès 1950, \citeauthor{deming_quality_1982} \cite{deming_quality_1982} décrit l
 		Non-conformité & Description & Causes probables \\ \hline \hline
 		% Dimensionnelle & dimension non-conforme & température du moule, rigidité du moule, retassure \\ \hline \hline
 		Homothétie & dimension modifiée & retrait de la matière \\ \hline
-		Gauchissement & défaut de surfaces & refroidissement non homogène \\ \hline
+		Gauchissement & défaut de surface & refroidissement non homogène \\ \hline
 		Retassure  & réduction de dimension & pression de maintien, vitesse d'injection \\ \hline
-		Incomplet & trou dans la pièces & quantité de matière injectée, clapet anti-retour défaillant \\ \hline
-		Ligne de soudure & ligne décoloré &  pression d'injection, température matière \\ \hline
+		Incomplet & trou dans la pièce & quantité de matière injectée, clapet anti-retour défaillant \\ \hline
+		Ligne de soudure & ligne décolorée &  pression d'injection, température matière \\ \hline
 		Jet libre & trace décolorée & viscosité matière, conception moule, pression d'injection \\ \hline
 		Éjection & trace de l'éjecteur & vitesse éjecteur, température matière, durée refroidissement \\ \hline \hline
 		Combustion & trace noire & conception du moule, température de la matière \\ \hline
@@ -95,12 +97,13 @@ Dès 1950, \citeauthor{deming_quality_1982} \cite{deming_quality_1982} décrit l
 	\label{tab:visual_defect}
 \end{table}
 
-Le Tableau \ref{tab:visual_defect} présente les non-conformités d'aspect usuelles en injection-moulage des thermoplastiques.
-Sur des pièces qui seront utilisées en contraintes et en fatigues, un défaut de ligne de soudure entraine une fragilité.
+Le Tableau \ref{tab:visual_defect} présente les non-conformités d'aspect habituelles en injection-moulage des thermoplastiques.
+% Sur des pièces qui seront utilisées en contraintes et en fatigues
+Un défaut de ligne de soudure entraine une fragilité.
 La majorité des non-conformités d'aspect sont des défauts de surface géométriques.
 Seules la combustion, le givrage et la pollution sont entrainées pas la modification des propriétés du polymère.
 Ces imperfections géométriques sont souvent dues au mauvais maintien du polymère contre les parois de l'outillage, ou bien à la solidification trop rapide de la matière.
-Les défauts d'incomplets sont les plus simples à détecter par vision informatique : un seuillage puis une détection de contours permet de mettre en évidence le manque de matière.
+Les défauts d'incomplet sont les plus simples à détecter par analyse d'image : un seuillage puis une détection de contours permet de mettre en évidence le manque de matière.
 La détection des autres non-conformité est plus compliquée.
 C'est notre objectif principal de recherche.
 
@@ -128,23 +131,23 @@ C'est notre objectif principal de recherche.
 % \footnotemark
 \footnotetext{\href{https://www.altimet.fr/?page_id=236}{Spécifications techniques} de l'Altisurf 520 sur le site Internet de la société Altimet.}
 
-La Figure \ref{fig:confocal_defect} présente une mesure par microscopie confocal d'un défaut de retassure, sur une pièce plastique automobile de deux mètres.
-Ce défaut est caractéristiques des pièces automobiles qui sont peintes afin de réfléchir la lumière de manière harmonieuse.
-La légère inflexion de la surface entraine une "cassure" de la réflexion de la lumière, ce qui attire le regard et amplifie le défaut.
+La Figure \ref{fig:confocal_defect} présente une mesure par microscopie confocale d'un défaut de retassure sur une pièce plastique automobile de deux mètres.
+Ce défaut est caractéristique des pièces automobiles qui sont peintes afin de réfléchir la lumière de manière harmonieuse.
+La légère inflexion de la surface entraine une "cassure" de la réflexion de la lumière, ce qui attire le regard et amplifie l'impression de défaut.
 L'écart géométrique de l'inflexion est de l'ordre de la dizaine de micromètres.
 La mesure de la géométrie à l'échelle micrométrique, pendant le temps de cycle du procédé, est un véritable défi.
 Dans la suite de ce chapitre, nous présenterons les moyens de mesure existants ; puis nous orienterons notre étude sur les moyens de mesure sans contact ; en particulier nous nous intéresserons aux moyens de mesure compatibles avec le temps de cycle du procédé d'injection-moulage.
 
-\section{Mesures en ligne de production}
-Dans le cadre de productions industrielles par injection-moulage des thermoplastiques, les contrôles qualité sont traditionnellement effectués en sortie des lignes de production de pièces.
+\section{Cahier des charges pour le contrôle en ligne de production}
+Dans le cadre de productions industrielles par injection-moulage des thermoplastiques, les contrôles qualité sont traditionnellement effectués sur les produits finis, juste avant l'expédition des pièces.
 Il s'agit de s’assurer que les pièces sont conformes aux exigences spécifiées par le cahier des charges.
 Les pièces non-conformes sont mises au rebut.
-Le contrôle qualité final est réalisé à l’issue des étapes de finitions, telles que la peinture.
-Pour des productions de pièces à faible valeur ajoutée, le contrôle est réalisé par prélèvement aléatoires de pièces.
-Il est effectué par un opérateur humain.
-Le contrôle peut nécessité la mesure de dimensions géométriques, ou de propriétés mécaniques de la pièces.
+Le contrôle qualité final est réalisé à l’issue des étapes de finition, telles que la peinture et la décoration.
+Pour des productions de pièces à faible valeur ajoutée, le contrôle est réalisé par prélèvements aléatoires de pièces.
+Il est effectué par un opérateur humain, ce qui est coûteux.
+Le contrôle peut nécessiter la mesure de dimensions géométriques ou de propriétés mécaniques de la pièce.
 La mesure géométrique est le plus souvent réalisée à l'aide d'un pied à coulisse.
-Dans le cas de pièces techniques à forte valeur ajoutée, les exigences du client peuvent atteindre 5 pièces défectueuses par million de pièces (\textit{5 ppm} pour les secteurs automobile, aéronautique, de la santé).
+Dans le cas de pièces techniques à forte valeur ajoutée, les exigences du client peuvent atteindre 5 pièces défectueuses par million de pièces (\textit{5 ppm} pour les secteurs automobile, aéronautique et de la santé).
 Il est alors indispensable de réaliser le contrôle qualité sur cent pourcent des pièces, avant l'envoi au client.
 Ce contrôle présente un coût et il devient intéressant de l'automatiser.
 
@@ -156,60 +159,65 @@ Ce contrôle présente un coût et il devient intéressant de l'automatiser.
 \end{figure}
 
 La Figure \ref{fig:quality_integration} présente l'intégration du contrôle de la qualité au sein de la ligne de production.
-Le contrôle de la qualité des produits est de manière classique réalisé après la finition de la pièce.
-L'état de la pièce dépend alors des paramètres des étapes précédentes de finitions $X3$, stockage $X2$, transport et en premier lieu de l'injection-moulage $X1$.
+Le contrôle de la qualité des produits est de manière classique réalisé après la finition des pièces.
+L'état de la pièce dépend alors des étapes précédentes de finitions $X3$, de stockage $X2$, de transport et de l'injection-moulage $X1$.
 Des défauts peuvent apparaitre lors des phases de transports, stockages et de finitions.
 Plus on multiplie le nombre d'étapes successives, plus il est difficile de trouver l'étape qui est la cause du défaut.
-De plus, si la pièce est défectueuse à l'étape de l'injection-moulage $X1$, il est coûteux de stocker cette pièce $X2$ et il est encore plus coûteux de réaliser sa finition $X3$.
-Le contrôle qualité en fin de chaîne de production, à l'instant $M2$, ne permet d'éviter ces coûts.
-Pour l'ensemble de ces raisons, nous proposons de réaliser la mesure de la qualité du produit à l'instant $M1$, dès la sortie du moule d'injection, alors que les pièces sont encore chaudes.
-En plus d'éliminer les rebuts de la chaîne de production, il deviendrait alors possible de construire un modèle de causalité entre les paramètres du procédé d'injection-moulage et la qualité de la pièce.
-Ce modèle permettrait d'ajuster les paramètres du procédé, pièces après pièces, pour optimiser la qualité.
-La construction de ce modèle et le pilotage du procédé d'injection-moulage ne sont pas l'objet de notre travail.
-C'est une perspective de recherche qui pourra s'inscrire à sa suite.
+De plus, si la pièce est défectueuse à l'étape de l'injection-moulage $X1$, elle entraine des coûts de non-qualité : le coût du stockage de la pièce $X2$ et le coût de sa finition $X3$.
+Le contrôle qualité en fin de chaîne de production ne permet pas d'éviter ces coûts.
+Pour l'ensemble de ces raisons, nous proposons de réaliser la mesure de la qualité du produit dès la sortie du moule d'injection, alors que les pièces sont encore chaudes.
+En plus d'éliminer les rebuts de la chaîne de production, il serait alors possible de construire un modèle de causalité entre les paramètres du procédé d'injection-moulage et les caractéristiques qualité de la pièce.
+% Ce modèle permettrait d'ajuster les paramètres du procédé, pièces après pièces, pour optimiser la qualité.
+% La construction de ce modèle et le pilotage du procédé d'injection-moulage ne sont pas l'objet de notre travail.
+% C'est une perspective de recherche qui pourra s'inscrire à sa suite.
 
 % \subsection{Vers une métrique de la qualité}
 Le contrôle qualité est souvent réalisé de manière binaire : pièces conformes ou pièces non-conformes.
-Des grilles de notations peuvent être utilisées pour attribuer une note de la qualité.
+Occasionnellement, des grilles de notation à critères peuvent être utilisées pour attribuer une note de la qualité.
 On réalise alors la moyenne géométrique de la note pour chacun des critères.
 Ce processus de notation est néanmoins beaucoup plus long.
 Il est réservé aux productions de pièces dont le prix de revient est élevé.
-Ainsi, la mesure de la qualité est rarement réalisée et on parle de contrôle (binaire) de la qualité.
-Les causes sont discutées dans le Chapitre \ref{ch:objectives} §\ref{sec:research_objectives}.
-Afin de réaliser une mesure de la qualité, notre travail propose également de définir une métrique de la qualité par apprentissage, à partir des données issues des capteurs, Chapitre \ref{sec:metric_learning}.
+% Ainsi, la mesure de la qualité est rarement réalisée et on parle de contrôle (binaire) de la qualité.
+% Les causes sont discutées dans le Chapitre \ref{ch:objectives} §\ref{sec:research_objectives}.
+% Afin de réaliser une mesure de la qualité, notre travail propose également de définir une métrique de la qualité par apprentissage, à partir des données issues des capteurs, Chapitre \ref{sec:metric_learning}.
 
-Dans ce chapitre, nous discuterons du choix des capteurs à mettre en œuvre, pour mesurer en ligne de production.
-La littérature a proposé de réaliser des mesures indirectes\footnote{On parle d'une mesure indirecte lorsqu'il ne s'agit pas de mesurer directement la caractéristique de la pièce. La mesure de pression dans l'outillage est une mesure indirecte des caractéristiques finales de la pièces. C'est un indicateur des caractéristiques du produit.} de la qualité, comme par exemples des mesures de température ou de pression sur le moyen de production.
-C'est pourquoi nous discuterons également de la pertinence des mesures.
+%Dans ce chapitre, nous discuterons du choix des capteurs à mettre en œuvre, pour mesurer en ligne de production.
+%La littérature a proposé de réaliser des mesures indirectes\footnote{On parle d'une mesure indirecte lorsqu'il ne s'agit pas de mesurer directement la caractéristique de la pièce.
+%La mesure de pression dans l'outillage est une mesure indirecte des caractéristiques finales de la pièces.
+%C'est un indicateur des caractéristiques du produit.} de la qualité, comme par exemples des mesures de température ou de pression sur le moyen de production.
+%% C'est pourquoi nous discuterons également de la pertinence des mesures.
 
-\begin{figure}[hbtp]
-	\centering
-	\begin{tikzpicture}
-	\begin{scope}[blend group=lighten] % blend group= soft light
-	% \fill[red!30!white]   ( 90:1.2) circle (2);
-	\fill[yellow!15!white]  (330:1.3) circle (2.4);
-	\fill[blue!15!white] (210:1.3) circle (2.4);
-	\end{scope}
-	% \node at ( 90:2)    {Test};
-	% \node at (210:2)    {Contraintes \\ industrielles};
-	\node[align=center] at (210:2.6) {Contraintes\\ industrielles};%above,near start
-	%\node[bag] {Not diseased\\ $\left( D^- \right)$} %% 1
-	\node[align=center] at (330:2.6) {Mesure\\ pertinente};
-	\node[font=\Large,align=center,below] {Dispositif \\ adapté};
-	\end{tikzpicture}
-	\caption{Diagramme de Venn d'un dispositif de mesure adapté.}
-	\label{fig:venn_choice}
-\end{figure}
+%\begin{figure}[hbtp]
+%	\centering
+%	\begin{tikzpicture}
+%	\begin{scope}[blend group=lighten] % blend group= soft light
+%	% \fill[red!30!white]   ( 90:1.2) circle (2);
+%	\fill[yellow!15!white]  (330:1.3) circle (2.4);
+%	\fill[blue!15!white] (210:1.3) circle (2.4);
+%	\end{scope}
+%	% \node at ( 90:2)    {Test};
+%	% \node at (210:2)    {Contraintes \\ industrielles};
+%	\node[align=center] at (210:2.6) {Contraintes\\ industrielles};%above,near start
+%	%\node[bag] {Not diseased\\ $\left( D^- \right)$} %% 1
+%	\node[align=center] at (330:2.6) {Mesure\\ pertinente};
+%	\node[font=\Large,align=center,below] {Dispositif \\ adapté};
+%	\end{tikzpicture}
+%	\caption{Diagramme de Venn d'un dispositif de mesure adapté.}
+%	\label{fig:venn_choice}
+%\end{figure}
 
-La Figure \ref{fig:venn_choice} positionne le dispositif de mesure adéquate, comme l'intersection entre les contraintes industrielles et la pertinence de la mesure, pour les caractéristiques qualité de la pièce.
+%La Figure \ref{fig:venn_choice} positionne le dispositif de mesure adéquate, comme l'intersection entre les contraintes industrielles et la pertinence de la mesure, pour les caractéristiques qualité de la pièce.
 % Les contraintes industrielles ont limité le déploiement de la mesure de la qualité au sein de la ligne de production.
-Les contraintes qui s'appliquent à la réalisation de la mesure du produit, au sein de la ligne de production, sont synthétisées dans le Tableau \ref{tab:industrial_constraints}.
 
-Une des contraintes du contrôle en ligne de production est que, si une mesure par prélèvement est réalisée, alors la pièce prélevée ne peut pas être ré-intégrée  au flux de production.
-À cette contrainte s'ajoute les bénéfices de réaliser un contrôle à cent pourcent :
+Les contraintes qui s'appliquent à la réalisation de la mesure du produit, au sein de la ligne de production, sont synthétisées dans le Tableau \ref{tab:industrial_constraints}.
+Elles définissent le cahier des charges du dispositif de contrôle que nous cherchons à obtenir.
+
+Une des contraintes du contrôle en ligne de production est que, si une mesure par prélèvement est réalisée, alors il est difficile de ré-intégrer la pièce prélevée au flux de production.
+Le contrôle de toutes les pièces sur la ligne de production apportent des bénéfices :
 \begin{itemize}
-	\item du point de vue de la traçabilité des pièces pour le client, qui dispose d'une fiche de qualité pour chaque pièce, \item pour l'analyse des performances du procédé et son optimisation,
-	\item du point de vue de l'assurance de respecter les exigences du nombres de pièces défectueuses par lot.
+	\item du point de vue de la traçabilité des pièces pour le client, qui dispose d'une fiche de qualité pour chaque pièce,
+	\item pour l'analyse des performances du procédé et son optimisation,
+	\item du point de vue de l'assurance de respecter les exigences du nombre de pièces défectueuses par lot.
 \end{itemize}
 
 \begin{table}[bthp]
@@ -219,7 +227,7 @@ Une des contraintes du contrôle en ligne de production est que, si une mesure p
 	\begin{tabular}{|l|l|}
 		\arrayrulecolor{black}
 		\hline
-		Contraintes industrielles & Limites pour la mesure \\ \hline
+		Contraintes industrielles & Cahier des charges \\ \hline
 		\hline
 		Flux continu & Mesure de toutes les pièces \\ \hline
 		Durée du cycle & Durée de 10 secondes \\ \hline
@@ -235,45 +243,45 @@ Une des contraintes du contrôle en ligne de production est que, si une mesure p
 		Taux de faux positifs & 1 à 8 pièces par journée \\ \hline
 		Taux de faux négatifs & 100 à 5 pièces par million \\ \hline
 	\end{tabular}
-	\caption{Contraintes industrielles pour la contrôle en ligne de la qualité.}
+	\caption{Contraintes industrielles et cahier des charges pour la contrôle en ligne de la qualité.}
 	\label{tab:industrial_constraints}
 \end{table}
 
 Le contrôle à cent pour-cent nécessite alors d'être réalisée pendant le temps de cycle du procédé.
 La durée de la mesure est d'autant plus réduite que la pièce doit être amenée devant le dispositif de mesure.
 Il est nécessaire d'inclure la durée des convoyages aller et retour.
-Enfin, il n'est pas envisageable d'augmenter la durée du cycle du procédé pour pouvoir réaliser la mesure, car cela impacterait très fortement la rentabilité du moyen de production.
+Enfin, il n'est pas envisageable d'augmenter la durée du cycle du procédé pour pouvoir réaliser la mesure, car cela impacterait très fortement le coût de la pièce.
 C'est pourquoi nous estimons que la durée de la mesure doit être au maximum de 10 secondes.
-Pour un temps de cycle du procédé de 30 secondes, la durée de convoyage devra elle aussi être inférieure à 10 secondes.
+% Pour un temps de cycle du procédé de 30 secondes, la durée de convoyage devra elle aussi être inférieure à 10 secondes.
 %
 Ainsi, le moyen de mesure doit être situé à proximité de la ligne de production.
 En admettant une vitesse de déplacement du convoyeur de 1 mètre par seconde (ce qui est élevée), le dispositif de mesure devra être situé à moins de 5 mètres de l'emplacement initial de la sortie de la pièce.
 %
+
 Cette contrainte de proximité du moyen de mesure dans la ligne de production implique une contrainte de dimensions du moyen de mesure.
 À partir de nos essais réalisés dans des ateliers de production, nous estimons l'encombrement acceptable à 1 mètre cubique.
 Il est également recommandé de limiter la complexité du câblage nécessaire à l'installation du moyen de mesure.
 %
 Enfin, nous avons pour objectif de couvrir une large gamme de pièces plastiques.
 C'est pourquoi nous définissons des critères sur la dimension des pièces pouvant être mesurées, ainsi que sur la distance du moyen de mesure à la pièce.
-Dans le cas où le moyen de mesure nécessite une solution optique, cela permet de dimensionner la solution optique : il devra couvrir un angle de champ allant de 40° à 90°.
+Dans le cas où le moyen de mesure utilise des capteurs optiques, cela permet de dimensionner la solution optique qui devra couvrir un angle de champ allant de 40° à 90°.
 %
-Nous ajoutons une dernière recommandation qui concerne le contrôle dimensionnelles des pièces plastiques souples : il est difficile de toucher ces pièces sans les déformer ; d'autant plus à la sortie du moule, quand elles sont encore chaudes.
+Nous ajoutons une dernière recommandation qui concerne le contrôle dimensionnel des pièces plastiques souples : il est difficile de toucher ces pièces sans les déformer ; d'autant plus à la sortie du moule, quand elles sont encore chaudes.
 C'est pourquoi un moyen de mesure sans contact est à privilégier pour le contrôle des pièces souples.
 
 \subsection{Mesures indirectes des caractéristiques du produit} \label{subsec:indirect_measures}
-La littérature §\ref{ch:objectives} étudie peu la mesure directe des caractéristiques du produit.
+La littérature sur l'injection-moulage §\ref{ch:objectives} étudie peu le mesurage directe des caractéristiques du produit.
 % La mesure directe de la qualité des pièces est rarement réalisée, pour les raisons détaillées dans le Chapitre \ref{ch:metric_learning} \ref{sec:research_objectives}.
-La majorité des travaux proposent la mesure de variables physiques sur le procédé, à partir de capteurs positionnés à l'intérieur de l'outillage.
-En général, un modèle est construit afin de prédire une caractéristique du produit (qui est souvent la masse de la pièce) à partir des mesures dans le moule (souvent la pression et la température).
-L'argumentaire de ces travaux est que la mesure de variables au plus porche de la matière fondue permet de prédire au mieux les caractéristiques finales de la pièce.
+La majorité des travaux proposent de mesurer des variables physiques sur le procédé, à partir de capteurs positionnés à l'intérieur de l'outillage.
+En général, un modèle est construit afin de prédire une caractéristique du produit, qui est souvent la masse de la pièce, à partir des mesures dans le moule, qui sont souvent la pression et la température.
+L'argumentaire de ces travaux est que les variables au plus proche de la matière fondue permettent de prédire au mieux les caractéristiques finales de la pièce.
 % De plus, ce type de mesures peut utiliser les capteurs qui sont déjà présents sur les machines d'injection-moulage.
 
-Nous avons réalisé une étude afin de vérifier la pertinence de ce type de mesures indirectes.
-L'étude \citetitle{nagorny_quality_2017} propose de construire un modèle qui détermine la valeur d'cotation géométrique de la pièce produite, à partir de mesures sur le procédé \cite{nagorny_quality_2017}.
-À partir des signaux de capteurs de pressions et de températures mesurés dans le moule pendant le cycle du procédé, une valeur géométrique continue est prédite.
-Un capteur de pression et un capteur de température sont positionnées au contact de la matière.
-La position optimale des capteurs est définie dans l'étude de \citeauthor{agazzi_optimal_2013} \cite{agazzi_optimal_2013}.
-Les signaux sont acquis à une fréquence de 100 Hertz, sans filtrage\footnote{Acquisition réalisée à l'aide du système \textit{PSP} de la \href{http://www.sise-plastics.com/}{société \textit{SISE}}.}.
+% Nous avons réalisé une étude afin de vérifier la pertinence de ce type de mesures indirectes.
+Notre étude \citetitle{nagorny_quality_2017} propose de construire un modèle qui détermine la valeur d'une cotation géométrique de la pièce produite, à partir de mesures sur le procédé \cite{nagorny_quality_2017}.
+Un capteur de pression et un capteur de température sont positionnées au contact de la matière, dans le moule.
+La position des capteurs que nous utilisons est optimisée dans selon la méthode de \citeauthor{agazzi_optimal_2013} \cite{agazzi_optimal_2013}.
+À partir des signaux de capteurs de pression et de température mesurés pendant le cycle du procédé, une valeur géométrique continue est prédite à l'aide d'un modèle identifié par apprentissage statistique.
 
 \begin{figure}[bthp]
 	\centering
@@ -283,20 +291,23 @@ Les signaux sont acquis à une fréquence de 100 Hertz, sans filtrage\footnote{A
 \end{figure}
 
 La Figure \ref{fig:inmold_signals} présente ces signaux pour une pièce.
-Ce travail s'appuie sur une production de 204 pièces, où les paramètres de la machine ont été variés suivant un plan d'expérience de criblage, discuté dans le Chapitre \ref{ch:dataset} §\ref{subsec:l12_doe}.
-Le modèle qui prédit au mieux la géométrie à partir des mesures s'appuie sur des réseaux de neurones récurrents \textit{LSTM}.
-La Figure \ref{fig:signals_lstm} présente les résultats normalisés obtenues par validation croisée §\ref{subsubsec:cross_val}, pour 27 pièces de la base de données de tests.
+On observe pour la pression une valeur maximale lors de l'injection de la matière dans l'empreinte, puis une pression décroissante pendant la phase de maintien. Enfin, la pression est nulle lorsque la pièce est solidifé et pendant que l'empreinte est ouverte.
+Pour la température, on observe un refroidissement progressif suite à l'injection de la matière fondue.
+
+Notre étude \citetitle{nagorny_quality_2017} s'appuie sur une production de 204 pièces, pendant laquelle les paramètres de la machine ont variés suivant un plan d'expériences de criblage, discuté dans le Chapitre \ref{ch:dataset} §\ref{subsec:l12_doe}.
+Le modèle qui prédit au mieux la géométrie à partir des mesures s'appuie sur des réseaux de neurones récurrents. % \textit{LSTM}.
+La Figure \ref{fig:signals_lstm} présente les résultats normalisés obtenues par validation croisée\footnote{Nous détaillons le principe de la validation croisée dans la Section \ref{subsubsec:cross_val}.}, pour 27 pièces de la base de données de tests.
 L'erreur de prédiction est faible.
 Cela correspond à une erreur moyenne de prédiction de la dimension de 1,3 millimètres sur une dimension de 90 millimètres, soit une erreur relative de 1,54\%.
 Ces résultats montrent l'intérêt de ce type de mesures indirectes des caractéristiques du produit.
-Cette erreur est inférieure aux attentes dimensionnelles de la norme ISO20457 \cite{ISO_20457_2018}, qui exige entre 2\% et 4\% d'écarts dimensionnelles.
+Cette erreur est inférieure tolérances générales des pièces plastiques selon la norme ISO20457 \cite{ISO_20457_2018}, qui exige entre 2\% et 4\% d'écarts dimensionnelles.
 Toutefois, si elle est généralisée pour des pièces dont les dimensions font un mètre, une erreur relative de 1,54\% est équivalente à une erreur de 1,54 centimètres.
-Aussi, l'erreur obtenue par le modèle \textit{LSTM} est à la limite de faisabilité de l'employer comme moyen de contrôle prédictif de la cotation.
-Il faudrait une erreur dix fois moindre pour garantir la possibilité d'utilisation de ce modèle prédictif.
-Un jeu de données de pièces plus conséquent, ainsi qu'un modèle plus raffiné, sont des pistes pour améliorer ces performances.
+Aussi, l'erreur obtenue par le modèle est à la limite de faisabilité de l'employer comme moyen de contrôle prédictif de la géométrie.
+% Il faudrait une erreur dix fois moindre pour garantir la possibilité d'utilisation de ce modèle prédictif.
+% Un jeu de données de pièces plus conséquent, ainsi qu'un modèle plus raffiné, sont des pistes pour améliorer ces performances.
 
 Dans une démarche de surveillance de l'état du procédé d'injection-moulage, la mesure de variables sur la machine est importante.
-Une mise sous surveillance statistique MSP §\ref{subsubsec:spc} permet de détecter les situations hors-contrôle et les défaillances du procédé.
+Une mise sous surveillance statistique MSP\footnote{Nous présentons la littérature sur la surveillance statistique MSP en injection-moulage dans l'Annexe \ref{subsubsec:spc}.} permet de détecter les situations hors-contrôle et les défaillances du procédé.
 Nous invitons le lecteur qui s'intéresse aux mesures réalisées sur le procédé, plutôt que sur le produit, à consulter l'état de l'art récent et exhaustif de \citeauthor{ageyeva_inmold_2019} \cite{ageyeva_inmold_2019}.
 % Nous ajoutons la possibiliter d'analyser les vibrations de la machine.
 
@@ -307,15 +318,15 @@ Nous invitons le lecteur qui s'intéresse aux mesures réalisées sur le procéd
 	\label{fig:signals_lstm}
 \end{figure}
 
-Dans notre objectif, nous cherchons à mesurer les caractéristiques d'aspects des pièces.
-À la différence de notre travail sur la prédiction d'une cotation géométrique, les caractéristiques d'aspect sont difficilement représentées par une unique variable continue.
-La représentation des caractéristiques d'aspect la plus commune est l'image numérique.
-Elle se compose de plusieurs milliers de valeurs entières, encodées sur 8 bits, entre 0 et 254.
-Nous n'avons pas réussi à construire un modèle qui prédit les caractéristiques de l'aspect des pièces à partir des seules mesures dans le moule.
-Aussi, nous pensons qu'il est nécessaire de capturer une image de l'aspect des pièces, dès leur sortie du moule, afin d'établir une mesure de l'aspect.
-La mesure directe est l'objet de la section suivante.
+%Dans notre objectif, nous cherchons à mesurer les caractéristiques d'aspects des pièces.
+%À la différence de notre travail sur la prédiction d'une cotation géométrique, les caractéristiques d'aspect sont difficilement représentées par une unique variable continue.
+%La représentation des caractéristiques d'aspect la plus commune est l'image numérique.
+%Elle se compose de plusieurs milliers de valeurs entières discrètes, généralement encodées sur 8 bits (entre 0 et 254).
+%Nous n'avons pas réussi à construire un modèle qui prédit les caractéristiques de l'aspect des pièces à partir des seules mesures dans le moule.
+%Aussi, nous pensons qu'il est nécessaire de capturer une image de l'aspect des pièces, dès leur sortie du moule, afin d'établir une mesure de l'aspect.
+%La mesure directe est l'objet de la section suivante.
 
-\subsection{Mesures directes des caractéristiques du produit}
+\subsection{Mesurage directe des caractéristiques du produit}
 %Quelles sont les propriétés physico chimique que l'ont peut regarder ?
 %Mécanique (masse, Vibratoire, dimensions, sonores),  electromag. (thermique: pour tout ce qui est pièces chaudes, visuel, polarisé).
 %Attention : mesurande différent mesurée
@@ -351,15 +362,23 @@ La mesure directe est l'objet de la section suivante.
 %\blindtext
 Notre approche consiste à mesurer les caractéristiques des pièces dès la sortie de la presse d'injection-moulage.
 La réalisation de ces mesures nécessite de convoyer la pièce devant le banc de mesure.
-Un tapis roulant ou un bras robotique permet de déplacer la pièce.
-La durée des déplacement est à prendre en compte, vis à vis de la durée du cycle et de la durée de la mesure.
-
+Un tapis roulant ou un bras robotisé permet de déplacer la pièce.
+% La durée des déplacement est à prendre en compte, vis à vis de la durée du cycle et de la durée de la mesure.
 De nombreuses méthodes ont été développées pour mesurer les propriétés mécaniques des pièces.
-En particulier, la mesure des contraintes résiduelles dans la pièce est un enjeu important.
-Le travail de doctorat de \citeauthor{giroud_mesure_2001} mesure les contraintes internes d'une pièce à l'aide de la méthode de l'enlèvement de couches fines \cite{giroud_mesure_2001}.
+
+Dans nos travaux, nous n'utiliserons pas de méthodes de mesure invasives, ni de mesures réalisées hors-ligne.
+L'étude de ces méthodes peuvent néanmoins servir d'inspiration pour concevoir des méthodes de mesure non invasives, sans destruction des pièces.
+Ainsi, nous nous intéresserons dans nos travaux à la polarimétrie.
+En revanche, nous n'étudierons pas l'utilisations des rayonnements X et Térahertz, car les machines restent coûteuses ; mais nous pensons qu'ils seraient très intéressant de les mettre en œuvre en ligne de production.
+
+\subsubsection{Mesurage des contraintes internes}
+La mesure des contraintes résiduelles dans la pièce est un enjeu important.
+Le travail de doctorat de \citeauthor{giroud_mesure_2001} propose de mesurer les contraintes internes d'une pièce à l'aide de la méthode de l'enlèvement de couches fines \cite{giroud_mesure_2001}.
 C'est une méthode qui détruit la pièce et qui doit être réalisée en dehors de la ligne de production.
+
+\subsubsection{Mesurage cristallographique}
 La mesure des caractéristiques cristallographiques est importante car ce sont ces caractéristiques qui déterminent les propriétés mécaniques des pièces.
-Cette structure est dépendante des paramètres du procédé.
+% Cette structure est dépendante des paramètres du procédé.
 \citeauthor{mendoza_spatial_2003} utilise par exemple la polarimétrie sur couche mince (micrographie) pour mettre en évidence les axes d'orientation du polymère semi-cristallin \cite{mendoza_spatial_2003}.
 Dans ces travaux de thèses, \citeauthor{malhab_moulage_2012} introduit l'utilisation de la diffraction des rayons X à grands et petits angles, à l'aide d'un rayonnement synchrotron hautement énergétique (12 KeV) \cite{malhab_moulage_2012}.
 % Wang et Cakmak (2001) ont utilisé des échantillons qui avaient une géométrie parallélépipédique.
@@ -368,24 +387,95 @@ La cohérence du faisceau synchrotron (30 micromètres) permet de mettre en évi
 Cela permet d'étudier l'évolution de la structure en fonction des paramètres du procédé d'injection.
 La diffraction à grands angles (\textit{Wide-Angle X-ray Scattering}) permet de déterminer le degré de cristallinité du polymère semi-cristallin, en observant les figures de diffraction de la structure cristalline.  % subnano, aux dimensions picométriques, Bragg peaks
 La diffraction à petits angles permet de déterminer les dimensions nanomètriques de la structure du polymère, telles que la longueur de la période de répétition du motif cristallin, la largeur et la longueur de la lamelle cristalline.
-En 2009, le projet européen \textit{poliMATIC}\footnote{Projet de recherche de la Commission européenne FP7-NMP-2009-SME-3 : \href{https://www.automated-polishing.eu/}{automated-polishing.eu}} a proposé de robotiser l'utilisation de la microscopie confocal (\href{https://www.altimet.fr/?page_id=248}{capteur Altimet} de la société Altisurf) pour contrôler la rugosité de pièces.
-La position du capteur est asservie en distance pour mesurer des pièces courbes.
-Un interféromètre portatif\footnote{Interféromètre désormais commercialisé par la société \href{http://qisab.com/}{QiSab}} a également été développé pour améliorer la résolution, et atteindre une précision inférieure au nanomètre \cite{baath_new_2012}.
-La durée de la mesure est élevée, car le capteur mesure une surface de $4\times 4$ centimètres ; il doit être déplacé sur toute la surface.
+
+\subsubsection{Mesurage de la densité}
 En 2010, le projet \textit{PLASTX} du Pôle Européen de la Plasturgie\footnote{Le Pôle Européen de la Plasturgie est devenu le \href{https://ct-ipc.com/}{Centre Technique Industriel de la Plasturgie et des Composites} (IPC) en 2017.} propose de réaliser une mesure par tomographie rayons X des pièces dès la sortie du moule\footnote{\href{https://vimeo.com/50358748}{Vidéo de présentation} du démonstrateur du projet PLASTX.}.
 La source de rayons X est fixe et un bras robotique déplace la pièce dans un mouvement de rotation.
 La tomographie permet de mesurer le champ de densité de la pièce.  % par la transformée de Radon.
 Les résultats du projet \textit{PLASTX} montrent que cette mesure est compatible avec le temps de cycle industriel.
 Cependant, la mise en place d'une source de rayons X sur une ligne de production reste difficile en raison des blindages nécessaires.
+
+\subsubsection{Mesurage de l'état de surface}
+En 2009, le projet européen \textit{poliMATIC}\footnote{Projet de recherche de la Commission européenne FP7-NMP-2009-SME-3 : \href{https://www.automated-polishing.eu/}{automated-polishing.eu}} a proposé de robotiser l'utilisation de la microscopie confocal (\href{https://www.altimet.fr/?page_id=248}{capteur Altimet} de la société Altisurf) pour contrôler la rugosité de pièces.
+La position du capteur est asservie en distance pour mesurer des pièces courbes.
+Un interféromètre portatif\footnote{Interféromètre désormais commercialisé par la société \href{http://qisab.com/}{QiSab}} a également été développé pour améliorer la résolution, et atteindre une précision inférieure au nanomètre \cite{baath_new_2012}.
+La durée de la mesure est élevée, car le capteur mesure une surface de $4\times 4$ centimètres.
+Il doit être déplacé sur toute la surface.
+
 % WAXS (détermination du taux de cristallinité) et SAXS (identification de la longue période, de l'épaisseur des lamelles cristallines et de la phase amorphe interlamellaire)
 Dernièrement, dans ses travaux de doctorat, \citeauthor{lacombe_exploitation_2018a} utilise un dôme de mesure de la réflectance (\textit{Reflectance Transformation Imaging}) pour contrôler les caractéristiques d'aspect de pièces plastiques \cite{lacombe_exploitation_2018a}.
 Ce dôme de réflectance n'est actuellement pas intégré à la ligne de production, à cause de ses dimensions.
 Des travaux sont actuellement en cours pour proposer une méthode d'intégration en ligne de production.
 
-Dans la suite de nos travaux, nous n'utiliserons pas de méthodes de mesure invasives, ni de mesures réalisées hors-ligne.
-L'étude de ces méthodes peuvent néanmoins servir d'inspiration pour concevoir des méthodes de mesure non invasives, sans destruction des pièces.
-Ainsi, nous nous intéresserons dans nos travaux à la polarimétrie.
-En revanche, nous n'étudierons pas l'utilisations des rayonnements X et Térahertz, car les machines restent coûteuses ; mais nous pensons qu'ils seraient très intéressant de les mettre en œuvre en ligne de production.
+\subsection{Définition du degré d'invasivité d'un système de mesure pour un procédé}
+Afin de compléter notre revue sur les différents moyens de mesure, nous proposons de définir une échelle du degré d'invasivité d'un système de mesure, au regard du procédé industriel.
+La notion d'invasivité d'un moyen de mesure est lié à la quantité de travail nécessaire pour intégrer le moyen de mesure au procédé.
+Ces modifications sont effectuées sur le procédé, soit à posteriori de la fabrication du moyen de production, soit en amont pendant la conception du procédé.
+Le degré d'invasivité ne prend pas en compte le coût d'achat du moyen de mesure qui peut être amorti.
+En revanche, il prend en compte le coût de la modification du procédé, qui est un élément de décision important.
+
+\begin{table}[tbp]
+	\arrayrulecolor{black}
+	\hspace*{-5mm}
+	\begin{tabular}{|c|l|l|}
+		\arrayrulecolor{black}
+		\hline
+		Degré d'invasivité & Type de mesure & Description de la modification \\
+		\hline \hline
+		0 & Pas de mesure & Aucune modification sur le procédé. \\ \hline
+		1 & Sans contact >10s & Positionnement d'un capteur vers la pièce. \\ \hline
+		2 & Sans contact de la pièce >30s & Positionnement capteur et convoyage spécifique. \\ \hline
+		3 & Avec contact de la pièce & Convoyage de la pièce pour le contact. \\ \hline
+		4 & Mesure sur la machine & Intégration de capteurs sur la machine.  \\ \hline
+		5 & Mesure dans l'outillage & Intégration de capteurs dans l'outillage. \\ \hline
+		6 & Avec manutention humaine & Intégration de l'humain dans la prod. \\ \hline
+		7 & Mesure hors-ligne & Extraction de la pièce de la ligne de prod. pour mesurer. \\ \hline
+	\end{tabular}
+	\caption{Degré d'invasivité de la mesure sur un procédé de production.}
+	\label{tab:measure_invasivity}
+\end{table}
+
+\noindent
+Le Tableau \ref{tab:measure_invasivity} présente une échelle originale du degré d'invasivité d'un moyen de mesure, vis à vis d'un moyen de production.
+
+\begin{description}
+	% \noindent
+	\item[Degré 0] Atteindre le degré 0 nécessite de ne pas réaliser de mesure.
+	Le procédé ne doit pas générer de rebuts, ou alors il est nécessaire de disposer d'une simulation informatique (modèle mathématique) du procédé.
+	Ce modèle doit être suffisamment représentatif du procédé pour prédire les caractéristiques des pièces réellement produites.
+	En 2019, il n'existe pas à notre connaissance de modèle capable de prédire l'aspect des pièces.
+	\item[Degré 1-2] Les mesures ne nécessitent pas de contact. Nous classons les deux premiers degrés en fonction de la durée de la mesure.
+	\item[Degré 3] Le contact avec la pièce requiert une programmation précise du moyen de convoyage.
+	Il nécessite l'utilisation d'un bras robotique, car un tapis n'est pas suffisament précis.
+	\item[Degré 4-5] L'intégration de capteurs dans l'outillage entraine un travail de conception supplémentaire et une maintenance spécifique.
+	\item[Degré 6] Une mesure qui nécessite une manutention humaine pour être réalisée est très invasive.
+	En effet, l'humain est difficilement automatisable.
+	De manière générale, une mesure industrielle doit être automatisée pour éviter que les erreurs et les retards n'impactent le flux de production.
+	\item[Degré 7] La mesure hors-ligne entraine la perte de la pièce, en plus de toutes les contraintes précédentes. C'est ainsi la mesure la plus invasive possible pour un procédé de production industriel.
+\end{description} 
+% 2 - Définiton non-invasif
+% Définition du 
+% Thermomètre vis degré 3
+% Pression outillage degré 4, 5
+% Degré 1 : caméras, périphériques
+% Degré 0 : rien du tout!
+
+\noindent
+Dans notre travail, nous nous intéresserons à mettre en œuvre des moyens de mesures possédant une invasivité minimale ; ce qui correspond au degré 1 de notre échelle : on parlera de mesure non-invasive pour le procédé industriel.
+% Le degré 0 n'est pas atteignable, à cause de la non-existence d'une simulation réaliste de la qualité des pièces produites.
+
+
+\subsection{Étude technico-économique du mesurage des caractéristiques du produit }
+Le Tableau \ref{tab:product_measurements} présente des mesures qui peuvent être réalisées sur la pièce.
+Afin d'évaluer la compatibilité du moyen de mesure avec le temps de cycle industriel, nous précisons la durée totale de la mesure en incluant la durée du déplacement de la pièce vers l'appareil de mesure.
+Plus l'appareil de mesure est volumineux et nécessite une précision de positionnement, plus cette durée sera longue.
+Les durées de mesure sont calculées pour une pièce de dimension $10 \times 10$ centimètres.
+Les coûts économiques sont indicatifs.
+Ils sont issues de notre analyse du marché, réalisée en 2019.
+Le coût par pièce correspond au coût d'utilisation d'une machine pour réaliser le contrôle à cent pourcent des pièces dès la sortie du moule.
+En particulier, le coût horaire est calculé pour un amortissement du coût d'achat de la machine de mesure de dix années et une production de 120 pièces par heures, 300 journée ouvrées annuelles, soit 3 millions de pièces par an.
+Dans le cas où un opérateur humain est requis, le coût chargé est intégré : 15€ par heures, en 2019.
+Dans le cas où la mesure est automatisé, le coût de l'installation inclut le dispositif de convoyage (bras robotique ou tapis roulant) en plus du dispositif de mesure.
 
 \begin{table}[htpb]
 	\arrayrulecolor{black}
@@ -396,22 +486,22 @@ En revanche, nous n'étudierons pas l'utilisations des rayonnements X et Térahe
 		Caractéristique & Moyen de mesure & Résolution & Durée & Coût horaire & Coût initial & Coût / pièce \\ \hline
 		\hline
 		\multicolumn{7}{|l|}{Dimensions géométriques} \\ \hline
-		1 dimension & Pied à coulisse + opérateur & 50 µm & 20 s & 15 €/h & 200 € & 12,50 c€/p \\ \hline
-		1 dimension & Comparateur instrumenté & 30 µm & 10 s & 0,20 €/h & 5 000 € & 0,16 c€/p \\ \hline
-		1 dimension & Comparateur laser & 10 µm & 5 s & 0,40 €/h & 10 000 € & 0,33 c€/p \\ \hline
+		1 dimension & Pied à coulisse + opérateur & 20 µm & 20 s & 15 €/h & 200 € & 12,50 c€/p \\ \hline
+		1 dimension & Comparateur instrumenté & 5 µm & 10 s & 0,20 €/h & 5 000 € & 0,16 c€/p \\ \hline
+		1 dimension & Comparateur laser & 1 µm & 5 s & 0,40 €/h & 10 000 € & 0,33 c€/p \\ \hline
 		\hline
 		Profil & Profilomètre laser & 1 µm & 30 s & 0,80 €/h & 20 000 € & 0,67 c€/p \\ \hline
-		Profil & Microscopie confocal & 0,5 µm & 60 s & 4 €/h & 100 000 € & 3,33 c€/p \\ \hline
+		Profil & Microscopie confocale & 0,5 µm & 60 s & 4 €/h & 100 000 € & 3,33 c€/p \\ \hline
 		\hline
 		Surface & Photogrammétrie & 50 µm & 30 s & 0,80 €/h & 20 000 € & 0,67 c€/p \\ \hline
 		Surface & Lumière structurée & 30 µm & 30 s & 4 €/h & 100 000 € & 3,33 c€/p \\ \hline  % ONDULO de Visuol [Visuol 12 ; Surrel 12 ; Surrel 99]
-		Surface & Microscopie confocal & 0,5 µm & 600 s & 40 €/h & 100 000 € & 3,33 c€/p \\ \hline
+		Surface & Microscopie confocale & 0,5 µm & 600 s & 40 €/h & 100 000 € & 3,33 c€/p \\ \hline
 		\hline
 		Volume & Profilomètre/tomographie & 10 µm & 60 s & 2 €/h & 50 000 € & 0,16 c€/p \\ \hline
 		Volume & Scanner volumique & 100 µm & 30 s & 2 €/h & 50 000 € & 0,16 c€/p \\ \hline
 		\hline
 		\multicolumn{7}{|l|}{Dimensions et densité} \\ \hline
-		Densité plane & Radiographie & 10 µm & 20 s & 12 €/h & 300 000 € & 9,99 c€/p \\ \hline
+		Densité plane projetée & Radiographie & 10 µm & 20 s & 12 €/h & 300 000 € & 9,99 c€/p \\ \hline
 		Densité volumique & Tomographie rayons X & 10 µm & 120 s & 40 €/h & 1 000 000 € & 33,33 c€/p \\ \hline
 		\hline
 		\multicolumn{7}{|l|}{Champ de températures} \\ \hline
@@ -434,33 +524,23 @@ En revanche, nous n'étudierons pas l'utilisations des rayonnements X et Térahe
 	\label{tab:product_measurements}
 \end{table}
 
-Le Tableau \ref{tab:product_measurements} présente des mesures qui peuvent être réalisées sur la pièce.
-Afin d'évaluer la compatibilité du moyen de mesure avec le temps de cycle industriel, nous précisons la durée totale de la mesure en incluant la durée du déplacement de la pièce vers l'appareil de mesure.
-Plus l'appareil de mesure est volumineux et nécessite une précision de positionnement, plus cette durée sera longue.
-Les durées de mesure sont calculées pour une pièce de dimension $10 \times 10$ centimètres.
-Les chiffres économiques sont indicatifs.
-Ils sont issues de notre analyse du marché, réalisée en 2019.
-Le coût par pièce correspond au coût d'utilisation d'une machine pour réaliser le contrôle à cent pourcent des pièces dès la sortie du moule.
-En particulier, le coût horaire est calculé pour un amortissement du coût d'achat de la machine de mesure de dix années et une production de 120 pièces par heures, 300 journée ouvrées annuelles, soit 3 millions de pièces par an.
-Dans le cas où un opérateur humain est requis, le coût chargé est intégré : 15€ par heures, en 2019.
-Dans le cas où la mesure est automatisé, le coût de l'installation inclut le dispositif de convoyage (bras robotique ou tapis roulant) en plus du dispositif de mesure.
-
-Ce tableau permet de mettre en valeur les moyens compatibles avec les contraintes industrielles ; les contraintes majeures sont la durée de la mesure et le coût de la mesure.
+Ce tableau permet de mettre en valeur les moyens compatibles avec les contraintes industrielles.
+Les contraintes majeures sont la durée de la mesure et le coût de la mesure.
 De plus, les productions industrielles doivent aujourd'hui être réactives aux changements ; on parle d'agilité.
 Aussi, dans une démarche d'évolution continue de la ligne de production, au fil des changements de séries, nous recommandons fortement l'utilisation d'un dispositif de mesure qui puisse être adapté rapidement à de nombreux types de pièces.
 C'est ici un avantage considérable des moyens de mesure sans contact physique avec la pièce.
-Les moyens de mesure légers et mobiles sont à recommander.
+% Les moyens de mesure légers et mobiles sont à recommander.
 
-Nous sommes en présence de pièces chaudes ; aussi, la thermographie est un moyen de mesure intéressant du point de vue du coût et de la rapidité.
+Rappelons que nous sommes en présence de pièces chaudes ; aussi, la thermographie est un moyen de mesure intéressant du point de vue du coût et de la rapidité.
 Nous détaillons l'emploi de la thermographie dans la Section \ref{subsec:thermography}.
 La polarimétrie est une méthode d'imagerie non-conventionnelle qui est aussi intéressante, en particulier pour les pièces transparentes, mais aussi pour la mise en valeur des défauts de surfaces.
 Nous détaillons son emploi dans la Section \ref{subsec:polarimetry}.
 % Cependant, l'interprétation des images thermiques, ou du degré de polarisation linéaire, par un humain nécessite une certaine expertise.
 % C'est pourquoi nous nous intéressons dans le Chapitre \ref{ch:metric_learning} à l'utilisation de l'apprentissage statistique pour interpréter les mesures brutes issues des capteurs.
 
-De manière général, nous recommandons un coût de la mesure de la qualité inférieur à 1\% du prix de revient des pièces.
-Pour des pièces plastiques dont le coût de production est proche de 10€, le coût de la mesure doit être inférieur à 10 centimes d'euros.
-À partir du Tableau \ref{tab:product_measurements}, nous retenons les moyens de mesures suivants :
+% De manière général, nous recommandons un coût de la mesure de la qualité inférieur à 1\% du prix de revient des pièces.
+% Pour des pièces plastiques dont le coût de production est proche de 10€, le coût de la mesure doit être inférieur à 10 centimes d'euros.
+À partir du Tableau \ref{tab:product_measurements}, nous retenons les moyens de mesures suivants pour la suite de nos travaux :
 \begin{itemize}
 	\item plusieurs comparateurs instrumentés,
 	\item profilomètre laser,
@@ -500,87 +580,31 @@ Pour des pièces plastiques dont le coût de production est proche de 10€, le 
 %- vitesse en mm par minutes
 %- vitesse en pièce par minutes
 %- coût de l'équipement
-Ce travail de doctorat a permis d'évaluer expérimentalement la faisabilité de ces mesures.
-Dans la section suivante, nous détaillerons leur utilisation.
+% Ce travail de doctorat a permis d'évaluer expérimentalement la faisabilité de ces mesures.
+Dans les sections suivantes, nous détaillerons leur utilisation.
 
-\subsection{Définition du degré d'invasivité d'un système de mesure pour un procédé}
-Afin de conclure notre étude sur les différents moyens de mesure, nous proposons de définir une échelle du degré d'invasivité d'un système de mesure, au regard du procédé industriel.
-La notion d'invasivité d'un moyen de mesure est lié à la quantité de travail nécessaire pour intégrer le moyen de mesure au procédé.
-Ces modifications sont effectuées sur le procédé, soit à posteriori de la fabrication du moyen de production, soit en amont pendant la conception du procédé.
-Il est intéressant de remarquer que le degré d'invasivité ne prend pas en compte le coût d'achat du moyen de mesure qui peut être amorti.
-En revanche, il prend en compte le coût de la modification du procédé, qui est un élément de décision important.
 
-\begin{table}[tbp]
-	\arrayrulecolor{black}
-	\hspace*{-5mm}
-	\begin{tabular}{|c|l|l|}
-		\arrayrulecolor{black}
-		\hline
-		Degré d'invasivité & Type de mesure & Description de la modification \\
-		\hline \hline
-		0 & Pas de mesure & Aucune modification sur le procédé. \\ \hline
-		1 & Sans contact >10s & Positionnement d'un capteur vers la pièce. \\ \hline
-		2 & Sans contact de la pièce >30s & Positionnement capteur et convoyage spécifique. \\ \hline
-		3 & Avec contact de la pièce & Convoyage de la pièce pour le contact. \\ \hline
-		4 & Mesure sur la machine & Intégration de capteurs sur la machine.  \\ \hline
-		5 & Mesure dans l'outillage & Intégration de capteurs dans l'outillage. \\ \hline
-		6 & Avec manutention humaine & Intégration de l'humain dans la prod. \\ \hline
-		7 & Mesure hors-ligne & Extraction de la pièce de la ligne de prod. pour mesurer. \\ \hline
-	\end{tabular}
-	\caption{Degré d'invasivité de la mesure sur un procédé de production.}
-	\label{tab:measure_invasivity}
-\end{table}
-
-\noindent
-Le Tableau \ref{tab:measure_invasivity} présente notre définition du degré d'invasivité d'un moyen de mesure, pour un moyen de production.
-
-\begin{description}
-	% \noindent
-	\item[Degré 0] Atteindre le degré 0 nécessite de ne pas réaliser de mesure.
-	Disposer d'une simulation informatique (modèle mathématique) du procédé est alors indispensable.
-	Ce modèle doit être suffisamment représentatif du procédé pour prédire les caractéristiques des pièces réellement produites.
-	En 2019, il n'existe pas à notre connaissance de modèle capable de prédire l'aspect des pièces.
-	\item[Degré 1-2] Les mesures ne nécessitent pas de contact. Nous classons les deux premiers degrés en fonction de la durée de la mesure.
-	\item[Degré 3] Le contact avec la pièce requiert une programmation précise du moyen de convoyage.
-	Il nécessite l'utilisation d'un bras robotique, car un tapis n'est pas suffisament précis.
-	\item[Degré 4-5] L'intégration de capteurs dans l'outillage entraine un travail de conception supplémentaire et une maintenance spécifique.
-	\item[Degré 6] Une mesure qui nécessite une manutention humaine pour être réalisée est très invasive.
-	En effet, l'humain est difficilement automatisable.
-	De manière générale, une mesure industrielle doit être automatisée pour éviter que les erreurs et les retards n'impactent le flux de production.
-	\item[Degré 7] La mesure hors-ligne entraine la perte de la pièce, en plus de toutes les contraintes précédentes. C'est ainsi la mesure la plus invasive possible pour un procédé de production industriel.
-\end{description} 
-% 2 - Définiton non-invasif
-% Définition du 
-% Thermomètre vis degré 3
-% Pression outillage degré 4, 5
-% Degré 1 : caméras, périphériques
-% Degré 0 : rien du tout!
-
-\noindent
-Dans notre travail, nous nous intéresserons à mettre en œuvre des moyens de mesures possédant une invasivité minimale ; ce qui correspond au degré 1 de notre échelle : on parlera de mesure non-invasive pour le procédé industriel.
-Le degré 0 n'est pas atteignable, à cause de la non-existence d'une simulation réaliste de la qualité des pièces produites.
-
-\subsection{Corrélation entre les caractéristiques des pièces chaudes et des pièces finales}
-La mesure pendant le cycle du procédé est réalisée sur des pièces chaudes, qui viennent de sortir de l'outillage.
+\subsection{Refroidissement des pièces moulées après la sortie du moule}
+La mesure pendant le cycle du procédé est réalisée sur des pièces encore chaudes, qui viennent de sortir de l'outillage.
 Leur température est comprise entre 50°C et 150°C.
 Les caractéristiques de la pièce chaude ne sont pas celles de la pièce finale.
-En effet, le refroidissement de la pièce inclut la relaxation des contraintes internes à la pièce.
-Pendant le refroidissement de la pièce, les contraintes internes s'équilibrent.
-La géométrie de la pièce est modifiée : c'est le retrait.
-Le retrait est équivalent à une réduction des dimensions de la pièce.
-La réduction des dimensions varie de l'ordre de 0,01\% à 1\%, selon le matériau.
 
+Le polymère est un matériau viscoélastique.
+À l'état de fluide, les contraintes dues à une déformation de la matière disparaissent en quelques secondes.
+À long terme, les contraintes internes se relaxent \cite{giroud_mesure_2001}.
+En revanche, lors du refroidissement de la pièce dans le moule, il y a création de contraintes internes.
+Ces contraintes sont la causes de l'hétérogénéité de la matière et de la géométrie du moule.
+% En effet, le refroidissement de la pièce inclut la relaxation des contraintes internes à la pièce.
+% Pendant le refroidissement de la pièce, les contraintes internes s'équilibrent.
 % Récemment, \cite{malhab_moulage_2012} étudie dans sa thèse de doctorat l'organisation cristalline du polymère dans le cas de la micro-injection.
-\citeauthor{galeski_nano_2009} étudient les liens entre les propriétés mécaniques macroscopiques et la structure cristallines des pièces moulées \cite{galeski_nano_2009}.
+\citeauthor{galeski_nano_2009} étudient les liens entre les propriétés mécaniques macroscopiques et la structure cristalline des pièces moulées \cite{galeski_nano_2009}.
 La structure cristalline d'une pièce varie en fonction de l'épaisseur.
 Cela dépend des conditions des phases de maintien et de refroidissement.
 Les propriétés mécaniques, dont les contraintes internes, dépendent des conditions d'injection et de la géométrie des pièces.
-Dans notre cas, les pièces chaudes ont déjà subit les phases de maintien et de refroidissement.
-Aussi, nous considérons que la stabilisation des contraintes internes est identique pour toutes les pièces d'un même lot.
-Cette hypothèse est forte.
-Il est probable que les conditions d'hygrométrie et de température lors du stockage des pièces impactent la stabilisation des contraintes internes, et donc modifient le retrait dimensionnel.
-Nous avons stocké toutes nos productions d'études dans les mêmes conditions, c'est pourquoi nous n'avons pas observé de différences entre les lots.
-Aussi dans notre cas, la réduction des dimensions (le retrait) peut être approximée par un modèle linéaire.
+
+De plus, pendant le refroidissement, la géométrie de la pièce se modifie. C'est le retrait : une réduction des dimensions de la pièce qui varie de l'ordre de 0,1\% à 10\%, selon le matériau et la géométrie.
+
+\subsection{Corrélation entre les caractéristiques des pièces chaudes et des pièces refroidis}
 
 \begin{figure}[btp]
 	\centering
@@ -603,9 +627,16 @@ Cette étude a été réalisée pour un unique matériau et une unique pièce.
 Afin d'étudier l'ensemble de la plage de fonctionnement du procédé d'injection-moulage, nous avons ajusté les réglages de la machine selon une plan d'expériences de criblage.
 L'organisation de cet essai expérimental est détaillé au Chapitre \ref{ch:dataset} §\ref{subsec:l12_doe}.
 % \ref{subsec:indirect_measures}
-L'étude propose la mesure d'une cotation géométrique et de la masse des pièces, 30 secondes après la production et 3 jours après.
-Les pièces mesurées 3 jours après la production sont considérées comme refroidies et leur géométrie stabilisée.
-Un modèle linéaire permet de modéliser le phénomène de retrait avec une justesse $R^2 = 0,75$ et une significativité statistique élevée, au sens de la \textit{valeur-p} inférieure à 0,05.
+L'étude propose la mesure d'une cotation géométrique et de la masse des pièces, trente secondes après la production puis trois jours après.
+Les pièces mesurées trois jours après la production sont considérées comme refroidies et leur géométrie stabilisée.
+Un modèle linéaire permet de modéliser la réduction d'une dimension géométrique avec une justesse $R^2 = 0,75$ et une significativité statistique élevée, au sens de la \textit{valeur-p} qui est inférieure à 0,05.
+% Dans notre cas, les pièces chaudes ont déjà subit les phases de maintien et de refroidissement.
+% Aussi, nous considérons que la stabilisation des contraintes internes est identique pour toutes les pièces d'un même lot.
+% Cette hypothèse est forte.
+% Il est probable que les conditions d'hygrométrie et de température lors du stockage des pièces impactent la stabilisation des contraintes internes, et donc modifient le retrait dimensionnel.
+% Nous avons stocké toutes nos productions d'études dans les mêmes conditions, c'est pourquoi nous n'avons pas observé de différences entre les lots.
+Aussi dans notre cas, nous avons observé que la réduction des dimensions (le retrait) est homothétique et peut être approximée par un modèle linéaire.
+
 La Figure \ref{fig;corr_results} présente les résultats obtenues.
 Il est intéressant de noter que la masse des pièces réduit de 0,2\% lors de la relaxation.
 Il pourrait s'agir d'une perte de composés organiques volatils.
@@ -626,34 +657,34 @@ Il pourrait s'agir d'une perte de composés organiques volatils.
 
 De plus, les caractéristiques d'aspect des pièces sont très proches, entre les deux instants de mesures.
 Les pièces qui possèdent des givrures ou des marques de brûlure les conservent.
-Enfin, nous avons observé que le retrait dimensionnel et la relaxation des contraintes internes, lors du refroidissement, entrainent une diminution des défauts visuels d'aspect de type retassure.
+Enfin, nous avons observé que le retrait dimensionnel lors du refroidissement entraine une diminution des défauts visuels d'aspect de type retassure (voir Section \ref{sec:quality_definition}).
 Ces défauts sont causés par la courbure géométrique des surfaces ; ce sont des défauts de planéité.
 La Figure \ref{fig:correlation_aspect} présente des photographies d'une même pièce, avant et après le refroidissement.
-On observe que la planéité du fond de la boîte (défaut de retassure, "tâche") est visuellement similaire entre la pièce chaude et la pièce stabilisée.
-On observe également l'effet de la relaxation des contraintes internes, ainsi que du retrait : les parois de la boîte sont incurvées après le refroidissement.
+On observe que la planéité du fond de la boîte est visuellement similaire entre la pièce chaude et la pièce stabilisée.
+On observe également l'effet du retrait : les parois de la boîte sont incurvées après le refroidissement.
 En revanche, lors du refroidissement, les défauts de planéité diminuent, car la géométrie de la pièce se stabilise sur une position moyenne.
-C'est pourquoi, les défauts d'aspect de retassure sont plus prononcés quelques secondes après la production des pièces, que sur des pièces stabilisées.
+C'est pourquoi, les défauts d'aspect qui sont causés par des variations géométriques sont plus prononcés quelques secondes après la production des pièces, que sur des pièces stabilisées.
 L'évolution de la pièce lors du refroidissement est simple à modéliser.
 Les caractéristiques des pièces finales sont proches des caractéristiques des pièces chaudes.
 Notre démarche de mesure des caractéristiques du produit, dès la sortie de la machine, s'appuie sur ce constat.
 
 \section{Apport de l'imagerie non-conventionnelle pour la mesure de la qualité} \label{sec:non_conventional_imaging}
-Dans cette section, nous discuterons de l'intérêt de différentes méthodes d'imageries non conventionnelles pour mesurer les caractéristiques des pièces.
-Nous présenterons nos travaux expérimentaux afin de valider l'intérêt de mesures par imagerie non-conventionnelle : triangulation laser §\ref{subsec:scan3D}, thermographie §\ref{subsec:thermography} et polarimétrie §\ref{subsec:polarimetry}.
+% Dans cette section, nous discuterons de l'intérêt de méthodes d'imageries non conventionnelles pour mesurer les caractéristiques des pièces.
+% Nous présenterons nos travaux expérimentaux afin de valider l'intérêt de mesures par imagerie non-conventionnelle : triangulation laser §\ref{subsec:scan3D}, thermographie §\ref{subsec:thermography} et polarimétrie §\ref{subsec:polarimetry}.
 
-L'imagerie conventionnelle concerne l'acquisition et le traitement de signaux sous forme d'images, dans le domaine spectrale du visible (longueur d'ondes dans le vide de 380 à 780 nanomètres).
+L'imagerie conventionnelle consiste en l'acquisition et le traitement de signaux sous forme d'images, dans le domaine spectrale du visible (longueur d'ondes dans le vide de 380 à 780 nanomètres).
 À contrario, l'imagerie non-conventionnelle concerne les domaines spectrales qui ne sont pas visibles, ainsi que les méthodes d'acquisition et de traitement qui ne forment pas une image.
 En particulier, nous discuterons de l'imagerie dans les spectres infrarouges intermédiaires et lointains (3 000 à 15 000 nanomètres), qui permettent de mesurer l'émission thermique des pièces.
 La faisabilité industrielle de la mesure géométrique par triangulation laser (scanner tridimensionnel) sera discutée.
 Nous discuterons également de l'acquisition d'images polarisées des pièces.
-Enfin, nous discuterons des méthodes de fusions et d'exploitation des données de ces capteurs, afin de qualifier les caractéristiques des pièces.
+Enfin, nous discuterons des méthodes de fusions et d'exploitation des données de ces images, afin de qualifier les caractéristiques des pièces.
 
 \subsection{Mesure géométrique par triangulation laser} \label{subsec:scan3D}
 Il existe un grand nombre de moyens de mesure pouvant être qualifiés de scanner tridimensionnel.
-Nous distinguons les méthodes avec contact physique de la pièce (Machines de Mesure Tridimensionnelle) et sans contact (utilisant la réflexion d'une onde électromagnétique).
-Dans le cadre de la mesure sans contact, les moyens les plus employés sont la stéréoscopie, la photogrammétrie, la lumière structurée, la tomographie, temps de vol, la triangulation laser.
+Nous distinguons les méthodes avec contact physique de la pièce et sans contact, qui utilisent la réflexion ou la transmission d'une onde électromagnétique.  % (Machines de Mesure Tridimensionnelle)
+Dans le cadre de la mesure sans contact, les moyens les plus employés sont la stéréoscopie, la photogrammétrie, la lumière structurée, la tomographie, le temps de vol et la triangulation laser.
 
-La triangulation laser, communément appelée "scanner 3D", s'appuie sur la mesure d'un écart de parallaxe entre une source laser balayée linéairement par un galvanomètre, et l'image de la réflexion du laser sur l'objet à mesurer.
+La triangulation laser s'appuie sur la mesure d'un écart de parallaxe entre d'une part, une source laser balayée linéairement par un galvanomètre, et d'autre part la réflexion du laser sur l'objet à mesurer.  % communément appelée "scanner 3D"
 Une source lumineuse laser est choisie car la largeur du faisceau lumineux sur la pièce doit être la plus petite possible.
 Le faisceau laser cohérent garantit une dispersion angulaire faible à grande distance.
 
@@ -666,12 +697,12 @@ Le faisceau laser cohérent garantit une dispersion angulaire faible à grande d
 
 La Figure \ref{fig:laser_scanning} présente le principe de la mesure par triangulation.
 Un écart géométrique verticale $\Delta Z$ entraine un écart proportionnel, sur le plan du capteur.
-La méthode de triangulation laser possède quatre contraintes principales :
+La méthode de triangulation laser souffre de quatre contraintes principales :
 \begin{itemize}
 	\item L'intensité lumineuse du laser doit être supérieure à la luminosité ambiante. C'est pourquoi la longueur d'onde du laser est souvent choisie hors du spectre visible.
 	\item La fréquence de balayage du laser doit être très supérieure au déplacement de la pièce. Cela conditionne la fréquence d'acquisition du capteur.
 	\item Le matériau qui est mesuré doit avoir un absorption faible pour la longueur d'onde du laser et les réflexions spéculaires directes doivent être évitées.
-	\item La géométrie de la pièce doit permettre la mesure : elle ne doit pas former d'occlusion pour le couple source laser-capteur. L'écart angulaire de ce couple est souvent proche de 45°. C'est pourquoi les géométries aigus doivent être supérieure à 45°.
+	\item La géométrie de la pièce doit permettre la mesure : elle ne doit pas entrainer d'occlusion pour le couple source laser et capteur. L'écart angulaire de ce couple est souvent proche de 45°. C'est pourquoi les géométries aigus doivent être supérieures à 45°.
 \end{itemize}
 
 
@@ -681,30 +712,31 @@ La méthode de triangulation laser possède quatre contraintes principales :
 	\caption{Mesure de la géométrie d'un objet par triangulation laser en cycle industriel.}
 	\label{fig:online_scan}
 \end{figure}
-La Figure \ref{fig:online_scan} présente notre mise en place cette mesure, en cycle industriel.
+La Figure \ref{fig:online_scan} présente notre mise en place de cette mesure, en cycle industriel.
 Le scanner tridimensionnel que nous utilisons est le \textit{Handyscan 3D ZSCANNER 700}\footnote{\href{https://www.creaform3d.com/fr/soutien-la-clientele/produits-retires/handyscan-3d-de-1re-generation-zscanner-700}{Caractéristiques techniques} du scanner Handyscan 3D ZSCANNER 700 sur le site du fabricant Créaform.}.
-Nous avons évalué la répétabilité de ce scanner à 100 micromètres.
-Une pièce étalon a été mesurée sur une machine de mesure tridimensionnelle, puis elle est mesurée à l'aide du scanner.
-Les résultats ont été comparés à l'aide du logiciel GéoVérif \cite{pairel_maitrise_2016}.
+% How HandyScan works: https://www.creaform3d.com/sites/default/files/assets/technological-fundamentals/teaching_manual_reverse_engineering_en_18032014_6.pdf
+% Nous avons évalué la répétabilité de ce scanner à 100 micromètres.
+% Une pièce étalon a été mesurée sur une machine de mesure tridimensionnelle, puis elle est mesurée à l'aide du scanner.
+% Les résultats ont été comparés à l'aide du logiciel GéoVérif \cite{pairel_maitrise_2016}.
 La durée de la mesure est de 40 secondes.
-Le scanner est fixe et une rotation complète de la pièce est exécutée devant le scanner, à l'aide d'un bras robotique, Figure \ref{fig:online_scan}.
-La vitesse de cette rotation est imposée par la durée du temps de cycle de la machine.
+Le scanner est fixe et une rotation complète de la pièce est exécutée devant le scanner, à l'aide du bras robotisé qui décharge la presse, voir Figure \ref{fig:online_scan}.
+La vitesse de cette rotation est imposée par la durée du cycle de production de la machine.
 Un temps de cycle court impose de réaliser des déplacements rapides devant le scanner.
 
 \begin{figure}[hbtp]
 	\centering
 	\includegraphics[width=0.5\textwidth]{../Chap2/Figures/online_3d_scan.png}
-	\caption{Nuage de points de la pièce obtenue en cycle industriel.}
+	\caption{Nuage de points de la pièce obtenue en cycle industriel avec le HandyScan.}
 	\label{fig:online_scan_result}
 \end{figure}
-Dans notre cas d'application, la pièce mesurée possède des cotés qui occultent la réflexion.
-Il est nécessaire de réaliser des rotations sous différents angles pour mesurer toutes les surfaces de la pièce, ce qui nécessiterait plus d'un tour complet.
+Dans notre cas d'application, la pièce mesurée possède des cotés qui occultent la réflexion du laser.
+Il est nécessaire de réaliser des rotations sous différents angles pour scanner toutes les surfaces de la pièce, ce qui nécessiterait plus d'un tour complet.
 De plus, la vitesse de déplacement que nous avons dû utiliser est trop élevée en comparaison de la fréquence de balayage du laser.
-La Figure \ref{fig:online_scan_result} présente le résultat de la mesure.
-On observe la présence de trous dans le maillage du nuage de points.
-D'une pièce à l'autre, les trous n'apparaissent pas aux mêmes localisations.
-Aussi, l'interprétation d'une telle mesure est compliquée. 
-Dans la suite de nos travaux, nous avons choisis de ne pas exploiter cette mesure à cause des performances non-adaptées de notre matériel.
+La Figure \ref{fig:online_scan_result} présente de scanning.
+On observe la présence de trous dans le maillage des surfaces.
+D'une pièce à l'autre, les trous n'apparaissent pas aux mêmes endroits sur la pièce.
+Aussi, l'exploitation d'une telle mesure est compliquée. 
+Dans la suite de nos travaux, nous avons choisi de ne pas exploiter cette mesure à cause des performances non-adaptées de notre matériel.
 L'étude de cette démarche de mesure devra être évaluée à l'aide d'un profilomètre laser ou d'un scanner tridimensionnel qui possède une fréquence de balayage laser plus rapide, afin de limiter les trous dans le nuage de points.
 
 \begin{figure}[tb]
@@ -720,22 +752,23 @@ L'étude de cette démarche de mesure devra être évaluée à l'aide d'un profi
 	\caption{Écart géométrique entre la pièce mesurée et la géométrie de référence de l'outillage.}
 	\label{fig:scan_delta}
 \end{figure}
-La mesure d'un maillage de points de la pièce dès sa production permet de comparer la géométrie produite à la géométrie de référence de l'outillage.
+Le scanning d'un maillage de points de la pièce dès sa production permet de comparer la géométrie produite à la géométrie de référence de l'outillage.
 La Figure \ref{fig:scan_delta} présente l'écart de la pièce chaude à la géométrie de référence.
-Il est ainsi possible de caractériser le phénomène de retrait.
-Ce travail de doctorat n'a pas cherché à étudier le retrait.
-Nous supposons que le retrait est constant pour toutes les pièces d'un même lot.
-C'est néanmoins une information importante à exploiter pour la conception des outillages.
-Enfin, cette information est également très intéressante pour ajuster les paramètres du procédé afin d'obtenir une géométrie cible.
+Nous avons balancé le nuage de point à l'aide d'un critère de distance minimale entre les points et le modèle de référence (critère de moindres carrés global).
+Il est ainsi possible de caractériser les variations de la géométrie.
+% Ce travail de doctorat n'a pas cherché à étudier le retrait.
+% Nous supposons que le retrait est constant pour toutes les pièces d'un même lot.
+% C'est néanmoins une information importante à exploiter pour la conception des outillages.
+% Enfin, cette information est également très intéressante pour ajuster les paramètres du procédé afin d'obtenir une géométrie cible.
 
 En comparaison de l'imagerie thermique et polarimétrique, le coût du scanner tridimensionnel et la difficulté d'intégration de la mesure en ligne de production, sont bien plus importants.
-De plus, la répétabilité du scanner de 100 micromètres, rend difficile l'utilisation des mesures obtenues.
-Les déformations géométriques que nous observons sont de l'ordre de 100 micromètres.
+% De plus, la répétabilité du scanner de 100 micromètres, rend difficile l'utilisation des mesures obtenues.
+% Les déformations géométriques que nous observons sont de l'ordre de 100 micromètres.
 Les phénomènes de trous aléatoires dans le nuage de points compliquent l'interprétation automatique des mesures.
 Un traitement manuel des nuages de points est souvent requis.
 Or nous souhaitons automatiser la mesure de la qualité des produits.
-Pour toutes ces raisons, dans la suite de ce travail, nous avons choisi de ne pas exploiter le scanner tridimensionnel.
-L'utilisation d'un tel moyen de mesure reste une piste de recherche très intéressante.
+Pour toutes ces raisons, dans la suite de ce travail, nous avons choisi de ne pas poursuivre l'exploitation du scanner tridimensionnel HandyScan que nous avions à disposition.
+% L'utilisation d'un tel moyen de mesure reste une piste de recherche très intéressante.
 
 \subsection{Apport de la thermographie pour le contrôle de la géométrie des pièces} \label{subsec:thermography}
 % Présence d'informations sur la géométrique de la pièce dans l'image thermique
@@ -744,26 +777,30 @@ Les caméras thermiques les plus courantes utilisent un grand nombre de capteurs
 Un micro-bolomètre est composé d'un matériau semi-conducteur thermo-sensible.
 Lorsqu'il est soumis à un rayonnement infrarouge, le matériau chauffe et la résistance électrique du matériau qui compose le pixel varie.  %, lorsque sa température augmente.
 % Ainsi, chaque pixel possède une information radio-métrique.
-Les micro-bolomètres des caméras thermiques FLIR que nous utilisons sont précis à 0,05°C en moyenne à une température ambiante de 30°C.
-Cependant, la mesure de température nécessite de réaliser une calibration rigoureuse de l'évolution de la sensibilité du capteur à une émission thermique.
-Nous choisissons de nous affranchir de cette calibration et d'analyser les données brutes issues du capteur.
+Les micro-bolomètres d'une caméra thermique FLIR que nous utilisons sont précis à 0,05°C en moyenne à une température ambiante de 30°C.
+La calibration de chacun des micro-bolomètres est réalisée en usine à partir de la mesure d'un corps noir de référence.
+Cependant, la mesure de température à partir de l'émission thermique d'une pièce nécessite de connaître le coefficient d'émissivité du matériau.
+Les matériaux que nous souhaitons étudier sont variés, aussi nous choisissons dans notre travail de nous affranchir de la connaissance de l'émissivité thermique et d'analyser les données brutes issues du capteur.
+Les données brutes sont les valeurs de l'émission infrarouge mesurée par les micro-bolomètres, encodées sur 16 bits.
+% Les matériaux que nous souhaitons étudiés sont multiples, aussi nous choisissons dans notre travail de nous affranchir de la calibration et d'analyser les données brutes issues du capteur.
 
-Une méthode très répandue de contrôle non-destructif de l'intégrité des pièces mécaniques est la thermographie dynamique (thermographie active).
-La norme ISO18434 \cite{iso_tc108_iso_2008} spécifie son utilisation.
+Une méthode très répandue de contrôle non-destructif de l'intégrité des pièces mécaniques est la thermographie dynamique (aussi appellée thermographie active).
+% La norme ISO18434 \cite{iso_tc108_iso_2008} spécifie son utilisation.
 Il s'agit de chauffer localement la pièce à l'aide d'une source de chaleur dirigée (par exemple un laser), puis de mesurer précisément l'évolution de la température de refroidissement.
 Cette mesure dure quelques secondes.
-Elle permet de mettre en évidence les différences de capacités calorifiques ; ce qui indique en particulier les changements de densité causés par des défauts structurels.
+Elle permet de mettre en évidence les différences de capacité calorifique ; ce qui indique en particulier les changements de densité.  % causés par des défauts structurels.
 Dans ses travaux de doctorat, \citeauthor{legrand_thermographie_2002} propose une méthode de thermographie multi-spectrale afin de s'affranchir de la connaissance de l'émissivité de la surface contrôlée \cite{legrand_thermographie_2002}.
-De nombreuses applications industriels de la thermographie dynamique mettent en évidence l'intérêt de la méthode pour le contrôle des pièces et des assemblages.
-Dernièrement, \citeauthor{herrmann_cracks_2019} propose d'utiliser cette méthode afin de contrôler rapidement des pièces transparentes \cite{herrmann_cracks_2019} ; c'est la technique du \textit{Scanning From Heating}, proposée pour la première fois par \citeauthor{eren_scanning_2009} \cite{eren_scanning_2009} .
+De nombreuses applications industrielles de la thermographie dynamique mettent en évidence l'intérêt de la méthode pour le contrôle des pièces et des assemblages.
+Dernièrement, \citeauthor{herrmann_cracks_2019} propose d'utiliser cette méthode afin de contrôler rapidement des pièces transparentes \cite{herrmann_cracks_2019} : c'est la technique du \textit{Scanning From Heating}, proposée pour la première fois par \citeauthor{eren_scanning_2009} \cite{eren_scanning_2009} .
 
-Dans notre cas d'application, les pièces sont déjà chaudes.
+Dans le cas de la mesure de pièces moulées directement après la sortie du moule, les pièces sont déjà chaudes.
 C'est pourquoi la mesure thermique a un fort intérêt.
-L'utilisation de l'imagerie thermique pour le suivi des procédés de production se résume, aujourd'hui, au suivi de l'évolution de la température de quelques régions d'intérêts, qui ont été préalablement prédéfinies.
+Cependant, la pratique industrielle de l'imagerie thermique pour le suivi des procédés de production se résume, aujourd'hui, au suivi de l'évolution de la température de quelques régions d'intérêts de la pièce, qui ont été préalablement prédéfinies.
+Une analyse plus avancée des motifs de l'image peut être réalisée.
 
-Dans le cadre de notre travail, nous ne chercherons pas à mesurer une température absolue.
-Nous n'avons pas non plus étudier son évolution (nous discutons de cette perspective de recherche à la fin de ce chapitre §\ref{sec:measure_perspective}).
-Nous souhaitons obtenir le champ de températures sur la surface de la pièce.
+Dans le cadre de notre travail, nous ne chercherons pas à analyser des valeurs de température absolue.
+Nous n'avons pas non plus étudiée son évolution (nous discutons de cette perspective de recherche à la fin de ce chapitre en Section §\ref{sec:measure_perspective}).
+Nous souhaitons analyser le champ de températures sur la surface de la pièce.
 Ainsi, la connaissance de l'émissivité du matériau n'est pas nécessaire.
 La principale difficulté de notre approche est l'analyse pertinente de l'ensemble des pixels de l'images.
 Il s'agit d'extraire une information pertinente à propos des caractéristiques de la pièce, à partir du champ de températures.
@@ -775,29 +812,29 @@ Il s'agit d'extraire une information pertinente à propos des caractéristiques 
 	\label{fig:thermo_geom}
 \end{figure}
 
-\subsubsection{Mesures expérimentales}
-Nous avons étudié l'intérêt de la mesure thermique sur une production de 204 pièces.
+\subsubsection{Essai expérimental de thermographie des pièces en sortie du moule}
+Nous avons étudié l'intérêt de la mesure thermique des pièces chaudes sur une production de 204 pièces.
 Les paramètres de la machine ont été variés suivant un plan d'expérience de criblage, discuté dans le Chapitre \ref{ch:dataset} §\ref{subsec:l12_doe}.
-Nous avons réalisé une mesure par imagerie thermique des pièces chaudes, 10 secondes après la production.
+Nous avons réalisé une mesure par imagerie thermique pour chaque pièce chaude, 10 secondes après la sortie du moule.
 La caméra thermique utilisée était sensible sur une plage de longueur d'ondes de 7,5 à 13 micromètres.
 Le matériau utilisé est un polypropylène automobile, au degré de cristallinité supérieur à 70\%.
 Nous n'avons pas caractérisé l'émissivité thermique du polypropylène utilisé.
 Une émissivité $\epsilon=0,97$, "classique" pour le polypropylène, est utilisée pour calculer la température de surface, dans les figures suivantes.
 
-L'instant de mesure a été rendu répétable par l'utilisation d'un bras robotique et la synchronisation temporelle de la mesure.
-Trois jours après la production, nous avons mesuré la surface qui a été imagée à l'aide d'une Machine de Mesures Tridimensionnel (MMT).
-1000 points de mesures ont été réalisés à l'aide d'un capteur laser temps de vol.
+L'instant de mesure a été rendu répétable par l'utilisation d'un bras robotisé et par la synchronisation temporelle de la mesure.
+Trois jours après la production, nous avons mesuré la surface qui a été imagée à l'aide d'une Machine de Mesures Tridimensionnel Mahr MS222.
+1000 points de mesure ont été réalisés à l'aide d'un capteur laser interférométrique.
 La Figure \ref{fig:thermo_geom} présente le résultats des deux mesures réalisées : thermique et géométrique.
 Une soustraction des deux mesures montre qu'il n'y a pas de correspondance directe entre la géométrie et l'image thermique.
-Il semble exister une relation entre le point chaud central de la pièce (buse d'injection) et l'inflexion géométrique du plan.
+Il semble exister une relation entre le point chaud central de la pièce (buse d'injection) et le défaut de planéité géométrique.
 
 \subsubsection{Extraction de la géométrie à partir de l'image thermique}
 Dans l'étude \citetitle{nagorny_generative_2018}, nous avons cherché à déterminer si une information sur la géométrie de la pièce pouvait être obtenue par la thermographie \cite{nagorny_generative_2018}.
-La technique du \textit{Scanning From Heating} permet par exemple de mesurer la géométrie à partir d'une image thermique.
-Cette technique suit le même mode opératoire que la triangulation laser.
-Elle nécessite le même investissement, la même complexité, et une source laser plus puissante pour chauffer la pièce.
-Dans notre étude, nous avons évalué la faisabilité de l'utilisation d'une unique image thermique, pour obtenir la géométrie de la pièce.
-Sous réserve qu'une information sur la géométrie soit présente dans l'image thermique, il s'agit alors de construire un modèle qui relie l'image thermique et la géométrie.
+% La technique du \textit{Scanning From Heating} permet par exemple de mesurer la géométrie à partir d'une image thermique.
+% Cette technique suit le même mode opératoire que la triangulation laser.
+% Elle nécessite le même investissement, la même complexité, et une source laser plus puissante pour chauffer la pièce.
+Nous avons évalué la faisabilité de l'utilisation d'une unique image thermique pour obtenir la géométrie de la pièce.
+Sous réserve qu'une information sur la géométrie soit présente dans l'image thermique, il s'agit alors de construire un modèle qui relie l'image thermique à la géométrie.
 
 \begin{figure}[tbp]
 	\centering
@@ -824,7 +861,7 @@ L'espace latent contient uniquement l'information pertinente pour reconstruire l
 	\end{subfigure}
 	\begin{subfigure}[c]{0.48\textwidth}
 		\includegraphics[width=\textwidth]{../Chap2/Figures/163-37_real_B.jpg}
-		\caption{Image de l'élévation de la surface de la pièce.}
+		\caption{Image de l'altitude de la surface de la pièce.}
 	\end{subfigure}
 	\caption{Présentation d'un échantillon du jeu de données, en fausse couleur.}
 	\label{fig:gan_dataset}
@@ -832,13 +869,13 @@ L'espace latent contient uniquement l'information pertinente pour reconstruire l
 
 Le jeu de données de notre étude est composé de couples d'images thermiques et d'images géométriques, présenté Figure \ref{fig:gan_dataset}
 La valeur des pixels d'une image "géométrique" encode la mesure de hauteur de la surface.
-La géométrie de la surface de la pièce est obtenue à l'aide d'un microscope confocal Altisurf 520\footnote{\href{https://www.altimet.fr/?page_id=236}{Spécifications techniques de l'Altisurf 520} sur le site Internet de la société Altimet.}, de la société Altimet.
-Le réseau de neurones que nous utilisons est spécialisé dans le traitement d'images numériques de 8 bits de profondeur.
+La géométrie de la surface de la pièce est obtenue à l'aide d'un microscope confocal Altisurf 520\footnote{\href{https://www.altimet.fr/?page_id=236}{Spécifications techniques de l'Altisurf 520} sur le site Internet de la société Altimet.}.
+Le réseau de neurones que nous utilisons est spécialisé dans le traitement d'images numériques de 8 bits.
 Aussi, les images que nous utilisons sont normalisées sur 8 bits, soit sur une plage de valeurs entières de 0 à 255.
-La perte de résolution de cette conversion est importante : le capteur thermique est précis à 0,05°C, le microscope confocal à 0,1 micromètres.
+La perte de résolution de cette conversion est importante : le capteur thermique est précis à 0,05°C (ce qui ferait 2 000 valeurs entières), le microscope confocal à 0,1 micromètres (ce qui ferait 10 000 valeurs entières).
 L'image thermique que nous utilisions a une résolution de 0,902°C, tandis que la carte d'élévation de la surface a une résolution de 1,57 micromètres.
-Une perspective à nos travaux sera d'utiliser un réseau de convolutions qui travaille avec des valeurs flottantes.
-La durée de l'apprentissage sera cependant nettement augmentée.
+% Une perspective à nos travaux sera d'utiliser un réseau de convolutions qui travaille avec des valeurs flottantes.
+% La durée de l'apprentissage sera cependant nettement augmentée.
 
 \begin{figure}[tbph]
 	\centering
@@ -847,23 +884,23 @@ La durée de l'apprentissage sera cependant nettement augmentée.
 	\label{fig:gan_results}
 \end{figure}
 
-La durée de l'apprentissage du modèle est de 3 heures.
+La durée de l'apprentissage du modèle est de 3 heures pour 37 couples d'images.
 Les poids de l'ensemble du réseau de neurones sont ajustés par apprentissage sur un jeu de données (méthode détaillée dans le Chapitre \ref{ch:metric_learning} §\ref{parag:neural_networks}).
 Le jeu de données comporte 37 pièces.
-Le nombre d'échantillons est très faible car la durée de la mesure d'une pièce à l'aide du microscope confocal était de 45 minutes.
+Le nombre d'échantillons est faible car la durée de la mesure d'une pièce à l'aide du microscope confocal était de 45 minutes.
 Une perspective directe est de réaliser cette étude sur un plus grand nombre d'échantillons et une variété de pièces.
 
 Par la suite, nous évaluons la capacité du modèle appris à transformer une image thermique en image géométrique.
 La Figure \ref{fig:gan_results} présente les résultats obtenus sur un jeu de données de test, qui n'a pas été utilisé pendant l'apprentissage.
 Afin de mesurer la similarité entre les images originales et les images générées, nous calculons les indicateurs les plus utilisés dans la littérature de la compression d'images.
-Nous n'avons pas réalisé de comparaison pixel à pixel, car les images générées peuvent être légèrement translatées en comparaison des images originales.
-Nous calculons les mesures de Similarité Structurelle \textit{SSIM} proposée par \citeauthor{wang_image_2004} \cite{wang_image_2004} et \textit{Peak Signal to Noise Ratio} pour la qualité de reproduction d'une image.
-La comparaison d'histogrammes est robuste aux transformations des images.
-Enfin, nous introduisons la Décomposition Modale Discrète comme méthode de comparaison de la similarité entre deux images.
+Nous n'avons pas réalisé de comparaison pixel à pixel car les images générées peuvent être légèrement translatées en comparaison des images originales.
+Nous calculons les coefficients de Similarité Structurelle \textit{SSIM} proposée par \citeauthor{wang_image_2004} \cite{wang_image_2004} et le \textit{Peak Signal to Noise Ratio} pour la qualité de reproduction d'une image.
+% La comparaison d'histogrammes est robuste aux transformations des images.
+Enfin, nous utilisons la Décomposition Modale Discrète comme méthode de comparaison de la similarité entre deux images.
 La Décomposition Modale Discrète décrit une image à partir de ses modes de vibrations spatiaux.
-C'est une méthode de décomposition qui produit un spectre représentatif de la géométrie, car les modes de vibrations sont ceux de plaques physiques.
+% C'est une méthode de décomposition qui produit un spectre représentatif de la géométrie, car les modes de vibrations sont ceux de plaques physiques.
 Nous détaillons le principe de la Décomposition Modale Discrète dans la Section \ref{subsubsec:dmd}.
-Le Tableau \ref{tab:gan_results} présente les résultats de cette comparaison.
+Le Tableau \ref{tab:gan_results} présente les résultats de ces comparaisons.
 
 \begin{table}[tbhp]
 	\centering
@@ -889,25 +926,30 @@ Le Tableau \ref{tab:gan_results} présente les résultats de cette comparaison.
 
 La similarité moyenne sur les 14 pièces du jeu de données de test est élevée et l'écart-type global est faible.
 Le jeu de données étant très petit, nous avons vérifié que la p-valeur est inférieure à 5\%, pour toutes les mesures de similarité.
-La méthode \textit{pix2pix} permet d'extraire de l'image thermique de l'information sur la géométrie des pièces.
+La méthode \textit{pix2pix} permet d'extraire, de l'image thermique, de l'information sur la géométrie des pièces.
+
 
 Bien que ces résultats soient encourageants, la durée de la phase d'apprentissage du modèle est de 3 heures sur une carte graphique puissante (\textit{Nvidia GTX 1080Ti}).
-Il n'est pour l'instant pas envisageable de construire ces modèles en ligne de production.
+% Il n'est pour l'instant pas envisageable de construire ces modèles en ligne de production.
 Il semble possible de pouvoir mettre à jour ce type de modèle à une fréquence journalière.
-Enfin, la robustesse de ce modèle fortement non-linéaire au perturbation est également difficile à évaluer, faute de quantité de données suffisantes et de cas d'études.
+Enfin, la robustesse de ce modèle aux perturbations est également difficile à évaluer sur cette faible quantité de données et cet unique cas d'étude.
 % Il sera néanmoins intéressant d'utiliser cette démarche lorsque de grandes quantités de données sur des cas d'études diverses seront disponible.
-Dernièrement, \citeauthor{wu_learning_2016} montre que les réseaux génératifs antagonistes permettent de reconstruisent des représentations volumiques d'objet à partir d'une simple image \cite{wu_learning_2016}.
-La précision de la représentation de ces modèles est faible, car l' objectif est de représenter une grande diversité d'objets.
-Spécialiser ces modèles sur une unique pièce, pour augmenter la précision de la représentation volumique est aussi une perspective de recherche intéressante.
 
-Dans notre recherche d'une méthode de contrôle des caractéristiques de la pièces, il reste à interpréter cette géométrie prédite.
-Il s'agit  de comparer la géométrie obtenue à la géométrie de référence.
-Différent critère de distance géométrique existe.
-Nous retiendrons l'apport du critère inertiel total, qui s'appuie sur le tolérancement inertiel généralisé aux formes tridimensionnelles par \citeauthor{adragna_proposition_2010} \cite{adragna_proposition_2010}.
-Si l'écart inertiel à la géométrique de référence de la pièce est grand, une alerte de non-qualité peut être déclenchée.
-Cependant, cette démarche nécessite de disposer de la géométrie de référence sous un format informatisé.
-Cette information de référence est rarement disponible en injection-moulage ; en particulier car les outillages sont souvent retouchés au cours de leur vie, sans forcement numériser les retouches effectuées.
-Nous souhaitons proposer une méthode de contrôle de la qualité des pièces la plus simplifiée possible, c'est pourquoi nous choisissons pour la suite de notre travail de ne pas utiliser de modèle prédictif de la géométrie.
+% TODO: Perspectives
+% Une perspective intéressante est
+% Dernièrement, \citeauthor{wu_learning_2016} montre que les réseaux génératifs antagonistes permettent de reconstruisent des représentations volumiques d'objet à partir d'une simple image \cite{wu_learning_2016}.
+% La précision de la représentation de ces modèles est faible, car l' objectif est de représenter une grande diversité d'objets.
+% Spécialiser ces modèles sur une unique pièce, pour augmenter la précision de la représentation volumique est aussi une perspective de recherche intéressante.
+
+Dans notre recherche d'une méthode de contrôle des caractéristiques de la pièce, il reste à interpréter cette géométrie prédite.
+Il s'agit  de comparer la géométrie obtenue à la géométrie cible, qui doit être celle du produit final.
+Différentes méthodes de comparaison géométrique existent.
+% Nous retiendrons l'apport du critère inertiel total, qui s'appuie sur le tolérancement inertiel généralisé aux formes tridimensionnelles par \citeauthor{adragna_proposition_2010} \cite{adragna_proposition_2010}.
+% Si l'écart inertiel à la géométrique de référence de la pièce est grand, une alerte de non-qualité peut être déclenchée.
+% Cependant, cette démarche nécessite de disposer de la géométrie cible sous un format informatisé.
+% Cette information de référence est rarement disponible en injection-moulage ; en particulier car les outillages sont souvent retouchés au cours de leur vie, sans forcement numériser les retouches effectuées.
+Cependant, nous souhaitons proposer une méthode de contrôle de la qualité des pièces la plus simplifiée possible.
+C'est pourquoi nous choisissons pour la suite de notre travail de ne pas utiliser de modèle prédictif de la géométrie dans notre système de contrôle.
 En revanche, nous utiliserons la démarche d'extraction de l'information à l'aide de réseau de neurones profonds, qui a ici montrée des possibilités intéressantes (voir le Chapitre \ref{ch:metric_learning}).
 
 % Remarque : Dans le spectre infrarouge, l'état de surface des pièces plastiques ne permet pas la réflexion spéculaire.
@@ -916,11 +958,12 @@ En revanche, nous utiliserons la démarche d'extraction de l'information à l'ai
 % Sur certaines pièces, en particulier celles pigmentées noires, des reflets de sources de chaleurs dans l'atelier de production parasitait l'imagerie thermique (moteurs de ponts roulants, chauffages ...).
 % Il est possible de positionner un filtre polarisant devant la caméra thermique, orthogonal aux surfaces de la pièce, pour limiter ce problème.
 
-\miniconclusion{Conclusion}{
-	La conclusion principale de cette étude est que l'image thermique contient l'information de la géométriede la pièce finale.
-	Ainsi, suivre une dérive de l'image thermique revient à suivre une dérive de la géométrie.
+\miniconclusion{Conclusion : thermographie pour le contrôle de la géométrie des pièces}{
+	La conclusion principale de cette étude est que l'image thermique contient l'information de la géométrie
+de la pièce finale.
+	Ainsi, suivre une dérive de la géométrie revient à suivre une dérive de l'image thermique.
 
-	Dans un objectif de contrôle de la qualité, l'analyse de l'imagerie thermique permettrait de définir si une pièce est conforme ou est non-conforme, d'un point de vue géométrique.
+	Dans un objectif de contrôle de la qualité, l'analyse de l'image thermique permettrait de définir si une pièce est conforme ou est non-conforme, d'un point de vue géométrique.
 }
 
 
@@ -935,29 +978,32 @@ C'est l'objet de l'étude présentée dans cette section.
 
 \subsubsection{Polarimétrie pour mettre en valeur les défauts des pièces plastiques}
 Les réflexions de la lumière à la surface d'un matériau peuvent être décomposées en une composante spéculaire et une composante diffuse \cite{hanrahan_reflection_1993}.
-La composante diffuse est causée par le phénomène de transluminescence (\textit{subsurface scattering}).
+La composante lumineuse diffuse est causée par le phénomène de transluminescence (\textit{subsurface scattering}).
 La lumière entre dans le matériau ; où elle est absorbée et dispersée ; avant de sortir du matériau.
 % L'hypothèse lambertienne de la lumière diffuse n'est pas réaliste.
-La lumière est absorbée et diffusée en fonction de sa longueur d'onde et de la couleur du matériau.
-De plus, le rayon lumineux est dispersé plusieurs fois.
-La lumière devient isotrope et la direction de la sortie du rayon est aléatoire.
+La lumière est alors absorbée et diffusée en fonction de sa longueur d'onde.
+% De plus, le rayon lumineux est dispersé de nombreuses fois.
+La lumière qui sort du matériau devient isotrope.  % et les direction de sortie des rayons sont aléatoire.
 
 \begin{figure}[tbhp]
 	\centering
 	\includegraphics[width=\textwidth]{polarized_defect.pdf}
-	\caption{Différentes composantes de réflexion d'un polymère semi-cristallin. Figure inspirée de \cite{debevec_acquiring_2000}.}
-	\label{fig:polarized_defect}
+	\caption{Différentes composantes de réflexion d'un polymère semi-cristallin. (a) réflexion spéculaire, (b) réflexion diffuse, (c) réflexion diffuse sur un défaut structurel du matériau, (d) réflexion spéculaire sur un défaut de forme géométrique. Figure inspirée de \cite{debevec_acquiring_2000}.}
+	\label{fig:polarized_defect}.
 \end{figure}
 
-À partir de ces connaissances physiques, nous cherchons à utiliser la mesure de la polarisation pour la détection de défauts sur les pièces plastiques.
+À partir de ces connaissances physiques, nous cherchons à utiliser la mesure de l'angle de polarisation pour la détection de défauts sur les pièces plastiques.
 La Figure \ref{fig:polarized_defect} présente l'effet de différents défauts sur la polarisation de la lumière réfléchie.
+La réflexion spéculaire est représentée par le rayon (a).
+La réflexion diffuse est représentée par le rayon (b).
+
 Dans le cadre des matériaux semi-cristallins, nous posons deux hypothèses importantes pour la polarisation des réflexions :
 \begin{itemize}
 	\item Un défaut géométrique (forme, retassure, rayure)  modifie la courbure de la surface, ainsi il modifie l'angle de polarisation de la réflexion spéculaire : réflexion (d) Fig. \ref{fig:polarized_defect}.
-	\item Un défaut qui modifie la structure de la matière (brûlure, givrage, pollution) diffuse la lumière incidente, ainsi la lumière que le défaut réfléchie est diffuse ; elle ne possède pas de composante spéculaire : réflexion (c) Fig. \ref{fig:polarized_defect}.
+	\item Un défaut qui modifie la structure de la matière (brûlure, givrage, pollution) diffuse la lumière incidente, ainsi la lumière que le défaut réfléchit est diffuse ; elle ne possède pas de composante spéculaire : réflexion (c) Fig. \ref{fig:polarized_defect}.
 \end{itemize}
-Il n'existe pas à notre connaissance d'étude qui concernent l'utilisation de la polarimétrie pour le contrôle des défauts sur des pièces plastiques.
-Dans la suite de cette section, nous évaluerons l'intérêt de la polarimétrie pour la mise en valeur des défauts, sur un cas d'application industriel.
+% Il n'existe pas, à notre connaissance, d'étude qui concernent l'utilisation de la polarimétrie pour le contrôle des défauts sur des pièces plastiques.
+Dans la suite de cette section, nous évaluerons l'intérêt de la polarimétrie pour la mise en valeur des défauts sur un cas d'application industriel.
 % De précédents travaux proposent d'utiliser la polarimétrie pour la segmentation des objets.
 % Intérêt de la polarimétrie : mise en valeur des défauts géométrique.
 Si nos hypothèses sont vérifiées, cela permettra de mettre en valeur séparément les défauts géométriques à l'aide de la composante spéculaire et les défauts de la structure de la matière à l'aide de la composante diffuse.
@@ -967,7 +1013,7 @@ Pour des questions de coût de l'équipement, nous utiliserons un capteur polari
 % Jusqu'en 1993, la composante diffuse est considérée comme lambertienne (orthotrope).
 % \citeauthor{hanrahan_reflection_1993} \cite{hanrahan_reflection_1993} propose de modéliser la réflection diffuse à partir des propriétés de réflections des différentes couches successives qui composent un matériau et qui ont des propériétés optiques différentes.
 
-La mesure des composantes de réflexions spéculaire et diffuse d'un matériau est un enjeu important pour les rendus d'images photo-réalistes.
+La mesure des composantes de réflexions spéculaires et diffuses d'un matériau est un enjeu important pour les rendus d'images photo-réalistes.
 En 1997, \citeauthor{nayar_separation_1997} \cite{nayar_separation_1997} propose de mesurer la composante spéculaire, séparément de la composante diffuse, en utilisant un filtre polarisant.
 Selon les équations de Fresnel, une réflexion spéculaire est linéairement polarisée selon son plan d'incidence : réflexion (a) Fig. \ref{fig:polarized_defect}.
 À contrario, une réflexion diffuse n'est pas polarisée : réflexion (b) Fig. \ref{fig:polarized_defect}.
@@ -1004,9 +1050,9 @@ Selon les équations de Fresnel, une réflexion spéculaire est linéairement po
 	\caption{Acquisition des composantes de réflexions spéculaire et diffuse.}
 	\label{fig:specular_diffuse}
 \end{figure}
-En positionnant un filtre polarisant linéaire devant une caméra et en l'orientant selon un angle orthogonal à l'angle d'incidence, on capture uniquement la composante diffuse \cite{debevec_acquiring_2000}.
+En positionnant un filtre polarisant linéaire devant une caméra et en l'orientant selon un angle orthogonal à l'angle d'incidence de la source lumineuse, on capture uniquement la composante diffuse \cite{debevec_acquiring_2000}.
 La même démarche, réalisée avec le polarisant orienté selon le même angle que l'angle d'incidence, permet de capturer la composante spéculaire, ainsi que la moitié de la composante diffuse.
-Il est alors possible de séparer la réflexion spéculaire et la réflexion diffuse, telle que la Figure \ref{fig:specular_diffuse} le présente.
+Il est alors possible de séparer la réflexion spéculaire et la réflexion diffuse, telle que la Figure \ref{fig:specular_diffuse} le montre.
 Sur ces images, on observe que, selon l'hypothèse émise, les défauts de forme géométrique du fond de la boîte sont mis en valeur dans l'image spéculaire, mais pas dans l'image diffuse.
 En revanche, les défauts qui ont modifiés la structure de la matière (ici des tâches de givrage et des impuretés) apparaissent peu dans l'image spéculaire, mais ils sont présents, de couleur sombre, dans l'image diffuse.
 Dans la suite de ce travail, nous chercherons à évaluer quantitativement l'apport de la polarimétrie pour les performances de la détection des défauts.
@@ -1018,7 +1064,7 @@ Cela nécessite un processus de calibration long.
 Aussi, ces capteurs sont principalement utilisés à des fins de recherches ou d'applications de surveillance civile et militaire.
 
 Différentes méthodes de conception d'un capteur polarimétrique existent \cite{tyo_review_2006}.
-La méthode la plus classique utilise 3 ou 4 caméras, qui mesurent chacune un angle de polarisation.
+La méthode la plus classique utilise 3 ou 4 caméras, qui imagent chacune la lumière selon un angle de polarisation linéaire différent.
 Plusieurs caméras sont superposées et un chemin optique spécialement conçu aligne précisément l'image des différentes caméras pour compenser la différence de parallaxe.
 Les miroirs sans-teints sont couramment utilisés pour supprimer la parallaxe entre deux caméras \cite{wolff_polarization_1995}.
 Dans le cas où 3 caméras, ou plus sont utilisées, des miroirs et des prismes deviennent nécessaires.
@@ -1042,7 +1088,7 @@ Cette méthode nécessite une compensation de l'écart de parallaxe créé par l
 \end{figure}
 
 Enfin, on parle de \textit{division du plan focal} lorsque ce sont les pixels du capteur qui sont directement polarisé.
-Des filtres polarisés directement intégrés sur le plan du capteur \cite{yamazaki_fourdirectional_2016} (CMOS Sony \textit{IMX250-MZR}, 5 millions de pixels\footnote{\href{https://www.sony-semicon.co.jp/products_en/IS/sensor5/index.html}{Informations sur le capteur polarimétrique \textit{IMX250-MZR}}, sur le site Internet du fabriquant Sony.}).
+Des filtres polarisés sont directement intégrés sur le plan du capteur \cite{yamazaki_fourdirectional_2016} (CMOS Sony \textit{IMX250-MZR}, 5 millions de pixels\footnote{\href{https://www.sony-semicon.co.jp/products_en/IS/sensor5/index.html}{Informations sur le capteur polarimétrique \textit{IMX250-MZR}}, sur le site Internet du fabriquant Sony.}).
 Cela supprime la complexité optique, mais réduit la résolution finale de l'image par un facteur 4.
 Il est possible d'interpoler entre les angles de polarisation pour limiter cette perte, à la manière de la reconstruction d'une image couleur à partir de la matrice de filtre de Bayer.
 Le capteur \textit{IMX250-MZR} dispose néanmoins d'une résolution d'acquisition de $2448\times 2048$ pixels, soit une résolution  de $1223\times 1023$ pixels, ce qui est suffisant pour utiliser nos algorithmes.
@@ -1056,7 +1102,7 @@ Ces trois angles, espacés de 60°, permettent de modéliser l'ensemble du disqu
 Une source de lumière polarisée linéairement à 0° éclaire les pièces.
 
 
-\paragraph{Choix des capteurs et correction de parallaxe}\mbox{} \\
+\paragraph{2.3.3.2.1 Choix des capteurs et correction de parallaxe}\mbox{} \\
 Nous utilisons des webcams grands publics Logitech C922\footnote{\href{https://www.logitech.fr/fr-fr/product/c922-pro-stream-webcam}{Informations sur la webcam C922} sur le site Internet de la société Logitech.}, pour leurs simplicités d'implémentation en USB et leurs qualités en condition de basse luminosité.
 Des caméras industrielles plus robustes peuvent être utilisées avec la même méthode.
 
@@ -1078,22 +1124,21 @@ Il est important de noter que la parallaxe est compensée sur un plan unique.
 Ainsi, le vecteur de Stokes ne peut être reconstruit que dans ce plan.
 La parallaxe est une limite importante de notre système lorsque la surface de l'objet que l'on mesure n'est pas située sur le plan de la calibration.
 La différence de parallaxe dans notre système pourrait être exploitée.
-Une perspective intéressante à nos travaux sera d'utiliser la théorie \textit{light-field}, à partir des 3 caméras qui possèdent un point de vue différent \cite{wilburn_high_2005}.
-Il sera alors possible d'obtenir une information de polarimétrie en fonction de la distance, tel que le travail de \citeauthor{gendre_interest_2018} \cite{gendre_interest_2018} le propose.
+Une perspective intéressante à nos travaux serait d'utiliser la théorie \textit{light-field}, à partir des 3 caméras qui possèdent un point de vue différent \cite{wilburn_high_2005}.
+Il serait alors possible d'obtenir une information de polarimétrie en fonction de la distance, tel que le travail de \citeauthor{gendre_interest_2018} \cite{gendre_interest_2018} le propose.
 La reconstruction d'une carte de profondeur de la scène est également possible.
-La précision attendue n'est pas de l'ordre du micromètre, mais cette information complémentaire pourrait être utile afin d'évaluer la qualité.
+La précision attendue n'est pas de l'ordre du micromètre, mais cette information complémentaire pourrait être utile afin d'évaluer la géométrie globale d'une pièce.
 
-Cependant, afin de classifier la qualité des pièces, notre approche est de ne pas corriger la parallaxe.
-Nous analyserons les données brutes issues des capteurs.
+Cependant, afin de ne pas avoir à réaliser de calibration, notre approche est de ne pas corriger la parallaxe pour l'analyse des images. 
+Nous analyserons les données brutes issues des capteurs, afin de classifier la qualité des pièces.
 
-
-\paragraph{Dimensionnement de la source lumineuse polarisée}\mbox{} \\
+\paragraph{2.3.3.2.2 Dimensionnement de la source lumineuse polarisée}\mbox{} \\
 La Figure \ref{fig:raw_measures} présente les images brutes pour une unique pièce.
 Dans ce cas spécifique, on observe que la dernière image est plus sombre que les autres.
-Cela est dû au fait que l'angle du filtre polarisant situé devant la caméra est perpendiculaire à l'angle de polarisation de la lumière.
-La Figure \ref{fig:specular_diffuse} utilisait cette propriété pour séparer les réflexions diffuses et les réflexions spéculaires.
-Cela peut être limitant pour la définition de cette image, dans le cas où la sensibilité du capteur est trop limitée.
-Il est recommander de ne pas orienté les filtres des caméras perpendiculaires à la polarisation de la source lumière.
+Cela est dû au fait que l'angle du filtre polarisant linéaire situé devant la caméra est orthogonale à l'angle de polarisation linéaire de la source lumineuse.
+La Figure \ref{fig:specular_diffuse} utilise cette propriété pour séparer les réflexions diffuses et les réflexions spéculaires.
+% Cela peut être limitant pour le bruit de cette image, dans le cas où la sensibilité du capteur est trop limitée.
+% Donc il est recommandé de ne pas orienter les filtres des caméras perpendiculaires à la polarisation de la source lumière.
 
 \begin{figure}[htbp]
 	\centering
@@ -1102,15 +1147,15 @@ Il est recommander de ne pas orienté les filtres des caméras perpendiculaires 
 	\label{fig:raw_measures}
 \end{figure}
 
-Enfin, nous avons évalué empiriquement dans des ateliers de production l'effet de la lumière ambiante, non polarisée, sur la qualité de nos mesures.
+Enfin, nous avons évalué qualitativement dans des ateliers de production l'effet de la lumière ambiante, non polarisée, sur la qualité de nos mesures.
 Nous employons une source lumineuse puissante de 8000 lumens pour pouvoir négliger l'effet de la lumière ambiante.
 Nous estimons que la moitié de la luminosité est perdue par la polarisation.
-Grâce au dimensionnement de notre source lumineuse, nous n'avons pas observé de problème lors des essais en ateliers.
-En effet, les zones situés à proximité direct des machines sont souvent peu éclairée, car l'éclairage des ateliers est traditionnellement au plafond ; il est éloigné de plusieurs mètres des machines, tandis que notre dispositif mesure des pièces à une distance maximale d'un mètre.
+Grâce au dimensionnement de notre source lumineuse, nous n'avons pas observé de problème lors des essais en atelier.
+En effet, les zones situés à proximité direct des machines sont souvent peu éclairées, car l'éclairage des ateliers est traditionnellement au plafond ; il est éloigné de plusieurs mètres des machines, tandis que notre dispositif mesure des pièces à une distance maximale d'un mètre.
 Nous recommandons néanmoins de vérifier qu'aucune source lumineuse directe ne risque de polluer les mesures.
 Une perspective à nos travaux sera d'évaluer quantitativement l'effet de la lumière ambiante non polarisée sur les performances de notre système.
 
-\paragraph{Reconstruction du vecteur partiel de Stokes}\mbox{} \\
+\paragraph{2.3.3.2.3 Reconstruction du vecteur partiel de Stokes}\mbox{} \\
 L'équation de \citeauthor{stokes_composition_1851} \ref{eq:stokes_equation} permet de connaitre l'intensité lumineuse de la réflexion, pour un degré de polarisation $\theta$ \cite{stokes_composition_1851} :
 \begin{equation} \label{eq:stokes_equation}
 	I(\theta,\Phi) = \frac{1}{2}[S_0+S_1\cos 2\theta+S_2\cos \Phi \sin 2\theta+S_2\sin \Phi \sin 2\theta]

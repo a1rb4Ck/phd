@@ -24,7 +24,7 @@
 %%%%%                      Start part here                          %%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\chapter{Annexe 1 : Maîtrise du procédé d'injection-moulage des thermoplastiques}
+\chapter{Maîtrise du procédé d'injection-moulage des thermoplastiques}
 \label{Ann:process_control}
 
 %==============================================================================	Résumé du chapitre
@@ -45,7 +45,7 @@ Cette annexe propose une étude bibliographique de la maîtrise du procédé d'i
 \end{center}
 
 %\adjustmtc
-\minitoc
+% \minitoc
 % \newpage
 \bigskip
 
@@ -54,12 +54,77 @@ L'objectif de la maîtrise d'un procédé est de maîtriser la qualité du produ
 Il s'agit en priorité d'effectuer des mesures pertinentes sur l'état du procédé, puis de les analyser afin de détecter les dérives.
 Une dernière étape est l'ajustement automatique des paramètres du procédé.
 
-\begin{figure}[hbtp]
+\begin{figure}[htbp]
 	\centering
 	\includegraphics[width=0.80\textwidth,height=\textheight,keepaspectratio]{../Chap1/Figures/Sapristi_ZigZag.pdf}
 	\caption{Représentation \textit{Zig Zag} du procédé d'injection-moulage des thermoplastiques.}
 	\label{fig:annexe_zigzag}
 \end{figure}
+
+%\begin{figure}[hbtp]
+%	\centering
+%	\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{../Chap1/Figures/TableauComparaisonEssais.pdf}
+%	\caption{Cartographie bibliographique de la maîtrise du procédé d'injection-moulage.}
+%	\label{tab:state_art_compare}
+%\end{figure}
+
+% from https://tex.stackexchange.com/a/416169
+% \newcommand{\STAB}[1]{\begin{tabular}{@{}r@{}}#1\end{tabular}}
+\newcommand{\bcline}[1]{\arrayrulecolor{black}\cline{#1}\arrayrulecolor{black}}
+\begin{table}[hbtp]
+	\centering
+	\resizebox{\textwidth}{!}{%
+		\begin{tabular}{!{\color{black}\vrule}l l l l!{\color{black}\vrule}l!{\color{gray}\vrule}l!{\color{gray}\vrule}l!{\color{gray}\vrule}l!{\color{gray}\vrule}l!{\color{gray}\vrule}l!{\color{gray}\vrule}l!{\color{gray}\vrule}l!{\color{gray}\vrule}l!{\color{black}\vrule}}
+			\bcline{5-13} \multicolumn{1}{l}{} &                                &                                           &                                & \rotatebox[origin=r]{90}{Caractéristiques de la pièce stable} & \rotatebox[origin=r]{90}{Paramètres de stabilisation} & \rotatebox[origin=r]{90}{Caractéristiques de la pièce chaude} & \rotatebox[origin=r]{90}{Param. de maintien-refroidissement} & \rotatebox[origin=r]{90}{Caractéristiques de la pièce injectée} & \rotatebox[origin=r]{90}{Paramètres d'injection} & \rotatebox[origin=r]{90}{Caractéristiques de la matière fondue} & \rotatebox[origin=r]{90}{Paramètres de plastification} & \rotatebox[origin=r]{90}{Caractéristiques de la matière initiale} \\ \bcline{1-4}
+			\multicolumn{1}{!{\color{black}\vrule}l!{\color{black}\vrule}}{Année} & \multicolumn{1}{l!{\color{black}\vrule}}{Auteurs [Publication]}   & \multicolumn{1}{l!{\color{black}\vrule}}{Méthode utilisée}     & \multicolumn{1}{l!{\color{black}\vrule}}{Objectif}       & $\boldsymbol{C}_0$                              & $\boldsymbol{P}_1$                              & $\boldsymbol{C}_1$       & $\boldsymbol{P}_2$       & $\boldsymbol{C}_2$       & $\boldsymbol{P}_3$                              & $\boldsymbol{C}_3$       & $\boldsymbol{P}_4$       & $\boldsymbol{C}_4$       \\ \bcline{1-13}
+			1975                        & \citeauthor{laczko_controller_1975} \cite{laczko_controller_1975}                         & {\color[HTML]{CB0000} Automatique}        & {\color[HTML]{CE6301} Régulation}   &                                                 &                                                 &                          &                          &                          & \cellcolor[HTML]{CB0000}                        & \cellcolor[HTML]{CB0000} &                          &                          \\
+			1983                        & \citeauthor{sanschagrin_process_1983} \cite{sanschagrin_process_1983}                    & {\color[HTML]{CB0000} Automatique}        & {\color[HTML]{CE6301} Régulation}   & \cellcolor[HTML]{CB0000}                        & \cellcolor[HTML]{CB0000}                        &                          & \cellcolor[HTML]{CB0000} & \cellcolor[HTML]{CB0000} & \cellcolor[HTML]{CB0000}                        &                          & \cellcolor[HTML]{CB0000} &                          \\
+			1985                        & \citeauthor{fara_evaluation_1985} \cite{fara_evaluation_1985} & {\color[HTML]{CB0000} Automatique}        & {\color[HTML]{CE6301} Régulation}   &                                                 &                                                 &                          &                          &                          & \cellcolor[HTML]{CB0000}                        &                          &                          &                          \\
+			1986                        & \citeauthor{gomes_injection_1986} \cite{gomes_injection_1986} & {\color[HTML]{CB0000} Automatique}        & {\color[HTML]{CE6301} Régulation}   &                                                 &                                                 &                          &                          &                          &                                                 & \cellcolor[HTML]{CB0000} & \cellcolor[HTML]{CB0000} &                          \\
+			1987                        & \citeauthor{agrawal_injection-molding_1987} \cite{agrawal_injection-molding_1987} & {\color[HTML]{CB0000} Automatique}        & {\color[HTML]{CE6301} Régulation}   &                                                 &                                                 &                          & \cellcolor[HTML]{CB0000} & \cellcolor[HTML]{CB0000} & \cellcolor[HTML]{CB0000}                        &                          &                          &                          \\
+			1987                        & \citeauthor{kamal_dynamics_1987} \cite{kamal_dynamics_1987} & {\color[HTML]{CB0000} Automatique}        & {\color[HTML]{CE6301} Régulation}   &                                                 &                                                 &                          &                          &                          & \cellcolor[HTML]{CB0000}                        &                          &                          &                          \\
+			1987                        & \citeauthor{gustafson_model_1987} \cite{gustafson_model_1987} & {\color[HTML]{CB0000} Automatique}        & {\color[HTML]{CE6301} Régulation}   &                                                 &                                                 &                          &                          & \cellcolor[HTML]{CB0000} & \cellcolor[HTML]{CB0000}                        &                          &                          &                          \\
+			1988                        & \citeauthor{fara_control_1988} \cite{fara_control_1988}                        & {\color[HTML]{CB0000} Automatique}        & {\color[HTML]{CE6301} Régulation}   &                                                 &                                                 &                          &                          &                          & \cellcolor[HTML]{CB0000}                        &                          &                          &                          \\
+			1990                        & \citeauthor{fara_comprehensive_1990} \cite{fara_comprehensive_1990}                & {\color[HTML]{CB0000} Automatique}        & {\color[HTML]{CE6301} Régulation}   &                                                 &                                                 &                          &                          & \cellcolor[HTML]{CB0000} & \cellcolor[HTML]{CB0000}                        &                          &                          &                          \\
+			1990                        & \citeauthor{devos_contribution_1990} \cite{devos_contribution_1990} & {\color[HTML]{CB0000} Automatique}        & {\color[HTML]{CE6301} Régulation}   & \cellcolor[HTML]{CB0000}{\color[HTML]{000000} } & \cellcolor[HTML]{CB0000}{\color[HTML]{000000} } &                          &                          & \cellcolor[HTML]{CB0000} &                                                 &                          &                          &                          \\
+			1991                        & \citeauthor{chiu_dynamic_1991} \cite{chiu_dynamic_1991} & {\color[HTML]{CB0000} Automatique}        & {\color[HTML]{CE6301} Régulation}   &                                                 &                                                 &                          &                          & \cellcolor[HTML]{CB0000} & \cellcolor[HTML]{CB0000}                        & \cellcolor[HTML]{CB0000} &                          & \cellcolor[HTML]{CB0000} \\
+			1991                        & Srinivasan et al.              & {\color[HTML]{CB0000} Automatique}        & {\color[HTML]{CE6301} Régulation}   &                                                 &                                                 &                          &                          & \cellcolor[HTML]{CB0000} & \cellcolor[HTML]{CB0000}                        &                          &                          &                          \\
+			1993                        & \citeauthor{haeussler_quality_1993} \cite{haeussler_quality_1993} & {\color[HTML]{00009B} Réseau de Neurones} & {\color[HTML]{6200C9} Surveillance} & \cellcolor[HTML]{00009B}                        &                                                 &                          & \cellcolor[HTML]{00009B} & \cellcolor[HTML]{00009B} & \cellcolor[HTML]{00009B}                        &                          &                          &                          \\
+			1994                        & \citeauthor{blyskal_applying_1994} \cite{blyskal_applying_1994} & {\color[HTML]{009901} Plan d'expériences} & {\color[HTML]{34696D} Pilotage}     &                                                 &                                                 & \cellcolor[HTML]{009901} & \cellcolor[HTML]{009901} &                          & \cellcolor[HTML]{009901}{\color[HTML]{000000} } &                          & \cellcolor[HTML]{009901} &                          \\
+			1994                        & Gao et al.                     & {\color[HTML]{CB0000} Automatique}        & {\color[HTML]{CE6301} Régulation}   &                                                 &                                                 &                          &                          & \cellcolor[HTML]{CB0000} & \cellcolor[HTML]{CB0000}                        &                          &                          &                          \\
+			1995                        & \citeauthor{kazmer_dynamic_1995} \cite{kazmer_dynamic_1995} & {\color[HTML]{CB0000} Automatique}        & {\color[HTML]{CE6301} Régulation}   &                                                 &                                                 & \cellcolor[HTML]{CB0000} &                          & \cellcolor[HTML]{CB0000} & \cellcolor[HTML]{CB0000}                        &                          &                          &                          \\
+			1996                        & Thomas et al.                  & {\color[HTML]{CB0000} Automatique}        & {\color[HTML]{CE6301} Régulation}   &                                                 &                                                 &                          & \cellcolor[HTML]{CB0000} &                          &                                                 &                          &                          &                          \\
+			1996                        & \citeauthor{woll_online_1996} \cite{woll_online_1996} & {\color[HTML]{00009B} Réseau de Neurones} & {\color[HTML]{6200C9} Surveillance} & \cellcolor[HTML]{00009B}                        &                                                 &                          & \cellcolor[HTML]{00009B} & \cellcolor[HTML]{00009B} & \cellcolor[HTML]{00009B}                        &                          &                          &                          \\
+			1997                        & \citeauthor{demirci_numerical_1997} \cite{demirci_numerical_1997} & {\color[HTML]{00009B} Réseau de Neurones} & {\color[HTML]{CE6301} Régulation}   &                                                 &                                                 &                          &                          & \cellcolor[HTML]{00009B} & \cellcolor[HTML]{00009B}                        &                          &                          &                          \\
+			1997                        & \citeauthor{woll_pattern-based_1997} \cite{woll_pattern-based_1997} & {\color[HTML]{00009B} Réseau de Neurones} & {\color[HTML]{CE6301} Régulation}   &                                                 &                                                 &                          & \cellcolor[HTML]{00009B} & \cellcolor[HTML]{00009B} & \cellcolor[HTML]{00009B}                        &                          &                          &                          \\
+			1997                        & \cite{tsoi_fuzzy_1997} \citeauthor{tsoi_fuzzy_1997} & {\color[HTML]{CB0000} Automatique}        & {\color[HTML]{CE6301} Régulation}   &                                                 &                                                 &                          &                          & \cellcolor[HTML]{CB0000} & \cellcolor[HTML]{CB0000}                        &                          &                          &                          \\
+			1998                        & Ryckebusch et al.              & {\color[HTML]{CB0000} Automatique}        & {\color[HTML]{CE6301} Régulation}   & \cellcolor[HTML]{CB0000}                        &                                                 & \cellcolor[HTML]{CB0000} & \cellcolor[HTML]{CB0000} &                          & \cellcolor[HTML]{CB0000}                        &                          &                          &                          \\
+			1998                        & \citeauthor{ivester_automatic_1998} \cite{ivester_automatic_1998} & {\color[HTML]{009901} Plan d'expériences} & {\color[HTML]{6200C9} Surveillance} & \cellcolor[HTML]{009901}                        &                                                 &                          & \cellcolor[HTML]{009901} & \cellcolor[HTML]{009901} & \cellcolor[HTML]{009901}                        & \cellcolor[HTML]{009901} &                          &                          \\
+			1999                        & \citeauthor{tsoi_real-time_1997} \cite{tsoi_real-time_1997} & {\color[HTML]{CB0000} Automatique}        & {\color[HTML]{CE6301} Régulation}   &                                                 &                                                 &                          &                          & \cellcolor[HTML]{CB0000} & \cellcolor[HTML]{CB0000}                        &                          &                          &                          \\
+			2000                        & \citeauthor{huang_fuzzy_2000} \cite{huang_fuzzy_2000}                   & {\color[HTML]{CB0000} Automatique}        & {\color[HTML]{CE6301} Régulation}   &                                                 &                                                 &                          & \cellcolor[HTML]{CB0000} & \cellcolor[HTML]{CB0000} & \cellcolor[HTML]{CB0000}                        &                          &                          &                          \\
+			2000                        & \citeauthor{schnerr-haselbarth_automation_2000} \cite{schnerr-haselbarth_automation_2000} & {\color[HTML]{00009B} Réseau de Neurones} & {\color[HTML]{6200C9} Surveillance} & \cellcolor[HTML]{00009B}                        &                                                 &                          & \cellcolor[HTML]{00009B} & \cellcolor[HTML]{00009B} & \cellcolor[HTML]{00009B}                        &                          & \cellcolor[HTML]{00009B} &                          \\
+			2000                        & \citeauthor{yang_knowledgebased_2000} \cite{yang_knowledgebased_2000} & {\color[HTML]{009901} Plan d'expériences} & {\color[HTML]{6200C9} Surveillance} &                                                 &                                                 &                          & \cellcolor[HTML]{009901} & \cellcolor[HTML]{009901} & \cellcolor[HTML]{009901}                        & \cellcolor[HTML]{009901} &                          &                          \\
+			2001                        & \citeauthor{lau_neural_2001} \cite{lau_neural_2001} & {\color[HTML]{00009B} Réseau de Neurones} & {\color[HTML]{6200C9} Surveillance} & \cellcolor[HTML]{00009B}                        &                                                 & \cellcolor[HTML]{00009B} &                          & \cellcolor[HTML]{00009B} & \cellcolor[HTML]{00009B}                        & \cellcolor[HTML]{00009B} & \cellcolor[HTML]{00009B} &                          \\
+			2002                        & \citeauthor{chen_study_2002} \cite{chen_study_2002} & {\color[HTML]{CB0000} Automatique}        & {\color[HTML]{CE6301} Régulation}   &                                                 &                                                 &                          & \cellcolor[HTML]{CB0000} &                          & \cellcolor[HTML]{CB0000}                        &                          &                          &                          \\
+			2003                        & \citeauthor{pillet_maitrise_2003} \cite{pillet_maitrise_2003} & {\color[HTML]{009901} MSP}                & {\color[HTML]{6200C9} Surveillance} &                                                 &                                                 & \cellcolor[HTML]{009901} & \cellcolor[HTML]{009901} & \cellcolor[HTML]{009901} & \cellcolor[HTML]{009901}                        &                          &                          &                          \\
+			2004                        & \citeauthor{lu_stagebased_2004} \cite{lu_stagebased_2004} & {\color[HTML]{009901} Plan d'expériences} & {\color[HTML]{6200C9} Surveillance} &                                                 &                                                 &                          & \cellcolor[HTML]{009901} &                          & \cellcolor[HTML]{009901}                        &                          & \cellcolor[HTML]{009901} &                          \\
+			2004                        & \citeauthor{yang_injection_2004} \cite{yang_injection_2004} & {\color[HTML]{CB0000} Automatique}        & {\color[HTML]{6200C9} Surveillance} & \cellcolor[HTML]{CB0000}                        &                                                 &                          & \cellcolor[HTML]{CB0000} & \cellcolor[HTML]{CB0000} & \cellcolor[HTML]{CB0000}                        & \cellcolor[HTML]{CB0000} & \cellcolor[HTML]{CB0000} &                          \\
+			2006                        & \citeauthor{fournier_conduite_2006} \cite{fournier_conduite_2006} & {\color[HTML]{CB0000} Automatique}        & {\color[HTML]{34696D} Pilotage}     & \cellcolor[HTML]{CB0000}                        &                                                 & \cellcolor[HTML]{CB0000} & \cellcolor[HTML]{CB0000} &                          & \cellcolor[HTML]{CB0000}                        &                          &                          &                          \\
+			2009                        & \citeauthor{michaeli_online_2009} \cite{michaeli_online_2009} & {\color[HTML]{00009B} Réseau de Neurones} & {\color[HTML]{CE6301} Régulation}   &                                                 &                                                 & \cellcolor[HTML]{00009B} & \cellcolor[HTML]{00009B} & \cellcolor[HTML]{00009B} & \cellcolor[HTML]{00009B}                        &                          &                          &                          \\
+			2013                        & \citeauthor{fei_practical_2013} \cite{fei_practical_2013} & {\color[HTML]{009901} Plan d'expériences} & {\color[HTML]{6200C9} Surveillance} &                                                 &                                                 & \cellcolor[HTML]{009901} & \cellcolor[HTML]{009901} &                          & \cellcolor[HTML]{009901}                        &                          & \cellcolor[HTML]{009901} &                          \\
+			2014                        & Zhao et al.                    & {\color[HTML]{009901} MSP}                & {\color[HTML]{6200C9} Surveillance} &                                                 &                                                 &                          &                          &                          & \cellcolor[HTML]{009901}                        & \cellcolor[HTML]{009901} &                          &                          \\
+			2015                        & \citeauthor{johnston_-line_2015} \cite{johnston_-line_2015} & {\color[HTML]{34696D} Pilotage} & {\color[HTML]{6200C9} Surveillance} & \cellcolor[HTML]{009901}                        &                                                 &                          & \cellcolor[HTML]{009901} &                          & \cellcolor[HTML]{009901}                        &                          & \cellcolor[HTML]{009901} &                          \\
+			2016                        & \citeauthor{zhang_statistical_2016} \cite{zhang_statistical_2016} & {\color[HTML]{009901} MSP}                & {\color[HTML]{6200C9} Surveillance} &                                                 &                                                 &                          &                          &                          & \cellcolor[HTML]{009901}                        &                          &                          &                          \\
+			2017                        & Zhou et al.                    & {\color[HTML]{CB0000} MSP \& Auto.}       & {\color[HTML]{34696D} Pilotage}     &                                                 &                                                 & \cellcolor[HTML]{CB0000} &                          &                          & \cellcolor[HTML]{CB0000}                        & \cellcolor[HTML]{CB0000} &                          &                          \\
+			\bcline{1-13}
+		\end{tabular}%
+	}
+	\caption{Récapitulatif de l'étude bibliographique.}
+	\label{tab:state_art_compare}
+\end{table}
+
+Cette annexe propose une étude bibliographique des techniques de maîtrise du procédé d'injection-moulage.
+Le Tableau \ref{tab:state_art_compare} récapitule cette revue de la littérature.
 
 La maîtrise d'un procédé de production peut être discrétisée en différentes étapes :
 \begin{enumerate}
@@ -533,65 +598,717 @@ Leur système permet de réduire le nombre d'essais à réaliser pour régler le
 
 
 \FloatBarrier
-\chapter{Annexe 2 : Titre}
+\chapter{Économie du secteur de la plasturgie française}
 \label{Ann:2}
 
-%==============================================================================	Résumé du chapitre
+Le Tableau \ref{fig:molding_economy} présente la répartition économique industrielle française par secteurs d'activité.
+Elle indique une marge moyenne de 27\% pour le secteur de la plasturgie française, en 2016 \cite{directiongeneraledesentreprises_chiffres_2019}.
+Le chiffre d'affaire moyen par entreprise est de 1,3 millions d'euros en 2016.
 
-\begin{center}
-\rule{0.7\linewidth}{.5pt}
-\begin{minipage}{0.7\linewidth}
-\smallskip
-
-\textit{Résumé ici.
-}
-
-%\smallskip
-\end{minipage}
-\smallskip
-\rule{0.7\linewidth}{.5pt}
-\end{center}
-
-\minitoc
-\newpage
-
-
-\section{Section 1}
-\subsection{Sous section 1}
-\blindtext
-\subsection{Sous section 2}
-\blindtext
-
+\begin{figure}[hbt]
+	\centering
+	\includegraphics[width=0.85\textwidth,height=\textheight,keepaspectratio]{../Chap1/Figures/2018-Chiffres-cles-industrie-manufacturiere-secteur.pdf}
+	\caption{Figure issue du rapport annuel de la \citeauthor{directiongeneraledesentreprises_chiffres_2019} :  \citetitle{directiongeneraledesentreprises_chiffres_2019} \cite{directiongeneraledesentreprises_chiffres_2019}}
+	\label{fig:molding_economy}
+\end{figure}
 
 
 \FloatBarrier
-\chapter{Annexe 3 : Titre}
+\chapter{Apprentissage statistique}
 \label{Ann:3}
 
 %==============================================================================	Résumé du chapitre
 
 \begin{center}
-\rule{0.7\linewidth}{.5pt}
-\begin{minipage}{0.7\linewidth}
-\smallskip
-
-\textit{Résumé ici.
-}
-
-%\smallskip
-\end{minipage}
-\smallskip
-\rule{0.7\linewidth}{.5pt}
+	\rule{0.7\linewidth}{.5pt}
+	\begin{minipage}{0.7\linewidth}
+		\smallskip
+		
+		\textit{
+			Cette annexe propose une synthèse de la théorie de l'apprentissage statistique et une présentation des principaux algorithmes traditionnels.
+		}
+		
+		%\smallskip
+	\end{minipage}
+	\smallskip
+	\rule{0.7\linewidth}{.5pt}
 \end{center}
 
-\minitoc
-\newpage
+%\adjustmtc
+% \minitoc
+% \newpage
+\bigskip
 
-\section{Section 1}
-\subsection{Sous section 1}
-\blindtext
-\subsection{Sous section 2}
-\blindtext
+Cette annexe est complémentaire de la Section \ref{sec:metric_learning}.
+Nous présentons la problématique de la performance d'un classifieur, puis les principaux algorithmes d'apprentissage statistique traditionnels.
+Dans ce travail de doctorat, nous nous sommes intéressés en particulier aux méthodes de \textit{Deep Learning}, voir la Section \ref{sec:metric_learning}.
+
+\section{Métrique de performances d'un classifieur}
+Pour exprimer la performance d'un classifieur, de nombreuses métriques ont été proposées dans la littérature.
+Une métrique rend compte de l'écart entre la réponse donnée par un classifieur et la vérité.
+La métrique la plus couramment employée est la justesse définie par \citeauthor{metz_basic_1978} \cite{metz_basic_1978}, Équation \ref{eq:accuracy}.
+Cette métrique est adaptée au cas où de multiples classes $j$ sont présentes dans le problème.
+Nous rapporterons ici toutes les métriques sur le nombre d'échantillons total.
+\begin{equation} \label{eq:accuracy}
+\text{justesse}(y, \hat{y})=\frac{1}{n_{\mathrm{\acute{e}chantillons}}} \sum_{i=0}^{n_{\mathrm{\acute{e}chantillons}}-1} 1\left(\hat{y}_{j}=y_{j}\right)
+\end{equation}
+
+Le procédé d'injection-moulage des thermoplastiques est stable.
+Lorsqu'un point de fonctionnement satisfaisant pour obtenir une pièce de bonne qualité est obtenu.
+La dérive du procédé au cours du temps est de l'ordre de la journée.
+Ainsi, peu de pièces mauvaises sont produites.
+C'est pourquoi une population traditionnelle de pièce moulées comportera peu d'individus de mauvaise qualité et une majorité d'individus de bonne qualité.
+Ainsi, le choix de la métrique d'évaluation des performances doit tenir compte de la répartition non égalitaire des classes dans l'échantillon.
+La justesse ne prend pas en compte les répartitions inégalitaires de classes dans la population, c'est pourquoi ce n'est pas une métrique adaptée à notre problème \cite{japkowicz_class_2002}.
+
+\subsection{Justesse équilibrée}\mbox{} \\
+La justesse équilibrée, Équation \ref{eq:balanced_accuracy}, est une métrique qui tient compte de ce problème en intégrant une matrice de poids $\mathbf{W}$ qui compense les déséquilibres inter-classes \cite{brodersen_balanced_2010, mosley_balanced_2013}.
+Dans le cas où la répartition des classes est équilibrée, la justesse équilibrée est égale à la justesse.
+
+\begin{equation} \label{eq:balanced_accuracy}
+\begin{split}
+\text{justesse}_{\text{éq}}(y, \hat{y}, \mathbf{W})=\frac{1}{\sum \hat{\mathbf{w}}_{i}} \sum_{i} 1\left(\hat{y}_{i}=y_{i}\right) \hat{\mathbf{w}}_{i}
+\\
+\text{avec } \hat{\mathbf{w}}_{i}=\frac{\mathbf{w}_{i}}{\sum_{j} 1\left(y_{j}=y_{i}\right) >_{j}}
+\end{split}
+\end{equation}
+
+\subsection{Matrice de confusion}\mbox{} \\
+Dans notre cas industriel, il est crucial de limiter le nombre de faux positifs, c'est à dire le nombre de pièces mauvaises détectées comme bonnes.
+A contrario, les faux négatifs correspondent aux pièces bonnes détectées comme mauvaises.
+Sur des pièces moulées en plastique dont le coût de revient est faible, les faux négatifs ne sont pas aussi critiques que les faux positifs pour notre problématique industrielle car la relation client entre en jeu.
+En effet, les taux de pièces mauvaises acceptés dans les lots par le client sont, pour les plus drastiques des cahiers des charges, de 5 pièces défectueuses par millions.
+Dans ce cas, il vaudra mieux jeter des pièces bonnes que prendre le risque d'envoyer un lot contenant des pièces mauvaises.
+Si le coût de revient des pièces est élevé, alors faux positifs et faux négatifs sont à limiter : c'est le zéro défaut.
+Si la dimension écologique est prise en compte, on cherchera également à atteindre le zéro défaut : jeter des pièces bonnes est une hérésie écologique, qui plus est : produire des pièces mauvaises.
+
+La littérature présente les nombres de faux positifs et faux négatifs sous la forme d'un Tableau \ref{tab:confusion_matrix}, la matrice de confusion.
+
+% Please add the following required packages to your document preamble:
+% \usepackage{multirow}
+\begin{table}[]
+	\centering
+	\arrayrulecolor{black}\begin{tabular}{l|l|l|}
+		\cline{2-3}
+		& \multicolumn{2}{l|}{Classes vraies}               \\ \hline
+		\multicolumn{1}{|l|}{\multirow{2}{*}{Classes prédites}} & Vrais positifs (VP) & Faux Positifs (FP)  \\ \cline{2-3} 
+		\multicolumn{1}{|l|}{}                            & Faux négatifs (FN)  & Vrais Négatifs (VN) \\ \hline
+	\end{tabular}
+	\caption{Matrice de confusion.}
+	\label{tab:confusion_matrix}
+\end{table}
+
+\subsection{Précision et rappel}\mbox{} \\
+La précision et le rappel sont définis à partir de ces valeurs, Équations \ref{eq:precision_recall}.
+Elles renseignent sur la pertinence des résultats.
+
+\begin{equation} \label{eq:precision_recall}
+\begin{split}
+pr\acute{e}cision = \frac{|y \cap \hat{y}|}{|y|} = \frac{\text{VP}}{\text{VP}+\text{FP}}
+\\
+rappel = \frac{|y \cap \hat{y}|}{|\hat{y}|} = \frac{\text{VP}}{\text{VP}+\text{FN}}
+\end{split}
+\end{equation}
+
+\subsection{F-mesure}\mbox{} \\
+La moyenne harmonique de la précision et du rappel est appelé F-mesure.
+Le facteur $\beta$ permet d'ajuster le rapport entre précision et rappel.
+Lorsque $\beta = 1$, précision et rappel sont également pondérés, on parle alors de F1-mesure.
+
+\begin{equation} \label{eq:f1_score}
+\begin{split}
+F_{\beta}=\left(1+\beta^{2}\right) \frac{pr\acute{e}cision \cdot rappel}{\beta^{2} pr\acute{e}cision + rappel}
+\\
+F_{1}= 2 \frac{pr\acute{e}cision \cdot rappel}{pr\acute{e}cision + rappel}
+\end{split}
+\end{equation}
+
+L'ensemble de ces métriques est généralisable par moyennage, dans le cas où plus de deux classes existent dans la population :
+\begin{itemize}
+	\item micro-moyenne : les métriques sont calculées d'après les Équations combinatoires \ref{eq:precision_recall}.
+	\item macro-moyenne : les métriques sont calculées pour chaque classes, puis moyennées par l'ensemble des classes.
+\end{itemize}
+
+\subsection{Courbe ROC}\mbox{} \\
+La courbe ROC (\textit{Receiver Operating Characteristic}) représente la caractéristique de performance d'un classifieur.
+Elle a été proposée en 1940 pour distinguer les vrais positifs du bruit de fond sur les relevés radars.
+La courbe compare sensibilité (taux de vrais positifs) et spécificité (taux de vrais négatifs) d'un classifieur.
+La performance est comparée à la réponse d'un classifieur aléatoire.
+Cette courbe peut servir à choisir la valeur optimale de séparation entre deux classes.
+Dans notre cas, une valeur milieu, non biaisée est satisfaisante.
+La courbe \ref{fig:roc} est issue du meilleur classifieur de la qualité obtenue.
+L'écart-type est calculé par validation croisée, §\ref{subsubsec:cross_val}.
+
+\begin{figure}[hbtp]
+	\centering
+	\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{../Chap4/Figures/roc_images_all_224_3cams_densenet_conv4_PCA20.png}
+	\caption{Courbe ROC du meilleur classifieur de la qualité des pièces.}
+	\label{fig:roc}
+\end{figure}
+
+%TODO AUC : Area Under Curve
+% Pour chaque seuil, nous avions des métriques qui résumaient la performance de notre classifieur. Nous allons désormais utiliser une métrique géométrique définie par l’aire sous la courbe. Mais quelle courbe ? Plusieurs possibilités s’offrent à nous :
+
+\subsection{Validation croisée pour la comparaison des performances de classifieurs} \label{subsubsec:cross_val}
+Pour comparer les performances de classifieurs, nous comparons la valeur des métriques définies précédemment.
+Les classifieurs sont appris sur un jeu de données d'apprentissage et la performance est mesurée sur un jeu de données de test, qui n'a pas été utilisé lors de l'apprentissage.
+On réserve traditionnellement 20 pour-cent du jeu de données pour le test.
+Une limite de cette méthode est le biais potentiel des deux portions.
+Dans le cas de grands jeux de données ($> 2 000$ par classes), le biais est naturellement limité par la variabilité des données.
+Dans le cas de jeu de données de plus petites dimensions, il est nécessaire de limiter ce biais.
+On utilise des méthodes de validations croisées.
+Il s'agit d'entrainer de multiples modèles sur des portions différentes des données, puis d'observer la moyenne et l'écart-type des performances.
+Nous présenterons ici la méthode des K-partitions stratifiées par classes (\textit{Stratified K-Folds}), utilisée dans nos travaux.
+D'autres méthodes existent mais nous retenons cette dernière par sa robustesse au jeu de données où les classes ne sont pas égales.
+Cette méthode est également extensible aux problèmes à classes multiples.
+La stratification consiste à associer dans chaque partition une proportion d'échantillons de chaque classe équivalente.
+\citeauthor{kohavi_study_1995} conclue ainsi sur l'intérêt de la stratification, en matière de réduction du biais des modèles \cite{kohavi_study_1995}.
+Le nombre de partition $k$ est choisi en fonction du nombre d'échantillons disponible.
+Dans nos problèmes où les jeux de données sont inférieurs à mille échantillons, nous fixons $k=3$.
+Dans nos travaux, nous utiliserons l'implémentation de la librairie \textit{Scikit-Learn} \cite{pedregosa_scikit-learn_2011}.
+La Figure \ref{fig:StratifiedKFold} représente l'effet de cette méthode sur un jeu de données.
+
+\begin{figure}[hbtp]
+	\centering
+	\includegraphics[width=0.7\textwidth,height=0.7\textheight,keepaspectratio]{../Chap4/Figures/sphx_glr_plot_cv_indices_003.png}
+	\caption{\emph{Stratified 4-Folds}. Figure extraite de la \href{https://scikit-learn.org/stable/auto_examples/model_selection/plot_cv_indices.html}{doc \textit{SciKit-Learn}, License BSD 3-clauses}.}
+	\label{fig:StratifiedKFold}
+\end{figure}
+
+Lorsque l'on souhaite réaliser un optimisation du classifieur en lui-même (hyper-paramètres), une partition de données de validation est introduite.
+Chaque classifieur sera entrainé sur le jeu d'apprentissage, puis validé sur le jeu de validation.
+Enfin, le meilleur classifieur obtenu sera évalué sur le jeu de test, qui n'aura jamais été utilisé ni pendant l'apprentissage, ni pendant l'optimisation.
+Dans ce cas, le jeu de données est découpé en trois portions présentées dans le Tableau \ref{tab:cross_val}.
+Nous emploierons cette répartition dans l'ensemble de nos travaux.
+
+%\newcolumntype{x}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}p{#1}}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+\begin{table}[]
+	\centering
+	\begin{tabular}{| C{8.1cm} | C{2.7cm} | C{2.7cm} |}
+		\hline
+		Apprentissage & Validation & Test \\ \hline\hline
+		60\% & 20\% & 20\% \\ \hline
+		Apprentissage du modèle & Validation du modèle & Validation du meilleur modèle \\ \hline
+	\end{tabular}
+	\caption{Répartition du jeu de données : apprentissage, validation et test.}
+	\label{tab:cross_val}
+\end{table}
+
+\section{Apprentissage statistique traditionnel}
+Nous présenterons dans cette section les méthodes de classification les plus utilisées dans la littérature.
+Dans ce travail, nous discuterons de l'intérêt de ces différents classifieurs sur notre application industrielle.
+La méthode des k-plus-proches voisins est la plus utilisée sur des problèmes de vision par ordinateur.
+Nous distinguons les classifieurs dits "traditionnels", des classifieurs \textit{Deep Learning} qui utilisent des réseaux de neurones profonds : leur spécificité est de synthétiser dans un seul modèle la méthode d'extraction de l'information et la classification.
+Ces derniers seront présentés et discutés dans la Section \ref{subsubsec:deep_learning}.
+
+\subsection{Machine à vecteurs de support}\mbox{\label{parag:svm}} \\
+Soit les couples d'échantillons et leurs annotations de classe binaire associées $(\mathbf{x}_i, y_i)$.
+\citeauthor{vapnik_patterns_1963} \cite{vapnik_patterns_1963} proposent une solution au problème de classification binaire dans un espace à grandes dimensions, permettant de prédire l'annotation $y_i$ à partir des données $\mathbf{x}_i$.
+Une machine à vecteurs de support (\textit{Support Vector Machine}) cherche à trouver l'hyperplan qui sépare au mieux les deux classes (Figure \ref{fig:svm}). $\vec{\mathbf{w}}$  est orthogonal à l'hyperplan.
+L'hyperplan est choisi tel que la distance $b$ entre le plan et les échantillons de $\mathbf{x}_i \in \mathbf{X}$ les plus proches de ce dernier, soit maximale : c'est la recherche de la marge maximale $\frac{b}{\|\vec{\mathbf{w}}\|}$.
+L'hyperplan obtenu est alors défini par ses vecteurs supports $\mathbf{x}_i$.
+\citeauthor{cortes_supportvector_1995} proposent l'utilisation d'une fonction de marge dite \textit{soft} basée sur le coût de \textit{hinge} \cite{cortes_supportvector_1995, vapnik_support_1997}.
+Ils introduisent un terme de régularisation $C$. Trouver le classifieur optimal revient alors à la résolution du problème d'optimisation de l'Équation \ref{eq:svm}.
+
+\begin{equation} \label{eq:svm}
+\begin{split}
+f_{SVM}(\mathbf{x}_i, y_i) = \arg \min \left[\frac{1}{n} \sum_{i=1}^{n} \max \left(0, 1-y_{i}\left(\vec{\mathbf{w}} \cdot \vec{\mathbf{x}}_{i}-b\right)\right)\right]+ C \|\vec{\mathbf{w}}\|^{2}
+\\
+\text{avec } \mathcal{L}_{Hinge}(\mathbf{x}_i-b, y_i) = \max (0, 1 - y_i \cdot (\mathbf{x}_i-b))
+\end{split}
+\end{equation}
+
+Lorsque les échantillons ne sont pas linéairement séparables, \citeauthor{boser_training_1992} \cite{boser_training_1992} proposent d'effectuer une transformation $\varphi$ de l'espace des données, afin de trouver un espace où les échantillons sont linéairement séparables.
+La transformation $\varphi$ a pour noyau une forme choisie (c'est le \textit{kernel trick}, proposé par \citeauthor{aizerman_theoretical_1964} \cite{aizerman_theoretical_1964}).
+Soit $\mathbf{c}$ et $\varphi$ tel que $\vec{\mathbf{w}}=\sum_{i=1}^{n} \cdot c_{i} \cdot y_{i} \cdot \varphi\left(\vec{\mathbf{x}}_{i}\right)$, on a le noyau $K\left(X, X^{\prime}\right) = \varphi \left(X\right) \cdot \varphi\left(X^{\prime}\right)$.
+Cette démarche de transformation vectorielle est utilisée dans de nombreux autres algorithmes.
+Les noyaux non linéaires les plus employés sont les noyaux polynomiaux et les noyaux gaussiens de bases radiales (\textit{Radial Basis Function}), Équations \ref{eq:kernels}.
+En utilisant le \textit{kernel trick}, un classifieur SVM est alors formalisé par l'Équation \ref{eq:svm_trick}.
+
+\begin{equation} \label{eq:kernels}
+\begin{split}
+K_{polyn\hat{o}mial}\left(X, X^{\prime}\right) = \left(X \cdot ^{\prime} X + c\right)^{d}, \text{ avec } d \text{ le degré et } c \text{ une constante}.
+\\
+K_{RFB}\left(X, X^{\prime}\right) = \exp \left(-\frac{\left\|X-X^{\prime}\right\|^{2}}{2 \sigma^{2}}\right) = \exp \left(-\gamma\left\|X-X^{\prime}\right\|^{2}\right), \text{ avec } \gamma > 0
+\end{split}
+\end{equation}
+
+\begin{equation} \label{eq:svm_trick}
+f_{SVM,RBF}(X_i, y_i) = \arg \min \left[\frac{1}{n} \sum_{i=1}^{n} \max \left(0, 1-y_{i}\left(\vec{\mathbf{w}} \cdot \varphi(\vec{\mathbf{x}}_{i})-b\right)\right)\right]+ C \|\vec{\mathbf{w}} \cdot \varphi \|^{2}
+\end{equation}
+
+Le choix des hyper-paramètres $C$ et $\gamma$ est critique pour obtenir de bonnes performances en matière de justesse et de durée de calcul.
+$C$ influence la largeur de la marge entre les deux classes.
+Ce facteur régularise le classifieur et permet sa généralisation à de nouveaux échantillons.
+$C$ est un facteur qui équilibre la nécessité de trouver l'hyperplan le plus simple possible, et le droit aux erreurs de classifications.
+Une petite valeur de $C$ encouragera une marge large, ce qui produira un hyperplan simple, mais acceptera des erreurs de classifications.
+Enfin, $\gamma$ pondère l'influence d'un unique échantillon sur l'hyperplan.
+
+\begin{figure}[hbtp]
+	\centering
+	\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{../Chap4/Figures/Kernel_Machine_Pierre.pdf}
+	\caption{SVM avec \emph{kernel trick} $\varphi$. Figure originale de \href{https://commons.wikimedia.org/wiki/File:Kernel_Machine.png}{Alisneaky \ccLogo \ \textnormal{0}, Wikimedia Commons}.}
+	\label{fig:svm}
+\end{figure}
+
+La librairie \textit{LIBSVM} \cite{chang_libsvm_2011} permet de résoudre le problème avec différents noyaux non linéaires, dans un ordre de grandeur de $\bigO(N^2)$ à $\bigO(N^3)$.
+Aussi, elle n'est plus utilisable lorsque le nombre d'échantillon dépasse dix mille.
+Dans nos travaux, nous utilisons la librairie \textit{LIBLINEAR} de \citeauthor{fan_liblinear_2008} \cite{fan_liblinear_2008}, au travers de l'interface de la libraire \textit{SciKit-Learn} de \citeauthor{pedregosa_scikit-learn_2011} \cite{pedregosa_scikit-learn_2011}.
+La complexité de l'apprentissage, avec des noyaux linéaires, est de l'ordre de $\bigO(N)$, avec $N$ le nombre d'échantillons ce qui rend cette méthode intégrable sur des systèmes embarqués modernes aux vues des puissances de calculs aujourd'hui disponibles.
+L'apprentissage d'un modèle peut être effectué pendant le cycle de production et le système de calcul peut être intégré directement au cœur de l'atelier de production, au plus près du procédé d'injection-moulage.
+
+\subsection{K-plus-proches voisins} \mbox{} \label{parag:knn} \\
+La méthode des k-plus-proches voisins a été proposée par \citeauthor{fix_discriminatory_1951} \cite{fix_discriminatory_1951} et développée par \citeauthor{cover_nearest_1967} \cite{cover_nearest_1967}.
+Cette méthode est à l'origine de méthodes d'apprentissages non supervisées, par exemple celles basées sur les variétés et l'analyse spectrale.
+Cette méthode ne cherche pas à construire de modèle générique au problème de classification.
+Elle enregistre les positions des échantillons du jeu d'apprentissage dans l'espace des données.
+La classification d'un nouvel échantillon est la classe majoritaire sur l'ensemble des échantillons parmi les $k$ plus proches voisins.
+Le nombre de voisins $k$ peut être prédéfini ou bien varier à partir de la densité  de points (la métrique de distance entre points est souvent la norme Euclidienne $\ell_{2}$).
+Cette méthode est particulièrement efficace lorsque la séparation entre les échantillons est irrégulière.
+
+%\paragraph{Régression logistique}\mbox{} \\
+%TODO
+
+\subsection{Bagging}\mbox{\label{parag:bagging}} \\
+Le \textit{bagging} (\textit{\emph{B}ootstrap \emph{agg}regat\emph{ing}}) est une méthode d'association ensembliste de modèles simples afin d'obtenir un méta-modèle aux performances supérieures.
+Il est défini par \citeauthor{breiman_bagging_1996} \cite{breiman_bagging_1996}.
+La technique permet de limiter le sur-apprentissage.
+Pour un jeu de données $\mathbf{X}$ de taille $n$, on génère $b$ lots $\mathbf{X}_b \in \mathbf{X}$ contenant $\sim 10 < m < n$ échantillons tirés aléatoirement selon une distribution uniforme.
+Les échantillons, uniques dans $X$, peuvent être répétés dans $\mathbf{X}_b$.
+Pour chaque lot $b$, un modèle de l'algorithme choisi est entrainé.
+La prédiction du méta-modèle final est la moyenne (ou le vote pondéré) de tous les modèles $f_b$, Équation \ref{eq:bagging}.
+Cette méthode d'agrégation de modèles est efficace pour limiter le sur-apprentissage.
+La méthode est employée dans les \textit{Random Forests} et elle est souvent combinée avec le \textit{boosting} \ref{parag:boosting}.
+La méthode de référence pour calculer le nombre optimal $b$ de fonctions est la sélection du meilleur score par validation croisée \ref{subsubsec:cross_val}.
+
+Une métrique intéressante se base sur la performance individuelle de chaque modèle $f_b$ vis à vis de son jeu de données partiel $\mathbf{X}_b$.
+\citeauthor{breiman_bagging_1996} \cite{breiman_bagging_1996} définit l'erreur \textit{Out-of-Bag} comme la moyenne, de l'erreur de prédiction pour chaque échantillon $\mathbf{x}_{i,\bar{b}}$, des modèles $f_b$ avec $ \mathbf{x}_{\bar{b}} \notin \mathbf{X}_b$ qui n'ont pas été entrainés avec les échantillons $x_i$.
+Cette erreur est similaire à une erreur de prédiction qui serait calculée sur des échantillons de validation.
+Elle permet ainsi de se passer de jeu de données de validation.
+Elle est utilisé par les \textit{Random Forests} \ref{parag:random_forests} pour mesurer l'influence des variables sur la prédiction.
+
+\begin{equation} \label{eq:bagging}
+f_{boosted} = \frac{1}{b} \sum_{b=1}^{b} f_{b}\left(x_b\right)
+\end{equation}
+
+\subsection{Forêt d'arbres décisionnels}\mbox{\label{parag:random_forests}} \\
+L'arbre décisionnel est une méthode de classification adaptée au grands jeux de données.
+Un arbre se compose de branches avec entre chacune d'elle un nœud.
+Chaque nœud répond à une condition sur une variable d'entrée.
+Ainsi, le modèle obtenu peut être facilement interprété par l'humain.
+Le modèle obtenu est cependant peu robuste aux perturbations des variables d'entrée.
+La complexité du modèle est souvent égale au nombre de variables d'entrée ce qui est une cause de sur-apprentissage.
+Son utilisation pour des échantillons d'entrée qui comporte une dimension supérieure à dix mille est difficile (par exemple les pixels d'une image).
+C'est pourquoi \citeauthor{ho_random_1995}
+\cite{ho_random_1995, ho_random_1998} propose un modèle comportant de multiples arbres de décisions (une forêt), chacun entrainés sur une unique partie des variables des échantillons.
+La prédiction du modèle est donnée par la moyenne des prédictions de l'ensemble des arbres. 
+\citeauthor{breiman_random_2001} \cite{breiman_random_2001} fait évolué la méthode : les arbres sont choisis pour ne pas être corrélés entre eux et leurs sorties sont agrégées par \textit{bagging} \ref{parag:bagging}.
+
+Une utilité indirecte de la notion stochastique des forêts d'arbres décisionnels est la possibilité de mesurer l'influence des variables sur le modèle.
+Lors de l'entrainement, l'erreur \textit{Out-of-Bag} \ref{parag:bagging} (équivalente à une erreur de prédiction sur un échantillon de validation) est moyennée pour l'ensemble des arbres.
+C'est l'erreur \textit{Out-of-Bag} de référence, pour chacune des variables $j$, $e_{ref, j}$.
+À chaque itération, on permute aléatoirement la position des variables $v$ dans le jeu de données et on calcule à nouveau l'erreur \textit{Out-of-Bag}.
+Les permutations sont réalisées un grand nombre de fois ($p > 1000$).
+On obtient l'importance de la $j^{\text{ième}}$ variable en calculant la moyenne de l'erreur sur toutes les permutations $\bar{e_{perm}}$ de la différence avec l'erreur de référence de la variable : $importance_{j} = \bar{e_{perm, j}} - e_{ref, j}$.
+Il est enfin possible de normaliser la valeur de l'importance par l'écart-type sur l'ensemble des variables pour classer les variables sur une échelle continue $[0 ; 1]$.
+Nous utiliserons cette méthode pour sélectionner les variables pertinentes.
+
+\subsection{Boosting}\mbox{\label{parag:boosting}} \\
+\citeauthor{kearns_thoughts_1988} \cite{kearns_thoughts_1988} pose l'hypothèse de l'existence d'un méta-classifieur qui utiliserait une association de classifieurs aux performances non optimales (légèrement supérieure à une réponse aléatoire) pour obtenir de bonnes performances : le \textit{boosting}.
+Dans un tel ensemble, chaque classifieur est ainsi faiblement corrélé avec la totalité des données.
+\citeauthor{schapire_strength_1990} \cite{schapire_strength_1990} vérifie l'hypothèse et par la suite \citeauthor{breiman_bias_1996} \cite{breiman_bias_1996, breiman_arcing_1997} développe la méthode.
+De nombreux algorithmes sont dérivés de cette méthode.
+Par la suite, \citeauthor{mason_boosting_1999, friedman_greedy_2001} \cite{mason_boosting_1999, friedman_greedy_2001} proposent le \textit{boosting} avec descente de gradient (\textit{Gradient Boosting}) et \citeauthor{friedman_stochastic_2002} \cite{friedman_stochastic_2002} ajoute une dimension stochastique : \textit{Stochastic Gradient Boosting}.
+Cette idée est motivée par le \textit{bagging} \ref{parag:bagging}.
+Chaque classifieurs est entrainé sur des partitions aléatoires différentes du jeu de données, mais sans aucune répétition des échantillons initiaux.
+Une partition qui a pour dimensions la moitié du jeu de données initial produit une augmentation de performance significative du méta-classifieur.
+Un des algorithmes le plus populaire dans des compétitions de classification est \textit{XGBoost}.
+Il est basé sur le \textit{Stochastic Gradient Boosting} d'arbres de décisions binaires.
+Cependant, les performances de cet algorithme pour des jeux de données où les échantillons possèdent de grandes dimensions ($> 1000$), comme des images, sont inférieures aux méthodes à réseaux de neurones profonds.
+La performance de ces algorithmes dépendent de la pertinence de la réduction de la dimension des échantillons, qui doit être implémentée par un humain.
+Les réseaux de \textit{Deep Learning} dépassent cette limite en apprenant l'algorithme de réduction de dimensions adapté en même temps que l'algorithme de classification.
+Enfin, les idées issues du \textit{bagging} et du \textit{boosting} sont utilisées dans les méthodes d'apprentissages des réseaux de neurones profonds.
+
+\subsection{Réseaux de neurones}\mbox{} \label{parag:neural_networks} \\
+Le travail de \citeauthor{mcculloch_logical_1943} \cite{mcculloch_logical_1943} interroge sur la méthode de fonctionnement du cerveau humain : de nombreuses cellules élémentaires connectées entre elles permettent de résoudre des problèmes complexes, ce qui pose la problématique de la recherche Connexionniste.
+Ils proposent de concevoir des neurones, sous la forme de portes logiques élémentaires.
+Pour des valeurs d'entrée $\mathbf{x}_i$, un neurone calcule la somme pondérée par une matrice de poids $\mathbf{W}$, puis si la valeur obtenue est supérieure à une valeur $b$, la sortie est zéro, sinon la sortie est un, Équation \ref{eq:perceptron}.
+Cet algorithme permet de convertir des variables continues en valeurs booléennes discontinues.
+Par la suite, \citeauthor{rosenblatt_perceptron_1958} \cite{rosenblatt_perceptron_1958} propose le \textit{perceptron}, en s'appuyant sur la connaissance de l'époque du système de la vision biologique : de la rétine au cerveau.
+Le \textit{perceptron} permet d'agréger à l'aide d'un réseau de neurones à une couche, des données représentant des variables pertinentes extraites d'images (\textit{pre-processing}).
+La thématique de recherche Connexionnisme sera peu développée par la suite car les ressources informatiques nécessaires sont importantes et les résultats obtenus sont limités en comparaison des attentes de l'époque.
+Les autres méthodes présentées dans cette section seront préférées, jusqu'aux récents succès du \textit{Deep Learning}, §\ref{subsubsec:deep_learning}.
+
+\begin{equation} \label{eq:perceptron}
+f_{perceptron}(x_i)=\left\{\begin{array}{ll}{1} & {\text { si } \mathbf{w}_i \cdot x_i + b_i > 0} \\ {0} & {\text { sinon }}\end{array}\right.
+\end{equation}
+
+Suite à la proposition de réseaux de neurones à multiples couches successives de \citeauthor{fukushima_neocognitron_1980} \cite{fukushima_neocognitron_1980}, \citeauthor{rumelhart_learning_1985} \cite{rumelhart_learning_1985} applique une méthode d'ajustement itératif des poids en utilisant la rétro-propagation de l'erreur.
+La rétro-propagation de l'erreur s'appuie sur les travaux sur la dérivation automatique des fonctions composées, initiés par \citeauthor{linnainmaa_taylor_1976} \cite{linnainmaa_taylor_1976}.
+De plus, \citeauthor{rumelhart_learning_1985} \cite{rumelhart_learning_1985} étend les capacités du réseau à répondre aux problèmes où les données ne sont pas linéairement séparables, en introduisant des fonctions d'activations non linéaires, en lieu et place de la simple condition inférieure/supérieure.
+La particularité des réseaux de neurones est leur capacité à modéliser des problèmes fortement non linéaires.
+La prochaine étape est la construction de réseaux aux architectures plus complexes et l'utilisation de fonctions de convolution.
+Nous appliquerons ces algorithmes dans la Section §\ref{subsubsec:deep_learning}.
 
 
+\FloatBarrier
+\chapter{Deep Learning}
+\label{Ann:deep_learning}
+%==============================================================================	Résumé du chapitre
 
+\begin{center}
+	\rule{0.7\linewidth}{.5pt}
+	\begin{minipage}{0.7\linewidth}
+		\smallskip
+		
+		\textit{
+			Cette annexe propose une présentation complémentaire des méthodes d'apprentissage des réseaux de \textit{Deep Learning}.
+		}
+		
+		%\smallskip
+	\end{minipage}
+	\smallskip
+	\rule{0.7\linewidth}{.5pt}
+\end{center}
+
+%\adjustmtc
+% \minitoc
+% \newpage
+\bigskip
+
+Cette annexe est complémentaire de la Section \ref{sec:metric_learning}.
+Elle complète la présentation des méthodes d'apprentissage de modèles à réseaux de neurones profonds.
+
+\section{Historique}
+Les réseaux de neurones de convolution ont profité de la disponibilité croissante de la puissance de calcul des processeurs graphiques.
+En 2006, le premier réseau de convolution est implémenté sur processeur graphique par \citeauthor{chellapilla_high_2006} \cite{chellapilla_high_2006}, avec des performances quatre fois supérieures à l'implémentation sur processeur classique.
+En 2011, un réseau de convolution accéléré sur processeur graphique (60 fois plus rapide) dépasse les performances de l'humain sur une tâche de classification de panneaux signalétiques routiers \cite{ciresan_flexible_2011}.
+En 2012, le réseau AlexNet de \citeauthor{krizhevsky_imagenet_2012} \cite{krizhevsky_imagenet_2012} gagne le challenge annuel de classification d'images \textit{ImageNet} \cite{deng_imagenet_2009} avec un très grand écart de 10,8\% sur le score, avec l'ensemble des concurrents.
+La performance d'\textit{AlexNet} (8 couches) est dépassée en 2013 une version identique aux hyper-paramètres optimisés \cite{zeiler_visualizing_2013}, puis en 2014 par \textit{VGG16-19} (16 et 19 couches) \cite{simonyan_very_2014}  et \textit{GoogleNet} (22 couches).
+Ce dernier est dépassé en 2015, par le réseau \textit{ResNet101} \cite{he_deep_2015} contenant plus de 150 couches.
+L'architecture massive de ces réseaux évolue depuis 2011 vers des architectures de plus en plus profondes \cite{he_deep_2015} et qui sont plus efficientes sur le plan de la mémoire à allouer et puissances de calculs, mais aussi de plus en plus complexes, §\ref{subsubsec:ResNet}.
+Les architectures de l'état de l'art de la littérature dépassent aujourd'hui les capacités d'ingénierie humaine ; elles sont générées automatiquement, §\ref{sec:auto_ml}.
+
+\section{Réseaux de convolutions résiduels} \label{subsubsec:ResNet}
+Construire des réseaux de neurones aux architectures profondes permet de limiter l'utilisation de couches pleinement connectées, dont les poids sont très coûteux à optimiser.
+La problématique principale des réseaux profonds est l'entrainement.
+La rétro-propagation a une faible incidence sur les poids situés les plus en amont du réseau.
+Cela rend l'entrainement des réseaux aux couches supérieures à dix très difficile.
+C'est pourquoi des connections intermédiaires ont été introduites par \citeauthor{srivastava_highway_2015} \cite{srivastava_highway_2015, srivastava_training_2015} : les \textit{Highway Networks}.
+Elles permettent à la rétro-propagation d'agir sur toutes les couches, y compris les couches en amonts.
+Cette architecture est inspirée des connections intermédiaires pondérées des réseaux récurrents \textit{Long Short-Term Memory}.
+Soit $y_{i+1}$ la sortie d'une couche $i$ qui est composée d'une fonction affine et d'une activation non linéaire $f_{i+1}$ dont les poids sont $\mathbf{W}_f$.
+On introduit une connexion intermédiaire $T$ pondérée par une matrice de poids $\mathbf{W}_T$, Équation \ref{eq:highway}.
+Le poids $\mathbf{W}_T$ détermine si la couche laissera passer l'information ou la transformera.
+Les auteurs notent que $\mathbf{W}_T$ doit être initialisée à des valeurs négatives afin de débuter nécessairement l'apprentissage de $\mathbf{W}_f$.
+Par la suite, $f$ pourra être ignoré au fur et à mesure de l'apprentissage si cela entraine de meilleures performances.
+De manière simplifiée, cette architecture permet au réseau d'ajuster sa profondeur optimale, lors de l'apprentissage : si les connections intermédiaires sont utilisées, le réseau est moins profond.
+
+\begin{equation} \label{eq:highway}
+y_{i+1} = f_{i+1}\left(y_{i}, \mathbf{W}_f\right) \cdot T_{i+1}\left(y_{i}, \mathbf{W}_{T}\right)+y_{i} \cdot \left(1- T_{i+1}\left(y_{i}, \mathbf{W}_{T}\right)\right)
+\end{equation}
+%TODO: plot highway cell
+
+Par la suite, \citeauthor{he_deep_2015} \cite{he_deep_2015} propose l'architecture \textit{ResNet} qui est un cas particulier de \textit{Highway Network} où $\mathbf{W}_T \equiv 0,5$, Équation \ref{eq:resnet}.
+Les données sont transmises de manière équivalente entre la transformation et la connexion intermédiaire.
+\cite{he_identity_2016} compare les performances des deux méthodes et montre que la plus simple architecture \textit{ResNet} offre de meilleures performances.
+Cependant, \citeauthor{srivastava_highway_2015} \cite{srivastava_highway_2015} montrent que la valeur apprise de $\mathbf{W}_t$ est différente de $0.5$.
+On a particulièrement souvent $\mathbf{W}_T > 0.5$ : le réseau a appris à utiliser en priorité les connections intermédiaires, ce qui simplifie le réseau mais impacte les performances.
+De plus, les poids $\mathbf{W}_T$ augmentent le nombre de paramètres à apprendre, ce qui pourrait diminuer la performance.
+
+\begin{equation}\label{eq:resnet}
+y_{i+1} = f_{i+1}\left(y_{i}, \mathbf{W}_f\right)+y_{i}
+\end{equation}
+%TODO: plot resnet cell
+
+Par la suite, ces idées amènent à l'architecture \textit{DenseNet} \cite{huang_densely_2016} : les connections intermédiaires sont présentes entre toutes les couches et non plus seulement d'une couche à l'autre.
+Toutes les couches peuvent alors avoir accès à l'information de bas niveau, comme par exemple l'image originale et combiner cette information pour résoudre le problème.
+La Figure \ref{fig:densenet} présente l'architecture d'un bloc \textit{Dense}.
+\footnote{Les architectures présentées dans ce travail sont générées avec l'aide des scripts développés par \citeauthor{harisiqbal_harisiqbal88_2018} \cite{harisiqbal_harisiqbal88_2018}.}
+Un réseau complet enchaine successivement quatre blocs \textit{dense}.
+
+\begin{figure}[tbp]
+	\centering
+	\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{../Chap4/Figures/densenet.pdf}
+	\caption{Architecture d'un bloc DenseNet.}
+	\label{fig:densenet}
+\end{figure}
+
+La dernière évolution des réseaux résiduels est l'introduction de multiples blocs dans chaque neurones classiques.
+C'est l'architecture \textit{ResNext} \cite{xie_aggregated_2016}, une dimension $C$ dite de "cardinalité" qui définit le nombre de bloc présent dans chaque couche. Les auteurs montrent l'intérêt d'une architecture où $c = 32$ : chaque bloc est répété 32 fois par neurones. 
+
+Les performances sont améliorées bien que cela représente une augmentation conséquente des paramètres du réseau.
+Dernièrement, \citeauthor{mahajan_exploring_2018} \cite{mahajan_exploring_2018} ont réussi à augmenter les performances sur \textit{ImageNet} en réalisant un pré-apprentissage sur 940 millions d'images issues d'\textit{Instagram}.
+La capacité (au sens de la théorie VC \cite{vapnik_principles_1992}) du modèle \textit{ResNext} est bien supérieure à la seule base \textit{ImageNet} et un plus grand nombre de données réelles permet d'augmenter les performances, par la généralisation du problème.
+
+Cependant, l'augmentation du nombre de paramètres des réseaux n'est pas nécessairement significative de meilleures performances.
+Dernièrement, le réseau \textit{EfficientNet} dépasse l'état de l'art sur \textit{ImageNet} en diminuant drastiquement le nombre de paramètres ajustables et optimisant sous contrainte l'occupation mémoire et le nombre d'opérations nécessaires.
+Précédemment, les réseaux \textit{MobileNetV1} \cite{howard_mobilenets_2017} et \textit{MobileNetV2} \cite{sandler_mobilenetv2_2018} cherchent à obtenir les meilleures performances sur dispositifs embarqués tels que les smartphones.
+Il s'agit de limiter le nombre de paramètres et le nombre d'opérations à réaliser (additions et multiplications).
+\textit{MobileNetV1} obtient une performance supérieure à \textit{GoogLeNet}, avec trois fois moins d'opérations à réaliser.
+Il égale \textit{VGG19} avec trente fois moins d'opérations et dix fois moins d'occupation mémoire.
+\textit{MobileNetV1} utilise un bloc de convolution efficient, proposé dans l'architecture \textit{Xception} de \citeauthor{chollet_xception_2016} \cite{chollet_xception_2016} : la convolution est effectuée indépendamment sur chaque canal, avec un poids différent pour chaque canal, puis les résultats sont concaténés.
+Pour une convolution traditionnelle de fenêtre $3 \times 3$, la réduction du nombre d'opérations de calcul à effectuer est d'un facteur $9$.
+\textit{MobileNetV2} ajoute ensuite l'utilisation de connexions intermédiaires entre chaque couche, à la manière des réseaux résiduels.
+Les performances de ces réseaux sont inférieures à l'état de l'art mais ils permettent d'exécuter l'inférence avec des performances satisfaisantes sur des systèmes embarqués.
+%TODO: plot deepwise conv
+% https://arthurdouillard.com/post/3-small-but-powerful-cnn/
+% https://medium.com/@yu4u/why-mobilenet-and-its-variants-e-g-shufflenet-are-fast-1c7048b9618d
+
+\section{Fonctions d'activations} \label{subsubsec:activation}
+Pour éviter les deux problèmes de l'explosion ou de l'effondrement de la valeur du gradient pendant l'apprentissage, nous utiliserons dans nos travaux des fonctions d'activation \textit{LeakyReLU}, \textit{PreLU} ou \textit{ELU}, récemment proposées dans la littérature.
+La fonction d'activation est une non-linéarité qui suit traditionnellement l'opération de convolutions.
+Elle permet de modéliser une réponse à un problème non linéaire.
+Les fonctions d'activation historiques sont la tangente hyperbolique et la sigmoïde.
+\citeauthor{nair_rectified_2010} \cite{nair_rectified_2010} proposent la fonction \textit{ReLU} (\textit{Rectified Linear Unit}) qui une approximation de la sigmoïde par trois et obtient de meilleures performances, en diminuant le coût du calcul.
+
+\begin{table}[hbtp]
+	\centering
+	\setlength{\tabcolsep}{2em} % for the horizontal padding
+	\renewcommand{\arraystretch}{1.5}% for the vertical padding
+	\begin{tabular}{|l|l|l|}
+		\hline
+		Fonction  & Équation                                                                                                                 & Dérivée                                                                                                            \\ \hline\hline
+		Sigmoïde  & $f(x) = \frac{1}{1+e^{-x}}$                                                                                                     & $f(x)(1-f(x))$                                                                                                     \\ \hline
+		Tanh      & $tanh(x)  = \frac{2}{1+e^{-2 x}}-1$                                                                                      & $1-f(x)^{2}$                                                                                                       \\ \hline
+		ReLU      & $\left\{\begin{aligned} {0} & {\text { si } x<0} \\ {x} & {\text { si } x \geq 0}\end{aligned}\right.$                    & $\left\{\begin{aligned} {0} & {\text { si } x<0} \\ {1} & {\text { si } x \geq 0}\end{aligned}\right.$              \\ \hline
+		LeakyReLU & $\left\{\begin{aligned} 0,01 x & \text { si } x<0 \\ x & \text { si } x \geq 0 \end{aligned}\right.$                     & $\left\{\begin{aligned}{0,01} & {\text { si } x<0} \\ {1} & {\text { si } x \geq 0}\end{aligned}\right.$     \\ \hline
+		PreLU     & $\left\{\begin{aligned} \alpha x & \text { si } x<0 \\ x & \text { si } x \geq 0 \end{aligned}\right.$                   & $\left\{\begin{aligned}{\alpha} & {\text { si } x<0} \\ {1} & {\text { si } x \geq 0}\end{aligned}\right.$ \\ \hline
+		ELU       & $\left\{\begin{aligned} \alpha\left(e^{x}-1\right) & \text { si } x<0 \\ x & \text { si } x \geq 0 \end{aligned}\right.$ & $\left\{\begin{aligned} f(x)+\alpha & \text { si } x<0 \\ 1 & \text { si } x \geq 0 \end{aligned}\right.$          \\ \hline
+	\end{tabular}
+	\caption{Fonctions d'activation.}
+	\label{tab:activations}
+\end{table}
+
+Le principal problème est que la fonction \textit{ReLU} vaut zéro pour des valeurs négatives.
+C'est pourquoi \citeauthor{maas_rectifier_2013} \cite{maas_rectifier_2013} introduisent le \textit{LeakyReLU} : une succession de deux droites affines, dont la pente de la droite pour les valeurs négatives est non nulle, mais très faible ($0,01 \cdot x$).
+Par la suite, \citeauthor{he_delving_2015} \cite{he_delving_2015} introduisent le \textit{PreLU} (\textit{Parametric ReLU}) dont un paramètre $\alpha \geq 0$ définit la pente de la droite pour les valeurs négatives.
+$\alpha$ est appris au cours de l'apprentissage tout comme les matrices de poids du réseau.
+La valeur de $\alpha$ peut également être indépendante pour chaque canal.
+Ces fonctions sont discontinues et ne sont pas dérivables en zéro.
+Cela peut entrainer des problèmes de convergence lors de la rétro-propagation du gradient.
+C'est pourquoi dernièrement, \citeauthor{clevert_fast_2015} proposent le \textit{ELU} (\textit{Exponential Linear Unit}) qui est dérivable \cite{clevert_fast_2015}.
+L'ensemble des graphes de ces fonctions est présenté dans la Figure \ref{fig:activation}, leurs dérivées dans le Tableau \ref{tab:activations}.
+
+\begin{figure}[hbtp]
+	\centering
+	\includegraphics[width=0.7\textwidth,height=0.7\textheight,keepaspectratio]{../Chap4/Figures/activations.pdf}
+	\caption{Fonctions d'activation.}
+	\label{fig:activation}
+\end{figure}
+% https://www.mathcha.io/editor
+% https://tikzcd.yichuanshen.de/
+
+\section{Méthode de régularisation pour limiter le sur-apprentissage}
+Le nombre de degrés de liberté d'un modèle à réseaux de neurones profonds est supérieur à un million.
+C'est pourquoi, il est courant que le modèle se spécialise afin d'obtenir un très bon score de justesse sur les échantillons d'apprentissages, mais un mauvais score sur de nouveaux échantillons : c'est le problème du \emph{sur-apprentissage}.
+Plusieurs méthodes de régularisation permettent de limiter ce problème et nous détaillerons dans cette section les méthodes que nous utilisons.
+\citeauthor{goodfellow_deep_2016} proposent une définition du terme "régularisation", spécifique à l'alchimie du \textit{Deep Learning} \cite{goodfellow_deep_2016} :
+\begin{quote}
+	« La régularisation est toute modification faite à un algorithme d'apprentissage afin que l'erreur de généralisation soit réduite, mais pas l'erreur d'apprentissage. »
+\end{quote}
+
+\subsection{Dropout} \label{parag:dropout}
+\citeauthor{srivastava_dropout_2014} \cite{srivastava_dropout_2014} proposent l'utilisation d'une couche dite de \textit{dropout} : la valeur de sortie de cette couche est aléatoirement, selon un pourcentage de chances $\alpha$ choisi, fixée à zéro. Le \textit{dropout} est actuellement la méthode de régularisation la plus performante pour limiter le sur-apprentissage.
+Ainsi, l'optimisation est réalisée sur une mauvaise valeur (zéro) de sortie du modèle pour un pourcentage $\alpha$ d'échantillons d'un \textit{mini-batch}.
+La valeur de $\alpha$ est souvent fixée entre $[0 ; 0,5]$.
+Lors de l'utilisation du modèle pour inférence, la valeur de $\alpha$ est nulle : la couche de \textit{dropout} n'est jamais activée, pour ne pas fausser les prédictions.
+
+\subsection{Normalisation de lots} \label{parag:batchnorm}
+La couche de normalisation de lots (\textit{Batch Normalization}) a été proposée par \citeauthor{ioffe_batch_2015} \cite{ioffe_batch_2015}.
+Elle nécessite l'emploi de l'entrainement par descente de gradient stochastique qui découpe le jeu de données d'apprentissage en \textit{mini batch} répartis aléatoirement.
+On définit les valeurs $x_i$ en entrée de la couche pour un \textit{mini batch} $B \in X$.
+On calcule la variance $\sigma_B^2$ de l'entrée et la moyenne $\mu_B$.
+La couche \textit{BN} normalise les valeurs des entrées $x_i$ en $\bar{x}_{i}$ par la variance et la moyenne de la distribution du \textit{mini batch}, Équations \ref{eq:batch_norm}.
+
+\begin{equation} \label{eq:batch_norm}
+\begin{split}
+\mu_{B} \leftarrow \frac{1}{m} \sum_{i=1}^{m} x_{i} , \quad \quad \quad \quad \ \ \ \text{ Moyenne}
+\\
+\sigma_{B}^{2} \leftarrow \frac{1}{m} \sum_{i=1}^{m}\left(x_{i}-\mu_{B}\right)^{2} , \quad \quad \quad \quad \ \ \ \ \text{  Variance}
+\\
+\bar{x}_{i} \leftarrow \frac{x_{i}-\mu_{B}}{\sqrt{\sigma_{B}^{2}+\epsilon}} , \text{ Batch normalization} \ 
+\end{split}
+\end{equation}
+
+La couche \textit{BN} limite les variations importantes de la covariance des entrées. S'il n'y a pas de normalisation, lors de la rétro-propagation, l'ajustement des poids devra être fait pour chaque distribution différente de \textit{mini-batch}.
+Avec la normalisation, la sortie aura toujours une distribution normalisée sur zéro et ainsi la valeur des poids à ajuster ne sera pas extrême.
+\citeauthor{ioffe_batch_2015} \cite{ioffe_batch_2015} suggère d'utiliser en priorité des couches \textit{BN} plutôt que le \textit{dropout}, car ce dernier fait perdre la totalité de l'information du réseau lorsqu'elle est active, ce qui pénalise fortement la vitesse d'apprentissage.
+Les architectures de réseaux profonds antérieures à 2015 (par exemple VGG16) n'utilisent pas de couches \textit{BN}, alors que la majorité des architectures postérieures à 2015 en utilisent.
+Lors de l'utilisation du modèle pour inférence, la valeur de $\mu_{B}$ et $\sigma_B^2$ est fixée pour tous les \textit{mini batch} : ce sont leurs moyennes respectives sur tous les \textit{mini batch} de l'entrainement.
+% https://arthurdouillard.com/post/normalization/
+% How To Be Confident In Your Neural Network Confidence : Temperature Scaling on SoftMax
+
+\subsection{Arrêt prématurée de l'apprentissage} \label{parag:early_stopping}
+Cette méthode permet de limiter le sur-apprentissage en stoppant la phase d'apprentissage dès lors qu'il n'y a plus d'amélioration des performances du modèle.
+Aussi appelé \textit{early stopping} \cite{yao_early_2007}, il s'agit de trouver le nombre optimal d'itérations successives pour ne pas sur-apprendre le jeu de données d'apprentissage.
+Pour cela, le jeu de données initial est séparé en une partition d'apprentissage et une partition de validation.
+L'apprentissage du modèle est effectué en utilisant la partition d'apprentissage.
+À chaque itération, la performance du modèle est évaluée sur la partition de validation, inconnue du modèle.
+Si la performance de validation a été améliorée, alors l'itération d'apprentissage a amélioré le modèle.
+En revanche, si la performance de validation est moins bonne qu'à l'itération précédente, le modèle a été dégradé pour la partition de validation.
+C'est pourquoi, il aurait été judicieux de ne pas effectuer cette itération qui a dégradé le modèle, et de conserver le modèle tel que précédemment : c'est ce que réalise le \textit{early stopping}.
+L'algorithme de descente de gradient peut souvent produire une mauvaise performance pendant quelques itérations avant d'améliorer le modèle, c'est pourquoi on introduit le terme de patience $p$ : le nombre d'itérations qui n'améliore pas le modèle, avant de terminer l'apprentissage.
+La performance de cette méthode dépendra du choix judicieux de l'hyper-paramètre $p$, c'est pourquoi il est obligatoire de trouver la valeur de $p$ optimale pour le problème à résoudre, §\ref{sec:auto_ml}.
+
+\subsection{Réduction de dimensions par interpolation} \label{parag:pooling}
+L'idée principale de l'architecture des réseaux de neurones profonds (avant la proposition des réseaux résiduels) est de réduire successivement, à chaque couche, la dimension des vecteurs, afin de réduire le nombre de paramètres des couches. Cela réduit les coûts des calculs et le risque de sur-apprentissage.
+Les couches de convolutions appliquent un filtre mais ne réduisent pas la dimension.
+C'est pourquoi elles sont suivies de couches dites de \textit{pooling}. Parmi les nombreuses fonctions de \textit{pooling} proposées, on distingue les deux principales : le sous-échantillonnage par moyenne, et la seule conservation de la valeur maximale, le \textit{max pooling}, Tableau \ref{tab:maxpooling}.
+Cette couche est appliquée sur un certain nombre de valeurs adjacentes.
+Des dimensions courantes sont de $2 \times 2$ à $4 \times 4$, en fonction de la dimension des caractéristiques des échantillons que l'on cherche à mettre en valeur.
+Une fenêtre de $2 \times 2$ réduit la dimension d'un facteur 4.
+
+\begin{table}[hbtp]
+	\centering
+	\begin{tabular}{|c|c||c|c|}
+		\hline
+		0 & \textbf{255} &          10 &            0 \\ \hline
+		10 &           20 &           0 & \textbf{200} \\ \hline \hline
+		\textbf{50} &            0 &           0 &            0 \\ \hline
+		10 &            0 & \textbf{20} &           10 \\ \hline
+	\end{tabular}
+	\quad
+	$\rightarrow$
+	\quad
+	\begin{tabular}{|c||c|}
+		\hline
+		\textbf{255} & \textbf{200} \\ \hline \hline
+		\textbf{50}  & \textbf{20}  \\ \hline
+	\end{tabular}
+	\caption{Illustration d'une couche de \emph{max pooling}.}
+	\label{tab:maxpooling}
+\end{table}
+
+\citeauthor{boureau_theoretical_2010} \cite{boureau_theoretical_2010} analysent l'influence du choix de la fonction et montre la supériorité du \textit{max pooling} lorsque les valeurs à détecter sont peu fréquentes.
+\citeauthor{scherer_evaluation_2010} \cite{scherer_evaluation_2010} obtient également des performances supérieures avec le \textit{max pooling} qui permet d'extraire les caractéristiques de petites dimensions spatiales.
+Une particularité du \textit{max pooling} est d'être très simple à calculer lors de la rétro-propagation : seul le poids associé à la valeur maximale est ajusté.
+La Figure \ref{fig:pooling} illustre l'effet du \textit{max pooling} et de l'\textit{average pooling} pour quatre filtres de convolutions différents.
+
+\begin{figure}[hbtp]%[!h]
+	\centering
+	\begin{subfigure}[c]{0.2\textwidth}\label{fig:imgA_gray}
+		\centering
+		\includegraphics[width=\textwidth]{../Chap4/Figures/imgA_gray.pdf}
+		\caption{Image originale.}
+	\end{subfigure}
+	$\otimes$  % $\Huge \otimes$
+	\begin{subfigure}[c]{0.76\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{../Chap4/Figures/imgA_filters.pdf}
+		\caption{Filtres de convolutions appliqués.}
+		\label{fig:conv_filters}
+	\end{subfigure}%  \hspace{20mm}%
+	%\hspace{1em}% Space between image A and B
+	\vspace{1.2\baselineskip}
+	\begin{subfigure}[c]{1\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{../Chap4/Figures/imgA_maxpool.pdf}
+		\vspace{-0.9\baselineskip}
+		\caption{Sorties avec \emph{max pooling}.}
+		\label{fig:max_pool}
+	\end{subfigure}%
+	\vspace{1.2\baselineskip}
+	\begin{subfigure}[c]{1\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{../Chap4/Figures/imgA_avgpool.pdf}
+		\vspace{-0.9\baselineskip}
+		\caption{Sorties avec \emph{average pooling}.}
+		\label{fig:avg_pool}
+	\end{subfigure}%
+	\caption{Comparaison \emph{max pooling} \protect\subref{fig:max_pool} et \emph{average pooling} \protect\subref{fig:avg_pool} pour 4 filtres de convolutions \protect\subref{fig:conv_filters}.}
+	\label{fig:pooling}
+\end{figure}
+
+\citeauthor{oquab_object_2015} \cite{oquab_object_2015} étudie l'utilisation du \textit{global max pooling} : seule une unique valeur maximale de la couche présente $z$ est conservée, Équation \ref{eq:GMP}.
+Cela fait émerger une propriété intéressante : la possibilité d'utiliser la valeur de la couche précédente $z$ comme une carte de saillance de la localisation des différentes classes.
+Cette carte est générée à partir d'un jeu de données sans information sur la localisation des objets, de manière semi-supervisée.
+La couche de \textit{global max pooling} force le réseau à détecter la position de la meilleure classe dans l'image.
+
+\begin{equation} \label{eq:GMP}
+y_{i+1}=\max _{j, k} z_{j, k}(y_i)
+\end{equation}
+
+De récentes analyses montrent que le \textit{max pooling} est une source majeure de perte d'information, ce qui peut limiter les performances, particulièrement pour les réseaux génératifs.
+C'est pourquoi les architectures récentes cherchent à le remplacer par des couches de sous-échantillonnage par moyenne (\textit{average pooling}).
+Dans son réseau composé de sous blocs denses, \cite{lin_network_2013} introduit le \textit{Global Average Pooling}, Équation \ref{eq:GAP}.
+\cite{zhou_learning_2015} montre l'intérêt du \textit{Global Average Pooling} lors de l'apprentissage, ce qui permet d'obtenir des cartes de saillance de la localisation des objets dans l'image.
+Cette démarche est similaire aux travaux de \citeauthor{oquab_object_2015} \cite{oquab_object_2015} avec le \textit{global max pooling}, mais l'utilisation de la moyenne force le réseau à détecter l'ensemble des régions où la classe est présente.
+Cette carte de saillance par classes $z$ est nommée \textit{Class Activation Map}.
+
+\begin{equation} \label{eq:GAP}
+y_{i+1} = \frac{1}{N} \sum_{j, k} z_{j, k}(y_i)
+\end{equation}
+
+% Les développements des cartes de saillance relèvent de l'apprentissage faiblement supervisé que nous développons dans la partie 
+% http://webia.lip6.fr/~cord/pdfs/news/2017CordPoolingDeepNets.pdf
+
+\subsection{Pénalisation sur les poids} \label{parag:weights_decay}
+Proposé par \citeauthor{krogh_simple_1991} \cite{krogh_simple_1991}, il s'agit d'ajouter un terme de pénalisation $E$ de la valeur des poids à la fonction de coût $\mathcal{L}$ que l'on cherche à optimiser.
+Un facteur $\lambda$ pondère la valeur des poids $\mathbf{W}$ du réseau.
+Cette méthode permet de rendre le réseau robuste aux perturbations ce qui améliore les performances.
+C'est une méthode simple et efficace, dont l'utilisation est indispensable pour atteindre les performances de l'état de l'art de la littérature.
+La pondération peut être effectuée sur la norme $\ell_{1}$, ce qui pénalisera tous les poids différents de zéro.
+Mais la pondération est généralement réalisée sur la norme $\ell_{2}$, ce qui pénalisera les grandes valeurs des poids.
+Dans ce cas, cette démarche est équivalente à la régularisation de \citeauthor{tikhonov_stability_1943} \cite{tikhonov_stability_1943, tikhonov_solutions_1977} par une matrice $\Gamma$, avec $\Gamma=\lambda I$.
+On cherche à amener un maximum de poids du réseau à zéro.
+La méthode est d'autant plus critique que les erreurs d'arrondis, inhérentes à la représentation des nombres informatiques, doivent être évitées lors de l'optimisation par descente du gradient.
+
+\begin{equation}
+E(\mathbf{W})=E_{0}(\mathbf{W}) + \frac{1}{2} \lambda \sqrt{\sum_{i} \mathbf{w}_{i}^{2}}
+\end{equation}
+
+\subsection{Augmentation artificielle du jeu de données} \label{parag:data_augmentation}
+La plus simple des méthodes existantes pour limiter le sur-apprentissage est de disposer d'un jeu de données comportant une grande variété d'échantillons par classe. \textit{ImageNet} propose 2000 échantillons par classe.
+Récemment, \textit{ResNext\_wsl} \cite{mahajan_exploring_2018} est entrainé sur plusieurs millions d'images par classe.
+Lorsque que l'on ne dispose pas de suffisamment de données, il est possible d'augmenter les données existantes.
+Il s'agit d'effectuer des transformations affines ou non linéaires, rotations, cadrages ou d'ajouter du bruit dans les images.
+L'objectif est d'augmenter la variance du jeu de données initial.
+Les taux de modifications optimaux doivent être choisis par validation croisée pour obtenir les meilleures performances possibles sur le problème spécifique.
+Nous observons de bonnes performances avec des rotations jusqu'à cinq degrés et des cadrages qui varient de dix pour-cent des dimensions originales, illustrés dans la Figure \ref{fig:augmentor}.
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{../Chap4/Figures/imgA_augmentor.pdf}
+	\caption{Augmentation d'une image par translations et rotations.}
+	\label{fig:augmentor}
+\end{figure}
+
+Le choix des paramètres d'augmentation peut être effectué par validation croisée afin d'optimiser les performances.
+On préférera se rapprocher des situations réelles de production des données.
+Dans notre cas d'application industrielle du contrôle qualité, de légères variations de cadrage, rotation ou de perspectives peuvent exister.
+En revanche, nous travaillons avec un éclairage contrôlé, donc les perturbations d'éclairage ou de colorimétrie sont peu probables.
+Les paramètres de l'augmentation du jeu de données dépendent de la connaissance du métier.
+Si la connaissance du métier n'est pas certaine, il est préférable d'acquérir un plus grand nombre d'images réelles, plutôt que de générer des données artificielles avec de mauvais a priori.
+
+\section{Apprentissage par transfert de domaine} \label{subsec:transfer_learning}
+% https://ireneli.eu/2018/08/09/transfer-learning-materials/
+
+Le faible nombre d'échantillons disponibles (inférieur à mille pièces) nous a conduit à utiliser des réseaux de neurones profonds préalablement entrainés sur des très grands jeux de données.
+Le jeu de données \textit{ImageNet} \cite{deng_imagenet_2009} est composé de 2 millions d'images réparties en 1000 catégories différentes.
+L'apprentissage par transfert de domaine, aussi résumé "apprentissage par transfert", cherche à réutiliser un modèle spécialisé sur un certain problème, pour résoudre un autre problème.
+En pratique, les meilleures approches proposées dans la littérature nécessitent de conserver des caractéristiques fortes entre les deux domaines.
+% Nous recommandons l'utilisation du même format de données initiales.
+Nous nous contenterons ici d'utiliser des modèles spécialisés sur l'analyse d'images à trois canaux de couleurs, et de les spécialiser sur notre propre problématique.
+
+Dans ce cadre d'apprentissage par transfert de domaine, nous n'avons pas la liberté de modifier l'architecture du réseau pré-appris, car il faudrait alors réapprendre les poids des neurones du réseau.
+La technique répandue est alors de supprimer la ou les dernières couches du réseau pré-appris et d'ajouter de nouvelles couches spécifiques à notre problème.
+Les dernières couches du réseaux sont considérées comme étant le véritable classifieur.
+Les couches précédentes se contentent de compresser l'information en une représentation dans un espace de dimensions réduites.
+Nous travaillons uniquement sur l'architecture du classifieur, c'est à dire de la fin du réseau.
+Le choix de l'architecture et de la typologie des couches influence fortement la performance du classifieur, c'est pourquoi des méthodes de sélections automatiques de ces paramètres doivent être employées.
+Elles sont discutées dans la Section \ref{sec:auto_ml}.
+
+On distingue deux étapes successives à l'entrainement d'un réseau de neurones par transfert : l'entraînement des nouvelles dernières couches, puis la spécialisation de l'ensemble du réseau.
+Il s'agit dans un premier temps de garantir la convergence du classifieur sur notre problème.
+On cherche à obtenir un score de classification satisfaisant.
+C'est pourquoi dans un premier, seuls les poids des neurones des nouvelles dernières couches sont ajustés par rétro-propagation du gradient de l'erreur.
+Une fois que la convergence des dernières couches a été obtenue, il est possible de spécialiser finement l'ensemble du réseau en réalisant un ajustement de l'ensemble des poids des couches afin d'améliorer le score de classification.
+Nos travaux ont montré que cette étape de spécialisation n'est pas nécessaire lorsque le jeu de données d'apprentissage est petit (inférieur à mille échantillons).
+En effet, nous n'observons pas d'augmentation du score de classification après la phase de spécialisation.
+De plus, la durée de l'apprentissage de spécialisation est deux ordres de grandeur plus longue que la durée de l'apprentissage des dernières couches du réseau, car le nombre de variables à ajuster sur l'ensemble du réseau est bien plus grande.
+La durée de l'apprentissage des dernières couches du réseau est de dix secondes sur un processeur graphique récent et puissant (\textit{NVIDIA GTX1080Ti}, 2017).
+La durée de l'apprentissage de spécialisation est de dix minutes.
+Cette durée rend l'apprentissage de spécialisation compatible avec une mise à jour horaire du classifieur, sous réserve de disposer d'un processeur graphique adapté. L'apprentissage des dernières couches peut en revanche être réalisé en cycle de production, pièce après pièce.
+Un classifieur de la conformité qui utilise l'apprentissage par transfert sera adapté aux productions dans lesquels les changements de séries ou bien la dérive du procédé est supérieure à l'heure. Ce qui est compatible avec une mise à jour régulière du modèle de la conformité.
