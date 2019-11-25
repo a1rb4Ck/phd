@@ -9,6 +9,7 @@
 \begin{flushright}
 \section*{\fontsize{20pt}{20pt}\selectfont\textnormal{Résumé}}
 \end{flushright}
+\vspace{2cm}
 
 \fancyhf{}
 %\lhead[\fancyplain{}{Notations}]
@@ -23,37 +24,71 @@
 {\fancyplain{}{\thepage}}
 \rfoot[\fancyplain{}{}]
 {\fancyplain{}{\scriptsize}}
+
 La maîtrise de la qualité de la production est un objectif particulièrement important pour la croissance des industries.
-Maîtriser la qualité d'un produit nécessite de mesurer.
+Contrôler la qualité d'un produit nécessite de la mesurer.
 % Il est possible de mesurer des variables sur le procédé, des caractéristiques ou sur le produit fini.
-Cependant les contraintes industrielles, comme la durée du cycle de production, ont limité le déploiement de la mesure des caractéristiques des produits directement au sein des lignes de production.
-Afin de répondre à ces contraintes dans le cadre du procédé d'injection-moulage des thermoplastiques, notre approche utilise des moyens de mesure non invasifs sur des pièces qui viennent de sortir de la machine.
-De plus, les cahiers des charges des produits sont de plus en plus exigeants.
-Ils spécifient des caractéristiques géométriques et des caractéristiques d'aspect qui sont difficiles à formaliser.
-Le contrôle automatisé de ces caractéristiques est un enjeu crucial pour maitriser la production.
-Nous étudions l'apport de l'imagerie non-conventionnelle, la thermographie et la polarimétrie, pour mettre en valeur les défauts des pièces.
-Notre approche utilise l'apprentissage statistique pour que l'expert humain transmette sont savoir concernant la notion de que qualité d'une pièce.
-À l'aide d'algorithmes de Deep Learning, notre système de contrôle apprend une métrique de la qualité d'une pièce, à partir des données brutes des capteurs.
-Afin de répondre à l'ensemble des contraintes, nous avons conçu un système de contrôle adapté qui intègre les capteurs, l'éclairage et le système embarqué qui réalise les traitements de la mesure, au plus près des capteurs.
+Le contrôle de cent pourcent des produits est un objectif important pour dépasser les limites du contrôle par prélèvement, dans le cas de défauts liés à des causes exceptionnelles.
+Cependant, les contraintes industrielles ont limité le déploiement de la mesure des caractéristiques des produits directement au sein des lignes de production.
+Le déploiement du contrôle visuel humain est limité par sa durée incompatible avec la durée du cycle des productions à haute cadence, par son coût et par sa variabilité.
+L'intégration de systèmes de vision informatique présente un coût qui les réservent aux productions à hautes valeurs ajoutées.
+De plus, le contrôle automatique de la qualité de l'aspect des produits reste une thématique de recherche ouverte.
+
+Notre travail a pour objectifs de répondre à ces contraintes, dans le cadre du procédé d'injection-moulage des thermoplastiques.
+Nous proposons un système de contrôle qui est non invasif pour le procédé de production.
+Les pièces sont contrôlées dès la sortie de la presse à injecter.
+Nous étudierons l'apport de l'imagerie non-conventionnelle.
+La thermographie d'une pièce moulée chaude permet d'obtenir une information sur sa géométrie, qui est complémentaire de l'imagerie conventionnelle.
+La polarimétrie permet de discriminer les défauts de courbure des surfaces qui modifient l'angle de polarisation de la lumière réfléchie, des défauts de la structure de la matière qui diffusent la lumière.
+
+De plus, les cahiers des charges des produits présentent de plus en plus d'exigences tant sur les géométries complexes que sur l'aspect.
+Cependant, les caractéristiques d'aspect sont difficiles à formaliser.
+Pour automatiser le contrôle d'aspect, il est nécessaire de modéliser la notion de qualité d'une pièce.
+Afin d'exploiter les mesures réalisées sur les pièces chaudes, notre approche utilise des méthodes d'apprentissage statistique.
+Ainsi, l'expert humain qui connait la notion de qualité d'une pièce transmet son savoir au système, par l'annotation d'un jeu de données d'apprentissage.
+Notre système de contrôle apprend alors une métrique de la qualité d'une pièce, à partir des données brutes issues capteurs.
+Nous avons privilégier une approche par réseaux de convolution profonds (\textit{Deep Learning}) afin d'obtenir les meilleurs performances en justesse de discrimination des pièces conformes.
+La faible quantité d'échantillons annotés disponible dans notre contexte industrielle nous ont amenée à utiliser des méthodes d'apprentissage par transfert de domaine.
+
+Enfin, afin de répondre à l'ensemble des contraintes, nous avons réalisé l'intégration verticale d'une prototype de dispositif de mesure des pièces et de la solution logicielle de traitement par apprentissage statistique.
+Le dispositif intègre l'imagerie thermique, polarimétrique, l'éclairage et le système de traitement embarqué nécessaire à l'envoi des données sur un serveur d'analyse distant.
+% Nous avons conçu un système de contrôle adapté qui intègre les capteurs, l'éclairage et le système embarqué qui réalise les traitements de la mesure, au plus près des capteurs.
 % Ce système est rapidement installé, mobile.
-Plusieurs cas d'études industriels permettent d'évaluer les performances et la viabilité de la solution retenue.
+Deux cas d'applications permettent d'évaluer les performances et la viabilité de la solution proposée.
 
-\vspace*{3cm}
+\newpage
+% \vspace*{3cm}
+\vspace*{-1cm}
 \begin{flushright}
-	\fontsize{20pt}{20pt}\selectfont\textnormal{Abstract}
+	\section*{\fontsize{20pt}{20pt}\selectfont\textnormal{Abstract}}
 \end{flushright}
+\vspace{2cm}
 
-Online control of the product quality is an important objective for industries growth.
-Quality control requires measurements.
-% It is possible to measure variables on the process, characteristics or the finished product.
-However, industrial constraints, such as the duration of the production cycle, have limited the deployment of measurement of product characteristics, within production lines.
-In the context of the thermoplastic injection-molding process, our approach uses non-invasive measuring methods on parts that have just come out of the machine.
+Inline quality control of the product is an important objective for industries growth.
+Controlling a product quality requires measurements of its quality characteristics.
+One hundred percent control is an important objective to overcome the limits of the control by sampling, in the case of defects related to exceptional causes.
+However, industrial constraints have limited the deployment of measurement of product characteristics directly within production lines.
+Human visual control is limited by its duration incompatible with the production cycle at high speed productions, by its cost and its variability.
+Computer vision systems present a cost that reserves them for productions with high added value.
+In addition, the automatic control of the quality of the appearance of the products remains an open research topic.
+
+Our work aims to meet these constraints, as part of the injection-molding process of thermoplastics.
+We propose a control system that is non-invasive for the production process.
+Parts are checked right out of the injection molding machine.
+We will study the contribution of non-conventional imaging.
+Thermography of a hot molded part provides information on its geometry, which is complementary to conventional imaging.
+Polarimetry makes it possible to discriminate curvature defects of surfaces that change the polarization angle of reflected light and defects in the structure of the material that diffuse light.
+
 Furthermore, specifications on products are more and more tighter.
-Specifications include geometric features, as well as aspect features, which are difficult to formalize.
-The automated control of these characteristics is a crucial stake to control the production.
-We study the contribution of non-conventional imaging, thermography and polarimetry, to highlight the defects of the pieces.
-Our approach uses statistical learning for the human expert to transfer his knowledges about the notion of parts quality.
-Using Deep Learning algorithms, our control system learns a metric of parts quality, from the sensors raw data.
-In order to meet all industrial constraints, we have designed a suitable control system that integrates sensors, lighting and the embedded measurements processing as closer to sensors.
-% This system is quickly installed, mobile.
-Several cases of industrial studies make it possible to evaluate the performance and the viability of the chosen solution.
+Specifications include complex geometric features, as well as appearance features, which are difficult to formalize.
+However, the appearance characteristics are difficult to formalize.
+To automate aspect control, it is necessary to model the notion of quality of a part.
+In order to exploit the measurements made on the hot parts, our approach uses statistical learning methods.
+Thus, the human expert who knows the notion of quality of a piece transmits his knowledge to the system, by the annotation of a set of learning data.
+Our control system then learns a metric of the quality of a part, from raw data from sensors.
+We favor a deep convolutional network approach (Deep Learning) in order to obtain the best performances in fairness of discrimination of the compliant parts.
+The small amount of annotated samples available in our industrial context has led us to use domain transfer learning methods.
+
+Finally, in order to meet all the constraints and validate our propositions, we realized the vertical integration of a prototype of device of measure of the parts and the software solution of treatment by statistical learning.
+The device integrates thermal imaging, polarimetric imaging, lighting and the on-board processing system necessary for sending data to a remote analysis server.
+Two application cases make it possible to evaluate the performance and viability of the proposed solution.

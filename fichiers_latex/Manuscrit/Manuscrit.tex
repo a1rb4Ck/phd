@@ -19,8 +19,11 @@
 
 % How to compress with GhostScript
 % https://askubuntu.com/a/982732
-% -dPDFSETTINGS=/default : classic image compression
-% -dPDFSETTINGS=/screen : heavy image compression
+% -dPDFSETTINGS=/screen   (screen-view-only quality, 72 dpi images)
+% -dPDFSETTINGS=/ebook    (low quality, 150 dpi images)
+% -dPDFSETTINGS=/printer  (high quality, 300 dpi images)
+% -dPDFSETTINGS=/prepress (high quality, color preserving, 300 dpi imgs)
+% -dPDFSETTINGS=/default  (almost identical to /screen)
 
 % gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 % -dPDFSETTINGS=/default \
 % -dNOPAUSE -dQUIET -dBATCH -dDetectDuplicateImages \
@@ -74,7 +77,7 @@
 
 \pagenumbering{roman}
 % \cfoot{}
-\input{../Intro/Dedicace}
+%TODO \input{../Intro/Dedicace}
 
 \pageblanchenoheader
 
@@ -82,9 +85,9 @@
 %%%%%                           Epigraphe                        %%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\input{../Intro/Epigraphe}
+%TODO \input{../Intro/Epigraphe}
 
-\pageblanchenoheader
+%TODO \pageblanchenoheader
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%                      Table des matières                    %%%%%%%%%

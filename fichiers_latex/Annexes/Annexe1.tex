@@ -614,6 +614,217 @@ Le chiffre d'affaire moyen par entreprise est de 1,3 millions d'euros en 2016.
 
 
 \FloatBarrier
+\chapter{Plan d'expériences}
+\label{Ann:doe}
+
+%==============================================================================	Résumé du chapitre
+
+\begin{center}
+	\rule{0.7\linewidth}{.5pt}
+	\begin{minipage}{0.7\linewidth}
+		\smallskip
+		
+		\textit{
+			Cette annexe propose une présentation des principales méthodes de construction de plan d'expériences.
+		}
+		
+		%\smallskip
+	\end{minipage}
+	\smallskip
+	\rule{0.7\linewidth}{.5pt}
+\end{center}
+
+%\adjustmtc
+% \minitoc
+% \newpage
+\bigskip
+
+Cette annexe est complémentaire de la Section \ref{subsec:doe}.
+Nous ne discuterons pas des critères d'optimalité des plans que nous présentons. Nous invitons le lecteur à se référer à cet ouvrage pour étudier cette notion importante pour la construction de plans utilisables.
+La Figure \ref{fig:doe} représente l'espace de la valeur de trois variables comme un cube.
+Les valeurs des trois niveaux des variables, obtenues pour différents plans d'expériences, sont représentées par les cercles.
+
+\paragraph{Plan factoriel}\mbox{\label{parag:doe_factorial}} \\
+Le \textit{plan factoriel} propose une recherche exhaustive de l'effet de la variation de chacune des variables.
+Lorsque la variation des variables est réalisée sur deux niveaux distincts, il permet de construire un modèle linéaire.
+Il permet également de rendre compte des interactions entre les variables.
+Lorsque la variation des variables est réalisée sur trois niveaux distincts, il permet de construire un modèle quadratique.
+Des modèles d'ordre supérieur peuvent être réalisés mais l'augmentation du $k$ nombre d'essais à réaliser suit alors une loi factorielle $2^k$.
+
+\begin{figure}[t]
+	\tikzset{
+		vertex/.style={
+			circle, minimum size=20pt, inner sep=0pt, fill=gray},
+		axial/.style={
+			circle, minimum size=20pt, inner sep=0pt, fill=gray!20},
+		edge/.style={draw,thick,-,black},
+		rotu/.style={midway},
+		sinal/.style={draw, circle, inner sep=0pt, thin},
+		empty/.style={circle, minimum size=20pt, inner sep=0pt, fill=white},
+	}
+	\def\dist{0.4}
+	\def\ax{2}
+	\centering
+	\begin{subfigure}[b]{0.30\textwidth}
+		\centering
+		\resizebox{\linewidth}{!}{
+			%\begin{adjustbox}{width=0.80\textwidth}
+			\begin{tikzpicture}[
+			scale=2, ->, thick, z={(0.55,0.3)}, node distance=0.65cm, baseline]
+			\node[vertex] (v0) at (-1,-1,-1) {};
+			\node[vertex] (v1) at (-1,1,-1) {};
+			\node[vertex] (v2) at (1,-1,-1) {};
+			\node[vertex] (v3) at (1,1,-1) {};
+			\node[vertex] (v4) at (-1,-1,1) {};
+			\node[vertex] (v5) at (-1,1,1) {};
+			\node[vertex] (v6) at (1,-1,1) {};
+			\node[vertex] (v7) at (1,1,1) {};
+			\node[axial] (c0) at (1,0,-1) {};
+			\node[axial] (c1) at (1,0,1) {};
+			\node[axial] (c2) at (-1,0,-1) {};
+			\node[axial] (c3) at (-1,0,1) {};
+			\node[axial] (c4) at (0,1,-1) {};
+			\node[axial] (c5) at (0,1,1) {};
+			\node[axial] (c6) at (0,-1,-1) {};
+			\node[axial] (c7) at (0,-1,1) {};
+			\node[axial] (c8) at (-1,-1,0) {};
+			\node[axial] (c9) at (-1,1,0) {};
+			\node[axial] (c10) at (1,-1,0) {};
+			\node[axial] (c11) at (1,1,0) {};
+			\draw[edge] (v0) -- (v1) -- (v3) -- (v2) -- (v0);
+			\draw[edge] (v0) -- (v4) -- (v5) -- (v1);
+			\draw[edge] (v2) -- (v6) -- (v7) -- (v3);
+			\draw[edge] (v4) -- (v6);
+			\draw[edge] (v5) -- (v7);
+			\end{tikzpicture}
+		}
+		\newline
+		\newline
+		%\end{adjustbox}
+		\caption{Plan factoriel.}
+		\label{fig:doe_factorial}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.32\textwidth}
+		\centering
+		\resizebox{\linewidth}{!}{
+			\begin{tikzpicture}[
+			scale=2, ->, thick, z={(0.55,0.3)}, node distance=0.65cm]
+			\node[vertex, fill=red!20] (c0) at (0,0,0) { \ central \ };
+			\node[vertex] (v0) at (-1,-1,-1) {};
+			\node[vertex] (v1) at (-1,1,-1) {};
+			\node[vertex] (v2) at (1,-1,-1) {};
+			\node[vertex] (v3) at (1,1,-1) {};
+			\node[vertex] (v4) at (-1,-1,1) {};
+			\node[vertex] (v5) at (-1,1,1) {};
+			\node[vertex] (v6) at (1,-1,1) {};
+			\node[vertex] (v7) at (1,1,1) {};
+			\node[axial] (a1) at (-\ax,0,0) { \ axial \ };
+			\node[axial] (a2) at (\ax,0,0) { \ axial \ };
+			\node[axial] (a3) at (0,-\ax,0) { \ axial \ };
+			\node[axial] (a4) at (0,\ax,0) { \ axial \ };
+			\node[axial] (a5) at (0,0,-\ax) { \ axial \ };
+			\node[axial] (a6) at (0,0,\ax) { \ axial \ };
+			\draw[edge] (v0) -- (v1) -- 
+			(v3) -- (v2) -- (v0);
+			\draw[edge] (v0) -- (v4) -- (v5) -- (v1);
+			\draw[edge] (v2) -- (v6) -- (v7) -- (v3);
+			\draw[edge] (v4) -- (v6); \draw[edge] (v5) -- (v7);
+			\draw[edge] (a1) -- (c0) -- (a2) node[rotu, below=0.1] {$\alpha=\sqrt(n)$};
+			\draw[edge] (a3) -- (c0) --(a4);
+			\draw[edge] (a5) -- (c0) --(a6);
+			\end{tikzpicture}
+		}
+		\caption{Plan composite centré.}
+		\label{fig:doe_cc}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.30\textwidth}
+		\centering
+		\resizebox{\linewidth}{!}{
+			\begin{tikzpicture}[
+			scale=2, ->, thick, z={(0.55,0.3)}, node distance=0.65cm]
+			\node[empty] (v0) at (-1,-1,-1) {};
+			\node[empty] (v1) at (-1,1,-1) {};
+			\node[empty] (v2) at (1,-1,-1) {};
+			\node[empty] (v3) at (1,1,-1) {};
+			\node[empty] (v4) at (-1,-1,1) {};
+			\node[empty] (v5) at (-1,1,1) {};
+			\node[empty] (v6) at (1,-1,1) {};
+			\node[empty] (v7) at (1,1,1) {};
+			\node[vertex] (a1) at (-0.20, 0.20, 0.10) {};
+			\node[vertex] (a2) at ( 0.75, 0.90, 0.90) {};
+			\node[vertex] (a3) at (-0.10,-0.54,-0.90) {};
+			\node[vertex] (a4) at (-0.75, 0.12,-0.10) {};
+			\node[vertex] (a5) at ( 0.10,-0.30,-0.34) {};
+			\node[vertex] (a6) at ( 0.95, 0.20, 0.45) {};
+			\node[axial] (c0) at (1,0,-1) {};
+			\node[axial] (c1) at (1,-0.9,1) {};
+			\node[axial] (c2) at (-1,0,-0.9) {};
+			\node[axial] (c3) at (0.6,-0.95,-0.9) {};
+			\node[axial] (c4) at (0,1,-0.7) {};
+			\draw[edge] (v0) -- (v1) -- (v3) -- (v2) -- (v0);
+			\draw[edge] (v0) -- (v4) -- (v5) -- (v1);
+			\draw[edge] (v2) -- (v6) -- (v7) -- (v3);
+			\draw[edge] (v4) -- (v6);
+			\draw[edge] (v5) -- (v7);
+			\end{tikzpicture}
+		}
+		\newline
+		\newline
+		\caption{Plan hypercube latin.}
+		\label{fig:doe_hls}
+	\end{subfigure}
+	\caption{Essais prévus pour des plans d'expériences à trois niveaux pour trois variables.}
+	\label{fig:doe}
+\end{figure}
+
+\paragraph{Plan central-composite}\mbox{\label{parag:doe_cc}} \\
+Le \textit{plan central-composite} (plan de \textit{Box-Wilson}) permet de construire des modèles d'ordre 3.
+Il a été proposé dès 1950.
+Il s'appuie sur un \textit{plan factoriel} à deux niveaux.
+Ce modèle est complété en réalisant des essais pour les valeurs médianes des variables (appelés \textit{essais au centre}).
+Enfin, on réalise des essais où chaque variable est ajustée indépendamment des autres (\textit{essais axiaux}).
+Un coefficient $\alpha$ définit la valeur de la variation de la variable par rapport à l'essai au centre.
+Pour un nombre $n$ de variables à étudier, on choisit généralement $\alpha = \sqrt{n}$.
+D'autres méthodes de choix de $\alpha$ sont possibles et nous invitons le lecteur à consulter un ouvrage de référence sur la théorie des plans de surfaces de réponses tel que \citetitle{myers_response_1971} \cite{myers_response_1971}.
+Le \textit{plan central-composite} réduit le nombre d'essais à réaliser en comparaison du \textit{plan factoriel}.
+Le plan de \textit{Box-Behnken} propose de réduire le nombre d'essais en n'utilisant pas un plan factoriel comme plan de référence.
+% Box-Behnken designs usually have fewer design points than central composite designs, thus, they are less expensive to run with the same number of factors. They can efficiently estimate the first- and second-order coefficients; however, they can't include runs from a factorial experiment. Box-Behnken designs always have 3 levels per factor, unlike central composite designs which can have up to 5. Also unlike central composite designs, Box-Behnken designs never include runs where all factors are at their extreme setting, such as all of the low settings.
+Les plans de \citeauthor{plackett_design_1946} \cite{plackett_design_1946} proposent de réduire le nombre d'essais pour une étude à deux niveaux, dans le cas où le nombre d'essais est un multiple de 4 ($N=12, N=20, N=24 \dots$).
+Ces plans sont idéaux pour réaliser une étude de nombreuses variables en peu d'essais et construire un modèle linéaire.
+
+Nous utiliserons dans notre étude expérimentale un plan L12 de criblage afin de faire varier le procédé avec peu d'essais.
+L'objectif sera de produire des pièces dont les caractéristiques sont les plus variées possibles.
+
+\paragraph{Plan hypercube latin}\mbox{\label{parag:doe_lhs}} \\
+L'objectif de ce plan est de couvrir la plage de valeurs des variables de manière quasi-aléatoire.
+La méthode de construction de ce plan a été proposée par \citeauthor{mckay_comparison_1979} \cite{mckay_comparison_1979}. % Eglājs in 1977
+
+Soit une grille à deux dimensions qui représente les valeurs de deux variables que l'on étudie.
+On positionne sur cette grille des essais.
+Cette grille est un \textit{carré latin} si elle ne contient qu'un unique essai par colonnes et par lignes.
+Un \textit{hypercube latin} est la généralisation de ce principe pour une grille à $d$ dimensions.
+Cette méthode garantit un positionnement quasi-aléatoire des essais dans l'espace de dimensions $d$.
+À la différence des plans factoriels §\ref{parag:doe_factorial} ou composite centré §\ref{parag:doe_cc}, le nombre d'essais doit être connu pour construire le plan.
+Cette méthode garantit que les essais soient réalisés sur l'ensemble de la variabilité du phénomène à modéliser ; à la différence d'un tirage aléatoire de la valeur des variables où il n'y a pas cette garantie.
+Les plans d'hypercubes latins sont les plus utilisés dans la littérature de l'optimisation d'hyper-paramètres.
+
+Il est également possible d'utiliser une séquence quasi-aléatoire pour réaliser le choix des essais.
+La séquence de \citeauthor{sobol_distribution_1967} \cite{sobol_distribution_1967} est la plus utilisée dans la littérature.
+Lorsque le nombre de variables est inférieur à $100$, elle permet une répartition plus intéressante que les hypercubes latins.
+% A Sobol sequence is a low discrepancy quasi-random sequence. Sobol sequences were designed to cover the unit hypercube with lower discrepancy than completely random sampling (e.g. Random Search). Optunity supports Sobol sequences in up to 40 dimensions (e.g. 40 hyperparameters).
+% The figures below show the differences between a Sobol sequence and sampling uniformly at random. These figures can be recreated using the code in bin/examples/python/sobol_vs_random.py.
+% The mathematical details on Sobol sequences are available in the following papers: [SOBOL], [SOBOL2], [ANTONOV], [BRATLEY], [FOX].
+% [SOBOL]   Ilya Sobol, USSR Computational Mathematics and Mathematical Physics, Volume 16, pages 236-242, 1977.
+% [SOBOL2]  Ilya Sobol, Levitan, The Production of Points Uniformly Distributed in a Multidimensional Cube (in Russian), Preprint IPM Akad. Nauk SSSR, Number 40, Moscow 1976.
+% [ANTONOV] Antonov, Saleev, USSR Computational Mathematics and Mathematical Physics, Volume 19, 1980, pages 252 - 256.
+% [BRATLEY] Paul Bratley, Bennett Fox, Algorithm 659: Implementing Sobol’s Quasirandom Sequence Generator, ACM Transactions on Mathematical Software, Volume 14, Number 1, pages 88-100, 1988.
+% [FOX] Bennett Fox, Algorithm 647: Implementation and Relative Efficiency of Quasirandom Sequence Generators, ACM Transactions on Mathematical Software, Volume 12, Number 4, pages 362-376, 1986.
+
+% \paragraph{Plan de Taguchi}\mbox{\label{parag:doe_taguchi}} \\
+% Bad and/or idocratic
+
+
+\FloatBarrier
 \chapter{Apprentissage statistique}
 \label{Ann:3}
 
@@ -729,7 +940,7 @@ L'ensemble de ces métriques est généralisable par moyennage, dans le cas où 
 	\item macro-moyenne : les métriques sont calculées pour chaque classes, puis moyennées par l'ensemble des classes.
 \end{itemize}
 
-\subsection{Courbe ROC}\mbox{} \\
+\subsection{Courbe ROC}\mbox{} \label{subsec:roc} \\
 La courbe ROC (\textit{Receiver Operating Characteristic}) représente la caractéristique de performance d'un classifieur.
 Elle a été proposée en 1940 pour distinguer les vrais positifs du bruit de fond sur les relevés radars.
 La courbe compare sensibilité (taux de vrais positifs) et spécificité (taux de vrais négatifs) d'un classifieur.
@@ -953,7 +1164,7 @@ Nous appliquerons ces algorithmes dans la Section §\ref{subsubsec:deep_learning
 
 
 \FloatBarrier
-\chapter{Deep Learning}
+\chapter{Réseau de convolution profond, Deep Learning}
 \label{Ann:deep_learning}
 %==============================================================================	Résumé du chapitre
 
@@ -961,11 +1172,11 @@ Nous appliquerons ces algorithmes dans la Section §\ref{subsubsec:deep_learning
 	\rule{0.7\linewidth}{.5pt}
 	\begin{minipage}{0.7\linewidth}
 		\smallskip
-		
 		\textit{
-			Cette annexe propose une présentation complémentaire des méthodes d'apprentissage des réseaux de \textit{Deep Learning}.
+			Cette annexe propose une présentation complémentaire des méthodes d'apprentissage des réseaux de convolution profond.
+			Nous présentons l'historique des méthodes de Deep Learning, puis la dernière avancées des réseaux résiduels.
+			Enfin, nous détaillons l'ensemble des hyper-paramètres et leurs conséquences sur l'apprentissage et les performances des modèles.
 		}
-		
 		%\smallskip
 	\end{minipage}
 	\smallskip
@@ -1100,7 +1311,7 @@ L'ensemble des graphes de ces fonctions est présenté dans la Figure \ref{fig:a
 % https://www.mathcha.io/editor
 % https://tikzcd.yichuanshen.de/
 
-\section{Méthode de régularisation pour limiter le sur-apprentissage}
+\section{Méthodes de régularisation pour limiter le sur-apprentissage}
 Le nombre de degrés de liberté d'un modèle à réseaux de neurones profonds est supérieur à un million.
 C'est pourquoi, il est courant que le modèle se spécialise afin d'obtenir un très bon score de justesse sur les échantillons d'apprentissages, mais un mauvais score sur de nouveaux échantillons : c'est le problème du \emph{sur-apprentissage}.
 Plusieurs méthodes de régularisation permettent de limiter ce problème et nous détaillerons dans cette section les méthodes que nous utilisons.
@@ -1140,7 +1351,7 @@ Lors de l'utilisation du modèle pour inférence, la valeur de $\mu_{B}$ et $\si
 % https://arthurdouillard.com/post/normalization/
 % How To Be Confident In Your Neural Network Confidence : Temperature Scaling on SoftMax
 
-\subsection{Arrêt prématurée de l'apprentissage} \label{parag:early_stopping}
+\subsection{Arrêt prématuré de l'apprentissage} \label{parag:early_stopping}
 Cette méthode permet de limiter le sur-apprentissage en stoppant la phase d'apprentissage dès lors qu'il n'y a plus d'amélioration des performances du modèle.
 Aussi appelé \textit{early stopping} \cite{yao_early_2007}, il s'agit de trouver le nombre optimal d'itérations successives pour ne pas sur-apprendre le jeu de données d'apprentissage.
 Pour cela, le jeu de données initial est séparé en une partition d'apprentissage et une partition de validation.
@@ -1282,33 +1493,151 @@ En revanche, nous travaillons avec un éclairage contrôlé, donc les perturbati
 Les paramètres de l'augmentation du jeu de données dépendent de la connaissance du métier.
 Si la connaissance du métier n'est pas certaine, il est préférable d'acquérir un plus grand nombre d'images réelles, plutôt que de générer des données artificielles avec de mauvais a priori.
 
-\section{Apprentissage par transfert de domaine} \label{subsec:transfer_learning}
-% https://ireneli.eu/2018/08/09/transfer-learning-materials/
 
-Le faible nombre d'échantillons disponibles (inférieur à mille pièces) nous a conduit à utiliser des réseaux de neurones profonds préalablement entrainés sur des très grands jeux de données.
-Le jeu de données \textit{ImageNet} \cite{deng_imagenet_2009} est composé de 2 millions d'images réparties en 1000 catégories différentes.
-L'apprentissage par transfert de domaine, aussi résumé "apprentissage par transfert", cherche à réutiliser un modèle spécialisé sur un certain problème, pour résoudre un autre problème.
-En pratique, les meilleures approches proposées dans la littérature nécessitent de conserver des caractéristiques fortes entre les deux domaines.
-% Nous recommandons l'utilisation du même format de données initiales.
-Nous nous contenterons ici d'utiliser des modèles spécialisés sur l'analyse d'images à trois canaux de couleurs, et de les spécialiser sur notre propre problématique.
 
-Dans ce cadre d'apprentissage par transfert de domaine, nous n'avons pas la liberté de modifier l'architecture du réseau pré-appris, car il faudrait alors réapprendre les poids des neurones du réseau.
-La technique répandue est alors de supprimer la ou les dernières couches du réseau pré-appris et d'ajouter de nouvelles couches spécifiques à notre problème.
-Les dernières couches du réseaux sont considérées comme étant le véritable classifieur.
-Les couches précédentes se contentent de compresser l'information en une représentation dans un espace de dimensions réduites.
-Nous travaillons uniquement sur l'architecture du classifieur, c'est à dire de la fin du réseau.
-Le choix de l'architecture et de la typologie des couches influence fortement la performance du classifieur, c'est pourquoi des méthodes de sélections automatiques de ces paramètres doivent être employées.
-Elles sont discutées dans la Section \ref{sec:auto_ml}.
 
-On distingue deux étapes successives à l'entrainement d'un réseau de neurones par transfert : l'entraînement des nouvelles dernières couches, puis la spécialisation de l'ensemble du réseau.
-Il s'agit dans un premier temps de garantir la convergence du classifieur sur notre problème.
-On cherche à obtenir un score de classification satisfaisant.
-C'est pourquoi dans un premier, seuls les poids des neurones des nouvelles dernières couches sont ajustés par rétro-propagation du gradient de l'erreur.
-Une fois que la convergence des dernières couches a été obtenue, il est possible de spécialiser finement l'ensemble du réseau en réalisant un ajustement de l'ensemble des poids des couches afin d'améliorer le score de classification.
-Nos travaux ont montré que cette étape de spécialisation n'est pas nécessaire lorsque le jeu de données d'apprentissage est petit (inférieur à mille échantillons).
-En effet, nous n'observons pas d'augmentation du score de classification après la phase de spécialisation.
-De plus, la durée de l'apprentissage de spécialisation est deux ordres de grandeur plus longue que la durée de l'apprentissage des dernières couches du réseau, car le nombre de variables à ajuster sur l'ensemble du réseau est bien plus grande.
-La durée de l'apprentissage des dernières couches du réseau est de dix secondes sur un processeur graphique récent et puissant (\textit{NVIDIA GTX1080Ti}, 2017).
-La durée de l'apprentissage de spécialisation est de dix minutes.
-Cette durée rend l'apprentissage de spécialisation compatible avec une mise à jour horaire du classifieur, sous réserve de disposer d'un processeur graphique adapté. L'apprentissage des dernières couches peut en revanche être réalisé en cycle de production, pièce après pièce.
-Un classifieur de la conformité qui utilise l'apprentissage par transfert sera adapté aux productions dans lesquels les changements de séries ou bien la dérive du procédé est supérieure à l'heure. Ce qui est compatible avec une mise à jour régulière du modèle de la conformité.
+\FloatBarrier
+\chapter{Confidentiel - Essai "plaques"}
+\label{Ann:plaques}
+%==============================================================================	Résumé du chapitre
+
+\begin{center}
+	\rule{0.7\linewidth}{.5pt}
+	\begin{minipage}{0.7\linewidth}
+		\smallskip
+		\textit{
+			Cette annexe présente les résultats obtenus par le système de contrôle que nous avons proposé, lors d'un essai au centre de Recherche et Développement \textit{Sigmatech} de l'équipementier automobile Plastic Omnium en Avril 2019.
+		}
+		%\smallskip
+	\end{minipage}
+	\smallskip
+	\rule{0.7\linewidth}{.5pt}
+\end{center}
+
+%\adjustmtc
+% \minitoc
+% \newpage
+\bigskip
+
+Cette annexe est complémentaire de la Section \ref{sec:metric_learning}.
+Elle complète la présentation des méthodes d'apprentissage de modèles à réseaux de neurones profonds.
+
+\section{Essai "plaques" confidentiel} \label{sec:plaques}
+Dans la cadre du projet de recherche collaboratif FUI SAPRISTI, nous avons réalisé un essai au centre de Recherche et Développement \textit{Sigmatech} de l'équipementier automobile Plastic Omnium en Avril 2019.
+La pièce qui a été produite est une plaque courbe d'une dimension de 50 $\times$ 20 $\times$ 10 centimètres.
+La matière utilisée est un polypropylène automobile de couleur noire.
+Cette pièce est destinée à être peinte.
+La peinture utilisée a une propriété spéculaire qui met en valeur les défauts géométriques et les défauts d'aspect.
+L'objectif est de détecter ces défauts dès la sortie du moule, en amont de l'étape de peinture.
+
+La Figure \ref{fig:po_trial} présente les images issues des caméras.
+Différents défauts ont été volontairement introduit.
+Dans le cadre de cet essai, comme précédemment, nous ne cherchons pas à déterminer la catégorie du défaut, simplement la conformité de manière binaire.
+La Figure illustre également les contraintes de production : il est indispensable d'avoir un système qui détecte la présence des pièces de manière robuste.
+
+615 pièces ont été produites, parmi lesquelles 323 sont conformes et 292 sont non-conformes.
+
+\begin{figure}[bth!]
+	\centering
+	\begin{subfigure}[c]{\textwidth}
+		\includegraphics[width=\textwidth]{../Chap5/Figures/PO_pollution.png}
+		\caption{Défaut de pollution de la matière injectée.}
+		\vspace*{1mm}
+	\end{subfigure}
+	\\
+	\begin{subfigure}[c]{\textwidth}
+		\includegraphics[width=\textwidth]{../Chap5/Figures/PO_seuil.png}
+		\caption{Défaut de seuil au niveau du point de rencontre de la matière injectée par deux buses différentes.}
+		\vspace*{1mm}
+	\end{subfigure}
+	\begin{subfigure}[c]{\textwidth}
+		\includegraphics[width=\textwidth]{../Chap5/Figures/PO_ventouse.png}
+		\caption{Erreur de capture : ventouse.}
+		\vspace*{1mm}
+	\end{subfigure}
+	\\
+	\begin{subfigure}[c]{\textwidth}
+		\includegraphics[width=\textwidth]{../Chap5/Figures/PO_main.png}
+		\caption{Erreur de capture : main.}
+		\vspace*{1mm}
+	\end{subfigure}
+	\\
+	\caption{Images capturées lors de l'essai. Image thermique à gauche, puis images polarisés linéairement à 0°, 60°, 120° par rapport à l'éclairage annulaire polarisé.}
+	\label{fig:po_trial}
+\end{figure}
+
+% \begin{figure}[hbtp]
+% 	\centering
+% 	\includegraphics[width=0.5\textwidth,height=\textheight,keepaspectratio]{../Chap5/Figures/UMAP_IPC.jpg}
+% 	\caption{ACP sur réduction UMAP à 100 scalaires des données brutes.}
+% 	\label{fig:umap_IPC}
+% \end{figure}
+
+\subsubsection{Résultats}
+Cette section présente le résultat de l'essai "plaques".
+La validation croisée produit une jeu d'apprentissage de 425 pièces et un jeu de validation de 210 pièces.
+
+\paragraph{4.2.2.1.1 Matrices de confusion} \mbox{} \\
+Le Tableau \ref{tab:po_results} présente les matrices de confusion obtenues pour le jeu de données d'apprentissage et pour le jeu de données de validation.
+
+\begin{table}[!h]
+	\centering
+	\begin{subtable}{1\textwidth}
+		\centering
+		\arrayrulecolor{black}\begin{tabular}{c c|c|c|}
+			\cline{3-4}
+			& & \multicolumn{2}{c|}{Classes vraies}               \\ \cline{3-4}
+			& & \multicolumn{1}{c|}{Conformes} & \multicolumn{1}{c|}{Non-conformes} \\ \hline
+			\multicolumn{1}{|c|}{\multirow{2}{*}{Classes prédites}} & Conformes & Vrais positifs : 234 & Faux Positifs : 0 \\ \cline{2-4} 
+			\multicolumn{1}{|c|}{} & Non-conformes & Faux négatifs : 0  & Vrais Négatifs : 171 \\ \hline
+		\end{tabular}
+		\caption{Jeu de données d'apprentissage.}
+	\end{subtable}
+	
+	\bigskip
+	
+	\begin{subtable}{1\textwidth}
+		\centering
+		\arrayrulecolor{black}\begin{tabular}{l c|c|c|}
+			\cline{3-4}
+			& & \multicolumn{2}{l|}{Classes vraies}               \\ \cline{3-4}
+			& & \multicolumn{1}{l|}{Conformes} & \multicolumn{1}{l|}{Non-conformes} \\ \hline
+			\multicolumn{1}{|l|}{\multirow{2}{*}{Classes prédites}} & Conformes & Vrais positifs : 54 & Faux Positifs : 47 \\ \cline{2-4} 
+			\multicolumn{1}{|l|}{} & Non-conformes & Faux négatifs : 35  & Vrais Négatifs : 74 \\ \hline
+		\end{tabular}
+		\caption{Jeu de données de validation.}
+	\end{subtable}
+	\caption{Matrices de confusion pour l'essai "plaques".}
+	\label{tab:po_results}
+\end{table}
+
+Le nombre d'erreurs de classification en apprentissage est nulle, ce qui signifie que le réseau de neurones a été ajusté sur le jeu de données d'apprentissage.
+En revanche, pour le jeu de données de validation, l'erreur est élevée.
+Ce modèle peut difficilement être utilisé en production.
+Seules 61\% des réponses sont correctes.
+Trois hypothèses restent à vérifier :
+\begin{itemize}
+	\item l'information sur la qualité des pièces n'est pas contenu dans les quatre caméras,
+	\item le réseau a sur-appris le jeu de données d'apprentissage et le jeu de données comporte des erreurs d'annotations,
+	\item le réseau n'est pas capable d'extraire l'information pertinente des images des quatre caméras.
+\end{itemize}
+
+\paragraph{4.2.2.1.2 Courbe ROC} \mbox{} \\
+La Figure \ref{fig:po_roc} présente la courbe ROC obtenue pour le jeu de données de validation de l'essai "plaques".
+On observe que l'écart-type de la validation croisée \textit{3-folds} est important.
+Cela indique une incertitude du modèle en fonction du choix des échantillons évalués lors de l'apprentissage.
+Il y a certainement un biais dans le jeu de données d'apprentissage.
+Le système de classification de la qualité est ici peu performant.
+
+Cette courbe permet de choisir la valeur optimale de séparation entre les deux classes en fonction de la probabilité de conformité retournée par le réseau.
+Ici, une valeur de $0,4$ permet de compenser le taux de faux positifs.
+Cela signifie que des pièces qui sont conformes seront classées comme non-conformes par le système, afin de garantir une taux de pièces non-conformes dans le lot final très faible.
+
+\begin{figure}[p!]
+	\centering
+	\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{../Chap5/Figures/roc_images_all_cropped.png}
+	\caption{Courbe ROC du meilleur classifieur de la qualité des pièces pour l'essai "plaques".}
+	\label{fig:po_roc}
+\end{figure}
+
+\FloatBarrier

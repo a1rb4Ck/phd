@@ -130,7 +130,7 @@
 % \paragraph{Le FUI SAPRISTI : un projet de recherche collaborative de 2016 à 2019}\mbox{} \\
 
 % \bigskip
-\lettrine[lines=1]{C}{ }'e travail de doctorat s'inscrit dans le projet de recherche collaborative FUI\footnote{FUI : Fond Unique Interministériel} SAPRISTI\footnote{SAPRISTI : Système Autocorrectif pour la PRoduction zéro défaut de pIèces pLaSTIques} du \textit{21\up{ème} appel à projet FUI Régions.}\footnote{\href{https://competitivite.gouv.fr/les-appels-a-projets-de-r-d-fui/le-21e-appel-a-projets/les-resultats-du-21e-appel-a-projets-787.html}{Résultats du 21\up{ème} appel à projets FUI sur competitivite.gouv.fr} : \textit{60 projets bénéficieront d’une aide de l’État de 43 Millions d'Euros ainsi que d’une aide des collectivités territoriales et des fonds communautaires (FEDER) de 37,8 Millions d'Euros.}}.
+\lettrine[lines=1]{C}{ }e travail de doctorat s'inscrit dans le projet de recherche collaborative FUI\footnote{FUI : Fond Unique Interministériel} SAPRISTI\footnote{SAPRISTI : Système Autocorrectif pour la PRoduction zéro défaut de pIèces pLaSTIques} du \textit{21\up{ème} appel à projet FUI Régions.}\footnote{\href{https://competitivite.gouv.fr/les-appels-a-projets-de-r-d-fui/le-21e-appel-a-projets/les-resultats-du-21e-appel-a-projets-787.html}{Résultats du 21\up{ème} appel à projets FUI sur competitivite.gouv.fr} : \textit{60 projets bénéficieront d’une aide de l’État de 43 Millions d'Euros ainsi que d’une aide des collectivités territoriales et des fonds communautaires (FEDER) de 37,8 Millions d'Euros.}}.
 L’obtention d’une chaîne de fabrication compétitive passe par l’optimisation du procédé de production.
 Le projet FUI SAPRISTI s'intéresse en particulier au procédé d'injection-moulage des thermoplastiques dans le secteur automobile.
 C'est pourquoi il est labellisé par trois pôles de compétitivité :
@@ -181,9 +181,9 @@ Dans le cas de l’injection-moulage des thermoplastiques, aucun système de mes
 Des échanges avec les partenaires du FUI SAPRISTI nous ont permis de prendre en compte les limites que posent le procédé industriel.
 Nous avons identifié trois verrous au déploiement massif du contrôle qualité à cent pourcent dès la sortie de la machine :
 \begin{itemize}
-	\item économique
-	\item technologique
-	\item humain
+	\item économique : pour être déployé sur chaque machine le coût du système doit être faible,
+	\item technologique: respect de la durée du cycle, peu invasif pour le procédé de production et capable d'extraire l'information sur la qualité des produits à partir des mesures,
+	\item humain : capable de modéliser la perception qualité de l'expert humain.
 \end{itemize}
 Nous évaluerons et chercherons à résoudre chacun de ces verrous afin de proposer un moyen de mesure industriellement viable.
 % Nous présentons les méthodes et les moyens retenus pour lever ces verrous.
@@ -194,7 +194,7 @@ Nous évaluerons et chercherons à résoudre chacun de ces verrous afin de propo
 % TODO: Modèles phénoménologique -> faire des expériences, démarche empirique basée sur l'expérience.
 Afin d'identifier les variables du procédé qui sont susceptibles de contenir une information sur la qualité du produit, nous avons réalisé une étude de la littérature.
 % Notre état de l'art propose une revue des publications majeures sur le pilotage du procédé d'injection-moulage, depuis 1975 à ce jour.
-De nombreuses variables ont été étudié depuis 1975.
+De nombreuses variables ont été étudiées depuis 1975.
 La pratique industrielle actuelle propose d'utiliser des mesurages intégrées dans l'outillage.
 L'intégration des capteurs nécessaire à ces mesures est invasive.
 C'est à dire que le travail d'ingénierie nécessaire à la conception de l'outillage en intégrant les capteurs est coûteux.
@@ -205,32 +205,32 @@ C'est pourquoi nous avons défini le périmètre de notre recherche au contrôle
 
 L'expérimentation occupe une part importante de ces travaux.
 Dans un premier temps, cela nous a permis de comprendre le procédé et la pratique industrielle.
-Dans un second temps, nous avons étudié l'utilisation de moyens de mesurages issus de l'imagerie non-conventionnel : scanner laser, thermographie, polarimétrie, ainsi que de mesures intégrées dans l'outillage que nous n'avons pas retenu.
+Dans un second temps, nous avons étudié l'utilisation de moyens de mesurages issus de l'imagerie non-conventionnelle : scanner laser, thermographie, polarimétrie, ainsi que de mesures intégrées dans l'outillage que nous n'avons pas retenu.
 L'imagerie non-conventionnelle permet d'acquérir des informations que l'œil humain ne peut percevoir. % de l'expert
 % Par la suite, nous avons cherché à valider par itérations successives notre dispositif de mesure.
 % Notre démarche de recherche est phénoménologique.
 Nous nous appuyons sur l'expérimentation et la mesure pour construire nos modèles.  %, plus que sur les théories chimico-thermo-dynamique des polymères.
-Dans le cas où l'on dispose d'un grand nombre de cas d'études, cette démarche est particulièrement adaptée à l'utilisation de l'apprentissage statistique pour modéliser les phénomènes.
+Dans le cas où l'on dispose d'un grand nombre de cas d'étude, cette démarche est particulièrement adaptée à l'utilisation de l'apprentissage statistique pour modéliser les phénomènes.
 
 À partir des résultats des mesures, il s'agit de concevoir un système capable de discerner les pièces conformes, des pièces non-conformes.
 Nous orientons nos travaux dans l'utilisation de méthode d'apprentissage statistique.
 L'expert qualité humain transmet son savoir au système de mesure, qui réalise le contrôle de manière autonome.
 
 \bigskip
+
+Ces travaux de doctorat ont fait l’objet de communications en congrès scientifiques internationaux \cite{nagorny_towards_2017, nagorny_injection_2017, nagorny_quality_2017, nagorny_generative_2018, nagorny_polarimetric_2019}, ainsi que d'un colloque national \cite{nagorny_towards_2017}.
+
+\bigskip
 % \paragraph{Organisation du manuscrit}\mbox{} \\
 
-Ce manuscrit est constitué de cinq chapitres qui peuvent être indépendamment parcourus.
+Ce manuscrit est constitué de quatre chapitres qui peuvent être indépendamment parcourus.
 Le lecteur sera orienté au gré de sa lecture, vers les sections d'autres chapitres, lorsque des informations complémentaires pourront lui être utiles.
 
 Le premier chapitre présente de manière détaillée le contexte industriel du travail de doctorat et les objectifs de recherche pour le déploiement du contrôle qualité dès la sortie de l'injection-moulage.  % \ref{ch:objectives}  (i) le contexte industriel ; (ii) les objectifs
+Le second chapitre a pour objectifs de présenter les différentes technologies de métrologies existantes et de justifier notre choix d'utilisation de l'imagerie non-conventionnelle thermographique et polarimétrique à partir d'un essai expérimental.  %  \ref{ch:measure} (i) présenter ; (ii) discuter
+Le troisième chapitre propose d'étudier les méthodes de formalisation de la notion de qualité par apprentissage et de les évaluer sur notre cas d'application industriel.
+Nous présenterons les méthodes d'apprentissage supervisé et non-supervisé, ainsi que la démarche d'annotation d'un jeu de données d'apprentissage.  % \ref{ch:metric_learning} 
+Enfin, le quatrième chapitre détaille la conception d'un nouveau dispositif de mesure et réalise son évaluation sur deux cas d'applications industrielles.  % \ref{ch:theeye} (i) la conception ; (ii) son évaluation
 
-Le second chapitre a pour objectifs de présenter les différentes technologies de métrologies existantes et de discuter de notre choix d'utilisation de l'imagerie non-conventionnelle.  %  \ref{ch:measure} (i) présenter ; (ii) discuter
-
-Le troisième chapitre a pour objectifs de présenter la méthode d'acquisition expérimentale des données de nos études et de discuter des méthodes de transfert de la connaissance de l'humain vers la machine, par l'annotation du jeu de données.  % \ref{ch:dataset} (i) présenter ; (ii) discuter
-
-Le quatrième chapitre propose d'étudier les moyens de formalisation de la notion de Qualité par apprentissage et de les évaluer sur notre cas d'application industriel.  % \ref{ch:metric_learning} 
-
-Le cinquième chapitre détaille la conception d'un nouveau dispositif de mesures et son évaluation sur des cas d'étude industriels.  % \ref{ch:theeye} (i) la conception ; (ii) son évaluation
-
-Enfin, en conclusion, un bilan concernant les travaux de ces trois années de doctorat sera dressé.
+En conclusion, un bilan concernant les travaux de ces trois années de doctorat sera dressé.
 Une discussion sera proposée concernant les nombreuses perspectives de recherche que nous avons identifiées.  % \ref{ch:conclusion}
