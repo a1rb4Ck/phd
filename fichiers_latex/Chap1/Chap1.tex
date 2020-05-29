@@ -50,25 +50,31 @@ Dans un second temps, nous positionnerons notre travail sur la problématique du
 \begin{figure}[bthp]
 	\centering
 	\includegraphics[width=0.8\textwidth,height=\textheight,keepaspectratio]{../Chap1/Figures/PlasticsInjectionMoulderJones_annotee.jpg}
-	\caption{Une presse à injecter. Photographie originale de \href{https://commons.wikimedia.org/wiki/File:PlasticsInjectionMoulderJones.jpg}{Glenn McKechnie \ccLogo \ by SA \textnormal{2.5}, Wikimedia Commons}.}
+	\caption[Une presse à injecter.]{Une presse à injecter. Photographie originale de \href{https://commons.wikimedia.org/wiki/File:PlasticsInjectionMoulderJones.jpg}{Glenn McKechnie \ccLogo \ by SA \textnormal{2.5}, Wikimedia Commons}.}
 	\label{fig:PlasticsInjectionMoulderJones}
 \end{figure}
 
 % \subsection{Présentation du procédé d'injection-moulage des thermoplastiques}
-La machine qui met en œuvre le procédé d'injection-moulage est la presse à injecter, voir Figure \ref{fig:PlasticsInjectionMoulderJones}.
-Un polymère est fondue dans un tube (appelé le "fourreau") chauffé.  % est au dessus de son point de fusion qui 
+La machine qui met en œuvre le procédé d'injection-moulage est la presse à injecter (voir la Figure \ref{fig:PlasticsInjectionMoulderJones}).
+Un polymère est fondue dans un tube chauffé, appelé le fourreau.  % est au dessus de son point de fusion qui 
 Le fourreau contient une vis pour malaxer la matière.  % et la "plastifier".
+Dans une presse à injecter, on distingue deux parties cinématiques indépendantes : la vis de dosage et l'outillage amovible.
 La rotation et l'avance de la vis sont régulées afin de définir les caractéristiques de la matière fondue qui sera injectée.
 En particulier, il s'agit d'homogénéiser la matière fondue afin qu'elle ait une certaine viscosité.
 L'avancée de la vis produit une pression sur la matière qui est également régulée : c'est la pression d'injection.
 Le procédé d’injection-moulage des thermoplastiques consiste à injecter sous une pression élevée, généralement supérieure à 100 MPa, le polymère fondu et visqueux dans un moule.
 La pression est maintenue pendant le refroidissement de la matière ; en particulier jusqu'à ce que le canal par lequel la matière est entrée dans le moule soit solidifié.
+
 Cette phase de maintien permet de densifier la matière afin de compenser le retrait consécutif au refroidissement.
 Le passage de la phase d'injection à la phase de maintien est appelé la commutation (on parle couramment de "point de commutation").
+La phase de maintien se termine avant le début de la phase d'injection.
+La phase de dosage, qui est réalisée pendant le moulage d'une pièce, conditionne les caractéristiques de la matière fondue pour la pièce suivante ; il y a un cycle de décalage.
+
 L'ensemble qui constitue le moule est appelé un "outillage" ; ce dernier intègre un système de régulation thermique à température constante afin de favoriser le refroidissement de la pièce.
 L'outillage doit également supporter les contraintes mécaniques des pressions d'injection et l'on cherche à éviter la déformation de sa géométrie pendant l'injection.
-C'est pourquoi les outillages en injection-moulage sont volumineux et massifs et comparaison des dimensions des pièces produites.
+C'est pourquoi les outillages en injection-moulage sont volumineux et massifs en comparaison des dimensions des pièces produites.
 
+% TODO: reprendre le schéma-bloc pour Éric
 \begin{figure}[hbtp]
 	\centering
 	\includegraphics[width=0.9\textwidth,height=\textheight,keepaspectratio]{../Chap1/Figures/SAPRISTI_Schema-cycle.pdf}
@@ -77,21 +83,21 @@ C'est pourquoi les outillages en injection-moulage sont volumineux et massifs et
 \end{figure}
 
 Le procédé d'injection-moulage des thermoplastiques est un procédé cyclique.
-Afin de mettre en évidence la séquence d’un cycle du procédé, nous proposons un schéma bloc d’un cycle d’injection, en Figure \ref{fig:cycle_injection}.
+Afin de mettre en évidence la séquence d’un cycle du procédé, nous proposons un schéma bloc d’un cycle d’injection en Figure \ref{fig:cycle_injection}.
 On remarque en particulier que l'étape de dosage est réalisé en parallèle du refroidissement de la pièce et de son éjection.
 Le dosage est l'étape pendant laquelle la matière première est fondue dans la vis d'injection.
-C'est une étape clé car il est nécessaire de garantir une certaine viscosité de la matière fondue.
+% C'est une étape clé car il est nécessaire de garantir une certaine viscosité de la matière fondue.
 % À cause de l'étape de dosage, la production d'une pièce est conditionnée par la production de la pièce précédente.
 Lors du démarrage d'une presse à injecter, il est courant de produire une vingtaine de pièce pour ajuster les réglages et stabiliser le cycle.
 Nous détaillons dans la Section \ref{subsec:process_parameters} suivante les paramètres qui peuvent être réglés sur une presse à injecter.
 
-Le procédé d'injection-moulage est également séquentiel : il est composé de phases successives.
+Le procédé d'injection-moulage est également séquentiel : il est composé de phases successives (voir Figure \ref{fig:cycle_injection}).
 Chaque phase possède des paramètres qui influent sur les phases suivantes et, à terme, sur les caractéristiques du produit fini.
-Les multiples phases font que le nombre de paramètres qui peuvent être ajustés sur le procédé est supérieur à vingts.
+Les multiples phases font que le nombre de paramètres qui peuvent être ajustés sur le procédé est supérieur à vingt.
 Il est possible d’ajuster précisément les températures, les courbes de pressions et les durées d’ouvertures et de fermetures de multiples canaux d’injection.  % buses d’injection.
 % Ainsi, l’espace des variables de pilotage est grand et les variables sont continues.
-Enfin, le procédé d'injection-moulage possède une certaine inertie : c'est à dire que l'ajustement d'un des paramètres du procédé met une certaine durée avant de se répercuter sur la production.
-Cette inertie est majoritairement due à l'inertie thermique de l'outillage massif.
+Enfin, le procédé d'injection-moulage possède une certaine dynamique : c'est à dire que l'ajustement d'un des paramètres du procédé met une certaine durée avant de se répercuter sur les produits.
+Cette dynamique est majoritairement due à l'inertie thermique de l'outillage massif.
 
 % refroidi ; à maintenir une pression de compactage pendant une durée spécifique; puis à éjecter la pièce tout en préparant en parallèle la matière nécessaire au cycle suivant. 
 
@@ -126,9 +132,9 @@ Nous discuterons en particulier dans la Section \ref{sec:research_objectives} de
 Le nombre de paramètres réglables d'une presse à injecter est grand.
 Dans le Tableau \ref{tab:process_parameters}, nous répertorions les 16 paramètres les plus courants qui peuvent être réglés sur un presse.
 Cette liste n'est pas exhaustive.
-En particulier, les choix de la matière première, de la buse et les profils d'évolution des pressions ajoutent de nombreuses possibilités de réglages.
+En particulier, les choix de la matière première, de la buse et les profils d'évolution des pressions ajoutent de nombreuses possibilités de réglage.
 Nous remarquons que de nombreux paramètres sont dépendants.
-Par exemple, la vitesse d'injection dépend de la pression d'injection que l'ont souhaite obtenir.
+Par exemple, la durée du cycle de production dépend de la vitesse d'injection, qui dépend également de la pression d'injection que l'ont souhaite obtenir.
 
 \begin{figure}[bthp]
 	\centering
@@ -138,7 +144,12 @@ Par exemple, la vitesse d'injection dépend de la pression d'injection que l'ont
 \end{figure}
 
 Des profils d'avance de la vis et de pression d'injection sont représentés dans la Figure \ref{fig:molding_control}.
+On observe dans la première phase du cycke d'injection une avance rapide de la position de la vis et une augmentation de la pression d'injection, afin de remplir l'empreinte de matière fondue.
+Une seconde phase est le maintien de la pression dans l'empreinte pendant le refroidissement de la matière.
+Puis le moule est ouvert et la vis est progressivement reculé à sa position initiale.
+
 La pratique industrielle utilise le savoir-faire du technicien régleur.  % pour régler le point de fonctionnement initial.
+Le régleur a souvent accès à la courbe de pression de l'injection.
 Sur des pièces compliquées, le réglage du procédé peut prendre plusieurs heures.
 
 \bigskip
@@ -182,9 +193,9 @@ Sur des pièces compliquées, le réglage du procédé peut prendre plusieurs he
 
 La norme ISO9000 \cite{ISO_9000_2015} spécifie la notion de qualité comme l'\textit{aptitude d'un ensemble de caractéristiques intrinsèques d'un objet à satisfaire des exigences}.
 Dans notre cadre des produits industriels, les exigences sont celles du client final ou du donneur d'ordre.
-Elles sont spécifiées dans dans la documentation technique du produit, dont le dessin.
+Elles sont spécifiées dans la documentation technique du produit, dont le dessin.
 Des caractéristiques sont mesurées sur le produit.
-Puis les résultats sont comparées aux exigences, c'est à dire des limites d'acceptation, des intervalles de tolérances.
+Puis les résultats sont comparées aux exigences, c'est à dire des limites d'acceptation ou des intervalles de tolérances.
 Nous distinguons cinq grands types de caractéristique :
 \begin{itemize}
 	\item géométriques  % : normes ISO GPS \textit{Geometrical Product Specifications} \cite{ISO_8015_2011},
@@ -206,9 +217,12 @@ Les tolérances dimensionnelles sont de plus en plus serrées.
 Enfin, l'amélioration de la qualité est un facteur important de rentabilité et de compétitivité des entreprises.
 Dès 1950, \citeauthor{deming_quality_1982} \cite{deming_quality_1982} décrit la réaction en chaîne que permet d'initier l'amélioration de la qualité : réduction des coûts des rebuts, diminution du prix de revient, gain de marchés et, à terme, création d'emplois.
 
+Le Tableau \ref{tab:visual_defect} présente les non-conformités d'aspect habituelles en injection-moulage des thermoplastiques.
+
+
 \begin{table}[htbp]
 	\arrayrulecolor{black}
-	\hspace*{-3mm}
+	\hspace*{-1mm}
 	\begin{tabular}{|l|l|l|}
 		\arrayrulecolor{black}
 		\hline
@@ -216,7 +230,7 @@ Dès 1950, \citeauthor{deming_quality_1982} \cite{deming_quality_1982} décrit l
 		% Dimensionnelle & dimension non-conforme & température du moule, rigidité du moule, retassure \\ \hline \hline
 		Homothétie & dimension modifiée & retrait de la matière \\ \hline
 		Gauchissement & défaut de surface & refroidissement non homogène \\ \hline
-		Retassure  & réduction de dimension & pression de maintien, vitesse d'injection \\ \hline
+		Retassure  & cavité dans la matière & pression de maintien, vitesse d'injection \\ \hline
 		Incomplet & trou dans la pièce & quantité de matière injectée, clapet anti-retour défaillant \\ \hline
 		Ligne de soudure & ligne décolorée &  pression d'injection, température matière \\ \hline
 		Jet libre & trace décolorée & viscosité matière, conception moule, pression d'injection \\ \hline
@@ -229,15 +243,26 @@ Dès 1950, \citeauthor{deming_quality_1982} \cite{deming_quality_1982} décrit l
 	\label{tab:visual_defect}
 \end{table}
 
-Le Tableau \ref{tab:visual_defect} présente les non-conformités d'aspect habituelles en injection-moulage des thermoplastiques.
+% Sur des pièces qui seront utilisées en contraintes et en fatigues
+Un défaut de ligne de soudure entraine une fragilité.
+La majorité des non-conformités d'aspect sont des défauts géométriques de surface.
+Seules la combustion, le givrage et la pollution sont entrainées pas la modification des propriétés du polymère.
+Ces imperfections géométriques sont souvent dues au mauvais maintien du polymère contre les parois de l'outillage, ou bien à la solidification trop rapide de la matière.
+Les défauts d'incomplets sont les plus simples à détecter par analyse d'image : un seuillage puis une détection de contours est suffisant.
+La détection des autres non-conformité est plus compliquée.
+C'est notre objectif principal de recherche.
+
+La Figure \ref{fig:confocal_defect} présente une mesure par microscopie confocale d'un défaut de retassure sur une pièce plastique automobile de deux mètres.
+Ce défaut est caractéristique des pièces automobiles qui sont peintes afin de réfléchir la lumière de manière harmonieuse.
+La légère inflexion de la surface entraine une "cassure" de la réflexion de la lumière, ce qui attire le regard et amplifie l'impression de défaut.
+L'écart géométrique de l'inflexion est de l'ordre de la dizaine de micromètres.
 
 \bigskip
 
-\begin{figure}[tbhp!]
+\begin{figure}[tbhp]
 	\centering
 	\begin{subfigure}[c]{0.48\textwidth}
 		\centering
-		\vspace{4\baselineskip}
 		\includegraphics[width=\textwidth]{../Chap2/Figures/Cam1_Image_22_PO_defect_AVEC.jpg}
 		\caption{Photographie du défaut.}
 	\end{subfigure}
@@ -258,19 +283,8 @@ Le Tableau \ref{tab:visual_defect} présente les non-conformités d'aspect habit
 % \footnotemark
 \footnotetext{\href{https://www.altimet.fr/?page_id=236}{Spécifications techniques} de l'Altisurf 520 sur le site Internet de la société Altimet.}
 
-% Sur des pièces qui seront utilisées en contraintes et en fatigues
-Un défaut de ligne de soudure entraine une fragilité.
-La majorité des non-conformités d'aspect sont des défauts de surface géométriques.
-Seules la combustion, le givrage et la pollution sont entrainées pas la modification des propriétés du polymère.
-Ces imperfections géométriques sont souvent dues au mauvais maintien du polymère contre les parois de l'outillage, ou bien à la solidification trop rapide de la matière.
-Les défauts d'incomplets sont les plus simples à détecter par analyse d'image : un seuillage puis une détection de contours permet de mettre en évidence le manque de matière.
-La détection des autres non-conformité est plus compliquée.
-C'est notre objectif principal de recherche.
+\bigskip
 
-La Figure \ref{fig:confocal_defect} présente une mesure par microscopie confocale d'un défaut de retassure sur une pièce plastique automobile de deux mètres.
-Ce défaut est caractéristique des pièces automobiles qui sont peintes afin de réfléchir la lumière de manière harmonieuse.
-La légère inflexion de la surface entraine une "cassure" de la réflexion de la lumière, ce qui attire le regard et amplifie l'impression de défaut.
-L'écart géométrique de l'inflexion est de l'ordre de la dizaine de micromètres.
 La mesure de la géométrie à l'échelle micrométrique, pendant la durée du cycle du procédé, est un véritable défi.
 Dans la suite de ce chapitre, nous présenterons les moyens de mesure existants ; puis nous orienterons notre étude sur les moyens de mesure sans contact ; en particulier nous nous intéresserons aux moyens de mesure compatibles avec le temps de cycle du procédé d'injection-moulage.
 
@@ -281,9 +295,8 @@ Dans la suite de ce chapitre, nous présenterons les moyens de mesure existants 
 Le procédé d'injection est l'étape clé du processus de fabrication des pièces plastiques moulées.
 Il répercute ses défauts sur l'aval de la chaîne de production, comme par exemple sur les étapes d'assemblages et de finitions.
 
-Dans cette section, nous identifierons trois axes de recherche principaux qui lui ont été dévoués : la modélisation physique du procédé, la maîtrise du point de fonctionnement et l'optimisation des réglages.
-Nous réalisons une cartographie bibliographique §\ref{subsec:injection_research}.
-Puis nous nous intéresserons aux travaux de modélisation du procédé d'injection-moulage §\ref{subsec:molding_model}.
+Dans cette section, nous identifierons trois axes de recherche principaux qui lui ont été dévoués : la modélisation physique du procédé ; la maîtrise du point de fonctionnement ; et l'optimisation des réglages.
+Nous réaliserons une cartographie bibliographique §\ref{subsec:injection_research}, puis nous nous intéresserons aux travaux de modélisation du procédé d'injection-moulage §\ref{subsec:molding_model}.
 Enfin, nous étudierons la recherche sur la maîtrise du procédé d'injection-moulage §\ref{subsec:process_control}.
 % Enfin, nous discuterons de l'intérêt de notre travail sur le contrôle de la qualité en ligne, dans une perspective de surveillance et de pilotage du procédé.
 
@@ -304,15 +317,15 @@ Les mots-clés sont retenus s’ils apparaissent plus de quatre fois.
 Ils sont regroupés par relations.
 Nous utilisons le formalisme \textit{VOS} (\textit{Visualization Of Similarities}) proposé par \citeauthor{vaneck_vos_2006} \cite{vaneck_vos_2006, van_eck_comparison_2010}.
 Sur ce graphique, nous identifions plusieurs thématiques de recherche.
-Dans la suite de cette section, nous présenterons chacune de ces thématiques.
+Dans la suite de cette section, nous présenterons chacune d'elles.
 
 \begin{itemize}
 	\item la modélisation mathématique et la simulation du procédé (couleur cyan) §\ref{subsubsec:molding_theory},
-	\item la modélisation empirique par plan d'expériences (couleur rose) §\ref{parag:molding_doe},
-	\item l’apport des systèmes à réseaux des neurones pour modéliser le procédé (jaune) §\ref{parag:molding_neural},
-	\item l’apport des systèmes experts pour régler le point de fonctionnement initial (bleu) §\ref{subsec:process_control},
+	\item la modélisation empirique par plan d'expériences (couleur magenta) §\ref{parag:molding_doe},
+	\item l’apport des systèmes à réseaux des neurones pour modéliser le procédé (en jaune) §\ref{parag:molding_neural},
+	\item l’apport des systèmes experts pour régler le point de fonctionnement initial (en bleu) §\ref{subsec:process_control},
 	\item la régulation du point de fonctionnement par l'automatique (couleur rouge, \textit{Engineering Process Control}) §\ref{subsec:process_control},
-	\item l’analyse statistique afin de détecter les dérives (vert, \textit{Statistical Process Control}) §\ref{subsec:process_control}.
+	\item l’analyse statistique afin de détecter les dérives (en vert, \textit{Statistical Process Control}) §\ref{subsec:process_control}.
 \end{itemize}
 
 % Dans la littérature, les réseaux de neurones sont utilisés pour modéliser le procédé de manière empirique.
@@ -334,13 +347,13 @@ L'ensemble de ces travaux de recherche a deux grands objectifs :
 \end{itemize}
 Ces deux objectifs sont souvent traités de manière complémentaire.
 % L'amélioration de la modélisation permet une meilleur maîtrise des caractéristiques du produit.
-Dans les sections suivantes, nous présenterons chacune des thématiques de recherche que nous avons identifiées.
+Dans les sections suivantes, nous présenterons chacune de ces thématiques de recherche.
 
 \subsection{Modélisation du procédé d'injection-moulage} \label{subsec:molding_model}
-% Le moulage par injection-plastique est un procédé séquentiel qui peut être décomposé en plusieurs phases interdépendantes.
+% Le moulage par injection-plastique est un procédé séquentiel amdécomposé en plusieurs phases interdépendantes.
 Chacune des phases du procédé d'injection-moulage influe sur la suivante et, à terme, conditionne les caractéristiques du produit.
 Nous étudierons les travaux de la littérature sur la modélisation systémique du procédé, puis nous proposerons une nouvelle représentation systémique.
-Nous présenterons ensuite les travaux sur les modèles théoriques du procédé d'injection-moulage et les travaux d'identification de modèles à partir de résultats de mesure expérimentales.
+Nous présenterons ensuite les travaux sur les modèles théoriques du procédé d'injection-moulage et les travaux d'identification de modèles à partir de résultats de mesure expérimentaux.
 
 \subsubsection{Modélisation systémique} \label{subsubsec:molding_systemic}
 En 1999, \citeauthor{kazmer_towards_1999} proposent un découpage en cinq phases \cite{kazmer_towards_1999} (voir la Figure \ref{fig:kazmer_systematic}) qui est une évolution du découpage en trois phases qui avait été proposé par \citeauthor{ma_design_1974} \cite{ma_design_1974}.
@@ -349,7 +362,7 @@ Cette représentation systémique du procédé fait apparaître des variables d�
 \begin{figure}[bthp]
 	\centering
 	\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{../Chap1/Figures/Kazmer_1999-Process.pdf}
-	\caption{Vue systémique du procédé d'injection-moulage, traduite de \citeauthor{kazmer_towards_1999} \cite{kazmer_towards_1999}.}
+	\caption[Vue systémique du procédé d'injection-moulage.]{Vue systémique du procédé d'injection-moulage, traduite de \citeauthor{kazmer_towards_1999} \cite{kazmer_towards_1999}.}
 	\label{fig:kazmer_systematic}
 \end{figure}
 
@@ -359,11 +372,11 @@ La représentation met en évidence plusieurs variables intermédiaires, qui inf
 Ces variables intermédiaires ne sont pas nécessairement observables.
 Il est par exemple très difficile de mesurer la densité de la matière fondue, ou encore l'évolution des contraintes internes.
 
-Cette figure permet de mettre en évidence 10 caractéristiques du produit qui sont la cause de 12 variables de réglages.
-L'injection-moulage est un procédé multi-entrées, multi-sorties.
+Cette figure permet de mettre en évidence dix caractéristiques du produit qui sont la cause de 12 variables de réglage.
+L'injection-moulage est un procédé multi-entrées, multi-sorties (MIMO).
 On distingue également deux réglages de "profils".
 Un profil est une valeur de réglage qui évolue dans le temps.
-Aussi, les possibilités de réglages d'un profil sont bien plus importantes que pour un grandeur scalaire. Dans le cas où un profil serait représenté par 10 points ; nous obtenons alors 20 variables de réglages pour 2 profils.
+Aussi, les possibilités de réglages d'un profil sont bien plus importantes que pour une grandeur scalaire. Dans le cas où un profil serait représenté par 10 points ; nous obtenons alors 20 variables de réglage pour deux profils.
 % La modélisation d'un tel procédé est compliquée.
 % C'est pourquoi la littérature est riche en modèles empiriques, car les modèles théoriques sont difficiles à réaliser.
 
@@ -374,13 +387,9 @@ Aussi, les possibilités de réglages d'un profil sont bien plus importantes que
 %	\label{fig:chronogramme}
 %\end{figure}
 
-Enfin, nous remarquons que cette représentation systémique ne fait par apparaître la nature cyclique du procédé.
+Enfin, nous remarquons que cette représentation systémique ne fait pas apparaître la nature cyclique du procédé.
 % C'est pourquoi nous proposons un chronogramme du cycle d’injection : la Figure \ref{fig:chronogramme} représente le caractère cyclique du procédé, en particulier pour l'étape de dosage.
 En effet, la phase de dosage est réalisée en temps masqué au cycle principal de fabrication d'une pièce.
-Dans une presse à injecter, on distingue deux parties cinématiques indépendantes : la vis de dosage et l'outillage amovible.
-Généralement, la phase de dosage débute pendant le refroidissement de la matière, dès que le canal d’alimentation est solidifié.
-Elle se termine avant le début de la phase d'injection.
-La phase de dosage, qui est réalisée pendant le moulage d'une pièce, conditionne les caractéristiques de la matière fondue pour la pièce suivante ; il y a un cycle de décalage.
 
 \begin{figure}[hbtp]
 	\centering
@@ -394,24 +403,24 @@ Nous nous appuyons sur la méthodologie \textit{Axiomatic Design} pour représen
 Dans la Figure \ref{fig:zigzag}, nous proposons une représentation \textit{Zig Zag} du procédé d'injection-moulage.
 % À la différence de la vue systémique de la Figure \ref{fig:kazmer_systematic},
 La représentation \textit{Zig Zag} fait apparaître les variables du procédé $\boldsymbol{P_i}$ et les caractéristiques du produit lors de chacune des phases $\boldsymbol{C_i}$.
-Les caractéristiques du produit fini $\boldsymbol{C}$ sont fonctions de l’ensemble des phases.
+Les caractéristiques du produit fini $\boldsymbol{C}$ sont fonction de l’ensemble des phases.
 De plus, chaque phase est fonction des phases précédentes, ainsi que des variables du procédé.
-Si un réglage est modifié au niveau de l’une des phases $i$, les caractéristiques du procédé pour toutes les phases suivantes $\boldsymbol{C_{j>i}}$ seront modifiées.
+Si un réglage est modifié au niveau de l’une des phases $i$, les caractéristiques du procédé pour toutes les phases suivantes $\boldsymbol{C_{j>i}}$ pourront être modifiées.
 % Dans la suite de notre étude du procédé d'injection-moulage, nous indiquerons à quelle phase de notre représentation correspond les différents travaux cités.
 
 Nous remarquons en particulier que les caractéristiques d'une pièce finie sont liées aux phases de stabilisation et de finition.
 Or, la stabilisation de pièces prend du temps.
 Sur des pièces massives, il faut attendre plusieurs heures que la pièce refroidisse et que les contraintes internes se stabilisent.
-Enfin, les étapes de finition sont généralement réalisés plusieurs heures après l'injection-moulage d'une pièce.
+C'est pourquoi, les étapes de finition sont généralement réalisées plusieurs heures après l'injection-moulage d'une pièce.
 
 Dans la suite de cette section, nous présenterons les publications les plus importantes concernant la modélisation du procédé d'injection-moulage.
-Nous distinguons les modélisations physiques qui cherchent à proposer un modèle mathématique du procédé à partir de connaissances théoriques ; des modélisations empiriques qui utilisent les données d'expériences pour identifier un modèle mathématique.
+Nous distinguons les modélisations physiques, qui cherchent à proposer un modèle mathématique du procédé à partir de connaissances théoriques, des modélisations empiriques qui utilisent les données d'expériences pour identifier un modèle mathématique.
 
 
 \subsubsection{Modélisations physiques du procédé d'injection-moulage} \label{subsubsec:molding_theory}
 La nature multivariée du procédé rend difficile la définition d'un modèle théorique.
 En 1987, \citeauthor{agrawal_injection-molding_1987} estiment, en conclusion de leur revue de la régulation du procédé d'injection-moulage, que les futurs travaux de recherche devront prendre en compte l’ensemble des variables d'entrée, ainsi que leurs interactions \cite{agrawal_injection-molding_1987}.
-Pourtant, d'après le Tableau \ref{tab:state_art_compare} aucun des modèles proposés dans la littérature après 1987 ne prend en compte l'ensemble des 12 variables de ce procédé, telles que présentées dans la Figure \ref{fig:kazmer_systematic}.
+Pourtant, d'après le Tableau \ref{tab:state_art_compare} aucun des modèles proposés dans la littérature après 1987 ne prend en compte l'ensemble des 12 variables de ce procédé, telles que présentées dans la Figure \ref{fig:kazmer_systematic}, voir l'Annexe \ref{Ann:process_control} Tableau \ref{tab:state_art_compare}.
 
 Un modèle théorique doit prendre en compte les nombreuses interactions multi-physiques entre chaque phase du procédé.
 De plus, la connaissance de la physique des polymères reste un champ de recherche ouvert.
@@ -449,7 +458,7 @@ En effet, notre problématique de contrôle de la qualité nécessite de répond
 Cependant, les modèles théoriques de la littérature sont spécifiques à certains matériaux et à certains cas d'applications.
 % Nous nous intéresserons en particulier à la modélisation des caractéristiques des pièces produites, pour des paramètres du procédé données.
 De plus, les modèles théoriques aujourd'hui établis ne permettent pas de simuler l'ensemble des caractéristiques du produit que nous devons contrôler.
-En particulier, les caractéristiques d'aspect des pièces ne sont pas étudiées.
+% En particulier, les caractéristiques d'aspect des pièces ne sont pas étudiées.
 
 \subsubsection{Modélisations empiriques du procédé d'injection-moulage}
 La littérature en injection-moulage est fournie d'études expérimentales.
@@ -472,7 +481,7 @@ Ils montrent également la nécessité de prendre en compte l'évolution du cont
 En effet, la matière fondue n'est pas en contact continu avec la paroi.
 Des poches d'airs peuvent se former ; ce qui modifie sensiblement les variables de refroidissement et la cristallisation du polymère.
 Les travaux antérieurs assumaient que le moule était indéformable et que le contact entre le moule et le polymère était parfait.
-La démarche de ces travaux est l'identification des paramètres d'un modèle théorique, à partir de mesures de température et de pression dans le moule.
+La démarche de ces travaux est l'identification des paramètres d'un modèle polynomial, à partir de mesures de température et de pression dans le moule.
 Les auteurs remarquent la nécessité de modéliser le couplage entre l'évolution de la géométrie du moule et le refroidissement, pour simuler correctement les contraintes imposées à la matière.
 % Les limites de la modélisation mathématique du procédé d'injection-moulage sont les hypothèses fortes qui sont faites en amont.
 % De plus, l'injection-moulage est un procédé multivarié.
@@ -481,16 +490,16 @@ Les modèles identifiés par les auteurs sont limités aux cas d'études spécif
 
 Nous remarquons, dans la littérature de l'injection-moulage, deux grandes démarches utilisées pour identifier des modèles multivariés :
 \begin{itemize}
-\item l'exploration et la modélisation du procédé par les plans d'expériences §\ref{parag:molding_doe} qui permet d'identifier des modèles physiques,
-\item l'identification de modèles non-linéaires par apprentissage, à l'aide de réseaux de neurones §\ref{parag:molding_neural}.
+\item l'exploration et la modélisation du procédé par les plans d'expériences §\ref{parag:molding_doe} qui permet d'identifier des modèles empiriques,
+\item l'identification de modèles par apprentissage, à l'aide de réseaux de neurones §\ref{parag:molding_neural}.
 \end{itemize}
 
-\paragraph{1.2.2.3.1 Plan d'expériences}\mbox{} \label{parag:molding_doe} \\
+\paragraph{1.3.2.3.1 Plan d'expériences}\mbox{} \label{parag:molding_doe} \\
 Les plans d’expériences permettent de construire un modèle polynomiale d’un système à plusieurs paramètres.
 De plus, ils permettent d'adapter la quantité d’essais expérimentaux à réaliser en fonction de l'ordre du modèle que l'on cherche à obtenir.
 Les essais sont réalisés suivant une table de variation des paramètres.
-Nous discutons des plans d'expériences dans le Chapitre §\ref{ch:dataset} §\ref{subsec:doe}.
-Le modèle obtenu permet théoriquement d'optimiser une sortie en fonction des paramètres, et ainsi comme tout modèle de trouver un point de fonctionnement idéal.
+Nous discutons des plans d'expériences dans le Chapitre \ref{ch:dataset} Section \ref{subsec:doe}.
+Le modèle obtenu permet théoriquement d'optimiser une sortie en fonction des paramètres, et ainsi, comme tout modèle de trouver un point de fonctionnement idéal.
 
 En 1993, \citeauthor{regnier_local_1993} sont les premiers à proposer l'utilisation des plans d'expériences pour identifier un modèle polynomial d'ordre 2 avec interactions du phénomène de retrait, à partir de 6 paramètres du procédé \cite{regnier_local_1993, regnier_experimental_1994}.
 De nombreux travaux utiliseront par la suite cette démarche expérimentale.
@@ -510,12 +519,12 @@ C'est pourquoi les modèles à réseaux de neurones ont été largement utilisé
 Nous utiliserons dans nos travaux un plan d'expériences de criblage pour construire notre jeu de données, dans le Chapitre \ref{ch:dataset}.
 Cela permet de parcourir un espace représentatif de la plage de fonctionnement du procédé en un minimum d'essais.
 
-\paragraph{1.2.2.3.2 Modélisation par réseaux de neurones}\mbox{} \label{parag:molding_neural} \\
+\paragraph{1.3.2.3.2 Modélisation par réseaux de neurones}\mbox{} \label{parag:molding_neural} \\
 L'utilisation des réseaux de neurones pour la modélisation dans les systèmes industriels est proposée dès 1980.
 % Le procédé d'injection plastique possède des paramètres interdépendants et non-linéaires.
 Un réseau de neurones est une composée de fonctions non-linéaires.
 Il est adapté à l'identification de modèles aux multiples entrées.
-Il est intéressant de noter que le procédé d'injection-moulage est également représenté par une composition de fonctions dans la littérature : \citeauthor{ma_design_1974} \cite{ma_design_1974} utilise une fonction polynômiale par phase.
+Il est intéressant de noter que le procédé d'injection-moulage est également représenté par une composition de fonctions dans la littérature : \citeauthor{ma_design_1974} \cite{ma_design_1974} utilise une fonction polynômiale pour modéliser chaque phase du procédé.
 
 % Dans le cadre de notre travail, nous utiliserons des réseaux de neurones pour modéliser la notion de qualité à partir des mesures sur les pièces.
 % Nous détaillons les algorithmes à réseaux de neurones dans le Chapitre \ref{ch:metric_learning} §\ref{parag:neural_networks}.
@@ -523,9 +532,9 @@ Il est intéressant de noter que le procédé d'injection-moulage est également
 En 2000, \citeauthor{schnerr-haselbarth_automation_2000} proposent le système \textit{Intelligent Quality Control} \cite{schnerr-haselbarth_automation_2000}.
 Un algorithme à réseaux de neurones est utilisé pour prédire la caractéristique de la masse des pièces produites, à partir des variables du procédé.
 Les données d’apprentissage proviennent d’un plan d'expériences factoriel à trois niveaux, sur trois paramètres du procédé : température du fondu, pression de maintien et vitesse d’injection.
-À un intervalle temporel régulier, 150 points de mesure de la pression dans le moule sont enregistrés pendant les phases d’injection et de maintien.
+À intervalle temporels régulier, 150 points de mesure de la pression dans le moule sont enregistrés pendant les phases d’injection et de maintien.
 La masse de la pièce est mesurée dès la sortie de la machine avec une résolution au 1 milligramme ; les expériences conduisent à une variation de masse de 1,4\%.
-Le réseau est alors capable de prédire la masse des pièces avec une exactitude de 86 à 95,2\%, soit une moyenne de 5 milligrammes d’erreur sur une masse total de 35 milligrammes.
+Le réseau est alors capable de prédire la masse des pièces avec une exactitude de 86\%, soit une moyenne de 5 milligrammes d’erreur sur une masse total de 35 milligrammes.
 Ces résultats mettent en valeur l'intérêt des modèles qui utilisent des réseaux de neurones.
 
 \subsection{Maîtrise du procédé d'injection-moulage des thermoplastiques} \label{subsec:process_control}
@@ -535,9 +544,9 @@ L'objectif final est de maîtriser la qualité du produit : c'est à dire de lim
 Nous résumons cette démarche en nous référant à notre représentation \textit{Zig-Zag} Figure \ref{fig:zigzag} :
 \begin{enumerate}
 	\item réglage initial d'un point de fonctionnement (paramètres $\boldsymbol{P}_{2-4}$)  % : connaissance humaine et système expert,
-	\item régulation du point de fonctionnement $\boldsymbol{C}_{2-3}$  % : automatique et contrôle adaptatif,
+	\item régulation du point de fonctionnement $\boldsymbol{P}_{2-3}$  % : automatique et contrôle adaptatif,
 	\item détection des dérives du procédé $\boldsymbol{C}_{1-3}$,
-	\item ajustement des paramètres $\boldsymbol{P}_{2-4}$ afin de modifier les caractéristiques $\boldsymbol{C}_{0-1}$,
+	\item ajustement des paramètres $\boldsymbol{P}_{2-4}$ afin de corriger les caractéristiques $\boldsymbol{C}_{0-1}$,
 \end{enumerate}
 
 % \subsection{Contraintes de mise en œuvre du procédé d'injection-moulage}
@@ -547,8 +556,7 @@ Nous résumons cette démarche en nous référant à notre représentation \text
 
 \noindent
 L'Annexe \ref{Ann:process_control} propose une étude bibliographique des techniques proposées afin de maîtriser le procédé d'injection-moulage.
-Le Tableau \ref{tab:state_art_compare} récapitule cette revue de la littérature.
-Pour chacune des publications, nous identifions les variables du procédé étudiées selon la représentation \textit{Zig-Zag} présentée dans la Figure \ref{fig:zigzag}, ainsi que les résultats obtenus.
+Le Tableau \ref{tab:state_art_compare} de l'Annexe A récapitule cette revue de la littérature.
 On observe que les travaux de recherche initiaux utilisent l'automatique pour réguler le procédé.
 Dernièrement, les travaux s'appuient principalement sur une démarche de Maîtrise Statistique des Procédés.  % et sur la simulation numérique.
 % Le procédé d’injection possède plusieurs phases interdépendantes, mais la littérature ne s’intéresse pas à l’étude de l’ensemble des variables et paramètres du procédé.
@@ -556,26 +564,27 @@ Dernièrement, les travaux s'appuient principalement sur une démarche de Maîtr
 % Il a pourtant été montré que des corrélations entre les paramètres et les différentes phases existent.
 % Les études de la littérature sont centrées sur les paramètres de la phase d’injection ($\boldsymbol{P_3}$).
 
-À partir de l'étude de ces travaux et de notre connaissance de la pratique industrie de la plasturgie, nous identifions les trois difficultés du procédé d'injection-moulage :
+À partir de l'étude de ces travaux et de notre connaissance de la pratique industrielle de la plasturgie, nous identifions les trois difficultés du procédé d'injection-moulage :
 \begin{itemize}
 	\item le réglage initial du point de fonctionnement (paramètres $\boldsymbol{P_{2-4}}$),
 	\item la surveillance des dérives des caractéristiques du procédé $\boldsymbol{C_{1-4}}$ et du produit $\boldsymbol{C_{0}}$.
-	\item l'ajustement des réglages $\boldsymbol{P_{2-4}}$ pour modifier les caractéristiques du produit $\boldsymbol{C_{0}}$.
+	\item l'ajustement des réglages $\boldsymbol{P_{2-4}}$ pour corriger les caractéristiques du produit $\boldsymbol{C_{0}}$.
 \end{itemize}
 
 % \subsubsection{Réglage du point de fonctionnement}\mbox{} \\
 Aujourd'hui, l'industrie de la plasturgie repose sur l'expérience du technicien-régleur pour définir le point de fonctionnement initial.
+Le bureau d'étude peut définir un point de fonctionnement mais un ajustement précis devra être réalisé par le technicien-régleur.
 Il n'existe pas de méthode de réglage automatique du point de fonctionnement, mais des systèmes d'assistance au réglage ont été proposés §\ref{subsubsec:initial_expert}.
 La multitude de paramètres qui peuvent être ajustés sur le procédé rend difficile la découverte automatique d'un point de fonctionnement permettant de produire une pièce conforme.
 Le technicien-régleur réalise cette tâche grâce à sa connaissance empirique du procédé.
 Aussi, le réglage initial de la presse à injecter est long.
 La pratique industrielle est l'ajustement de chacun des paramètres $\boldsymbol{P_{2-4}}$ du procédé, pour que les variables intermédiaires $\boldsymbol{C_{1-4}}$ soient satisfaisantes, ainsi que les caractéristiques $\boldsymbol{C}_0$ du produit.
-De plus, il est difficile pour un technicien régleur d'avoir une vue d'ensemble de la valeur des variables intermédiaires car elles ne sont pas toujours mesurées ; voir parfois ne sont pas mesurables.
+De plus, il est impossible pour un technicien régleur d'avoir une vue d'ensemble de la valeur des variables intermédiaires car elles ne sont pas toujours mesurées ; voir parfois non mesurables.
 Dans la pratique, le réglage initial du point de fonctionnement est une opération itérative et empirique.
 % Enfin, nous remarquons qu'aucune des modélisations du procédé d'injection-moulage ne traite des techniques d'injection multi-buses, qui sont pourtant courantes.
 % La complexité du réglage est alors largement augmentée, car les paramètres de chaque buse doivent être réglés.
 
-De manière inverse, si l'on souhaite ajuster une caractéristique $\boldsymbol{C}_0$ du produit, il est difficile de déterminer comment modifier les réglages $\boldsymbol{P_{2-4}}$.
+De la même manière, si l'on souhaite corriger une caractéristique $\boldsymbol{C}_0$ du produit, il est difficile de déterminer comment modifier les réglages $\boldsymbol{P_{2-4}}$.
 Cela est rendu d'autant plus compliqué par le fait que les caractéristiques de la pièce stable $\boldsymbol{C}_0$ ne sont connues que plusieurs heures après sa production.
 % Présenter les contraintes du procédé d'injection
 
@@ -616,7 +625,7 @@ Cette fréquence est trop élevée, c'est pourquoi les auteurs recommandent d'aj
 % En cas de répétition de cette situation hors-contrôle sur plusieurs pièces, il est recommandé d'arrêter la machine et de faire intervenir le technicien-régleur.
 
 Une démarche complémentaire à la détection des dérives serait de réaliser un ajustement des paramètres du procédé pour compenser la dérive, c'est la régulation du procédé.
-Nous détaillerons l'apport de notre dispositif de  mesure en ligne de production pour le pilotage dans la Section suivante.
+% Nous détaillons l'apport de notre dispositif de  mesure en ligne de production pour le pilotage dans la Section suivante.
 
 % Il sera alors envisageable d'ajuster les paramètres du procédé à partir de notre mesure de la qualité des produits.
 
@@ -655,17 +664,17 @@ Nous détaillerons l'apport de notre dispositif de  mesure en ligne de productio
 % \begin{raggedright}
 \section{Problématique industrielle : le contrôle qualité en ligne de production} \label{sec:research_objectives}
 % \end{raggedright}
-Le mesurage de la qualité du produit en ligne de production est nécessaire pour optimiser la qualité de la production.
-À partir des spécifications du cahier des charges, nous pouvons réaliser le contrôle de la qualité, c'est à dire s'assurer de la conformité du produit.
+% Le mesurage de la qualité du produit en ligne de production est nécessaire pour optimiser la qualité de la production.
+% À partir des spécifications du cahier des charges, nous pouvons réaliser le contrôle de la qualité, c'est à dire s'assurer de la conformité du produit.
 
 Dans le cadre de productions industrielles par injection-moulage des thermoplastiques, les contrôles qualité sont traditionnellement effectués sur les produits finis, juste avant l'expédition des pièces.
 Il s'agit de s’assurer que les pièces sont conformes aux exigences spécifiées par le cahier des charges.
 Les pièces non-conformes sont mises au rebut.
 Le contrôle qualité final est réalisé à l’issue des étapes de finition, telles que la peinture et la décoration.
-Pour des productions de pièces à faible valeur ajoutée, le contrôle est réalisé par prélèvements aléatoires de pièces.
+Pour des productions de pièces à faible valeur ajoutée, le contrôle est souvent réalisé par prélèvements aléatoires de pièces.
 Il est effectué par un opérateur humain, ce qui est coûteux.
 Le contrôle peut nécessiter la mesure de dimensions géométriques ou de propriétés mécaniques de la pièce.
-La mesure géométrique est le plus souvent réalisée à l'aide d'un pied à coulisse.
+La mesure géométrique peut être réalisée à l'aide d'un pied à coulisse.
 
 D'après le Tableau \ref{tab:state_art_compare}, le mesurage des caractéristiques qualité des produits, dès leurs sorties de l'outillage est peu étudiée.
 % Il est nécessaire de définir les critères qualités des pièces.
@@ -675,6 +684,7 @@ Dans l'industrie, la masse est souvent considérée comme une caractéristique q
 Si les pièces ont des manques, la masse sera nécessairement plus faible.
 De plus, la densité de matière injectée fait varier la masse et fait également varier les caractéristiques mécaniques.
 % Il y a aussi un lien entre le taux d'humidité de la matière et la masse des pièces.
+Surveiller la masse des pièces permet de détecter les manques matières et les défauts les plus importants.
 
 Nous remarquons que de nombreuses études annoncent réaliser le contrôle de la qualité du produit, alors qu'elles s'intéressent uniquement à la masse ou à une unique dimension géométrique.
 En revanche, les caractéristiques d'aspects des pièces sont rarement mesurées en ligne de production.
@@ -704,7 +714,7 @@ Nous avons identifié trois verrous au déploiement massif du contrôle qualité
 	\item[Humain] : la modélisation de la notion de qualité à partir de l'expertise humaine.
 \end{description}
 Dans les sections suivantes, nous détaillerons chacun de ces verrous.
-L'objectif de notre travail sera de proposer une solution technique pour les dépasser.
+L'objectif de notre travail est de proposer une solution technique pour les dépasser.
 
 % \begin{raggedright}
 \subsection{Viabilité économique du déploiement du mesurage de la qualité en ligne de production}
@@ -716,12 +726,12 @@ En Annexe, le Tableau \ref{fig:molding_economy} présente la répartition écono
 Elle indique une marge moyenne de 27\% pour le secteur de la plasturgie française, en 2016 \cite{directiongeneraledesentreprises_chiffres_2019}.
 C'est une marge relativement élevée en comparaison des autres secteurs d'activé.
 Le nombre d'entreprise du secteur est également important.
-En estimant que 1\% de la marge du secteur de la plasturgie devrait être dépensé pour automatiser le contrôle de la qualité (pour un chiffre d'affaires moyen de 1,3 millions d'euros par entreprise), on obtient un budget de 13 000€ par entreprise pour le contrôle qualité.
+En posant l'hypothèse que 1\% de la marge du secteur de la plasturgie devrait être dépensé pour automatiser le contrôle de la qualité (pour un chiffre d'affaires moyen de 1,3 millions d'euros par entreprise), on obtient un budget de 13 000€ par entreprise pour le contrôle qualité.
 Cette estimation permet de rendre compte du budget limité de l'automatisation du contrôle.
 Contrairement à la transformation de la matière première, le contrôle de la qualité n'apporte pas de valeur au produit final ; c'est une sécurité pour respecter le cahier des charges et palier aux dérives du procédé.
 % C'est pourquoi le coût d'intégration d'un dispositif de mesurage de la qualité se doit d'être faible.
 % Le contrôle qualité à cent pour-cent présente un coût d'installation et de fonctionnement.
-Il est nécessaire de définir les caractéristiques d'un système de mesure économiquement viable, pour les productions industrielles.
+% Il est nécessaire de définir les caractéristiques d'un système de mesure économiquement viable, pour les productions industrielles.
 
 % Aller capter des infos qui sont porteuses de l'info de non-conformité mais qui ne sont pas directement la conformité finale.
 % 7.2.1	Maitrise Statistique du Procédé (MSP/SPC)
@@ -736,80 +746,79 @@ Parfois, le contrôle final est réalisé après l’ajout de valeur des étapes
 Si la pièce est non-conforme juste après le moulage, alors de la valeur a été ajoutée à une pièce non-conforme.
 De plus, la valeur ajoutée par les étapes de finitions, telles que la peinture ou la galvanoplastie, est bien plus important que la valeur ajouté par l'injection-moulage.
 Si le temps de cycle du procédé permet de produire une pièce toutes les 30 secondes, cela correspond à une production de milles pièces par journée de 8 heures.
-L'encours de la production est l'ensemble des pièces qui sont produites avant qu'une opération de contrôle ne soit réalisée.
+% L'encours de la production est l'ensemble des pièces qui sont produites avant qu'une opération de contrôle ne soit réalisée.
 Si le contrôle de la qualité est réalisé un jour après la production, cela correspondrait ici à 1000 pièces d'encours.
-son apparition, rebuts qui ont été finies inutilement.
 Ainsi, si un défaut est détecté suite à ce contrôle qualité, l'ensemble des 1000 pièces de l'encours sont des pièces rebuts qui ont été finies inutilement.
 
 % Cette valeur peut être très important pour une production industrielle.
-L’objectif du contrôle qualité en ligne est de détecter les dérives de la qualité le plus tôt possible afin d'écarter les pièces de la chaîne d'ajout de valeur.
+L’objectif du contrôle qualité en ligne est de détecter les défauts erratiques, ainsi que les dérives de la qualité le plus tôt possible, afin d'écarter les pièces de la chaîne d'ajout de valeur.
 % Dans un second temps, il pourrait être possible d'ajuster les paramètres du procédé pour corriger les dérives qualité.
 
 % 2.1 Viabilité économique de la possession du dispositif de mesure
 % Dans le cas de l’injection plastique, le coût de la matière première et de l’étape d’injection-moulage est très faible en comparaison du coût des étapes de finitions. 
 Le moulage d'une pièce non-conforme a un coût négligeable en comparaison du coût des étapes de peinture et de finitions de cette pièce non-conforme.
 Détecter les pièces non-conformes dès la sortie de la presse d’injection, afin de les écarter de la chaîne de production, permet de diminuer les rebuts finaux et de supprimer ainsi les coûts associés à leurs finitions.
-Le coût économique du dispositif de mesure est à rapporter au coût économique des rebuts.
+% Le coût économique du dispositif de mesure est à rapporter au coût économique des rebuts.
+
 % Des industriels nous ont confirmés que le coût de la production de rebuts est faible en comparaison du coût de déploiement d’un dispositif de mesure sur chaque machine.
 % Si le coût du système de mesure dépasse la dizaine de milliers d’euros, il n’est pas intéressant.
 % Un coût élevé restera néanmoins intéressant à plus long terme, or nous cherchons à obtenir une adoption rapide.
 
-\subsection{Mesurage indirect des caractéristiques du produit} \label{subsec:indirect_measures}
-La littérature sur l'injection-moulage §\ref{ch:objectives} étudie peu le mesurage directe des caractéristiques du produit.
+\subsection{Mesurage des variables d'état du procédé : mesurage indirect des caractéristiques du produit} \label{subsec:indirect_measures}
+La littérature sur l'injection-moulage étudie peu le mesurage directe des caractéristiques du produit.
 % La mesure directe de la qualité des pièces est rarement réalisée, pour les raisons détaillées dans le Chapitre \ref{ch:metric_learning} \ref{sec:research_objectives}.
-La majorité des travaux proposent de mesurer des variables physiques sur le procédé, à partir de capteurs positionnés à l'intérieur de l'outillage.
+La majorité des travaux proposent de mesurer des variables physiques sur le procédé, à partir de capteurs positionnés à l'intérieur de l'outillage et de la presse.
 En général, un modèle est construit afin de prédire une caractéristique du produit, qui est souvent la masse de la pièce, à partir des mesures dans le moule, qui sont souvent la pression et la température.
-L'argumentaire de ces travaux est que les variables au plus proche de la matière fondue permettent de prédire au mieux les caractéristiques finales de la pièce.
+L'argumentaire de ces travaux est que les variables au plus proches de la matière fondue permettent de prédire au mieux les caractéristiques finales de la pièce.
 % De plus, ce type de mesures peut utiliser les capteurs qui sont déjà présents sur les machines d'injection-moulage.
 
 % \subsubsection{Mesurage de variables du procédé ou mesurage de la qualité du produit}
 % Dans cette section, nous discuterons de l'intérêt de la mesure directe des caractéristiques du produit, au contraire de la mesure de variables du procédé.
 
-La pratique industrielle la plus répandue pour étudier les dérives du procédé d'injection-moulage est de positionner des capteurs à l’intérieur de l'outillage, directement en contact avec la matière.
 Une analyse multi-variée permet ensuite de détecter les dérives du procédé.
-Les capteurs les plus répandus sont les sondes de températures et les sondes de pressions \cite{kurt_experimental_2009}.
+Les capteurs les plus répandus sont les sondes de température et les sondes de pression \cite{kurt_experimental_2009}.
 % Les données de ces capteurs sont analysées par différentes méthodes non-supervisés (carte de contrôle [Min, 2003], Analyse en Composantes Principales [Zhang et al., 2015]) afin de détecter les dérives qualité sur une production stabilisée. La construction de modèle par apprentissage supervisé a également été proposée [Zhou et al., 2018]. Des capteurs plus complexes [Chen et al., 2004] et multivariés [Kazmer et al., 2011] ont été proposés, puis validés [Gordon et al., 2017].
 Le coût de cette instrumentation invasive des moules est élevé.
-Intégrer les conduits nécessaires au passage des fils et connecteurs est compliqué sachant que les moules intègrent également des canaux de refroidissements indispensables au procédé.
+Intégrer les conduits, nécessaires au passage des fils et connecteurs, est compliqué sachant que les moules ont également des canaux de refroidissement indispensables au procédé.
 % Nous estimons que l’intégration de capteurs dans l'outillage représente un surcoût de vingt pour-cent de la conception et de la fabrication de l'outillage.  % , pour un coût initialement compris entre cinquante et cent mille euros.
-De plus, les capteurs subissent de fortes contraintes ce qui peut limiter leur durée de vie.
-La défaillance d'un capteur nécessite l'arrêt de la production si l'on souhaite conserver la surveillance, car le capteur est intégré à l'outillage.
+De plus, les capteurs subissent de fortes contraintes ce qui réduit leur durée de vie.
+La défaillance d'un capteur nécessite l'arrêt de la production si l'on souhaite conserver la surveillance.
 % Mais nous avons surtout observé des défaillances dans les fils de connections, lors des manipulations des moules pour les changements de productions.
 
 
 % Nous avons réalisé une étude afin de vérifier la pertinence de ce type de mesures indirectes.
-Notre étude \citetitle{nagorny_quality_2017} propose de construire un modèle qui détermine la valeur d'une cotation géométrique de la pièce produite, à partir de mesures sur le procédé \cite{nagorny_quality_2017}.
+Dans \citetitle{nagorny_quality_2017}, nous proposons de construire un modèle qui détermine la valeur d'une cote dimensionnelle de la pièce produite, à partir de mesures sur le procédé \cite{nagorny_quality_2017}.
 Un capteur de pression et un capteur de température sont positionnées au contact de la matière, dans le moule.
-La position des capteurs que nous utilisons est optimisée dans selon la méthode de \citeauthor{agazzi_optimal_2013} \cite{agazzi_optimal_2013}.
+La position des capteurs que nous utilisons est optimisée selon la méthode de \citeauthor{agazzi_optimal_2013} \cite{agazzi_optimal_2013}.
 À partir des signaux de capteurs de pression et de température mesurés pendant le cycle du procédé, une valeur géométrique continue est prédite à l'aide d'un modèle identifié par apprentissage statistique.
+
+La Figure \ref{fig:inmold_signals} présente ces signaux pour une pièce.
+On observe pour la pression une valeur maximale lors de l'injection de la matière dans l'empreinte, puis une pression décroissante pendant la phase de maintien. Enfin, la pression est nulle lorsque la pièce est solidifiée et pendant que l'empreinte est ouverte.
+Pour la température, on observe un refroidissement progressif suite à l'injection de la matière fondue.
 
 \begin{figure}[bthp]
 	\centering
 	\includegraphics[width=\textwidth]{../Chap2/Figures/part1_std_signals.png}
-	\caption{Mesures de variables physiques dans l'outillage pendant le cycle.}
+	\caption{Résultats de mesure de la pression et la température dans l'outillage pendant tout le cycle.}
 	\label{fig:inmold_signals}
 \end{figure}
 
-La Figure \ref{fig:inmold_signals} présente ces signaux pour une pièce.
-On observe pour la pression une valeur maximale lors de l'injection de la matière dans l'empreinte, puis une pression décroissante pendant la phase de maintien. Enfin, la pression est nulle lorsque la pièce est solidifé et pendant que l'empreinte est ouverte.
-Pour la température, on observe un refroidissement progressif suite à l'injection de la matière fondue.
-
 % TODO: remove this study?
-Notre étude \citetitle{nagorny_quality_2017} s'appuie sur une production de 204 pièces, pendant laquelle les paramètres de la machine ont variés suivant un plan d'expériences de criblage, discuté dans le Chapitre \ref{ch:dataset} §\ref{subsec:l12_doe}.
+Nous nous appuyons sur une production de 204 pièces, pendant laquelle les paramètres de la machine ont variés suivant un plan d'expériences de criblage, discuté dans le Chapitre \ref{ch:dataset} §\ref{subsec:l12_doe} à venir.
 Le modèle qui prédit au mieux la géométrie à partir des mesures s'appuie sur des réseaux de neurones récurrents. % \textit{LSTM}.
-La Figure \ref{fig:signals_lstm} présente les résultats normalisés obtenues par validation croisée\footnote{Nous détaillons le principe de la validation croisée dans la Section \ref{subsubsec:cross_val}.}, pour 27 pièces de la base de données de tests.
+La Figure \ref{fig:signals_lstm} présente les résultats normalisés obtenues par validation croisée\footnote{Nous détaillons le principe de la validation croisée dans l'Annexe \ref{subsubsec:cross_val}.}, pour 27 pièces de la base de données de validation.
 L'erreur de prédiction est faible.
 Cela correspond à une erreur moyenne de prédiction de la dimension de 1,3 millimètres sur une dimension de 90 millimètres, soit une erreur relative de 1,54\%.
-Ces résultats montrent l'intérêt de ce type de mesures indirectes des caractéristiques du produit.
-Cette erreur est inférieure tolérances générales des pièces plastiques selon la norme ISO20457 \cite{ISO_20457_2018}, qui exige entre 2\% et 4\% d'écarts dimensionnelles.
-Toutefois, si elle est généralisée pour des pièces dont les dimensions font un mètre, une erreur relative de 1,54\% est équivalente à une erreur de 1,54 centimètres.
-Aussi, l'erreur obtenue par le modèle est à la limite de faisabilité de l'employer comme moyen de contrôle prédictif de la géométrie.
+Ces résultats montrent l'intérêt de ce type de mesure indirecte des caractéristiques du produit.
+Cette erreur est inférieure aux tolérances générales des pièces plastiques donnée dans la norme ISO20457 \cite{ISO_20457_2018}, qui exige entre 2\% et 4\% d'écarts dimensionnel.
+% Toutefois, si elle est généralisée pour des pièces dont les dimensions font un mètre, une erreur relative de 1,54\% est équivalente à une erreur de 1,54 centimètres.
+% Aussi, l'erreur obtenue par le modèle est à la limite de faisabilité de l'employer comme moyen de contrôle prédictif de la géométrie.
 % Il faudrait une erreur dix fois moindre pour garantir la possibilité d'utilisation de ce modèle prédictif.
 % Un jeu de données de pièces plus conséquent, ainsi qu'un modèle plus raffiné, sont des pistes pour améliorer ces performances.
 
 Dans une démarche de surveillance de l'état du procédé d'injection-moulage, la mesure de variables sur la machine est importante.
-Une mise sous surveillance statistique MSP\footnote{Nous présentons la littérature sur la surveillance statistique MSP en injection-moulage dans l'Annexe \ref{subsubsec:spc}.} permet de détecter les situations hors-contrôle et les défaillances du procédé.
-Nous invitons le lecteur qui s'intéresse aux mesures réalisées sur le procédé, plutôt que sur le produit, à consulter l'état de l'art récent et exhaustif de \citeauthor{ageyeva_inmold_2019} \cite{ageyeva_inmold_2019}.
+Une mise sous surveillance statistique MSP\footnote{Nous présentons la littérature sur la surveillance statistique MSP en injection-moulage dans l'Annexe \ref{subsubsec:spc}.} permet de détecter les situations hors-contrôle.
+Nous invitons le lecteur qui s'intéresse aux mesures réalisées sur le procédé plutôt que sur le produit, à consulter l'état de l'art récent et exhaustif de \citeauthor{ageyeva_inmold_2019} \cite{ageyeva_inmold_2019}.
 % Nous ajoutons la possibiliter d'analyser les vibrations de la machine.
 
 \begin{figure}[bthp]
@@ -827,11 +836,10 @@ Nous invitons le lecteur qui s'intéresse aux mesures réalisées sur le procéd
 %Aussi, nous pensons qu'il est nécessaire de capturer une image de l'aspect des pièces, dès leur sortie du moule, afin d'établir une mesure de l'aspect.
 %La mesure directe est l'objet de la section suivante.
 
-Cependant, un capteur intégré à un outillage est associé un outillage, et donc à une unique pièce.
-Il n'est pas viable de démonter l'instrumentation du capteur pour le positionner sur un autre outillage.
-À contrario, un dispositif de mesure extérieur au procédé ne serait pas lié à un outillage.
-Cela permettrait de contrôler la qualité quand le cahier des charges le nécessite, quelle que soit la pièce produite.
-
+Un capteur intégré dans le moule est associé un outillage, et donc à une unique pièce.
+Il n'est pas viable de démonter le capteur pour le positionner sur un autre outillage.
+À contrario, un dispositif de mesure extérieur au procédé n'est pas lié à un outillage.
+% Cela permettrait de contrôler la qualité quand le cahier des charges le nécessite, quelle que soit la pièce produite.
 
 \subsection{Mesurage direct des caractéristiques du produit}
 % \subsection{Faisabilité technologique du mesurage de la qualité en ligne de production}
@@ -873,9 +881,14 @@ Cela permettrait de contrôler la qualité quand le cahier des charges le néces
 Le mesurage de la pièce permet d'obtenir directement une information sur ses caractéristiques ; à la différence du mesurage de variables dans le moule, qui ne sont que des indicateurs de la qualité.
 % Nous détaillerons l'intérêt du contrôle non-invasif de la qualité dans le Chapitre \ref{ch:measure}.
 
-Pour être intégrée à la ligne de production et contrôler cent pourcent des pièces, le mesurage des caractéristiques du produit doit être réalisé dans une durée inférieure au temps de cycle du procédé d'injection-moulage.
+Pour être intégrée à la ligne de production et contrôler cent pourcent des pièces, le mesurage des caractéristiques du produit doit être réalisé dans une durée inférieure au temps de cycle du procédé d'injection-moulage pour que cela soit viable économiquement.
 % Cette contrainte permet de réaliser le contrôle de cent pour-cent des pièces.
-Si la pièce doit être déplacée devant le moyen de mesure, la durée du convoyage doit également être inclue dans cette durée.
+Si la pièce doit être déplacée devant le moyen de mesure, la durée du convoyage doit également être incluse dans cette durée.
+De plus, si on souhaite écarter la pièce non-conforme de la chaîne de production, il est alors nécessaire d'effectuer l'analyse de résultat pendant la durée du cycle.
+% Ces contraintes réduisent d'autant plus la durée disponible pour réaliser la mesure.
+% Nous estimons que la durée maximale de la mesure est de 10 secondes pour une durée du cycle de production de 60 secondes.
+La Figure \ref{fig:time_constraint} inscrit la durée de mesurage dans le chronogramme du cycle du procédé.  % (Figure \ref{fig:chronogramme}).
+Cette contrainte de durée de mesurage sera une contrainte forte pour l'ensemble des choix technologiques de nos travaux.
 
 \begin{figure}[tbhp]
 	\centering
@@ -884,13 +897,7 @@ Si la pièce doit être déplacée devant le moyen de mesure, la durée du convo
 	\label{fig:time_constraint}
 \end{figure}
 
-De plus, si on souhaite écarter la pièce non-conforme de la chaîne de production, il est alors nécessaire d'effectuer l'analyse de résultat pendant la durée du cycle.
-% Ces contraintes réduisent d'autant plus la durée disponible pour réaliser la mesure.
-% Nous estimons que la durée maximale de la mesure est de 10 secondes pour une durée du cycle de production de 60 secondes.
-La Figure \ref{fig:time_constraint} inscrit la durée de la mesure dans le chronogramme du cycle du procédé.  % (Figure \ref{fig:chronogramme}).
-Cette contrainte de durée de la mesure sera une contrainte forte pour l'ensemble des choix technologiques de nos travaux.
-
-Différentes mesures sont aujourd'hui compatibles, de par leurs courtes durées, avec une utilisation en cycle industriel : pesée de la masse ; imagerie par thermographie infrarouge ; contrôle d'aspect par caméras ; imagerie tridimensionnelle \cite{schwenke_optical_2002} ; durométrie ; imagerie des champs de contraintes par l'imagerie des phénomènes de photoélasticité sur les pièces plastiques transparentes.
+Différentes mesures sont aujourd'hui compatibles, de par leurs courtes durées, avec une utilisation en cycle industriel : pesée de la masse ; imagerie par thermographie infrarouge ; contrôle d'aspect par caméras ; imagerie tridimensionnelle \cite{schwenke_optical_2002} ; durométrie ; imagerie des champs de contraintes par les phénomènes de photoélasticité sur les pièces plastiques transparentes.
 % Pour obtenir des résultats fiables la mesure doit être automatisée.
 % C'est un des objectifs de nos travaux.
 
@@ -935,18 +942,28 @@ L'approche de nos travaux consiste à mesurer les caractéristiques des pièces 
 La réalisation de ces mesures nécessite de convoyer la pièce devant le banc de mesure.
 Un tapis roulant ou un bras robotisé permet de déplacer la pièce.
 % La durée des déplacement est à prendre en compte, vis à vis de la durée du cycle et de la durée de la mesure.
-De nombreuses méthodes ont été développées pour mesurer les propriétés mécaniques des pièces.
+% De nombreuses méthodes ont été développées pour mesurer les propriétés mécaniques des pièces.
 
 Dans nos travaux, nous n'utiliserons pas de méthodes de mesure invasives, ni de mesures réalisées hors-ligne.
-L'étude de ces méthodes peuvent néanmoins servir d'inspiration pour concevoir des méthodes de mesure non invasives, sans destruction des pièces.
-Ainsi, nous nous intéresserons dans nos travaux à la polarimétrie et la polarimétrie.
+L'étude de ces méthodes peut néanmoins servir d'inspiration pour concevoir des méthodes de mesure non invasives et sans destruction des pièces.
+Ainsi, nous nous intéresserons dans nos travaux à la polarimétrie et à la thermographie.
 En revanche, nous n'étudierons pas l'utilisations des rayonnements X et Térahertz, car les machines restent coûteuses.
 Nous discutons dans cette section de l'utilisation de différents moyens de mesure en ligne de production.
 Les apports de la thermographie et de la polarimétrie seront détaillés dans le Chapitre suivant Section \ref{subsec:thermography} et Section \ref{subsec:polarimetry}.
 
+Nous proposons une liste des principales caractéristiques qui peuvent être mesuré sur une pièce plastique :
+\begin{itemize}
+	\item contraintes internes,
+	\item contraintes internes,
+	\item structure cristalline de la matière,
+	\item densité,
+	\item état de surface,
+	\item géométrie.
+\end{itemize}
+
 \subsubsection{Mesurage des contraintes internes}
-La mesure des contraintes résiduelles dans la pièce est un enjeu important.
-Le travail de doctorat de \citeauthor{giroud_mesure_2001} propose de mesurer les contraintes internes d'une pièce à l'aide de la méthode de l'enlèvement de couches fines \cite{giroud_mesure_2001}.
+La mesure des contraintes résiduelles dans la pièce est un enjeu important car elles fragilisent les pièces.
+La thèse de doctorat de \citeauthor{giroud_mesure_2001}, intitulée \citetitle{giroud_mesure_2001}, propose de mesurer les contraintes internes d'une pièce à l'aide de la méthode de l'enlèvement de couches fines \cite{giroud_mesure_2001}.
 C'est une méthode qui détruit la pièce et qui doit être réalisée en dehors de la ligne de production.
 
 \subsubsection{Mesurage cristallographique}
@@ -960,18 +977,19 @@ La cohérence du faisceau synchrotron (30 micromètres) permet de mettre en évi
 Cela permet d'étudier l'évolution de la structure en fonction des paramètres du procédé d'injection.
 La diffraction à grands angles (\textit{Wide-Angle X-ray Scattering}) permet de déterminer le degré de cristallinité du polymère semi-cristallin, en observant les figures de diffraction de la structure cristalline.  % subnano, aux dimensions picométriques, Bragg peaks
 La diffraction à petits angles permet de déterminer les dimensions nanomètriques de la structure du polymère, telles que la longueur de la période de répétition du motif cristallin, la largeur et la longueur de la lamelle cristalline.
+À partir de la structure cristalline, il est possible de diagnostiquer des défauts structurelles et d'expliquer leurs causes en terme de variables du procédé de production (viscosité de la matière, pression d'injection, températures ...).
 
 \subsubsection{Mesurage de la densité}
-En 2010, le projet \textit{PLASTX} du Pôle Européen de la Plasturgie\footnote{Le Pôle Européen de la Plasturgie est devenu le \href{https://ct-ipc.com/}{Centre Technique Industriel de la Plasturgie et des Composites} (IPC) en 2017.} propose de réaliser une mesure par tomographie rayons X des pièces dès la sortie du moule\footnote{\href{https://vimeo.com/50358748}{Vidéo de présentation} du démonstrateur du projet PLASTX.}.
+En 2010, le projet \textit{PLASTX} du Pôle Européen de la Plasturgie\footnote{Le Pôle Européen de la Plasturgie est devenu le \href{https://ct-ipc.com/}{Centre Technique Industriel de la Plasturgie et des Composites} (IPC) en 2017.} propose de réaliser une mesure par tomographie rayons X des pièces dès leur sortie du moule\footnote{\href{https://vimeo.com/50358748}{Vidéo de présentation} du démonstrateur du projet PLASTX.}.
 La source de rayons X est fixe et un bras robotique déplace la pièce dans un mouvement de rotation.
 La tomographie permet de mesurer le champ de densité de la pièce.  % par la transformée de Radon.
 Les résultats du projet \textit{PLASTX} montrent que cette mesure est compatible avec le temps de cycle industriel.
 Cependant, la mise en place d'une source de rayons X sur une ligne de production reste difficile en raison des blindages nécessaires.
 
-\subsubsection{Mesurage de l'état de surface}
+\subsubsection{Mesurage de l'état de surface et de l'aspect}
 En 2009, le projet européen \textit{poliMATIC}\footnote{Projet de recherche de la Commission européenne FP7-NMP-2009-SME-3 : \href{https://www.automated-polishing.eu/}{automated-polishing.eu}} a proposé de robotiser l'utilisation de la microscopie confocal (\href{https://www.altimet.fr/?page_id=248}{capteur Altimet} de la société Altisurf) pour contrôler la rugosité de pièces.
 La position du capteur est asservie en distance pour mesurer des pièces courbes.
-Un interféromètre portatif\footnote{Interféromètre désormais commercialisé par la société \href{http://qisab.com/}{QiSab}} a également été développé pour améliorer la résolution, et atteindre une précision inférieure au nanomètre \cite{baath_new_2012}.
+Un interféromètre portatif\footnote{Interféromètre désormais commercialisé par la société \href{http://qisab.com/}{QiSab}} a également été développé pour améliorer la résolution et atteindre une précision inférieure au nanomètre \cite{baath_new_2012}.
 La durée de la mesure est élevée, car le capteur mesure une surface de $4\times 4$ centimètres.
 Il doit être déplacé sur toute la surface.
 
@@ -988,12 +1006,12 @@ Des travaux sont actuellement en cours pour proposer une méthode d'intégration
 % Le coût et la complexité de l'installation de l'imagerie de profil réserve cette méthode automatique aux productions à haute valeur ajoutée.
 Le contrôle dimensionnel de profil plan peut être automatisé par imagerie de profil.
 Dans le cas de pièces moulées, les caractéristiques géométriques sont souvent tridimensionnelles.
-Il est alors nécessaire de réaliser la mesures de plusieurs profils orthogonaux, où bien d'utiliser un moyen de mesure tridimensionnel.
+Il est alors nécessaire de réaliser le mesurage de plusieurs profils orthogonaux, où bien d'utiliser un moyen de mesure tridimensionnel.
 
 \begin{figure}[htbp]
 	\centering
 	\includegraphics[width=0.45\textwidth]{../Chap2/Figures/Laserprofilometer_FR.pdf}
-	\caption{Mesure de la géométrie d'un objet par triangulation laser. Figure dérivée du \href{https://commons.wikimedia.org/wiki/File:Laserprofilometer_EN.svg}{travail original} de \href{https://de.wikipedia.org/wiki/Benutzer:Xorx}{Georg Wiora (Dr. Schorsch)}, \href{http://creativecommons.org/licenses/by-sa/3.0/}{CC BY-SA 3.0, via Wikimedia Commons}.}
+	\caption[Mesure de la géométrie d'un objet par triangulation laser.]{Mesure de la géométrie d'un objet par triangulation laser. Figure dérivée du \href{https://commons.wikimedia.org/wiki/File:Laserprofilometer_EN.svg}{travail original} de \href{https://de.wikipedia.org/wiki/Benutzer:Xorx}{Georg Wiora (Dr. Schorsch)}, \href{http://creativecommons.org/licenses/by-sa/3.0/}{CC BY-SA 3.0, via Wikimedia Commons}.}
 	\label{fig:laser_scanning}
 \end{figure}
 
@@ -1011,8 +1029,8 @@ La méthode de triangulation laser souffre de quatre contraintes principales :
 \begin{itemize}
 	\item L'intensité lumineuse du laser doit être supérieure à la luminosité ambiante. C'est pourquoi la longueur d'onde du laser est souvent choisie hors du spectre visible.
 	\item La fréquence de balayage du laser doit être très supérieure au déplacement de la pièce. Cela conditionne la fréquence d'acquisition du capteur.
-	\item Le matériau qui est mesuré doit avoir un absorption faible pour la longueur d'onde du laser et les réflexions spéculaires directes doivent être évitées.
-	\item La géométrie de la pièce doit permettre la mesure : elle ne doit pas entrainer d'occlusion pour le couple source laser et capteur. L'écart angulaire de ce couple est souvent proche de 45°. C'est pourquoi les géométries aigus doivent être supérieures à 45°.
+	\item Le matériau qui est mesuré doit avoir une absorption faible pour la longueur d'onde du laser et les réflexions spéculaires directes doivent être évitées.
+	\item La géométrie de la pièce doit permettre la mesure : elle ne doit pas entrainer d'occlusion pour le couple source laser et capteur. L'écart angulaire de ce couple est souvent proche de 45°. C'est pourquoi les géométries concaves doivent être supérieures à 45°.
 \end{itemize}
 
 La Figure \ref{fig:online_scan} présente notre mise en place de cette mesure, en cycle industriel.
@@ -1037,22 +1055,23 @@ La durée de la mesure est de 40 secondes.
 	\label{fig:online_scan_result}
 \end{figure}
 
-Le scanner est fixe et une rotation complète de la pièce est exécutée devant le scanner, à l'aide du bras robotisé qui décharge la presse, voir Figure \ref{fig:online_scan}.
-La vitesse de cette rotation est imposée par la durée du cycle de production de la machine.
+Le scanner est fixe et une rotation complète de la pièce est exécutée devant le scanner, à l'aide du bras robotisé qui décharge la presse (voir Figure \ref{fig:online_scan}).
+La vitesse de cette rotation définie la durée de la mesure, qui est elle même limitée par la durée cycle de production de la machine.
 Un temps de cycle court impose de réaliser des déplacements rapides devant le scanner.
 
+Le scanning de la pièce dès sa production permet de comparer la géométrie produite à la géométrie de référence de l'outillage.
+La Figure \ref{fig:scan_delta} a. présente l'écart de la pièce chaude à la géométrie cible, qui est définie par le modèle de la conception CAO.
+
 Dans notre cas d'application, la pièce mesurée possède des côtés qui occultent la réflexion du laser.
-Il est nécessaire de réaliser des rotations sous différents angles pour scanner toutes les surfaces de la pièce, ce qui nécessiterait plus d'un tour complet.
-De plus, la vitesse de déplacement que nous avons dû utiliser est trop élevée en comparaison de la fréquence de balayage du laser.
-La Figure \ref{fig:online_scan_result} présente de scanning.
+% Il est nécessaire de réaliser des rotations sous différents angles pour scanner toutes les surfaces de la pièce, ce qui nécessiterait plus d'un tour complet.
+De plus, la vitesse de rotation que nous avons dû utiliser est trop élevée en comparaison de la fréquence de balayage du laser.
+La Figure \ref{fig:online_scan_result} b. présente de scanning.
 On observe la présence de trous dans le maillage des surfaces.
 D'une pièce à l'autre, les trous n'apparaissent pas aux mêmes endroits sur la pièce.
-Aussi, l'exploitation d'une telle mesure est compliquée. 
+Aussi, l'exploitation automatique d'une telle mesure est compliquée.
+Un traitement manuel des nuages de points est requis.
 Dans la suite de nos travaux, nous avons choisi de ne pas exploiter cette mesure à cause des performances non-adaptées de notre matériel.
 L'étude de cette démarche de mesure devra être évaluée à l'aide d'un profilomètre laser ou d'un scanner tridimensionnel qui possède une fréquence de balayage laser plus rapide, afin de limiter les trous dans le nuage de points.
-
-Le scanning d'un maillage de points de la pièce dès sa production permet de comparer la géométrie produite à la géométrie de référence de l'outillage.
-La Figure \ref{fig:scan_delta} présente l'écart de la pièce chaude à la géométrie de référence.
 
 \begin{figure}[bhtp]
 	\centering
@@ -1068,7 +1087,7 @@ La Figure \ref{fig:scan_delta} présente l'écart de la pièce chaude à la géo
 	\label{fig:scan_delta}
 \end{figure}
 
-Nous avons balancé le nuage de point à l'aide d'un critère de distance minimale entre les points et le modèle de référence (critère de moindres carrés global).
+Nous avons balancé le nuage de point à l'aide d'un critère de distance minimale entre les points et le modèle de référence (critère de moindres carrés).
 Il est ainsi possible de caractériser les variations de la géométrie.
 % Ce travail de doctorat n'a pas cherché à étudier le retrait.
 % Nous supposons que le retrait est constant pour toutes les pièces d'un même lot.
@@ -1078,14 +1097,14 @@ Il est ainsi possible de caractériser les variations de la géométrie.
 % En comparaison de l'imagerie thermique et polarimétrique, le coût du scanner tridimensionnel et la difficulté d'intégration de la mesure en ligne de production, sont bien plus importants.
 % De plus, la répétabilité du scanner de 100 micromètres, rend difficile l'utilisation des mesures obtenues.
 % Les déformations géométriques que nous observons sont de l'ordre de 100 micromètres.
-Les phénomènes de trous aléatoires dans le nuage de points compliquent l'interprétation automatique des mesures.
-Un traitement manuel des nuages de points est souvent requis.
-Or nous souhaitons automatiser la mesure de la qualité des produits.
-Pour toutes ces raisons, dans la suite de ce travail, nous avons choisi de ne pas poursuivre l'exploitation du scanner tridimensionnel HandyScan que nous avions à disposition.
+% Les phénomènes de trous aléatoires dans le nuage de points compliquent l'interprétation automatique des mesures.
+% Un traitement manuel des nuages de points est souvent requis.
+% Or nous souhaitons automatiser la mesure de la qualité des produits.
+% Pour toutes ces raisons, dans la suite de ce travail, nous avons choisi de ne pas poursuivre l'exploitation du scanner tridimensionnel HandyScan que nous avions à disposition.
 % L'utilisation d'un tel moyen de mesure reste une piste de recherche très intéressante.
 
 \subsection{Cahier des charges pour le contrôle de la qualité en ligne de production}
-Dans le cas de pièces techniques à forte valeur ajoutée, les exigences du client peuvent atteindre 5 pièces défectueuses par million de pièces (\textit{5 ppm} pour les secteurs automobile, aéronautique et de la santé).
+Dans le cas de pièces techniques, les exigences du client peuvent atteindre 3,4 pièces défectueuses par million de pièces (\textit{3,4 ppm} est la valeur couramment admise pour une approche « Six Sigma »).
 Il est alors indispensable de réaliser le contrôle qualité sur cent pourcent des pièces, avant l'envoi au client.
 Ce contrôle présente un coût et il devient intéressant de l'automatiser.
 
@@ -1097,8 +1116,8 @@ Ce contrôle présente un coût et il devient intéressant de l'automatiser.
 \end{figure}
 
 La Figure \ref{fig:quality_integration} présente l'intégration du contrôle de la qualité au sein de la ligne de production.
-Le contrôle de la qualité des produits est de manière classique réalisé après la finition des pièces.
-L'état de la pièce dépend alors des étapes précédentes de finitions $X3$, de stockage $X2$, de transport et de l'injection-moulage $X1$.
+Le contrôle de la qualité des produits est, de manière classique, réalisée après la finition des pièces.
+L'état de la pièce dépend alors des étapes précédentes de finition $X3$, de stockage $X2$, de transport et de l'injection-moulage $X1$.
 Des défauts peuvent apparaitre lors des phases de transports, stockages et de finitions.
 Plus on multiplie le nombre d'étapes successives, plus il est difficile de trouver l'étape qui est la cause du défaut.
 De plus, si la pièce est défectueuse à l'étape de l'injection-moulage $X1$, elle entraine des coûts de non-qualité : le coût du stockage de la pièce $X2$ et le coût de sa finition $X3$.
@@ -1151,11 +1170,11 @@ Les contraintes qui s'appliquent à la réalisation de la mesure du produit, au 
 Elles définissent le cahier des charges du dispositif de contrôle que nous cherchons à obtenir.
 
 Une des contraintes du contrôle en ligne de production est que, si une mesure par prélèvement est réalisée, alors il est difficile de ré-intégrer la pièce prélevée au flux de production.
-Le contrôle de toutes les pièces sur la ligne de production apportent des bénéfices :
+Le contrôle de toutes les pièces sur la ligne de production apportent des bénéfices suivants :
 \begin{itemize}
-	\item du point de vue de la traçabilité des pièces pour le client, qui dispose d'une fiche de qualité pour chaque pièce,
-	\item pour l'analyse des performances du procédé et son optimisation,
-	\item du point de vue de l'assurance de respecter les exigences du nombre de pièces défectueuses par lot.
+	\item la traçabilité des pièces pour le client, qui dispose d'une fiche de qualité pour chaque pièce,
+	\item l'analyse des performances du procédé et son optimisation,
+	\item l'assurance de respecter les exigences du nombre de pièces défectueuses par lot.
 \end{itemize}
 
 \begin{table}[bthp]
@@ -1176,10 +1195,10 @@ Le contrôle de toutes les pièces sur la ligne de production apportent des bén
 		Dimensions de la pièce & 10 à 200 centimètres \\ \hline
 		\hline
 		Distance à la pièce & 0 à 200 centimètres \\ \hline
-		Dimensions du moyen de mesure & Inférieure à 1 m$^3$ \\ \hline
+		Dimensions du moyen de mesure & Inférieure à 0,1 m$^3$ \\ \hline
 		\hline
 		Taux de faux positifs & 1 à 8 pièces par journée \\ \hline
-		Taux de faux négatifs & 100 à 5 pièces par million \\ \hline
+		Taux de faux négatifs & 5 à 100 pièces par million \\ \hline
 	\end{tabular}
 	\caption{Contraintes industrielles et cahier des charges pour la contrôle en ligne de la qualité.}
 	\label{tab:industrial_constraints}
@@ -1188,7 +1207,7 @@ Le contrôle de toutes les pièces sur la ligne de production apportent des bén
 Le contrôle à cent pour-cent nécessite alors d'être réalisée pendant le temps de cycle du procédé.
 La durée de la mesure est d'autant plus réduite que la pièce doit être amenée devant le dispositif de mesure.
 Il est nécessaire d'inclure la durée des convoyages aller et retour.
-Enfin, il n'est pas envisageable d'augmenter la durée du cycle du procédé pour pouvoir réaliser la mesure, car cela impacterait très fortement le coût de la pièce.
+Enfin, il n'est pas envisageable d'augmenter la durée du cycle du procédé pour pouvoir réaliser la mesure, car cela impacterait très fortement le coût de la pièce de la presse.
 C'est pourquoi nous estimons que la durée de la mesure doit être au maximum de 10 secondes.
 % Pour un temps de cycle du procédé de 30 secondes, la durée de convoyage devra elle aussi être inférieure à 10 secondes.
 %
@@ -1196,7 +1215,7 @@ Ainsi, le moyen de mesure doit être situé à proximité de la ligne de product
 En admettant une vitesse de déplacement du convoyeur de 1 mètre par seconde (ce qui est élevée), le dispositif de mesure devra être situé à moins de 5 mètres de l'emplacement initial de la sortie de la pièce.
 %
 
-Cette contrainte de proximité du moyen de mesure dans la ligne de production implique une contrainte de dimensions du moyen de mesure.
+Cette contrainte de proximité du moyen de mesure dans la ligne de production implique une contrainte sur les dimensions du moyen de mesure.
 À partir de nos essais réalisés dans des ateliers de production, nous estimons l'encombrement acceptable à 1 mètre cubique.
 Il est également recommandé de limiter la complexité du câblage nécessaire à l'installation du moyen de mesure.
 %
@@ -1207,20 +1226,19 @@ Dans le cas où le moyen de mesure utilise des capteurs optiques, cela permet de
 Nous ajoutons une dernière recommandation qui concerne le contrôle dimensionnel des pièces plastiques souples : il est difficile de toucher ces pièces sans les déformer ; d'autant plus à la sortie du moule, quand elles sont encore chaudes.
 C'est pourquoi un moyen de mesure sans contact est à privilégier pour le contrôle des pièces souples.
 
-Enfin, l'installation du dispositif de mesurage devra être simple, d'une durée inférieure à une heure, pour que sa mobilité soit réelle.
+Enfin, l'installation du dispositif de mesurage devra être simple et d'une durée inférieure à une heure, pour que sa mobilité soit réelle.
 Un tel dispositif de mesure s'inscrit dans la démarche de l'industrie agile, où les lignes de productions sont fréquemment reconfigurées, en fonction des besoins.
-
-
-
 
 \subsection{Proposition d'une définition du degré d'invasivité d'un système de mesure pour un procédé}
 Afin de compléter notre revue sur les différents moyens de mesure, nous proposons de définir une échelle du degré d'invasivité d'un système de mesure, au regard du procédé industriel.
 Nous proposons de définir la notion d'invasivité d'un moyen de mesure comme la quantité de travail nécessaire pour intégrer le moyen de mesure au procédé.
 Ces modifications sont effectuées sur le procédé, soit à posteriori de la fabrication du moyen de production, soit en amont pendant la conception du procédé.
-Le degré d'invasivité ne prend pas en compte le coût d'achat du moyen de mesure qui peut être amorti.
+Le degré d'invasivité ne prend pas en compte le coût d'achat du moyen de mesure.
 En revanche, il prend en compte le coût de la modification du procédé, qui est un élément de décision important.
 
-\begin{table}[tbp]
+Le Tableau \ref{tab:measure_invasivity} présente une échelle originale du degré d'invasivité d'un moyen de mesure, vis à vis d'un moyen de production.
+
+\begin{table}[htbp]
 	\arrayrulecolor{black}
 	\hspace*{-5mm}
 	\begin{tabular}{|c|l|l|}
@@ -1229,20 +1247,20 @@ En revanche, il prend en compte le coût de la modification du procédé, qui es
 		Degré d'invasivité & Type de mesure & Description de la modification \\
 		\hline \hline
 		0 & Pas de mesure & Aucune modification sur le procédé. \\ \hline
-		1 & Sans contact >10s & Positionnement d'un capteur vers la pièce. \\ \hline
-		2 & Sans contact de la pièce >30s & Positionnement capteur et convoyage spécifique. \\ \hline
-		3 & Avec contact de la pièce & Convoyage de la pièce pour le contact. \\ \hline
-		4 & Mesure sur la machine & Intégration de capteurs sur la machine.  \\ \hline
-		5 & Mesure dans l'outillage & Intégration de capteurs dans l'outillage. \\ \hline
-		6 & Avec manutention humaine & Intégration de l'humain dans la prod. \\ \hline
-		7 & Mesure hors-ligne & Extraction de la pièce de la ligne de prod. pour mesurer. \\ \hline
+		1 & Sans contact & Positionnement d'un capteur vers la pièce. \\ \hline
+		2 & Avec contact de la pièce & Convoyage de la pièce pour le contact. \\ \hline
+		3 & Mesure sur la machine & Intégration de capteurs sur la machine.  \\ \hline
+		4 & Mesure dans l'outillage & Capteurs dans l'outillage pour les variables d'état. \\ \hline
+		5 & Avec manutention humaine & Intégration de la mesure humaine. \\ \hline
+		6 & Mesure hors-ligne & Extraction de la pièce de la ligne de prod. pour mesurer. \\ \hline
 	\end{tabular}
 	\caption{Degré d'invasivité de la mesure sur un procédé de production.}
 	\label{tab:measure_invasivity}
 \end{table}
 
-\noindent
-Le Tableau \ref{tab:measure_invasivity} présente une échelle originale du degré d'invasivité d'un moyen de mesure, vis à vis d'un moyen de production.
+% \noindent
+Dans notre travail, nous nous intéresserons à mettre en œuvre des moyens de mesures possédant une invasivité minimale ; ce qui correspond au degré 1 de notre échelle : on parlera de mesure non-invasive pour le procédé industriel.
+% Le degré 0 n'est pas atteignable, à cause de la non-existence d'une simulation réaliste de la qualité des pièces produites.
 
 \begin{description}
 	% \noindent
@@ -1250,15 +1268,15 @@ Le Tableau \ref{tab:measure_invasivity} présente une échelle originale du degr
 	Le procédé ne doit pas générer de rebuts, ou alors il est nécessaire de disposer d'une simulation informatique (modèle mathématique) du procédé.
 	Ce modèle doit être suffisamment représentatif du procédé pour prédire les caractéristiques des pièces réellement produites.
 	En 2019, il n'existe pas à notre connaissance de modèle capable de prédire l'aspect des pièces.
-	\item[Degré 1-2] Les mesures ne nécessitent pas de contact. Nous classons les deux premiers degrés en fonction de la durée de la mesure.
-	\item[Degré 3] Le contact avec la pièce requiert une programmation précise du moyen de convoyage.
-	Il nécessite l'utilisation d'un bras robotique, car un tapis n'est pas suffisament précis.
-	\item[Degré 4-5] L'intégration de capteurs dans l'outillage entraine un travail de conception supplémentaire et une maintenance spécifique.
-	\item[Degré 6] Une mesure qui nécessite une manutention humaine pour être réalisée est très invasive.
+	\item[Degré 1] Les mesures ne nécessitent pas de contact. La durée de la mesure n'augmente pas la durée du cycle.
+	\item[Degré 2] Le contact avec la pièce requiert une programmation précise du moyen de convoyage.
+	Il nécessite l'utilisation d'un bras robotique, car un tapis n'est pas suffisamment précis.
+	\item[Degré 3-4] L'intégration de capteurs dans l'outillage entraine un travail de conception supplémentaire et une maintenance spécifique.
+	\item[Degré 5] Une mesure qui nécessite une manutention humaine pour être réalisée est très invasive.
 	En effet, l'humain est difficilement automatisable.
 	De manière générale, une mesure industrielle doit être automatisée pour éviter que les erreurs et les retards n'impactent le flux de production.
-	\item[Degré 7] La mesure hors-ligne entraine la perte de la pièce, en plus de toutes les contraintes précédentes. C'est ainsi la mesure la plus invasive possible pour un procédé de production industriel.
-\end{description} 
+	\item[Degré 6] La mesure hors-ligne entraine la perte de la pièce, en plus de toutes les contraintes précédentes. C'est ainsi la mesure la plus invasive possible pour un procédé de production industriel.
+\end{description}
 % 2 - Définiton non-invasif
 % Définition du 
 % Thermomètre vis degré 3
@@ -1266,74 +1284,24 @@ Le Tableau \ref{tab:measure_invasivity} présente une échelle originale du degr
 % Degré 1 : caméras, périphériques
 % Degré 0 : rien du tout!
 
-\noindent
-Dans notre travail, nous nous intéresserons à mettre en œuvre des moyens de mesures possédant une invasivité minimale ; ce qui correspond au degré 1 de notre échelle : on parlera de mesure non-invasive pour le procédé industriel.
-% Le degré 0 n'est pas atteignable, à cause de la non-existence d'une simulation réaliste de la qualité des pièces produites.
-
 
 \subsection{Étude technico-économique du mesurage des caractéristiques du produit}
 Le Tableau \ref{tab:product_measurements} présente des mesures qui peuvent être réalisées sur la pièce.
 Afin d'évaluer la compatibilité du moyen de mesure avec le temps de cycle industriel, nous précisons la durée totale de la mesure en incluant la durée du déplacement de la pièce vers l'appareil de mesure.
 Plus l'appareil de mesure est volumineux et nécessite une précision de positionnement, plus cette durée sera longue.
-Les durées de mesure sont calculées pour une pièce de dimension $10 \times 10$ centimètres.
-Les coûts économiques sont indicatifs.
-Ils sont issues de notre analyse du marché, réalisée en 2019.
+% Les durées de mesure sont calculées pour une pièce de dimension $10 \times 10$ centimètres.
 Le coût par pièce correspond au coût d'utilisation d'une machine pour réaliser le contrôle à cent pourcent des pièces dès la sortie du moule.
+Les coûts économiques sont indicatifs, en 2019.
+% Ils sont issues de notre analyse du marché, réalisée en 2019.
 En particulier, le coût horaire est calculé pour un amortissement du coût d'achat de la machine de mesure de dix années et une production de 120 pièces par heures, 300 journée ouvrées annuelles, soit 3 millions de pièces par an.
 Dans le cas où un opérateur humain est requis, le coût chargé est intégré : 15€ par heures, en 2019.
-Dans le cas où la mesure est automatisé, le coût de l'installation inclut le dispositif de convoyage (bras robotique ou tapis roulant) en plus du dispositif de mesure.
-
-\begin{table}[htpb]
-	\arrayrulecolor{black}
-	\hspace*{-1,5cm}
-	\begin{tabular}{|l|l|r|r|r|r|r|}
-		\arrayrulecolor{black}
-		\hline
-		Caractéristique & Moyen de mesure & Résolution & Durée & Coût horaire & Coût initial & Coût / pièce \\ \hline
-		\hline
-		\multicolumn{7}{|l|}{Dimensions géométriques} \\ \hline
-		1 dimension & Pied à coulisse + opérateur & 20 µm & 20 s & 15 €/h & 200 € & 12,50 c€/p \\ \hline
-		1 dimension & Comparateur instrumenté & 5 µm & 10 s & 0,20 €/h & 5 000 € & 0,16 c€/p \\ \hline
-		1 dimension & Comparateur laser & 1 µm & 5 s & 0,40 €/h & 10 000 € & 0,33 c€/p \\ \hline
-		\hline
-		Profil & Profilomètre laser & 1 µm & 30 s & 0,80 €/h & 20 000 € & 0,67 c€/p \\ \hline
-		Profil & Microscopie confocale & 0,5 µm & 60 s & 4 €/h & 100 000 € & 3,33 c€/p \\ \hline
-		\hline
-		Surface & Photogrammétrie & 50 µm & 30 s & 0,80 €/h & 20 000 € & 0,67 c€/p \\ \hline
-		Surface & Lumière structurée & 30 µm & 30 s & 4 €/h & 100 000 € & 3,33 c€/p \\ \hline  % ONDULO de Visuol [Visuol 12 ; Surrel 12 ; Surrel 99]
-		Surface & Microscopie confocale & 0,5 µm & 600 s & 40 €/h & 100 000 € & 3,33 c€/p \\ \hline
-		\hline
-		Volume & Profilomètre/tomographie & 10 µm & 60 s & 2 €/h & 50 000 € & 0,16 c€/p \\ \hline
-		Volume & Scanner volumique & 100 µm & 30 s & 2 €/h & 50 000 € & 0,16 c€/p \\ \hline
-		\hline
-		\multicolumn{7}{|l|}{Dimensions et densité} \\ \hline
-		Densité plane projetée & Radiographie & 10 µm & 20 s & 12 €/h & 300 000 € & 9,99 c€/p \\ \hline
-		Densité volumique & Tomographie rayons X & 10 µm & 120 s & 40 €/h & 1 000 000 € & 33,33 c€/p \\ \hline
-		\hline
-		\multicolumn{7}{|l|}{Champ de températures} \\ \hline
-		Champ °C & Thermographie & 1000 µm & 1 s & 0,40 €/h & 10 000 € & 0,33 c€/p \\ \hline
-		Évolution du champ & Thermographie dynamique & 1000 µm & 120 s & 1,20 €/h & 30 000 € & 1,00 c€/p \\ \hline
-		\hline
-		\multicolumn{7}{|l|}{Aspect visuel} \\ \hline
-		Image couleur & Caméra couleur & 200 µm & 1 s & 0,04 €/h & 1 000 € & 0,03 c€/p \\ \hline
-		Réflectance & Dôme de réflectance & 50 µm & 10 s & 0,40 €/h & 10 000 € & 0,33 c€/p \\ \hline
-		\hline
-		\multicolumn{7}{|l|}{Propriétés du matériau} \\ \hline
-		Champ de contraintes & Photoélasticité/polarimétrie & 200 µm & 1 s & 0,10 €/h & 3 000 € & 0,10 c€/p \\ \hline
-		Résilience & Essai Charpi & / & 60 s & 15 €/h & 10 000 € & 12,50 c€/p \\ \hline
-		Dureté & Indentation & / & 120 s & 30 €/h & 10 000 € & 22,50 c€/p \\ \hline
-		Élasticité/Plasticité & Traction/Compression & / & 120 s & 30 €/h & 20 000 € & 22,50 c€/p \\ \hline
-		Composition chimique & Spectromètre (UV-VIS-NIR) & / & 10 s & 0,40 €/h & 10 000 € & 0,33 c€/p \\ \hline
-		Structure cristalline & Diffraction X/polarimétrie & / & 120 s & 30 €/h & 20 000 € & 22,50 c€/p \\ \hline
-	\end{tabular}
-	\caption{Moyens de mesure des caractéristiques d'une pièce.}
-	\label{tab:product_measurements}
-\end{table}
-
+Dans le cas où la mesure est automatisée, le coût de l'installation inclut le dispositif de convoyage (bras robotique ou tapis roulant) en plus du dispositif de mesure.
+Le détail des coûts est présenté dans le Tableau \ref{tab:product_measurements} en Annexe.
 Ce tableau permet de mettre en valeur les moyens compatibles avec les contraintes industrielles.
 Les contraintes majeures sont la durée de la mesure et le coût de la mesure.
+
 De plus, les productions industrielles doivent aujourd'hui être réactives aux changements ; on parle d'agilité.
-Aussi, dans une démarche d'évolution continue de la ligne de production, au fil des changements de séries, nous recommandons fortement l'utilisation d'un dispositif de mesure qui puisse être adapté rapidement à de nombreux types de pièces.
+Aussi, dans une démarche d'évolution continue de la ligne de production, au fil des changements de série, nous recommandons fortement l'utilisation d'un dispositif de mesure qui puisse être adapté rapidement à de nombreux types de pièce.
 C'est ici un avantage considérable des moyens de mesure sans contact physique avec la pièce.
 % Les moyens de mesure légers et mobiles sont à recommander.
 
@@ -1346,7 +1314,7 @@ Nous détaillons son emploi dans la Section \ref{subsec:polarimetry}.
 
 % De manière général, nous recommandons un coût de la mesure de la qualité inférieur à 1\% du prix de revient des pièces.
 % Pour des pièces plastiques dont le coût de production est proche de 10€, le coût de la mesure doit être inférieur à 10 centimes d'euros.
-À partir du Tableau \ref{tab:product_measurements}, nous retenons les moyens de mesures suivants pour la suite de nos travaux :
+À partir du Tableau \ref{tab:product_measurements}, nous retenons les moyens de mesure qui répondent aux contraintes de coût, de durée de la mesure et de la simplicité de mise en place, pour la suite de nos travaux :
 \begin{itemize}
 	\item plusieurs comparateurs instrumentés,
 	\item profilomètre laser,
@@ -1389,28 +1357,26 @@ Nous détaillons son emploi dans la Section \ref{subsec:polarimetry}.
 % Ce travail de doctorat a permis d'évaluer expérimentalement la faisabilité de ces mesures.
 % Dans les sections suivantes, nous détaillerons leur utilisation.
 
-
-\newpage
 \subsection{Formalisation de la notion de qualité d'une pièce}
-Dans l'industrie de la plasturgie, c'est généralement l'humain qui réalise le contrôle de la qualité des pièces.
+% Dans l'industrie de la plasturgie, c'est généralement l'humain qui réalise le contrôle de la qualité des pièces.
 % \citeauthor{passaro_du_2014} s'appuie sur l'évaluation humaine structurée à l'aide d'un référentiel stricte pour déterminer la qualité de l'aspect de pièces plastiques \cite{passaro_du_2014}.
 Aucune norme ne spécifie actuellement la notion qualité d'aspect.
 Plusieurs travaux de recherche sont en cours, sur la notion de sensation tactile \cite{bruno_albert_formalisation_2016, albert_generic_2016, albert_smart_2017, albert_smart_2019, albert_maitrise_2019} et sur l'aspect visuel \cite{desage_syntactic_2015}.
-Ces travaux associent une démarche de spécifications de la qualité, aux développements de nouveaux moyens de mesures \cite{desage_constraints_2015, pitard_metrologie_2016, lacombe_exploitation_2018a}.
+Ces travaux associent une démarche de spécification de la qualité, aux développements de nouveaux moyens de mesures \cite{desage_constraints_2015, pitard_metrologie_2016, lacombe_exploitation_2018a}.
 % Nos travaux s'inscrivent dans cette démarche de recherche.
 
 Les pièces produites en injection-moulage des thermoplastiques possèdent une grande variété de dimension, de forme et d'état de surface.
 Au sein d'une même entreprise, un système de contrôle de la qualité doit donc être capable de mesurer une grande variété de pièces.
 Nous chercherons à simplifier au maximum l'utilisation de notre système de mesure afin de maximiser son adoption industrielle.   % , tout en répondant à la problématique du contrôle de la qualité en ligne de production.
 
-La qualité d'aspect est une notion qui est souvent définie dans les cahiers des charges sous la forme de défauthèques.
+La qualité d'aspect est une notion qui est souvent définie dans les cahiers des charges sous la forme de défauthèques et d'échelles.
 L'interprétation de ces définitions nécessite le travail d'un expert qualité humain.
 L'expert qualité possède généralement la notion de la qualité du produit pour un atelier de production.
 Il forme les opérateurs, afin de leur transmettre les exigences qui sont interprétées à partir du cahier des charges.
 Cependant, il est difficile de transmettre ce savoir.
 De plus, il est difficile d'obtenir une mesure répétable de la qualité par différents opérateurs.
 Dans nos travaux, nous chercherons à automatiser cette interprétation.
-Notre principal objectif de recherche est d'exploiter l'information issues des capteurs afin de proposer une mesure de la qualité d'aspect.
+Notre principal objectif de recherche est d'exploiter l'information issues des capteurs afin de proposer une mesure de la qualité d'aspect et de la géométrie.
 Notre système réalisera l'interprétation des mesures à partir d'un modèle de la qualité construit par apprentissage.
 Cette démarche est détaillée dans le Chapitre \ref{ch:metric_learning}.
 À terme, l'objectif est de proposer un modèle de la qualité qui serait générique à tous types de pièces ;
@@ -1423,7 +1389,7 @@ ce modèle serait équivalent à un humain formé à l'expertise qualité ; il s
 
 \section{Conclusion : la problématique du contrôle de la qualité en ligne de production}
 Dans ce premier chapitre, nous avons présenté le contexte du procédé d'injection-moulage des thermoplastiques dans lequel s’inscrit ce travail de doctorat §\ref{sec:molding_presentation}.
-Ce doctorat est réalisé dans le cadre du projet de recherche collaboratif FUI SAPRISTI, qui cherche à optimiser le procédé d'injection-moulage.
+% Ce doctorat est réalisé dans le cadre du projet de recherche collaboratif FUI SAPRISTI, qui cherche à optimiser le procédé d'injection-moulage.
 
 % Nous avons présenté dans la seconde partie les principaux enjeux de recherche sur le procédé d'injection-moulage §\ref{sec:research_topics}.
 % Une problématique de recherche importante est celle de la modélisation du procédé.
@@ -1436,9 +1402,9 @@ Ce doctorat est réalisé dans le cadre du projet de recherche collaboratif FUI 
 % Une seconde thématique de recherche s'intéresse à l'identification de modèles empiriques.
 % Les études s'appuient sur les plans d'expériences pour réaliser les essais et sur les réseaux de neurones pour modéliser sous forme mathématique les non-linéarités du procédé.
 
-À partir d'une étude bibliographique (Annexe \ref{Ann:process_control}), nous présentons les principaux travaux sur la maîtrise du procédé d'injection-moulage.
+À partir d'une étude bibliographique (Annexe \ref{Ann:process_control}), nous avons présenté les principaux travaux sur la maîtrise du procédé d'injection-moulage.
 Cela nous permet de mettre en évidence une limite importante de cette thématique : le manque de moyen de mesure en ligne de production des caractéristiques du produit.
-Nous présentons l'intérêt de notre travail pour la maîtrise du procédé d'injection-moulage.
+Nous avons positionné l'intérêt de notre travail sur le contrôle non-invasif de la qualité en ligne de production pour la maîtrise du procédé d'injection-moulage.
 
 \smallskip
 
@@ -1461,7 +1427,7 @@ L'économie réalisée correspond à la valeur qui aurait été ajoutée à des 
 % Nous discuterons des différentes technologies de mesure et des choix que nous avons effectués dans le Chapitre \ref{ch:measure}.
 
 % Enfin, il est nécessaire de réaliser le contrôle de la pièce à partir des mesures.
-Pour réaliser le contrôle de la pièce, il est nécessaire d'interpréter le résultat de la mesure.
+Enfin, pour réaliser le contrôle de la pièce, il est nécessaire d'interpréter le résultat de la mesure.
 Dans le cadre des défauts géométriques, il existe des solutions de contrôle automatique de vision informatique.
 Cependant, nous nous intéressons également dans le cadre de notre travail aux défauts d'aspect.
 Aujourd'hui, l'expert qualité humain est requis pour interpréter l'aspect d'une pièce.
@@ -1475,7 +1441,7 @@ Un objectif de recherche concerne l'interprétation de la mesure et la formalisa
 
 \miniconclusion{Synthèse : Problématique industrielle et périmètre de recherche}{
 	Ce chapitre nous a permis de présenter nos premières contributions.
-	Une revue bibliographiques des approches de contrôle et de pilotage dans le cadre de la maîtrise du procédé d'injection plastiquenous permet de positionner notre problématique de recherche.
+	Une revue bibliographique des approches de contrôle et de pilotage dans le cadre de la maîtrise du procédé d'injection plastique nous a permis de positionner notre problématique de recherche.
 
 	Nous avons également défini le périmètre de notre recherche autour de la mise en œuvre d'un système de contrôle non invasif des pièces, dès la sortie du moule.
 	Nous utiliserons des méthodes d'imageries comme moyen de mesure sans contact des pièces.

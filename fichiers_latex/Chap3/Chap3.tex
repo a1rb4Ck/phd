@@ -73,16 +73,17 @@
 
 %============================================================================== Résumé du chapitre
 
+\vspace{-5mm}
 \begin{center}
 	\rule{0.7\linewidth}{.5pt}
 	\begin{minipage}{0.7\linewidth}
 		\smallskip
 		
 		\textit{
-			Dans ce chapitre, nous étudierons les différentes méthodes de la littérature permettant de modéliser la notion de qualité par apprentissage statistique.
+			Dans ce chapitre, nous étudierons différentes méthodes de la littérature qui pourraient nous permettre de modéliser la qualité par apprentissage statistique.
 			L'objectif est de construire un modèle qui permet à partir d'images, d'inférer la qualité des pièces.
 			Dans un premier temps, il est nécessaire de disposer d'un jeu de données représentatif du phénomène à modéliser.
-			Ensuite, il est faut choisir l'algorithme à utiliser pour modéliser par apprentissage.
+			Ensuite, il faut sélectionner l'algorithme à utiliser pour modéliser par apprentissage.
 			Enfin, nous discuterons de l'optimisation de ces modèles.
 			Le diagramme \ref{fig:deep_flowchart} synthétise cette démarche.
 			C'est sous le prisme des contraintes industrielles que nous discuterons des limites au déploiement de ces méthodes sur les lignes de production.
@@ -93,6 +94,7 @@
 	\smallskip
 	\rule{0.7\linewidth}{.5pt}
 \end{center}
+\vspace{-3mm}
 
 \minitoc
 
@@ -127,7 +129,7 @@
 		& \node [block_noborder] {Exploration des points de fonctionnement du procédé}; \\
 		% row 2
 		\node [block_center] (extraction) {Extraction de variables pertinentes}; 
-		& \node [block_noborder] {Réduction de dimensions}; \\
+		& \node [block_noborder] {Réduction de dimension}; \\
 		% row 3
 		\node [block_center] (classification) {Construction et apprentissage du modèle};
 		& \node [block_noborder] {Classification de la qualité}; \\
@@ -136,7 +138,7 @@
 		& \node [block_noborder] {Métriques des faux positifs/négatifs}; \\
 		% row 5
 		\node [block_center] (deployement) {Déploiement du modèle en production};
-		& \node [block_noborder] {Classification de la conformité en sortie de machine}; \\
+		& \node [block_noborder] {Inférence de la conformité en sortie de machine}; \\
 	};% end matrix
 	\draw[decorate,transform canvas={xshift=-1em},thick,align=center] (data_collection.south west) -- node[left=2pt] {Mesure \\ en ligne §\ref{ch:dataset}} (data_collection.north west);
 	\draw[decorate,transform canvas={xshift=-1em},thick,align=center] (classification.south west) -- node[left=2pt] {Deep \\ Learning \\ §\ref{sec:metric_learning}} (extraction.north west);
@@ -163,11 +165,24 @@
 \section{Construction d'un jeu de données représentatif} \label{ch:dataset} \label{sec:dataset_construction}
 % \end{raggedright}
 Tout système d'apprentissage statistique nécessite un jeu de données représentatif du modèle à construire.
-Ces travaux nous ont permis d'évaluer différentes méthodes de construction du jeu de données d'apprentissage, vis à vis des contraintes industrielles.
-Le Tableau \ref{tab:dataset} présente les méthodes que nous avons étudiées.
+% \subsection{Apprentissage en ligne}
+Pour maximiser son adoption, un système de mesure de la qualité ne doit pas modifier le moyen de production en place : il doit être non invasif.
+Il doit s'intégrer au procédé et aux pratiques métiers.
+La réalisation de plans d'expériences, afin de modéliser le procédé, est difficile à intégrer dans la pratique industrielle.
 Nous avons présenté la méthode de construction d'un jeu de données par plan d'expériences dans la Section \ref{subsec:doe}.
-Celle-ci permet d'explorer la plage de fonctionnement du procédé de manière rapide et rigoureuse.
-Les méthodes par plan d'expériences sont adaptées à la construction d'un jeu de données représentatif initial.
+Les plans d'expériences sont conçus pour limiter le nombre d'essais, mais malgré cela, il est admis que la seule utilisation du savoir-faire du technicien-régleur est plus avantageuse pour régler le procédé.
+Sur les pièces simples que nous avons pu étudier dans le cadre de ce travail, le technicien régleur est capable de régler le procédé d'injection pour obtenir une pièce de qualité satisfaisante en une trentaine de minutes, soit 30 pièces produites pour un temps de cycle de production d'une minute par pièce.
+Deux solutions sont possibles :
+\begin{itemize}
+	\item utiliser la phase de réglage, pilotée par le technicien-régleur, afin de recueillir des données variées,
+	\item automatiser la phase de réglage de la machine.
+\end{itemize}
+
+% Nos travaux nous ont permis d'évaluer différentes méthodes de construction du jeu de données d'apprentissage, vis-à-vis des contraintes industrielles.
+Le Tableau \ref{tab:dataset} présente les méthodes envisagées.
+% Celle-ci permet d'explorer la plage de fonctionnement du procédé de manière rapide et rigoureuse.
+% Les méthodes par plans d'expériences sont adaptées à la construction d'un jeu de données représentatif initial.
+Le réglage automatique du procédé n'est aujourd'hui pas possible, c'est pourquoi nous n'avons pas évalué l'exploration du procédé lors du pilotage automatique.
 
 \begin{table}[ht]
 	\arrayrulecolor{black}
@@ -175,84 +190,64 @@ Les méthodes par plan d'expériences sont adaptées à la construction d'un jeu
 	\begin{tabular}{|l|l|l|}
 		\arrayrulecolor{black}
 		\hline
-		Méthode           & Avantage                                           & Inconvénient                                        \\ \hline
+		Méthode de construction & Avantage & Inconvénient \\ \hline
 		\hline
-		Plan d’expérience & Exploration de la plage de réglages  & Difficile à intégrer dans la démarche de production \\ \hline
-		En ligne          & Pendant la phase de réglage du procédé & L’exploration dépend de la variabilité du procédé    \\ \hline
-		Hors ligne        & Pendant la phase de réglage du procédé & Nécessite une traçabilité et un stockage rigoureux \\ \hline
+		Plan d’expériences §\ref{subsec:doe} & Exploration de l'ensemble des réglages & Difficile à intégrer en production \\ \hline
+		Réglage manuel §\ref{auto_construction} & Pendant le réglage du procédé & L’explo. dépend de la variabilité du procédé \\ \hline
+		Réglage automatique §\ref{auto_construction} & Exploration de l'ensemble des réglages & \ \\ \hline
 	\end{tabular}
 	\caption{Méthodes de construction du jeu de données d'apprentissage.}
 	\label{tab:dataset}
 \end{table}
 
-\subsection{Apprentissage en ligne}
-Pour maximiser son adoption, un système de mesure de la qualité ne doit pas modifier le moyen de production en place : il doit être non invasif.
-Il doit s'intégrer au procédé et aux pratiques métiers. La réalisation de plans d'expériences, afin de modéliser le procédé, est difficile à intégrer dans la pratique industrielle.
-Les plans d'expériences sont conçus pour limiter le nombre d'essais, mais malgré cela, il est admis que la seule utilisation du savoir-faire du technicien-régleur est plus avantageuse pour régler le procédé.
-Sur les pièces simples que nous avons pu étudier dans le cadre de ce travail, le technicien régleur est capable de régler le procédé d'injection pour obtenir une pièce de qualité satisfaisante en une trentaine de minutes, soit 30 pièces produites pour un temps de cycle de production d'une minute par pièce.
-Deux solutions sont possibles :
-\begin{itemize}
-	\item Utiliser la phase de réglage, pilotée par le technicien-régleur, afin de recueillir des données variées.
-	\item Automatiser la phase de réglages machines.
-\end{itemize}
-
-\subsubsection{Exploration humaine en cycle de production}
-Nous avons conduit deux expérimentations sur des machines industrielles, sans planification préalable des configurations de réglages de la machine.
+\subsection{Exploration humaine en cycle de production} \label{manual_construction}
+Nous avons conduit deux expérimentations sur des machines industrielles, sans planification préalable des configurations de réglage de la machine.
 Ces essais ont permis d'obtenir des retours sur la faisabilité et la fiabilité de notre dispositif de mesure de la qualité.
-Afin d'explorer les plages de fonctionnement des réglages du procédé, nous recommandons d'acquérir les données en particulier pendant ces évènements :
+Afin d'explorer les plages de fonctionnement du procédé, nous recommandons d'acquérir les données en particulier pendant ces évènements :
 \begin{itemize}
-	\item pendant la phase de réglage,
+	\item pendant les réglages,
 	\item pendant les défaillances du procédé,
 	\item pendant que certains asservissements du procédé sont arrêtés et que le procédé dérive.
 \end{itemize}
 Ces recommandations permettent de maximiser la variance du jeu de données.
-Nous notons que c'est pendant la phase de réglages que la variance des données est maximale.
+Nous notons que c'est pendant la phase de réglage que la variance des données est maximale.
 En effet, le réglage de la machine est un processus itératif qui nécessite d'appliquer successivement plusieurs points de fonctionnement au procédé.
-Les 20 pièces produites pendant le réglage possèdent des caractéristiques de qualité variées.
+Les vingt pièces produites pendant le réglage possèdent des caractéristiques de qualité variées.
+Le jeu de données pourra être complété au fur et à mesure de la production pour que les données soient représentatives du point de fonctionnement industriel.
 
-\subsubsection{Pilotage automatique du procédé pour la création d'un jeu de données}
-Nous définissons le pilotage d'un procédé comme la sélection d'un point de fonctionnement initial (phase de réglage), son optimisation et sa régulation.
+\subsection{Réglage automatique du procédé pour la création d'un jeu de données} \label{auto_construction}
+Nous définissons le réglage d'un procédé comme la sélection d'un point de fonctionnement initial (réglage du procédé), son optimisation (ajustement des réglages), puis sa régulation.
 Le réglage est aujourd'hui réalisé par un opérateur humain.
-Dans le cas où la phase de réglage est automatisée, il devient possible d'explorer le procédé, tout en optimisant les réglages, à l'aide des méthodes d'optimisation que nous présentons dans la Section \ref{sec:auto_ml}.
+Dans le cas où la phase de réglage serait automatisée, il deviendrait possible d'explorer la plage de fonctionnement du procédé, tout en ajustant les réglages.  %, à l'aide des méthodes d'optimisation que nous présentons dans la Section \ref{sec:auto_ml}.
 Les plans d'expériences §\ref{subsec:doe} sont particulièrement adaptés à l'acquisition de données sur l'ensemble de l'espace de fonctionnement d'un procédé.
 Il est possible de compléter un plan d'expériences par de nouveaux essais, dans les plages de réglages qui possèdent les meilleurs performances.
-
-
-\bigskip
-
-\bigskip
-
-\miniconclusion{Synthèse : construction d'un jeu de données représentatif}{
-	Pour identifier le modèle d'un phénomène à partir de mesures expérimentales, il est nécessaire de réaliser des mesures qui sont représentatives du phénomène.
-	Dans le cas contraire, le modèle est partiel, voir biaisé.
-	
-	Les plans d'expériences permettent de produire des pièces dont la variabilité des caractéristiques est représentative de l'ensemble de la plage de fonctionnement d'un procédé de fabrication.
-	
-	L'apprentissage en ligne permet de construire le jeu de données au fur et à mesures de la production, sans planification initiale.
-	À terme, le pilotage du procédé pourra permettre de réaliser une exploration automatique de la plage de fonctionnement du procédé.
-}
 
 \subsection{Annotation humaine du jeu de données en contexte industriel}
 C'est par l'annotation d'un jeu de données que l'expert humain transfert sa connaissance au système informatique.
 
 Nous distinguons deux méthodes d'annotation humaine d'un jeu de données d'apprentissage :
 \begin{itemize}
-	\item l'annotation "hors ligne", qui est effectuée à posteriori de la production des données,
-	\item l'annotation "en ligne", qui est effectuée pendant la production des données.
+	\item l'annotation "hors production", qui est effectuée à posteriori de la production des données,
+	\item l'annotation "en production".
 \end{itemize}
-Dans le cadre de la pratique industrielle, on parlera d'annotation "en ligne" lorsqu'elle est réalisée au fur et à mesure de la production des pièces.
-Dans ce cas, l'annotation est effectué directement depuis la ligne de production.
-À contrario, l'annotation hors ligne peut être réalisée en dehors de la ligne de production.
+% Dans le cadre de la pratique industrielle, on parlera d'annotation "en ligne" lorsqu'elle est réalisée au fur et à mesure de la production des pièces.
+% Dans ce cas, l'annotation est effectué directement depuis la ligne de production.
+% \textit{A contrario}, l'annotation hors ligne peut être réalisée en dehors de la ligne de production.
 
 Une des principales limites au déploiement de système par apprentissage est le coût de l'annotation.
 En effet, le coût de l'annotation humaine est conséquent car il monopolise un expert du domaine.
 En 2015, \citeauthor{bearman_what_2015} évalue les durées moyennes de différents types d'annotations \cite{bearman_what_2015}.
 % https://hbilen.github.io/wsl-cvpr18.github.io/assets/wsod.pdf
 % Berman et al., What’s the Point: Semantic Segmentation with Point Supervision, ECCV 16
-Le Tableau \ref{tab:annotation} présente ces résultats.
-Dans le cadre industriel, la durée d'annotation définit le coût économique du travail de l'expert qualité qui la réalise.
-Ainsi, il n'est pas envisageable de réaliser une segmentation précise depuis une ligne de production.
-Nous discuterons dans la suite de la faisabilité de l'annotation d'un jeu de données dans un contexte industriel.
+Le Tableau \ref{tab:annotation} présente leurs résultats.
+Pour un humain, déterminer et annoter si une image est d'une certaine catégorie dure une seconde.
+Dans notre cas d'application, si ces résultats sont respectés, l'humain mettrait une seconde à déterminer si la pièce est conforme ou non.
+Si l'humain doit déterminer la présence et la localisation approximative de l'élément sur l'image, cette durée est de 2,4 secondes.
+Enfin, si la localisation est un rectangle la durée augmente ; elle est supérieur à la minute si l'humain identifie précisément la position de l'élément en dessinant un masque sur l'image.
+
+Dans notre cadre industriel, la durée d'annotation détermine le coût économique du travail de l'expert qualité qui la réalise.
+Ainsi, il n'est pas envisageable de réaliser une segmentation précise de l'emplacement des défauts depuis une ligne de production.
+Nous discuterons dans la suite de la problématique de l'annotation d'un jeu de données dans un contexte industriel.
 
 \begin{table}[tb]
 	\centering
@@ -277,27 +272,28 @@ Nous discuterons dans la suite de la faisabilité de l'annotation d'un jeu de do
 	\label{tab:annotation}
 \end{table}
 
-\subsubsection{Annotation hors ligne}
+\subsubsection{Annotation hors production} \label{parag:offline_annotation}
 Nous proposons une méthode de notation de la qualité basée sur l'expertise humaine.
-De précédents travaux sur l'évaluation visuelle de la qualité par de multiples experts ont montrés la difficulté d'accorder les avis d'experts humains \cite{baudet_visual_2011}.
-\citeauthor{baudet_visual_2011} étudie l'évaluation de la qualité de 18 produits, par un panel de cinq contrôleurs humains.
-Les résultats de l'évaluation de ce panel possédaient une variance maximale de 50\% sur l'ensemble des niveaux de qualité.
-Cette variance est très élevée ; elle n'est pas acceptable pour un moyen de mesure.
+De précédents travaux sur l'évaluation visuelle de la qualité par de multiples experts ont montrés la difficulté d'accorder les avis d'experts humains.
+\citeauthor{baudet_visual_2011} étudie l'évaluation de la qualité de 18 produits \cite{baudet_visual_2011}, par un panel de cinq contrôleurs humains.
+Les résultats de l'évaluation de ce panel possédaient une dispersion maximale de 50\% sur l'ensemble des niveaux de qualité.
+Cette dispersion est très élevée.
+Elle n'est pas acceptable pour un moyen de mesure.
 Cette étude montre qu'il est nécessaire de formaliser l'évaluation.
 Il faut également former les contrôleurs humains pour harmoniser les évaluations.
 % Une analyse R\&R aurait pu être effectuée pour mesurer la précision de notre méthode.
-Afin d'évaluer la variabilité des évaluations humaines,  \citeauthor{baudet_maitrise_2012} \cite{baudet_maitrise_2012} propose une évolution de la méthode \textit{R\&R} (\textit{Repetability \& Reproductibility}) qui a été initialement proposée par le \citeauthor{automotiveindustryactiongroup_measurement_2010} pour évaluer la variabilité des moyens de mesure \cite{automotiveindustryactiongroup_measurement_2010}.
-La variabilité peut avoir deux causes : un problème de répétabilité de la mesure ou un problème de reproductibilité.
-Pour que le système de mesure soit conforme et puisse être utilisé, la pratique industrielle accepte généralement une variabilité inférieure à 30\%
+Afin d'évaluer la dispersion des évaluations humaines,  \citeauthor{baudet_maitrise_2012} \cite{baudet_maitrise_2012} propose une évolution de la méthode \textit{R\&R} (\textit{Repetability \& Reproductibility}) qui a été initialement proposée par le \citeauthor{automotiveindustryactiongroup_measurement_2010} pour évaluer la dispersion des moyens de mesure \cite{automotiveindustryactiongroup_measurement_2010}.
+La dispersion peut avoir deux causes : un problème de répétabilité de la mesure ou un problème de reproductibilité.
+Pour que le système de mesure soit conforme et puisse être utilisé, la pratique industrielle accepte généralement une dispersion inférieure à 30\%
 Dans notre cas, nous chercherons à concevoir un système de contrôle qui réalisera moins de 10\% d'erreurs de classification.
 
-\paragraph{Expérimentation de l'annotation hors ligne}\mbox{} \label{parag:offline_annotation} \\
-Sur notre cas d'application "boîte noire", présenté dans le Chapitre \ref{ch:measure} Section \ref{sec:experiment}, nous avons expérimenté une méthode de construction d'une échelle de notation de la qualité des pièces.
+% \paragraph{Expérimentation de l'annotation hors production}\mbox{} \label{parag:offline_annotation}
+Sur notre cas d'application "boîte noire", présenté dans le Chapitre \ref{ch:measure} Section \ref{sec:experiment}, nous avons expérimenté une notation de la qualité des pièces.
 Une échelle de notation est construite au fur et à mesure, par comparaison manuelle entre les défauts présents sur les pièces.
 % Les pièces sont classées sur une grande table, par comparaison manuelle.
-Afin de réduire la variabilité de l'évaluation, ce classement est réalisé par vote de l'avais de quatre contrôleurs.
-Nous justifions cette démarche par la nécessité de limiter la dispersion inter-classes.
-Si les contrôleurs ne sommes pas capables de différencier deux pièces, alors ces pièces appartiennent à une même classe.
+Afin de réduire la variabilité de l'évaluation, ce classement est réalisé par vote de quatre contrôleurs.
+Nous justifions cette démarche par la nécessité de limiter la dispersion intra-classe.
+Si les contrôleurs ne sont pas capable de différencier deux pièces, alors ces pièces appartiennent à une même classe.
 Nous n'avons pas réalisé d'analyse de répétabilité \textit{R\&R} du panel de quatre experts.
 C'est une perspective intéressante pour des travaux complémentaires.
 
@@ -313,47 +309,48 @@ C'est une perspective intéressante pour des travaux complémentaires.
 	\caption{Annotation hors-ligne par les experts humains.}
 	\label{fig:annotation}
 \end{figure}
-Les photographies de la Figure \ref{fig:annotation} présentent la réalisation de l'annotation hors-ligne.
-Les numéros sous les colonnes de pièces indiquent la valeur attribuée à chaque colonne sur l'échelle de qualité qui a été construit.
+La Figure \ref{fig:annotation} présente la réalisation de l'annotation hors-production.
+Les numéros sous les colonnes de pièces indiquent la valeur attribuée à chaque colonne sur l'échelle de qualité qui a été construite.
 % L'échelle a été construite de manière dynamique.
-L'échelle va de 1 : le niveau de qualité le meilleur ; à 7 : les pièces qui possèdent les pires caractéristiques du point de vue de la qualité.
+L'échelle va de 1 (le niveau de qualité le meilleur), à 7 (les pièces qui possèdent les pires caractéristiques du point de vue des défauts d'aspect).
 
-Il s'est avéré difficile pour les contrôleurs de donner une note qui prend en compte plusieurs types de défauts.
+Il s'est avéré difficile pour les contrôleurs de donner une note qui prend en compte plusieurs types de défaut.
 Les contrôleurs experts possèdent un a-priori de la notion de qualité qui s'appuie sur des typologies de défauts.
 C'est pourquoi nous avons identifié trois défauts présents sur les pièces de cette étude : la retassure, le givrage et les brulures.
-Aussi, la démarche de notation par comparaison a été réalisée trois fois de suite, pour les trois types de défauts.
-Une moyenne géométrique des notes combine les trois types de défauts et produit l'évaluation finale de la qualité de chaque pièce.
+Aussi, la démarche de notation par comparaison a été réalisée trois fois de suite, pour les trois types de défaut.
+Une moyenne géométrique des notes combine les trois types de défaut et produit l'évaluation finale de la qualité de chaque pièce.
 
 \noindent
 Nous identifions trois limites à ce processus d'annotation humaine :
 \begin{itemize}
-	\item La durée de 3 heures avec 4 experts pour évaluer 200 pièces, soit 60 pièces par heure. Cette cadence est équivalente au temps de cycle de production d'une pièce par minute.
-	\item La surface de travail nécessaire pour organiser les pièces et que les trois experts puissent les manipuler librement.
-	\item Les risques liés à la détérioration des pièces entre leur production et l'étape d'annotation.
+	\item la durée de trois heures avec quatre experts pour évaluer deux cents pièces, soit soixante pièces par heure,  % Cette cadence est équivalente au temps de cycle de production d'une pièce par minute.
+	\item la surface de travail nécessaire pour organiser les pièces et que les trois experts puissent les manipuler librement,
+	\item les risques liés à la détérioration des pièces entre leur production et l'étape d'annotation.
 \end{itemize}
 C'est pourquoi, nous recommandons de réaliser l'annotation au plus près du procédé d'injection-moulage ; si possible dès la sortie des pièces du moule d'injection.
 
-\subsubsection{Annotation en ligne de production}
-Réaliser l'annotation en ligne de production permet d'éliminer deux risques d'erreurs critiques sur le jeu de données d'apprentissage :
+\subsubsection{Annotation en ligne de production} \label{subsubsec:online_annoting}
+Réaliser l'annotation en ligne de production permet d'éliminer trois risques d'erreurs critiques sur le jeu de données d'apprentissage :
 \begin{itemize}
-	\item la modification des pièces entre leur production et leur annotation
-	\item l'erreur d'annotation à posteriori : l'expert peut ici observer la pièce
+	\item la perte du lien entre les mesures en production et l'annotation hors-production,
+	\item la transformation des pièces entre leur production et leur annotation
+	\item l'erreur d'annotation \textit{a posteriori} : l'expert peut ici observer la pièce.
 \end{itemize}
 
 En contrepartie, la durée disponible pour l'annotation est très limitée. En plus de la durée de l'annotation, l'expert humain doit assister les opérations de manutention des pièces et les opérations connexes.
-Nous estimons la disponibilité de l'expert humain à une trentaine de secondes pour un temps de cycle de procédé d'une minute.
+Nous estimons la disponibilité de l'expert humain à une trentaine de secondes pour un temps de cycle du procédé d'une minute.
 
-Le Tableau \ref{tab:annotation} présente les durées moyenne de la tâche d'annotation.
-Dans le cas d'une annotation au fil de la production de pièces, il n'est pas envisageable de réaliser une segmentation précise, à cause de sa durée élevée.
+Dans le cas d'une annotation au fil de la production de pièces, il n'est pas envisageable de réaliser une segmentation précise, à cause de sa durée élevée proche de la minute (voir le Tableau \ref{tab:annotation} qui présente les durées moyennes de la tâche d'annotation.
 Nous obtenons de ces résultats l'intérêt de réaliser une annotation rapide, sans nécessairement chercher à localiser les défauts.
 Indiquer la présence ou l'absence de défauts est rapide.
 Ensuite, nous pouvons préciser le niveau de la qualité en proposant une échelle discrète simple, par exemple à cinq niveaux de qualité.
 Afin de répondre à ce problème de vitesse d'annotation, une interface logicielle a été spécifiquement développée.
 Nous discutons de cette interface dans le Chapitre \ref{ch:theeye}.
+Cette interface permet aussi de conserver le lien entre les mesures et l'annotation.
 
 \subsubsection{Intégration de l'humain dans le système d'apprentissage}
 L'expertise humaine est indispensable à la modélisation par apprentissage statistique.
-L'humain doit transférer ses connaissances holistiques au logiciel informatique.
+L'humain doit transférer ses connaissances au logiciel informatique.
 C'est pourquoi, il nous paraît indispensable d'intégrer l'humain au plus près du processus d'apprentissage.
 Cela nécessite une interface adaptée.
 Par ce biais, l'expert humain peut effectuer deux actions :
@@ -362,36 +359,38 @@ Par ce biais, l'expert humain peut effectuer deux actions :
 	\item alerter si le modèle statistique donne une information erronée.
 \end{itemize}
 
-Afin de motiver l'expert humain à transmettre ses connaissances au système informatique, la ludification du processus d'annotation peut aussi être un facteur important.
+Afin de motiver l'expert humain à transmettre ses connaissances au système informatique, l'interface informatique d'annotation doit simple et conviviale.
+% la ludification du processus d'annotation peut aussi être un facteur important.
 De nombreuses sociétés informatiques l'ont bien compris et nous annotons actuellement de manière naturelle et transparente des bases de données d'apprentissage : par le biais de notre navigation sur l'Internet ou des interactions avec notre smartphone, et de toutes les données recueillies par les capteurs connectés.
 Le déploiement d'un système d'évaluation de la qualité dans les ateliers de production sera facilité par l'attrait de l'interaction avec l'interface d'annotation.
 
-Nous avons développé une solution logicielle afin de résoudre ce problème.
-Nous présenterons nos développements logiciels dans le Chapitre \ref{ch:theeye}.
+Nous avons développé une solution logicielle afin de satisfaire cette nécessité.
+Nous discuterons de ce développement logiciel dans le Chapitre \ref{ch:theeye}.
 Une interface sur navigateur web est accessible depuis tous les terminaux.
 Tout au long de la production de nouvelles pièces, celles-ci s'affichent en temps réel et l'expert humain peut annoter la qualité.
-L'annotation peut être réalisée depuis la ligne de production, ce qui permet le contrôle visuel direct des pièces.
-L'annotation peut également être effectuée à distance : dans ce cas, l'expert humain se base sur l'image enregistré par le dispositif de mesure pour évaluer la qualité.
+L'annotation peut être réalisée sur la ligne de production, ce qui permet alors en plus le contrôle visuel direct des pièces.
+L'annotation peut également être effectuée à distance : dans ce cas, l'expert humain se base sur l'image enregistrée par le dispositif de mesure pour évaluer la qualité.
 Dans le cas de pièces techniques à haute valeur ajoutée, la présence de l'expert sur la ligne est recommandée.
 Il peut ainsi manipuler les pièces pour réaliser une annotation précise.
 
 \subsubsection{Assistance à l'annotation humaine} \label{subsec:labelling_assistance}
 % Dans certains cas, l'expertise humaine ne permet pas de différencier la qualité entre deux pièces.
-La disponibilité de l'expert humain est limitée.
-Il est possible de l'assister dans la tâche d'annotation.
+% La disponibilité de l'expert humain est limitée.
+Il est possible d'assister l'expert qualité dans la tâche d'annotation en proposant une note qu'il suffit de confirmer.
 Il est également possible de limiter le nombre d'annotations à réaliser aux cas les plus critiques.
+C'est à dire de ne pas demander à l'expert d'annoter toutes les pièces, mais de détecter les pièces nouvelles qui peuvent enrichir le jeu de données et de requérir leur annotation.
 Deux démarches peuvent être réalisées en parallèle : suggérer et détecter les pièces nouvelles, qui sont pertinentes à annoter.
 
-\paragraph{3.1.2.4.1 Suggestion d'annotations}\mbox{} \\
+\paragraph{3.1.2.4.1 Suggestion d'annotation}\mbox{} \\
 Dans certains cas, l'expertise humaine ne permet pas de différencier la qualité entre deux pièces.
 Plusieurs limites humaines peuvent être la cause d'une telle situation :
 \begin{itemize}
-	\item L'expert ne peut pas mémoriser les caractéristiques de l'ensemble des pièces produites.
-	\item L'expert humain ne peut pas comparer les pièces car les pièces ne lui sont plus accessibles.
-	\item L'expert humain ne dispose pas d'assez de temps pour comparer les pièces.
+	\item l'expert ne peut pas mémoriser les caractéristiques de l'ensemble des pièces produites,
+	\item l'expert humain ne peut pas comparer les pièces car elles ne lui sont plus accessibles.
+	% \item L'expert humain ne dispose pas d'assez de temps pour comparer les pièces.
 \end{itemize}
 
-Il est alors intéressant de suggérer à l'expert humain une annotation.
+Il est alors intéressant de suggérer à l'expert humain une annotation pour la pièce.
 De plus, si cette suggestion est motivée par un argumentaire, elle sera d'autant plus crédible.
 Il ne faut néanmoins pas influencer l'expert humain.
 C'est pourquoi cette suggestion ne doit être effectuée que lorsque le niveau de confiance du modèle statistique est élevée.
@@ -405,8 +404,8 @@ C'est pourquoi, l'affichage sous forme d'un graphique des paquets de pièces sim
 Les algorithmes \textit{ACP} \ref{subsubsec:ACP}, \textit{t-SNE} \ref{subsubsec:tsne} ou \textit{UMAP} \ref{subsubsec:umap} permettent de projeter un espace de grandes dimensions dans un graphique à deux ou trois dimensions.
 Nous détaillons leur application dans la Section \ref{subsec:unsupervised}.
 Ce graphique peut être interprété par un humain.
-Sur ce graphique, nous ajoutons l'affichage automatique de l'image de chaque pièce lors du survol des points.
-Cela permet d'identifier les paquets de pièces similaires très rapidement, mais aussi les erreurs de classifications (humaine où du système automatique).
+Sur ce graphique, nous ajoutons l'affichage automatique de l'image de chaque pièce lors du survol des points par le curseur d'une souris informatique.
+Cela permet d'identifier les paquets de pièces similaires très rapidement, mais aussi les erreurs de classification (humaine ou du système automatique).
 
 
 \paragraph{3.1.2.4.2 Détection de nouveautés}\mbox{} \\
@@ -419,26 +418,26 @@ De plus, différents points de fonctionnement du procédé peuvent amener à la 
 Il est ainsi nécessaire de mettre en évidence les pièces qui présentent de l'intérêt pour la base d'apprentissage : c'est à dire les pièces qui sont "nouvelles".
 Des méthodes d'analyses de données sans supervision permettent de réaliser cette tâche.
 Nous détaillons l'application de ces méthodes dans la Section \ref{subsec:unsupervised}.
-Nous présentons ici les deux méthodes que nous avons implémentées, la mesure de distance de Mahalanobis et la machine à vecteurs de support à une classe.
+Nous présentons ici les deux méthodes que nous avons implémentées : la mesure de distance de Mahalanobis ; la machine à vecteurs de support à une classe.
 
 \subparagraph{Mesure de distance dans un espace réduit par l'Analyse en Composantes Principales}\mbox{} \\
 % https://scikit-learn.org/stable/auto_examples/plot_anomaly_comparison.html#sphx-glr-auto-examples-plot-anomaly-comparison-py
 La dimension d'une image numérique est grande.
 Une image couleur de 1920 $\times$ 1080 pixels est composée de 6,2 millions de valeurs.
-Une comparaison pixel à pixel n'est pas envisageable car la position des points d'intérêts entre les images peuvent légèrement varier.
+Une comparaison pixel à pixel n'est pas envisageable car la position des points d'intérêt entre les images peuvent légèrement varier.
 Il est intéressant de comparer la similarité en dépassant les variations de positionnement mais on conservant les points d'intérêts.
 
-Il est possible de réduire l'espace des données en projetant les valeurs dans un espace de dimensions réduite.
+Il est possible de réduire l'espace des données en projetant les valeurs des pixels dans un espace de dimensions réduit.
 L'Analyse en Composantes Principales §\ref{subsubsec:ACP} réduit l'espace des données initial en combinant les relations linéaires existantes entre les composantes.
-On choisit la dimension de l'espace de donnée réduit est choisi afin de limiter la perte d'informations à partir de l'espace initial.
-Cette perte d'information est mesurée par l'écart de la variance exprimée.
-Dans notre cas spécifique, la dimension des données d'entrés sont des images qui comportent près d'un million de pixels.
+La dimension de l'espace de donnée réduit est choisi afin de limiter la perte d'informations à partir de l'espace initial.
+Cette perte d'information est mesurée par la diminution de la variance exprimée dans les données.
+Dans notre cas spécifique, les données d'entrée sont des images qui comportent 6,2 millions de pixels.
 Nous projetons ces valeurs dans un espace de dimensions 100.
-La perte de variance est alors inférieure à 0,01\%.
+La perte de variance dans les données projetée est alors inférieure à 0,01\% de la variance des données initiales.
 
-Dans cet espace de données réduit, il devient possible de mesurer la distance entre les points.
-La distance euclidienne ne prend pas en compte les corrélations entre les variables, c'est pourquoi la distance de Mahalanobis \cite{mahalanobis_generalised_1936}, Équation \ref{eq:mahalanobis}  est couramment employée pour mesurer des distances entre paquets d'échantillons.
-La distance de Mahalanobis entre un paquet de pièces de références et une pièce nouvelle est représenté par une hyper ellipse.
+Dans cet espace de dimensions réduit, il devient possible de mesurer la distance entre les points.
+La distance euclidienne ne prend pas en compte les corrélations entre les variables, c'est pourquoi la distance de Mahalanobis \cite{mahalanobis_generalised_1936}, Équation \ref{eq:mahalanobis}  est couramment employée pour mesurer des distances entre paquets d'individus.
+La distance de Mahalanobis entre un paquet de pièces de référence et une pièce nouvelle est représenté par une hyper-ellipse.
 % D'autres distances peuvent également être utilisées : Earth Mover, Cosinus, Jacquard.
 
 \begin{equation} \label{eq:mahalanobis}
@@ -446,20 +445,20 @@ D_{Mahalanobis}(x, y)=\sqrt{(x - y)^{T} \Sigma^{-1}(x-y)}
 \end{equation}
 
 % TODO: Mahalanobis FIGURE
-Pour obtenir un détecteur de nouveauté, il reste à définir un seuil à partir duquel la pièce est considérée comme mauvaise.
+Pour obtenir un détecteur de nouveauté, il reste à définir un seuil à partir duquel la pièce est considérée comme nouvelle.
 Ce seuil est soit imposé, soit défini de manière automatique.
-Dans le cas d'un seuil automatique, on choisira un seuil égal à la distance de Mahalanobis de l'ensemble des pièces actuellement dans la base d'apprentissage ; ce sont les pièces existantes et nous cherchons à détecter les nouvelles.
+Dans le cas d'un seuil automatique, on choisira un seuil égal à la distance de Mahalanobis de l'ensemble des pièces actuellement dans la base d'apprentissage. % ; ce sont les pièces existantes et nous cherchons à détecter les nouvelles.
 La distance de toute pièce nouvelle dépassera alors ce seuil et la nouveauté sera détectée.
 Cette démarche est employée avec succès dans les travaux de \citeauthor{lacombe_exploitation_2018a} sur le contrôle visuel automatique par système multi-éclairage, afin de détecter les pièces conformes et les pièces non-conformes \cite{lacombe_exploitation_2018a}.
 % https://scikit-learn.org/stable/auto_examples/covariance/plot_mahalanobis_distances.html
 % Rousseeuw, P.J., Van Driessen, K. “A fast algorithm for the minimum covariance determinant estimator” Technometrics 41(3), 212 (1999)
 
 \subparagraph{Machine à Vecteurs Supports à une classe}\mbox{} \\
-À partir d'un classifieur machine à vecteurs de support\footnote{Le principe de fonctionnement d'un classifier machine à vecteurs de supports est discuté dans l'Annexe §\ref{parag:svm}.}, \citeauthor{scholkopf_support_1999} proposent de chercher à classifier l'ensemble des échantillons existants dans une unique classe \cite{scholkopf_support_1999, scholkopf_estimating_2001}.
+À partir d'un classifieur machine à vecteurs de support\footnote{Le principe de fonctionnement d'un classifier machine à vecteurs de supports est discuté dans l'Annexe §\ref{parag:svm}.}, \citeauthor{scholkopf_support_1999} proposent de chercher à classifier l'ensemble des individus existants dans une unique classe \cite{scholkopf_support_1999, scholkopf_estimating_2001}.
 C'est la méthode \textit{One-Class SVM}.
-Les échantillons qui seront similaires aux échantillons existants ne seront pas détectés comme nouveaux.
-En revanches, les échantillons qui ne sont pas similaires seront identifiés.
-Le paramètre de marge $b$ correspond à la probabilité de classifier un nouvel échantillon, qui serait situé en dehors de l'hyperplan de marge maximal, comme nouveau.
+Les individus qui seront similaires aux individus existants ne seront pas détectés comme nouveaux.
+En revanches, les individus qui ne sont pas similaires seront détectés.
+Le paramètre de marge $b$ correspond à la probabilité de classifier un nouvel individu, qui serait situé en dehors de l'hyperplan de marge maximal, comme nouveau.
 
 À l'aide de noyau gaussien, cette méthode permet de prendre en compte des données aux propriétés fortement non-linéaires, ce que la matrice de covariance de la distance de Malhanobis ne permet pas.
 
@@ -479,32 +478,32 @@ Le paramètre de marge $b$ correspond à la probabilité de classifier un nouvel
 %Nous obtenons un système similaire à la méthode faiblement supervisé d'apprentissage par curriculum, à la différence que l'expert humain est ici intégré dans le système.
 %L'expert humain agit en temps que modèle de référence.
 
-\paragraph{3.1.2.4.3 Détection de modifications sur le procédé}\mbox{} \label{subsec:labelling_detection} \\
-Une approche complémentaire, pragmatique, à ce problème est de réaliser la détection de l'intervention du technicien humain sur les réglages du procédé.
+\paragraph{3.1.2.4.3 Détection de modification sur le procédé}\mbox{} \label{subsec:labelling_detection} \\
+Une approche complémentaire, pragmatique, au problème de la détection de nouveauté, est de réaliser la détection de l'intervention du technicien humain sur les réglages du procédé.
 En effet, lorsque le technicien modifie les réglages, il cherche nécessairement à optimiser la qualité des pièces produites.
-Il suffit alors d'ajouter à la base de données d'apprentissage les pièces pour lesquelles une intervention humaine sur les réglages a eu lieu.
-De manière pratique, le système d'apprentissage doit disposer d'une mémoire tampon où quelques dernières pièces produites sont conservées.
-En cas d'intervention humaine sur les réglages du procédé, cette mémoire tampon est ajoutée à la base d'apprentissage.
-Nous ajouterons également un certain nombre de pièces produites à la suite avec les nouveaux réglages.
-Nous proposons d'ajouter un nombre de pièces qui correspond à la variabilité court-terme du procédé.
+Il suffit alors d'ajouter, au jeu de données d'apprentissage, les pièces pour lesquelles une intervention humaine sur les réglages a eu lieu.
+De manière pratique, le système de mesure doit disposer d'une mémoire tampon où les mesures des quelques dernières pièces produites sont conservées.
+En cas d'intervention humaine sur les réglages du procédé, les mesures de cette mémoire tampon sont ajoutée au jeu de données d'apprentissage.
+Nous ajouterons également un certain nombre de pièces qui seront produites à la suite avec les nouveaux réglages.
+Nous proposons d'ajouter un nombre de pièces e, fonction de la variabilité court-terme du procédé.
 Dans le cas de l'injection des thermoplastiques, suite à un réglage, une dizaine de pièces permettent de stabiliser le procédé.
 C'est pourquoi nous proposons d'enregistrer deux pièces précédant la modification des réglages, ainsi que les dix pièces suivant la modification.
 Cette contrainte dimensionne la capacité de mémoire informatique du système d'apprentissage.
-Dans le cas de douze pièces, la mémoire tampon sera de l'ordre de mille mégaoctets.
+Dans le cas de douze pièces, la mémoire tampon sera de l'ordre d'un gigaoctet pour notre application.
 
-Nous n'avons pas pu évaluer notre proposition dans le cadre de ce travail, car cela nécessite l'enregistrement automatique de la valeur des réglages de la machine.
+Nous n'avons pas pu évaluer notre proposition dans le cadre de ce travail, car cela aurait nécessité l'enregistrement automatique de la valeur des réglages de la machine.
 Cette intégration doit être réalisée en lien avec les constructeurs des presses d'injection-plastique ; ou par rétro-ingénierie, ce qui demandera des ressources conséquentes.
 L'évaluation de cette proposition est une piste de travail importante pour la suite de nos travaux.
 
 
 \subsection{Conclusion : transmission de l'expertise humaine en condition industrielle} \label{sec:dataset_conclusion}
 Dans cette section, nous avons présenté plusieurs méthodes de construction d'un jeu de données.
-Pour identifier un modèle par apprentissage, il est nécessaire de disposer d'échantillons qui sont représentatifs de l'ensemble de la plage de fonctionnement du procédé.
-Si les échantillons ne couvrent pas l'ensemble du procédé, le modèle sera partiel, voir biaisé.
+Pour identifier un modèle par apprentissage, il est nécessaire de disposer d'individus qui sont représentatifs de l'ensemble de la plage de fonctionnement du procédé.
+Si les individus ne couvrent pas l'ensemble du procédé, le modèle sera partiel, voir biaisé.
 
-Dans la première partie, nous avons discuté de l'intérêt des plans d'expériences §\ref{subsec:doe}.
+Dans la première partie, nous avons discuté de l'intérêt du réglage automatique du procédé pour construire un jeu de données représentatif.
 Nous utilisons dans notre travail de doctorat, pour valider expérimentalement nos hypothèses, une table L12 de criblage §\ref{subsec:l12_doe}.
-Cette table permet de faire varier 11 paramètres en ne réalisant que 12 essais, ce qui permet de couvrir rapidement le procédé.
+Cette table permet de faire varier 11 paramètres en ne réalisant que 12 essais, ce qui permet de couvrir rapidement la variabilité des réglages du procédé.
 
 Dans la seconde partie, nous avons présenté notre méthode d'évaluation de la qualité de pièces plastiques par un panel d'experts.
 L'évaluation est nécessaire afin d'annoter notre jeu d'apprentissage ; c'est à dire d'associer à chaque pièce une information : pièce conforme ou pièce non-conforme.
@@ -514,48 +513,44 @@ Cette méthode nécessite la comparaison d'une production complète ; c'est une 
 L'annotation d'un jeu de données est l'étape clé de la modélisation par apprentissage statique : l'expert humain transfert sa connaissance au système informatique.
 
 L'annotation d'un jeu de données est une opération longue.
-Nous proposons des méthodes pour réduire la durée de l'évaluation de la qualité par l'expert humain et pouvoir réaliser une annotation du jeu de données d'apprentissage au fur et à mesure de la production de nouvelles pièces.
+Nous avons proposé des méthodes pour réduire la durée de l'évaluation de la qualité par l'expert humain et pouvoir réaliser une annotation du jeu de données d'apprentissage au fur et à mesure de la production de nouvelles pièces.
 En particulier, la détection de nouveauté permet de demander à l'expert humain d'évaluer uniquement les pièces qui possèdent des caractéristiques "nouvelles".
 Il est également possible de suggérer une évaluation de la qualité, pour que l'expert humain puisse annoter plus rapidement §\ref{subsec:labelling_assistance}.
 Enfin, nous proposons de suivre les modifications des réglages du procédé : si le réglage est modifié, il est très probable que les caractéristiques de la pièce produite soient différentes des caractéristiques précédentes.
-C'est nous demanderons à l'expert humain d'annoter les pièces lorsque les réglages sont modifiés §\ref{subsec:labelling_detection}.
+Il faut demander à l'expert humain d'annoter les pièces lorsque les réglages sont modifiés §\ref{subsec:labelling_detection}.
 
-Dans le Chapitre \ref{ch:metric_learning} suivant, nous présenterons les méthodes d'exploitation de ce jeu de données, par apprentissage statistique.
+% Dans le Chapitre \ref{ch:metric_learning} suivant, nous présenterons les méthodes d'exploitation de ce jeu de données, par apprentissage statistique.
 
-\paragraph{3.1.3.1 Perspectives}\mbox{} \\
-Le processus d'annotation est très important pour construire un jeu de données d'apprentissage représentatif du procédé.
-Il est nécessaire de veiller à éviter au maximum les biais.
-C'est pourquoi l'expert qui réalise l'annotation doit être qualifié, motivé et concentré.
-À cela peut être ajouter une étude statistique de la présence de biais.
+%\paragraph{3.1.3.1 Perspectives}\mbox{} \\
+%Le processus d'annotation est très important pour construire un jeu de données d'apprentissage représentatif du procédé.
+%Il est nécessaire de veiller à éviter au maximum les biais.
+%C'est pourquoi l'expert qui réalise l'annotation doit être qualifié, motivé et concentré.
+%À cela peut être ajouter une étude statistique de la présence de biais.
+%
+%La ludification du processus d'annotation est une perceptive de recherche importante, qui nécessite d'étudier la psychologie.
+%Il serait intéressant d'inciter l'expert humain à passer du temps sur les pièces dont l'annotation est difficile, par exemple parce-que ce sont des cas nouveaux.
+%
+%Enfin, pour favoriser le processus d'annotation, il est nécessaire de proposer une interface-homme machine attrayante.
+%Nous présenterons dans le Chapitre \ref{ch:theeye} nos développements logiciels sur ce sujet.
 
-La ludification du processus d'annotation est une perceptive de recherche importante, qui nécessite d'étudier la psychologie.
-Il serait intéressant d'inciter l'expert humain à passer du temps sur les pièces dont l'annotation est difficile, par exemple parce-que ce sont des cas nouveaux.
-
-Enfin, pour favoriser le processus d'annotation, il est nécessaire de proposer une interface-homme machine attrayante.
-Nous présenterons dans le Chapitre \ref{ch:theeye} nos développements logiciels sur ce sujet.
-
-\bigskip
-
-\bigskip
-
+\vspace{5cm}
 \miniconclusion{Synthèse : Transmission de l'expertise humaine par l'annotation d'un jeu de données}{
 	L'annotation d'un jeu de données est une étape clé de l'apprentissage statique ; l'expert humain transfert sa connaissance au modèle.
 	
-	Les plans d'expériences permettent d'explorer rapidement la réponse d'un phénomène.
-	Puis il est possible d'enrichir le jeu de données au fur et à mesure de la créations de nouveaux échantillons par une annotation en ligne de production.
+	Les plans d'expériences permettent d'explorer rapidement la réponse d'un système, puis il est possible d'enrichir le jeu de données au fur et à mesure de la créations de nouveaux individus par une annotation production.
 	
 	Enfin, afin d'augmenter la vitesse d'annotation et de simplifier le travail de l'expert humain, il est possible de suggérer automatiquement des annotations.
 }
 
 \newpage
 \section{Construction d'une métrique de la qualité par apprentissage} \label{sec:metric_learning}
-La notion de qualité d'un produit est spécifiée dans le cahier des charges.
-Cependant, lorsque les spécifications ne sont pas normées, elles entrainent souvent une traduction subjective.
-C'est pourquoi la notion de qualité d'un produit, lorsqu'elle intègre les aspects sensoriels en plus des tolérances géométriques, est souvent subjective.
+La qualité d'un produit est spécifiée dans le cahier des charges.
+Cependant, lorsque les spécifications ne sont pas normalisées, elles entrainent souvent une traduction subjective afin de réaliser le contrôle.
+C'est pourquoi la qualité d'un produit, lorsqu'elle intègre les aspects sensoriels en plus des aspects géométriques, est souvent subjective.
 Elle s'appuie sur une connaissance holistique d'un expert qualité humain. La notion de qualité d'aspect est difficile à formaliser.
-Des travaux de recherches ont permis des avancées dans ce domaine.
-L'analyse ontologique de corpus de textes de références permet par exemple de hiérarchiser les descriptions formelles afin de normaliser ces notions de qualité du point de vue visuel \cite{baudet_maitrise_2012} et sensorimoteur \cite{albert_smart_2017}.
-Une fois normée, le contrôle de la qualité peut être automatisé \cite{desage_contraintes_2015, pitard_metrologie_2016, lacombe_exploitation_2018a, albert_maitrise_2019} afin de garantir la répétabilité.
+Des travaux de recherche ont permis des avancées dans ce domaine.
+L'analyse ontologique de corpus de textes de références permet par exemple de hiérarchiser les descriptions formelles afin de normaliser ces notions de qualité, du point de vue visuel \cite{baudet_maitrise_2012}, et sensorimoteur \cite{albert_smart_2017}.
+Une fois normalisée le contrôle de la qualité peut être automatisé \cite{desage_contraintes_2015, pitard_metrologie_2016, lacombe_exploitation_2018a, albert_maitrise_2019} afin de garantir la répétabilité.
 
 Construire une métrique de la qualité par apprentissage revient à apprendre la fonction $f_{\theta}$ qui a pour paramètres $\theta$ tel que $f_{\theta}(\mathbf{x}) : \mathbb{R}^{F} \rightarrow \mathbb{R}^{D}$ transforme les points de l'espace d'origine $\mathbb{R}^{F}$ dont les propriétés sont similaires (par exemple un niveau de qualité de pièces équivalent) vers des points proches au sens de la métrique, dans l'espace $\mathbb{R}^{D}$.
 Réciproquement, la fonction $f_{\theta}$ doit transformer les points d'origines dont les propriétés sont opposées, vers des points distants de l'espace $\mathbb{R}^{D}$.
@@ -575,39 +570,41 @@ Un excellent état de l'art sur le sujet est le doctorat de \citeauthor{bellet_s
 Nous nous sommes intéressés aux méthodes les plus pertinentes compte-tenu de notre problématique d'analyse d'images.
 Ce travail de doctorat a permis de comparer différents algorithmes sur notre problème de classification binaire de la conformité des pièces.
 Nous nous sommes uniquement intéressés à l'utilisation de données de mesure sous forme d'images numériques.
-Nous présenterons les algorithmes supervisés étudiés, puis les algorithmes semi-supervisés qui permettent de limiter la durée de l'annotation humaine requise.
-Enfin, nous présenterons les moyens disponibles pour optimiser les performances des classifieurs utilisés par sélection automatique des hyper-paramètres.
+Nous présenterons les algorithmes supervisés étudiés, puis les algorithmes semi-supervisés qui permettent de limiter la durée de l'annotation humaine requise dans les Sections \ref{subsec:semi_supervised} et \ref{subsec:unsupervised}.
+Enfin, nous présenterons les moyens disponibles pour optimiser les performances des classifieurs par sélection automatique des hyper-paramètres dans la Section \ref{sec:auto_ml}.
 
-\subsection{Apprentissage supervisé}
+\subsection{Apprentissage statistique supervisé}
 Sur notre problématique du contrôle qualité, nous cherchons ici à résoudre un problème de classification (aussi appelé "discrimination").
-C'est à dire que nous cherchons à classer automatiquement dans des groupes les échantillons qui ont des propriétés similaires, mesurées sur des observations.
-Ici, nous cherchons à classer les pièces qui sont observées comme bonnes dans le groupe des pièces bonnes, et réciproquement classer les pièces observées mauvaises dans le groupe des pièces mauvaises.
+C'est à dire que nous cherchons à classer automatiquement dans des groupes les individus qui ont des propriétés similaires.  % , mesurées sur des observations.
+Ici, nous cherchons à classer les pièces qui sont observées comme conforme dans le groupe des pièces non-conformes, et réciproquement.
 Cette fonction de classification est modélisée par l'Équation \ref{eq:clf}.
 Pour un vecteur d'observations $\vec{\mathbf{x}}$ dans $\mathbb {R}^{N}$, la prédiction $\hat{y}$ du classifieur $f$ est donnée par :
 \begin{equation} \label{eq:clf}
 \hat{y} = f\left(\vec{\mathbf{x}}\right)
 \end{equation}
 
-Pour un classifieur, $y$ est souvent un vecteur de la probabilité d'appartenance de l'échantillon à chacune des classes.
-La dimension de $y$ est donc le nombre de classes possible dans notre problème.
-Le même principe peut être employé pour résoudre un problème de régression.
-$y$ est alors un scalaire continue.
+Pour un classifieur, $y$ est souvent un vecteur de la probabilité d'appartenance de l'individu à chacune des classes.
+La dimension de $y$ est le nombre de classes possible dans notre problème.
+% Le même principe peut être employé pour résoudre un problème de régression.
+% $y$ est alors un scalaire continue.
 Un cas particulier est le classifieur dit "linéaire", Équation \ref{eq:clf_linear}.
 La fonction est alors le produit scalaire des observations avec la matrice de poids.
 Le terme linéaire signifie que la fonction est une combinaison linéaire.
-$\mathbf{W}$ est alors une matrice de poids et $\vec{\mathbf{b}}$ est un vecteur de biais. L'apprentissage supervisé consiste à trouver les valeurs de la matrice de poids $\mathbf{W}$ et du biais $\vec{\mathbf{b}}$ tel que la valeur de $\hat{y}$ s'approche le plus possible de la valeur connue du couple $(\mathbf{x}, y)$.
+$\mathbf{W}$ est alors une matrice de poids et $\vec{\mathbf{b}}$ est un vecteur de biais.
+L'apprentissage supervisé consiste à trouver les valeurs de la matrice de poids $\mathbf{W}$ et du biais $\vec{\mathbf{b}}$ tel que la valeur de $\hat{y}$ s'approche le plus possible de la valeur connue du couple $(\mathbf{x}, y)$.
 \begin{equation} \label{eq:clf_linear}
 \hat{y} = f\left(\mathbf{W}^{T} \cdot \mathbf{x} + \vec{\mathbf{b}}\right) = f\left(\sum_{i=1}^{N} \mathbf{w}_{i} \cdot x_{i} + b_{i}\right)
 \end{equation}
 
 Plusieurs distances mathématiques peuvent être utilisées pour estimer l'écart entre deux populations.
 La distance de \citeauthor{mahalanobis_generalised_1936} \cite{mahalanobis_generalised_1936} a été utilisée dans les travaux de doctorat de \citeauthor{lacombe_exploitation_2018a} sur une problématique similaire de contrôle automatique de la qualité à partir de mesures visuelles \cite{lacombe_exploitation_2018a}.
-Cependant l'utilisation de la distance de \citeauthor{mahalanobis_generalised_1936} est limitée aux espaces linéaires, ce qui rend difficile la séparation de motifs visuels complexes.
+Cependant l'utilisation de la distance de \citeauthor{mahalanobis_generalised_1936} est limitée aux espaces linéaires.
+Il est difficile de l'utiliser pour séparer des motifs visuels compliqués.
 Il est alors nécessaire de transformer les données pour les rendre linéairement séparables, en amont de la mesure de distance.
 Nous détaillons l'utilisation de la distance de Mahalanobis dans la Section \ref{subsubsec:triplet}.
-Nous avons choisi dans ce travail de comparer des approches traditionnelles d'apprentissage supervisé, avec des approches par réseaux de neurones de convolutions profonds.
-L'intérêt de ces méthodes est la non-linéarité des modèles obtenus.
-Les réseaux de neurones de convolutions sont organisés en multiples couches successives, ce qui créé des architectures dites "profondes" (d'où l'expression \textit{Deep Learning}).
+Nous avons choisi dans ce travail de comparer des approches traditionnelles d'apprentissage supervisé, avec des approches par réseaux de neurones de convolution profonds.
+L'intérêt de ces méthodes est la forte non-linéarité et le grand nombre de degrés de liberté des modèles.
+% Les réseaux de neurones de convolutions sont organisés en multiples couches successives, ce qui créé des architectures dites "profondes" (d'où l'expression \textit{Deep Learning}).
 Ces types de classifieurs représentent aujourd'hui l'état de l'art académique et industriel en analyse d'images.
 
 L'Annexe \ref{Ann:3} propose une synthèse de la théorie de l'apprentissage statistique et des principaux algorithmes traditionnels.
@@ -634,7 +631,7 @@ Il est bien plus efficient de créer des architectures profondes, supérieures �
 
 La dernière couche du réseau est appelée couche de classification (ou classifieur).
 Si le problème est binaire (comporte uniquement deux classes), la sortie du réseau est une probabilité d'appartenance à la première classe.
-Pour un problème multi-classes, la sortie du réseau est un vecteur de probabilité d'appartenance à chacune des classes.
+Pour un problème multi-classes, la sortie du réseau serait un vecteur de probabilité d'appartenance à chacune des classes.
 Pour un problème binaire, une fonction d'activation sigmoïde, Équation \ref{eq:sigmoid}, est utilisée afin de transformer les valeurs de la précédente couche vers une probabilité : $s_{[-\infty; +\infty]} \to p_{[0 ; 1]}$.
 
 \begin{equation} \label{eq:sigmoid}
@@ -650,19 +647,21 @@ Chaque classe a préalablement été encodée sous la forme d'un vecteur à la d
 \end{equation}
 
 
-Ce modèle à réseau de neurones est pleinement différentiable.
+Le modèle à réseau de neurones est pleinement différentiable.
 C'est pourquoi la méthode traditionnelle d'ajustement des poids des neurones du réseau est la rétro-propagation de l'erreur proposée, par \citeauthor{rumelhart_learning_1985} \cite{rumelhart_learning_1985} qui est adaptée aux réseaux de convolutions à couches multiples par \citeauthor{lecun_backpropagation_1989} \cite{lecun_backpropagation_1989}.
 Par la suite, \citeauthor{lecun_efficient_1998} \cite{lecun_efficient_1998} développe l'apprentissage progressif stochastique des poids du réseau, aussi appelée descente de gradient stochastique : l'apprentissage est réalisé successivement sur une portion des données choisie aléatoirement  (les \textit{mini-batch}), car  calculer le gradient pour la totalité du jeu de données serait trop coûteux en matière de puissance de calcul.
 
-\cite{vapnik_principles_1992} définit dans la théorie Vapnik–Tchervonenkis la notion d'apprentissage statistique comme un problème d'optimisation, Équation \ref{eq:VC_error}, où on cherche à minimiser l'erreur empirique $E$, en fonction des poids $\mathbf{W}$ du réseau et d'un terme de régularisation $\lambda$ sur les poids $\mathbf{W}$ (régularisation de Tikhonov §\ref{parag:weights_decay}).
+\citeauthor{vapnik_principles_1992} définit dans la théorie Vapnik–Tchervonenkis la notion d'apprentissage statistique comme un problème d'optimisation \cite{vapnik_principles_1992}, Équation \ref{eq:VC_error}, où on cherche à minimiser l'erreur empirique $E$, en fonction des poids $\mathbf{W}$ du réseau et d'un terme de régularisation $\lambda$ sur les poids $\mathbf{W}$ (régularisation de Tikhonov §\ref{parag:weights_decay}).
 
 \begin{equation} \label{eq:VC_error}
-E\left(\mathbf{W}, \lambda_{p}\right)=\frac{1}{\ell} \sum_{i=1}^{\ell} L\left(y_{i}, f\left(x_{i}, \mathbf{W}\right)\right)+\lambda_{p}\|\mathbf{W}\|_{2}
+E\left(\mathbf{W}, \lambda_{p}\right)=\frac{1}{\ell} \sum_{i=1}^{\ell} \mathcal{L}\left(y_{i}, F\left(x_{i}, \mathbf{W}\right)\right)+\lambda_{p}\|\mathbf{W}\|_{2}
 \end{equation}
 
 À chaque itération, une fonction de coût $\mathcal{L}$ calcule l'erreur entre les prédictions du réseau $\hat{y}$ et les valeurs de références $y$.
 La fonction de coût est choisie pour être adaptée au problème de classification en présence.
-Nous détaillerons dans ce paragraphe le cas de la classification binaire.
+% Nous détaillerons dans ce paragraphe le cas de la classification binaire.
+
+Dans le cas de l'apprentissage supervisé, on cherche à trouver la fonction $F$ qui minimise la perte de l'information entre l'approximation finale et le jeu de données initial.
 L'entropie $H$ est une métrique importante de la théorie de l'information, proposée par \cite{shannon_mathematical_1948}.
 Pour une distribution de probabilité $p$ donnée, l'entropie est exprimée par l'Équation \ref{eq:entropy}.
 Elle mesure la quantité de données minimale nécessaire pour encoder l'information de la distribution.
@@ -671,8 +670,7 @@ Elle mesure la quantité de données minimale nécessaire pour encoder l'informa
 \text{Entropie} \ \ H(p) =-\sum_{i=1}^{N} p\left(x_{i}\right) \cdot \log p\left(x_{i}\right)
 \end{equation}
 
-Dans le cas de l'apprentissage supervisé, on cherche à trouver la fonction $F$ qui minimise la perte de l'information entre l'approximation finale et le jeu de données initial.
-Aussi, en comparant les entropies d'une distribution source $y$ et d'une approximation de $\hat{y}$, on mesure la quantité d'informations, perdue par la méthode d'approximation $F$ apprise (aussi appelée méthode d'encodage).
+Aussi, en comparant les entropies d'une distribution source $y$ et d'une approximation de $\hat{y}$, on mesure la quantité d'information perdue par la méthode d'approximation $F$.  % F est aussi appelée "méthode d'encodage".
 C'est la divergence de \citeauthor{kullback_information_1951} \cite{kullback_information_1951}, Équation \ref{eq:D_KL} et nous cherchons ici à la minimiser.
 
 \begin{equation} \label{eq:D_KL}
@@ -695,13 +693,12 @@ Le calcul est simplifié en combinant la fonction d'activation sigmoïde et la f
 \end{split}
 \end{equation}
 
-À chaque itération, la dérivée de cette erreur est rétro-propagée pour ajuster chacun des poids du réseau.
-Le lecteur pourra se référer à la note de référence de \citeauthor{sadowski_notes_2016} pour le détail du calcul de la dérivée \cite{sadowski_notes_2016}.
+À chaque itération, la dérivée\footnote{Le lecteur pourra se référer à la note de référence de \citeauthor{sadowski_notes_2016} pour le détail du calcul de la dérivée \cite{sadowski_notes_2016}.} de cette erreur est rétro-propagée pour ajuster chacun des poids du réseau.
 De plus, la dérivée est pondérée par un facteur $0 < \eta < 1$ qui est appelée le facteur d'apprentissage.
-Le facteur $\eta$ est critique pour obtenir la convergence de l'erreur vers zéro.
-Plus le réseau est complexe, plus le problème d'optimisation en présence est non-linéaire et non-convexe ; il possède de nombreux minima locaux.
+La valeur du facteur $\eta$ est critique pour obtenir la convergence de l'erreur vers zéro.
+Plus le réseau sera compliqué et plus le problème d'optimisation en présence sera non-linéaire et non-convexe ; c'est à dire qu'il possèdera de nombreux minima locaux.
 C'est pourquoi, un facteur $\eta$ trop petit demandera un grand nombre d'itérations avant d'obtenir la convergence et l'équilibre sera souvent atteint sur un minima local.
-A contrario, un facteur $\eta$ trop grand empêchera la convergence car le gradient oscillera.
+\textit{A contrario}, un facteur $\eta$ trop grand empêchera la convergence car le gradient oscillera.
 Les deux problèmes critiques à éviter lors de l'ajustement par descente de gradients sont l'effondrement du gradient qui occasionne une convergence globale des poids du réseau vers zéro et l'explosion du gradient qui occasionne une divergence globale des poids du réseau vers l'infini \cite{bengio_learning_1994, hochreiter_gradient_2001}.
 Des algorithmes avancés existent pour limiter ces problèmes.
 
@@ -726,7 +723,7 @@ Nous récapitulons dans le Tableau \ref{tab:cnn_hyperparameters} les différents
 		Initialisation           & Loi uniforme, normale …           & Méthode d’initialisation des poids.  \\ \hline
 		Régularisation des poids & $\ell_{1}$, $\ell_{2}$                            & Limite l’explosion des poids.  \\ \hline
 		Facteur d’apprentissage  & $[10^{-7} ; 10^{-1}]$             & Pas du gradient, vitesse de convergence.  \\ \hline
-		Lots d'apprentissage/\textit{mini-batch}  & $[16 ; 128]$                      & Nombre d'échantillons par lot  \\
+		Lots d'apprentissage/\textit{mini-batch}  & $[16 ; 128]$                      & Nombre d'individus par lot  \\
 		\hhline{---}
 	\end{tabular}
 	\caption{Hyper-paramètres critiques pour l'apprentissage de réseaux de neurones profonds.}
@@ -739,14 +736,14 @@ L'erreur \textit{Top-1\%} correspond à l'erreur de justesse pour l'annotation q
 L'erreur \textit{Top-10} correspond à l'erreur de justesse pour les dix annotations qui sont prédites avec la plus grande probabilité par le réseau.
 Ainsi, si l'annotation qui devait être prédite est "chat", mais que le réseau prédit l'annotation "chat" en neuvième position, alors l'erreur \textit{Top-10\%} sera nulle, mais l'erreur \textit{Top-1} sera maximale.
 Dans notre problématique de classification binaire de la qualité, nous nous intéressons uniquement à l'erreur \textit{Top-1}.
+
 Nous distinguons également les ressources informatiques nécessaires à entrainer ces modèles : la durée du calcul et la mémoire de travail nécessaire.
 De plus, pour réaliser l'inférence à l'aide de ces modèles, ils doivent être chargés en mémoire de travail (\textit{RAM} du processeur, ou \textit{RAM} du \textit{GPU}).
-Les modèles qui possèdent un grand nombre de poids nécessitent de grandes quantités de mémoires ce qui limite leur utilisation dans des systèmes embarqués positionnés au cœur des ateliers de production.
-La faible quantité de données annotées dont nous disposons est une problématique industrielle qui a orienté nos travaux vers le transfert de modèles profonds, préalablement appris sur de grandes quantités de données annotées, §\ref{subsec:transfer_learning}.
+Les modèles qui possèdent un grand nombre de poids nécessitent de grandes quantités de mémoires ce qui limite leur utilisation dans des systèmes embarqués qui seraient positionnés au cœur des ateliers de production.
+La faible quantité de données annotées dont nous disposons est une problématique industrielle qui a orienté nos travaux vers le transfert de domaines de réseaux préalablement appris sur de grandes quantités de données annotées, §\ref{subsec:transfer_learning}.
 
 L'Annexe \ref{Ann:deep_learning} propose des compléments d'information sur les méthodes d'apprentissages des réseaux profonds.
 Il est intéressant de construire des réseaux profonds pour résoudre des problèmes d'analyse d'images ; mais il devient alors nécessaire d'employer des méthodes de régularisations des poids, pour garantir la convergence de l'apprentissage itératif.
-
 
 \begin{table}[hbtp]
 	\centering
@@ -772,8 +769,8 @@ Il est intéressant de construire des réseaux profonds pour résoudre des probl
 \subsection{Apprentissage par transfert de domaine} \label{subsec:transfer_learning}
 % https://ireneli.eu/2018/08/09/transfer-learning-materials/
 
-Le faible nombre d'échantillons disponibles (inférieur à mille pièces) nous a conduit à utiliser des réseaux de neurones profonds préalablement entrainés sur des très grands jeux de données.
-Le jeu de données \textit{ImageNet} \cite{deng_imagenet_2009} est composé de 2 millions d'images réparties en 1000 catégories différentes.
+Le faible nombre d'individus disponibles (inférieur à mille pièces) nous a conduit à utiliser des réseaux de neurones profonds préalablement entrainés sur des très grands jeux de données.
+Le jeu de données \textit{ImageNet} \cite{deng_imagenet_2009} est composé de 2 millions d'images réparties en mille catégories différentes.
 L'apprentissage par transfert de domaine, aussi résumé "apprentissage par transfert", cherche à réutiliser un modèle spécialisé sur un certain problème, pour résoudre un autre problème.
 En pratique, les meilleures approches proposées dans la littérature nécessitent de conserver des caractéristiques fortes entre les deux domaines.
 % Nous recommandons l'utilisation du même format de données initiales.
@@ -782,7 +779,7 @@ Nous nous contenterons ici d'utiliser des modèles spécialisés sur l'analyse d
 Dans ce cadre d'apprentissage par transfert de domaine, nous n'avons pas la liberté de modifier l'architecture du réseau pré-appris, car il faudrait alors réapprendre les poids des neurones du réseau.
 La technique répandue est alors de supprimer la ou les dernières couches du réseau pré-appris et d'ajouter de nouvelles couches spécifiques à notre problème.
 Les dernières couches du réseaux sont considérées comme étant le véritable classifieur.
-Les couches précédentes se contentent de compresser l'information en une représentation dans un espace de dimensions réduites.
+Les couches précédentes se contentent de compresser l'information en une représentation dans un espace de dimensions réduit.
 Nous travaillons uniquement sur l'architecture du classifieur, c'est à dire de la fin du réseau.
 Le choix de l'architecture et de la typologie des couches influence fortement la performance du classifieur, c'est pourquoi des méthodes de sélections automatiques de ces paramètres doivent être employées.
 Elles sont discutées dans la Section \ref{sec:auto_ml}.
@@ -792,7 +789,7 @@ Il s'agit dans un premier temps de garantir la convergence du classifieur sur no
 On cherche à obtenir un score de classification satisfaisant.
 C'est pourquoi dans un premier, seuls les poids des neurones des nouvelles dernières couches sont ajustés par rétro-propagation du gradient de l'erreur.
 Une fois que la convergence des dernières couches a été obtenue, il est possible de spécialiser finement l'ensemble du réseau en réalisant un ajustement de l'ensemble des poids des couches afin d'améliorer le score de classification.
-Nos travaux ont montré que cette étape de spécialisation n'est pas nécessaire lorsque le jeu de données d'apprentissage est petit (inférieur à mille échantillons).
+Nos travaux ont montré que cette étape de spécialisation n'est pas nécessaire lorsque le jeu de données d'apprentissage est petit (inférieur à mille individus).
 En effet, nous n'observons pas d'augmentation du score de classification après la phase de spécialisation.
 De plus, la durée de l'apprentissage de spécialisation est deux ordres de grandeur plus longue que la durée de l'apprentissage des dernières couches du réseau, car le nombre de variables à ajuster sur l'ensemble du réseau est bien plus grande.
 La durée de l'apprentissage des dernières couches du réseau est de dix secondes sur un processeur graphique récent et puissant (\textit{NVIDIA GTX1080Ti}, 2017).
@@ -800,66 +797,72 @@ La durée de l'apprentissage de spécialisation est de dix minutes.
 Cette durée rend l'apprentissage de spécialisation compatible avec une mise à jour horaire du classifieur, sous réserve de disposer d'un processeur graphique adapté. L'apprentissage des dernières couches peut en revanche être réalisé en cycle de production, pièce après pièce.
 Un classifieur de la conformité qui utilise l'apprentissage par transfert sera adapté aux productions dans lesquels les changements de séries ou bien la dérive du procédé est supérieure à l'heure. Ce qui est compatible avec une mise à jour régulière du modèle de la conformité.
 
+\bigskip
+
+\bigskip
+
 \subsection{Apprentissage semi-supervisé} \label{subsec:semi_supervised}
-Le coût de l'annotation humaine est élevé.
+Le coût de l'annotation humaine d'un jeu de données est élevé.
 De plus, la problématique qui oppose qualité de l'annotation contre quantité d'annotation est critique dans le contexte du contrôle industriel.
 Les annotations doivent avoir un niveau de certitude élevé afin d'éviter les erreurs de types faux-positifs et faux-négatifs.
 Il vaut mieux que l'expert humain passe du temps pour annoter une pièce avec certitude, plutôt qu'il annote rapidement plusieurs pièces, avec nécessairement moins de certitudes.
-C'est pourquoi, les méthodes d'apprentissage qui nécessitent peu d'exemples par classe (\textit{few-shot learning}), voire un unique exemple par classe (\textit{one-shot learning}), sont très utiles.
-De plus, l'apprentissage semi-supervisé permet d'utiliser des échantillons qui n'ont pas été annotés.
+C'est pourquoi, les méthodes d'apprentissage qui nécessitent peu d'exemples par classe (\textit{few-shot learning}), voir un unique exemple par classe (\textit{one-shot learning}), sont intéressantes.
+
+De plus, l'apprentissage semi-supervisé permet d'utiliser des individus qui n'ont pas été annotés.
 Le jeu de données d'apprentissage est alors plus grand et les performances en classification sont augmentées.
 L'apprentissage semi-supervisé repose sur plusieurs hypothèses sur la structure des données §\ref{it:manifold_hypothesis}, synthétisées dans la monographie de référence sur le sujet \citetitle{chapelle_semi-supervised_2010} \cite{chapelle_semi-supervised_2010}.
 Plus récemment, la thèse de \citeauthor{durand_weakly_2017} \cite{durand_weakly_2017} propose trois méthodes de classification semi-supervisées qui utilisent des réseaux de convolutions profonds.
 
+\newpage
 \begin{description} \label{it:manifold_hypothesis}
 	\item[Hypothèse de continuité] : les points qui sont proches dans l'espace des données ont plus de chances d'appartenir à la même classe.
 	\item[Hypothèse d'ensembles] : les points sont souvent regroupés en ensembles discrets (paquets ou \textit{clusters}). Les points dans le même ensemble ont plus de chances d'appartenir à la même classe.
 	\item[Hypothèse de densité faible] : du point de vue de la séparation des classes, la limite entre deux classes devrait se situer dans une région de l'espace où la densité de présence d'ensembles de différentes classes est faible.
-	\item[Hypothèse de variétés] : pour un espace de données initial, il existe un espace latent de dimensions réduites qui conserve les propriétés des données, pour les trois hypothèses précédentes.
+	\item[Hypothèse de variétés] : pour un espace de données initial, il existe un espace latent de dimensions réduit qui conserve les propriétés des données, pour les trois hypothèses précédentes.
 \end{description}
 
 L'hypothèse de variétés rend possible l'apprentissage de la transformation vers l'espace latent à l'aide de l'ensemble des données (annotées ou non), puis d'apprendre le classifieur dans l'espace latent.
 Ainsi, les données non annotées permettent de mieux capturer la distribution des données dans l'espace initial, puis dans l'espace latent.
-De plus, utiliser une plus grande quantité d'échantillons annotés partiellement permet d'obtenir un classifieur qui sera généralisable pour une plus grande diversité de nouveaux échantillons.
+De plus, utiliser une plus grande quantité d'individus annotés partiellement permet d'obtenir un classifieur qui sera généralisable pour une plus grande diversité de nouveaux individus.
 Nous détaillerons dans cette partie les méthodes les plus utiles à notre problème de classification de la conformité à l'aide d'un jeu de données partiellement annoté.
 
-\subsubsection{Propagation d'annotations dans l'espace latent d'un classifieur SVM} \label{subsubsec:propagation}
-Cette approche propose d'utiliser l'hypothèse d'ensembles et l'hypothèse de variétés, §\ref{it:manifold_hypothesis}.
-Les annotations sont propagées de manière itérative depuis les échantillons annotés, vers les échantillons non annotés.
-À chaque itération, les échantillons nouvellement annotés sont utilisés pour continuer à propager les annotations.
-Cette approche nécessite que les prédictions des nouvelles annotations soient correctes, ainsi que l'hypothèse d'ensembles.
-Des méthodes de régularisation et la nature itérative de la méthode permettent de moyenner les erreurs d'annotations.
-De plus, l'hypothèse des variétés est utilisée pour réaliser la propagation des annotations dans un espace latent, à partir des annotations des échantillons annotés, vers les échantillons non-annotés, qui sont voisins.
-Nous évaluons sur notre problème deux algorithmes implémentés dans la librairie \textit{Scikit-Learn} \cite{pedregosa_scikit-learn_2011}.
-
-Afin de réduire la dimension de l'espace des données initiales, nous utiliserons un réseau de neurones \textit{DenseNet121} \cite{huang_densely_2016} (pré-entrainé sur le jeu de données \textit{ImageNet}), comme extracteur de descripteurs pertinents.
-Le choix de ce réseau ainsi que de cette méthode est détaillé dans la Section \ref{subsec:transfer_learning}.
-A partir des images brutes non modifiées, nous obtenons alors un jeu de données initiales avec pour chaque échantillon un vecteur de dimensions $1920 \times 7 \times 7 = 94 080$.
-Nous utilisons ensuite l'Analyse par Composante Principale \cite{jolliffe_principal_2002} afin de réduire les dimensions à 20 composantes. La moyenne de la variance perdue sur l'ensemble du jeu de données lors de cette ACP est de deux pour-cent ce qui est un compromis acceptable.
-Une alternative à l'ACP est l'utilisation de réseau de neurones pour réduire la dimension.
-On se rapporte alors à l'apprentissage par transfert de domaine présenté dans la Section \ref{subsec:transfer_learning}.
-Le coût d'utilisation de ces deux méthodes est élevé : $\bigO(N^3)$, avec $N$ le nombre d'échantillons en présence.
-
-Dès 2002, \citeauthor{zhu_learning_2002} \cite{zhu_learning_2002} proposent de construire le graphe qui relie l'ensemble des échantillons par le chemin le plus court.
-L'apprentissage est réalisé de manière itérative en propageant les annotations à partir des échantillons annotés, vers les échantillons non annotés.
-La convergence de la méthode est obtenue lorsque tous les échantillons sont annotés.
-Soit $Y_{L}=\left\{y_{1} \ldots y_{l}\right\}$ les annotations des $l$ échantillons annotés et $Y_{U}=\left\{y_{l+1} \ldots y_{l+U}\right\}$ les annotations des $u$ échantillons non annotés.
-Enfin, $X=\left\{x_{1} \ldots x_{l+u}\right\}$ les valeurs de l'ensemble des échantillons, annotés et non annotés.
-Le problème cherche à trouver les valeurs de $Y_{U}$ pour tous les $X$ et les $Y_{L}$.
-Un graphe pondéré $w_{ij}$ entre les échantillons dans l'espace latent est construit. Il est pondéré en fonction de la distance Euclidienne entre chaque échantillon, les échantillons proches ayant un poids plus élevé.
-$w$ est aussi appelé la matrice d'adjacence.
-Enfin, le graphe de transition entre les échantillons est construit : $T_{i j}=P(j \ i)=\frac{w_{i j}}{\sum_{k=1}^{l+u} w_{k j}}$.
-L'algorithme consiste alors à appliquer $T$ à $Y$ ($Y = Y \cdot T$) jusqu'à obtenir le critère de convergence.
-À chaque itération de l'algorithme, la pondération des échantillons annotés est augmentée par un facteur $\alpha$ afin de rester supérieure aux probabilités des échantillons non annotés.
-Dans le cas où $\alpha = 0.1$, seul 10\% des annotations seront ajustées et 90\% des annotations initiales seront conservées à la suite d'une itération.
-Cette description succincte omet les différents termes de régularisation et le lecteur pourra se référer à la publication initiale pour plus de détails.
-
-Par la suite, \citeauthor{zhou_learning_2003} \cite{zhou_learning_2003} font évoluer la méthode de construction du graphe de transition en utilisant une matrice laplacienne normalisée : $T_{laplacienne} = I - D^{-1/2} T D^{-1/2}$, avec $T$ la matrice d'adjacence précédemment utilisée, I l'identité et D la matrice des degrés, diagonale, qui renseigne le nombre de liens de chaque sommets.
-Cette matrice de transition modélise les distances entre les échantillons.
-
-Enfin, la matrice d'adjacence $w_{ij}$ peut être approximée par la méthode des K-plus-proches-voisins.
-Le gain en performance est significatif puisque les dimensions de la matrice d'adjacence réduit de $(N^2, N^2)$ à $(k, N)$.
-Sur notre problème qui peut comporter 1000 échantillons, le gain est déjà d'un facteur 1000.
+%\subsubsection{Propagation d'annotations dans l'espace latent d'un classifieur SVM} \label{subsubsec:propagation}
+%Cette approche propose d'utiliser l'hypothèse d'ensembles et l'hypothèse de variétés, §\ref{it:manifold_hypothesis}.
+%Les annotations sont propagées de manière itérative depuis les individus annotés, vers les individus non annotés.
+%À chaque itération, les individus nouvellement annotés sont utilisés pour continuer à propager les annotations.
+%Cette approche nécessite que les prédictions des nouvelles annotations soient correctes, ainsi que l'hypothèse d'ensembles.
+%Des méthodes de régularisation et la nature itérative de la méthode permettent de moyenner les erreurs d'annotations.
+%De plus, l'hypothèse des variétés est utilisée pour réaliser la propagation des annotations dans un espace latent, à partir des annotations des individus annotés, vers les individus non-annotés, qui sont voisins.
+%Nous évaluons sur notre problème deux algorithmes implémentés dans la librairie \textit{Scikit-Learn} \cite{pedregosa_scikit-learn_2011}.
+%
+%Afin de réduire la dimension de l'espace des données initiales, nous utiliserons un réseau de neurones \textit{DenseNet121} \cite{huang_densely_2016} (pré-entrainé sur le jeu de données \textit{ImageNet}), comme extracteur de descripteurs pertinents.
+%Le choix de ce réseau ainsi que de cette méthode est détaillé dans la Section \ref{subsec:transfer_learning}.
+%A partir des images brutes non modifiées, nous obtenons alors un jeu de données initiales avec pour chaque individu un vecteur de dimensions $1920 \times 7 \times 7 = 94 080$.
+%Nous utilisons ensuite l'Analyse par Composante Principale \cite{jolliffe_principal_2002} afin de réduire les dimensions à 20 composantes. La moyenne de la variance perdue sur l'ensemble du jeu de données lors de cette ACP est de deux pour-cent ce qui est un compromis acceptable.
+%Une alternative à l'ACP est l'utilisation de réseau de neurones pour réduire la dimension.
+%On se rapporte alors à l'apprentissage par transfert de domaine présenté dans la Section \ref{subsec:transfer_learning}.
+%Le coût d'utilisation de ces deux méthodes est élevé : $\bigO(N^3)$, avec $N$ le nombre d'individus en présence.
+%
+%Dès 2002, \citeauthor{zhu_learning_2002} \cite{zhu_learning_2002} proposent de construire le graphe qui relie l'ensemble des individus par le chemin le plus court.
+%L'apprentissage est réalisé de manière itérative en propageant les annotations à partir des individus annotés, vers les individus non annotés.
+%La convergence de la méthode est obtenue lorsque tous les individus sont annotés.
+%Soit $Y_{L}=\left\{y_{1} \ldots y_{l}\right\}$ les annotations des $l$ individus annotés et $Y_{U}=\left\{y_{l+1} \ldots y_{l+U}\right\}$ les annotations des $u$ individus non annotés.
+%Enfin, $X=\left\{x_{1} \ldots x_{l+u}\right\}$ les valeurs de l'ensemble des individus, annotés et non annotés.
+%Le problème cherche à trouver les valeurs de $Y_{U}$ pour tous les $X$ et les $Y_{L}$.
+%Un graphe pondéré $w_{ij}$ entre les individus dans l'espace latent est construit. Il est pondéré en fonction de la distance Euclidienne entre chaque individu, les individus proches ayant un poids plus élevé.
+%$w$ est aussi appelé la matrice d'adjacence.
+%Enfin, le graphe de transition entre les individus est construit : $T_{i j}=P(j \ i)=\frac{w_{i j}}{\sum_{k=1}^{l+u} w_{k j}}$.
+%L'algorithme consiste alors à appliquer $T$ à $Y$ ($Y = Y \cdot T$) jusqu'à obtenir le critère de convergence.
+%À chaque itération de l'algorithme, la pondération des individus annotés est augmentée par un facteur $\alpha$ afin de rester supérieure aux probabilités des individus non annotés.
+%Dans le cas où $\alpha = 0.1$, seul 10\% des annotations seront ajustées et 90\% des annotations initiales seront conservées à la suite d'une itération.
+%Cette description succincte omet les différents termes de régularisation et le lecteur pourra se référer à la publication initiale pour plus de détails.
+%
+%Par la suite, \citeauthor{zhou_learning_2003} \cite{zhou_learning_2003} font évoluer la méthode de construction du graphe de transition en utilisant une matrice laplacienne normalisée : $T_{laplacienne} = I - D^{-1/2} T D^{-1/2}$, avec $T$ la matrice d'adjacence précédemment utilisée, I l'identité et D la matrice des degrés, diagonale, qui renseigne le nombre de liens de chaque sommets.
+%Cette matrice de transition modélise les distances entre les individus.
+%
+%Enfin, la matrice d'adjacence $w_{ij}$ peut être approximée par la méthode des K-plus-proches-voisins.
+%Le gain en performance est significatif puisque les dimensions de la matrice d'adjacence réduit de $(N^2, N^2)$ à $(k, N)$.
+%Sur notre problème qui peut comporter mille individus, le gain est déjà d'un facteur mille.
 
 % TODO: Iterative images from scikit-learn on IPC_May2019 dataset.
 %\begin{figure}[hbtp]
@@ -903,11 +906,11 @@ Sur notre problème qui peut comporter 1000 échantillons, le gain est déjà d'
 \subsubsection{Réseau de neurones siamois profond} \label{subsubsec:siamese}
 Un réseau siamois (\textit{Siamese Networks}) est un réseau de neurones qui contient deux sous-réseaux identiques.
 Le premier réseau siamois a été appliqué à la vérification d'empreintes digitales, en 1992 \cite{baldi_neural_1993}.
-Deux réseaux de convolutions identiques sont utilisés pour l'analyse de similitude entre deux échantillons.
+Deux réseaux de convolutions identiques sont utilisés pour l'analyse de similitude entre deux individus.
 Puis la distance entre la sortie des deux réseaux est calculée.
 Les distances employées sont souvent la norme, la norme Euclidienne ou la fonction de coût de contraste proposée par \citeauthor{hadsell_dimensionality_2006} \cite{hadsell_dimensionality_2006}, Équation \ref{eq:contrastive_loss}.
 
-Enfin, une fonction exponentielle normalisée (\textit{SoftMax}) sur ces valeurs retourne la probabilité de similarité entre les deux échantillons.
+Enfin, une fonction exponentielle normalisée (\textit{SoftMax}) sur ces valeurs retourne la probabilité de similarité entre les deux individus.
 Ce travail détaille la méthode employée pour prétraiter les images à partir des données enregistrées.
 En parallèle, une architecture similaire a aussi été appliquée à la vérification de signatures \cite{bromley_signature_1993}.
 Un modèle à réseau de neurones est spécifiquement utilisé pour exploiter pleinement les informations temporelles obtenues lors de l'enregistrement de la signature par la tablette \textit{5990 Signature Capture Devices} : position cartésienne, distance du stylo au support, pression sur la pointe, le tout inscrit dans le temps ; ce qui rend toute falsification très difficile.
@@ -1028,7 +1031,8 @@ La figure \ref{fig:triplet_neg} présente les trois cas d'images Négatives $\ma
 	\node[text centered] at (7.8,6.5) {Négatives-faciles};
 	\end{tikzpicture}
 	
-	\caption{Trois différents types d'images Négatives possibles pour un couple d'images (Référence, Positive). Figure inspirée de l'\href{https://omoindrot.github.io/triplet-loss}{article de blog de O. Moindrot}.}
+	\caption{Trois différents types d'images Négatives possibles pour un couple d'images (Référence, Positive)}
+	\textit{Figure inspirée de l'\href{https://omoindrot.github.io/triplet-loss}{article de blog de O. Moindrot}.}
 	\label{fig:triplet_neg}
 \end{figure}
 
@@ -1083,7 +1087,8 @@ La Figure \ref{fig:triplet_learning} récapitule la méthode d'apprentissage d'u
 	
 	\tikz[overlay,remember picture]{\draw[-Latex,ultra thick,bend left] (2BL) to node[above,sloped]{Apprentissage} (2BL-|2BR);}
 	
-	\caption{Principe de l'apprentissage d'un réseau de triplets. Figure inspirée de \cite{schroff_facenet_2015}.}
+	\caption{Principe de l'apprentissage d'un réseau de triplets.}
+	\textit{Figure inspirée de \cite{schroff_facenet_2015}.}
 	\label{fig:triplet_learning}
 \end{figure}
 
@@ -1099,7 +1104,8 @@ Sur leur problème spécifique de la détection de visages, ils montrent qu'il n
 \begin{figure}[hbtp]
 	\centering
 	\includegraphics[width=0.95\textwidth,height=\textheight,keepaspectratio]{../Chap4/Figures/visualize_UMAP_pixel_space_10_0_5corr.png}
-	\caption{Projection par \textit{t-SNE} à partir des valeurs de la dernière couche d'un réseau de triplet. L'échelle 1-5 correspond aux niveaux de qualité évalués par les experts humains ; -1 correspond aux pièces non annotées.}
+	\caption{Projection par \textit{t-SNE} à partir des valeurs de la dernière couche d'un réseau de triplet.}
+	\textit{L'échelle 1-5 correspond aux niveaux de qualité évalués par les experts humains ; -1 correspond aux pièces non annotées.}
 	\label{fig:triplet_result}
 \end{figure}
 
@@ -1110,10 +1116,10 @@ Enfin, il est intéressant d'observer qu'un paquet correspondant à une erreur d
 
 L'apprentissage de métrique est un domaine de recherche actif.
 \citeauthor{sohn_improved_2016} \cite{sohn_improved_2016} généralisent par exemple ces méthodes à N-paires d'images et montre l'intérêt d'une fonction de coût à 72-paires en comparaison des triplets (3-paires).
-\citeauthor{song_deep_2015} \cite{song_deep_2015} proposent une méthode d'adaptation de domaine : un modèle pré-appris peut être compléter à l'aide de nouveaux échantillons.
+\citeauthor{song_deep_2015} \cite{song_deep_2015} proposent une méthode d'adaptation de domaine : un modèle pré-appris peut être compléter à l'aide de nouveaux individus.
 \cite{wang_deep_2017} \citeauthor{wang_deep_2017} proposent d'utiliser une fonction de coût basée sur une projection dans un espace angulaire.
 \citeauthor{duan_deep_2018} \cite{duan_deep_2018} proposent la méthode \textit{DAML} (\textit{Deep Adversarial Metric Learning}) qui utilise un réseau antagoniste génératif (détaillé dans la Section \ref{subsubsec:GAN}) afin de produire une image négative-difficile artificielle, à partir d'un triplet d'images défini.
-Les résultats obtenus montrent l'intérêt de la méthode dans le cas où le nombre d'échantillons est faible.
+Les résultats obtenus montrent l'intérêt de la méthode dans le cas où le nombre d'individus est faible.
 Dernièrement, \citeauthor{zheng_hardness-aware_2019} \cite{zheng_hardness-aware_2019} proposent une comparaison de ces méthodes (N-paires, métrique angulaire et \textit{DAML}) sur trois jeux de données de références.
 
 % Local similarity-aware deep feature embedding propose le Position-Dependent Deep Metric (PDDM)
@@ -1167,17 +1173,17 @@ Il existe deux grandes classes de méthodes de réduction de dimensions.
 Celles-ci s'appuient sur deux démarches distinctes : la factorisation de matrices (ACP §\ref{subsubsec:ACP}, ACP à noyau §\ref{subsubsec:kpca}, Auto-encodeurs) et les graphes de voisinages (K-moyennes §\ref{subsubsec:kmeans}, §\ref{subsubsec:tsne}, §\ref{subsubsec:hdbscan}, §\ref{subsubsec:umap}).
 Nous évaluons dans cette section les algorithmes les plus importants que nous utilisons pour répondre à notre problème de contrôle automatique de la conformité des produits.
 La réduction de dimensions et le \textit{clustering}\footnote{Nous employons le terme anglais \textit{clustering} en lieu et place du mot français "regroupement", afin de préciser qu'il s'agit de réaliser un regroupement algorithmique des données en paquets de données similaires, et non pas d'autres formes de regroupement.} spectral (aussi appelé "apprentissage de variétés") sont souvent combinées.
-Dans un premier temps on réduit la dimension de l'information, puis on regroupe par paquet les échantillons (\textit{clustering}) à partir de l'espace réduit.
+Dans un premier temps on réduit la dimension de l'information, puis on regroupe par paquet les individus (\textit{clustering}) à partir de l'espace réduit.
 
 \subsubsection{K-moyennes} \label{subsubsec:kmeans}
-L'algorithme des K-moyennes (\textit{K-means}), proposé par \citeauthor{macqueen_methods_1967} \cite{macqueen_methods_1967, lloyd_least_1982} cherche à séparer les échantillons $X$ en $C$ groupes de classes telle que la variance soit égale entre les groupes.
+L'algorithme des K-moyennes (\textit{K-means}), proposé par \citeauthor{macqueen_methods_1967} \cite{macqueen_methods_1967, lloyd_least_1982} cherche à séparer les individus $X$ en $C$ groupes de classes telle que la variance soit égale entre les groupes.
 C'est une méthode de \textit{clustering} spatial dans l'espace des données initiales.
-Soit $c_j$ le barycentre d'un groupe dans l'espace des données, l'algorithme cherche à minimiser la distance Euclidienne des échantillons au point $c$.
-Il s'agit de minimiser l'inertie\footnote{L'inertie est la somme des distances Euclidiennes entre les échantillons du groupe.} du groupe d'échantillon $c_j \in C$.
+Soit $c_j$ le barycentre d'un groupe dans l'espace des données, l'algorithme cherche à minimiser la distance Euclidienne des individus au point $c$.
+Il s'agit de minimiser l'inertie\footnote{L'inertie est la somme des distances Euclidiennes entre les individus du groupe.} du groupe d'individu $c_j \in C$.
 L'algorithme est itératif.
 Le nombre de groupes doit être préalablement connu.
 La position initiale des points $c_j$ est initialisée aléatoirement.
-À chaque itération, les échantillons $\mathbf{x}_i \in X$ sont associés au point $c_j$ le plus proche.
+À chaque itération, les individus $\mathbf{x}_i \in X$ sont associés au point $c_j$ le plus proche.
 La position de $c_j$ est alors mise à jour comme barycentre des points $\mathbf{x}_i$ qui lui sont associés, Équation \ref{eq:kmeans}.
 
 \begin{equation} \label{eq:kmeans}
@@ -1198,11 +1204,11 @@ C'est la méthode de \textit{clustering} la plus efficiente qui existe.
 
 \subsubsection{HDBSCAN} \label{subsubsec:hdbscan}
 \citeauthor{ester_densitybased_1996} \cite{ester_densitybased_1996} proposent la méthode \textit{DBSCAN} (\textit{Density-Based Spatial Clustering of Applications with Noise}) qui s'appuie sur l'organisation spatiale, en matière de densité, des données.
-L'algorithme distingue en amont trois catégories d'échantillons dans les données.
+L'algorithme distingue en amont trois catégories d'individus dans les données.
 Pour chaque point $c$, on distingue : les points centraux s'ils sont entourés d'un nombre minimal $MinPts$ de voisins et sont situés dans un rayon $\epsilon$ du point $c$ ; les points de bordures s'ils ont moins de $nb\_min\_points$ voisins et sont situés dans un rayon $\epsilon$ ; et les points de bruit, dont la distance avec $c$ est supérieure à $\epsilon$.
 Ainsi, le nombre de paquets est défini par $nb\_min\_points$ et les points de bordures sont associés au paquet par leur point $c$ correspondant.
 À la différence de l'algorithme K-moyennes §\ref{subsubsec:kmeans}, l'algorithme \textit{DBSCAN} ne cherche pas à produire des paquets circulaires et les points trop éloignés sont ignorés ce qui le rend robuste aux perturbations.
-Néanmoins, les performances de la méthode \textit{DBSCAN} sont limités sur les problèmes où les échantillons ont de grandes dimensions. On cherchera à réduire la dimension de l'information, par exemple lorsque l'on traite des images, avant d'appliquer cette méthode.
+Néanmoins, les performances de la méthode \textit{DBSCAN} sont limités sur les problèmes où les individus ont de grandes dimensions. On cherchera à réduire la dimension de l'information, par exemple lorsque l'on traite des images, avant d'appliquer cette méthode.
 Les hyper-paramètres $nb\_min\_points$ et $\epsilon$ doivent être optimisés. Trouver un couple optimal peut être difficile, dans le cas où les données sont réparties de manière fortement non homogène ; c'est à dire lorsque les différences de densités de la répartition des points sont grandes.
 
 Récemment, \citeauthor{campello_densitybased_2013} \cite{campello_densitybased_2013} introduisent la méthode \textit{HDBSCAN} (\textit{Density-Based Clustering Based on Hierarchical Density Estimates}) qui fait évoluer \textit{DBSCAN} en prenant en compte l'organisation spatiale des données.
@@ -1213,13 +1219,14 @@ C'est le \textit{clustering} hiérarchique, qui utilise les arbres binaires de t
 Le résultat est souvent visualisé sous forme de dendrogrammes.
 Une évolution du \textit{clustering} hiérarchique ajoute l'utilisation de l'analyse spectrale.
 Ce sont les méthodes de \textit{clustering} spectral qui proposent des solutions à ces limites.
-Il s'agit d'utiliser les relations entre les échantillons au sein des paquets, par la construction de graphes et par l'analyse spectrale, c'est à dire l'utilisation des vecteurs propres des données.
+Il s'agit d'utiliser les relations entre les individus au sein des paquets, par la construction de graphes et par l'analyse spectrale, c'est à dire l'utilisation des vecteurs propres des données.
 Nous invitons le lecteur à consulter l'excellent tutoriel \citetitle{vonluxburg_tutorial_2007} \cite{vonluxburg_tutorial_2007} sur les méthodes de \textit{clustering} spectrales, qui ne peuvent être approfondies dans le cadre de ce travail.
 
 \begin{figure}[hbtp]
 	\centering
 	\includegraphics[width=0.95\textwidth,height=\textheight,keepaspectratio]{../Chap4/Figures/visualize_HDBSCAN_clusters_pixel_space.png}
-	\caption{Projection par \textit{UMAP} à partir de la valeur des pixels des images. L'échelle -1 à 4 correspond aux clusters obtenus par \textit{HDBSCAN}.}
+	\caption{Projection par \textit{UMAP} à partir de la valeur des pixels des images.}
+	\textit{L'échelle -1 à 4 correspond aux clusters obtenus par \textit{HDBSCAN}.}
 	\label{fig:hdbscan}
 \end{figure}
 % rand score 0.320, mutual info score 0.410
@@ -1231,7 +1238,7 @@ Les différents niveaux de qualité annotés par l'expertise humaine sont détec
 \subsubsection{Analyse en Composantes Principales} \label{subsubsec:ACP}
 Dès 1901, \citeauthor{pearson_lines_1901, hotelling_analysis_1933} \cite{pearson_lines_1901, hotelling_analysis_1933} proposent la méthode d'Analyse en Composantes Principales (\textit{Principal Component Analysis}).
 C'est la méthode de réduction de dimensions de référence qui s'appuie sur une factorisation de la matrice représentative des données.
-Pour un jeu de données $X$ de $N$ échantillons, on calcule la matrice de covariance $\overline{C}$, Équation \ref{eq:cov}.
+Pour un jeu de données $X$ de $N$ individus, on calcule la matrice de covariance $\overline{C}$, Équation \ref{eq:cov}.
 
 \begin{equation} \label{eq:cov}
 \overline{C} = \operatorname{cov}(X)=\frac{1}{N} \sum_{n=1}^{N}(x_n-\overline{x}) \cdot (x_n-\overline{x})^{\mkern-1.5mu\mathsf{T}}
@@ -1242,10 +1249,10 @@ Pour un jeu de données $X$ de $N$ échantillons, on calcule la matrice de covar
 \lambda\left(X \cdot \mathbf{V}\right)=\left(X \cdot \overline{C} \cdot \mathbf{V}\right)
 \end{equation}
 
-Soit $m$ le nombre de variables par échantillons. Les vecteurs propres $\mathbf{v}_k$ (avec $1 \leq k \leq N$, de la matrice de covariance $\overline{C}$ sont appelés les composantes principales de $X$, Équation \ref{eq:pca}.
+Soit $m$ le nombre de variables par individus. Les vecteurs propres $\mathbf{v}_k$ (avec $1 \leq k \leq N$, de la matrice de covariance $\overline{C}$ sont appelés les composantes principales de $X$, Équation \ref{eq:pca}.
 Les valeurs propres $\lambda_k$ sont utilisées pour ordonner les vecteurs propres $\mathbf{v}_k$, dans l'ordre croissant de la variance des données exprimées par chaque vecteur propre.
-On obtient un espace de dimensions réduites où l'on peut projeter les données.
-La réalisation d'une ACP entraine nécessairement une réduction de la variance, en comparaison de la variance de l'ensemble des échantillons du jeu de données initial.
+On obtient un espace de dimensions réduit où l'on peut projeter les données.
+La réalisation d'une ACP entraine nécessairement une réduction de la variance, en comparaison de la variance de l'ensemble des individus du jeu de données initial.
 La valeur de cette réduction indique la perte d'informations liée à l'ACP.
 Dans ce travail, nous serons satisfaits des ACP qui ne font perdre que 1\% de la variance des données initiales.
 On choisira le nombre $k$ de vecteurs supports en fonction de ce critère.
@@ -1354,7 +1361,8 @@ Dans les sections suivantes, nous étudierons des méthodes qui permettent de su
 \begin{figure}[hbtp]
 	\centering
 	\includegraphics[width=0.95\textwidth,height=\textheight,keepaspectratio]{../Chap4/Figures/visualize_PCA_pixel_space.png}
-	\caption{Projection par \textit{ACP} à partir de la valeur des pixels des images. L'échelle 1-5 correspond aux niveaux de qualité évalués par les experts humains ; -1 correspond aux pièces non annotées.}
+	\caption{Projection par \textit{ACP} à partir de la valeur des pixels des images.}
+	\textit{L'échelle 1-5 correspond aux niveaux de qualité évalués par les experts humains ; -1 correspond aux pièces non annotées.}
 	\label{fig:ACP}
 \end{figure}
 
@@ -1465,7 +1473,7 @@ Nous les étudierons dès la section suivante, §\ref{subsubsec:vae}.
 
 La complexité de l'ACP à noyau est $\bigO(m^{2} \cdot n^2+m^{3})$ pour un noyau linéaire et $\bigO(m^{2} \cdot n^3+m^{3})$ pour un noyau gaussien (\textit{RBF}).
 Dans le cas $m \ll n$, les complexités sont quadratiques $\bigO(n^2)$ pour un noyau linéaire et cubique $\bigO(n^3)$ pour un noyau gaussien.
-Lorsqu'on utilise l'ACP à noyau, on limitera le nombre de variables $m$ des échantillons.
+Lorsqu'on utilise l'ACP à noyau, on limitera le nombre de variables $m$ des individus.
 De plus, la difficulté apparait dans le cas où le jeu de données est grand ($n > 1000$) : le coût du stockage du noyau $K$ en mémoire devient significatif.
 % Linear SVM $\bigO(N   \cdot m)$
 % RBF SVM    $\bigO(N^2 \cdot m)$
@@ -1480,26 +1488,27 @@ Le nombre de points voisins à prendre en compte est défini par l'hyper-paramè
 Une petite valeur de perplexité permet de mettre en évidence les structures locales, alors qu'une grande valeur mettra en évidence les structures globales.
 La valeur de perplexité définira la variance de la distribution.
 En pratique, on choisira une valeur dans $[5; 50]$.
-Une distribution $Q$ est générée afin de modéliser les mêmes propriétés des données, mais dans un espace de dimensions réduites.
+Une distribution $Q$ est générée afin de modéliser les mêmes propriétés des données, mais dans un espace de dimensions réduit.
 On cherche alors à minimiser l'écart entre les deux distributions $P$ et $Q$ afin de trouver la distribution $Q$ optimale.
 Cette démarche permet de modéliser la structure non-linéaire des données.
 Les paramètres de $Q$ sont ajustés par descente de gradient stochastique, afin de minimiser la divergence de Kullback-Leibler entre les deux distributions, Équation \ref{eq:D_KL}.
 \textit{SNE} utilise une distribution de probabilité gaussienne, alors que \textit{t-SNE}, une distribution qui suit une loi de Student (\textit{t-distribution}).
 La loi de Student est à queue-longue.
 Elle tend plus lentement vers zéro qu'une distribution gaussienne.
-Aussi, elle est plus adaptée à la modélisation des distances entre de petits nombres d'échantillons.
+Aussi, elle est plus adaptée à la modélisation des distances entre de petits nombres d'individus.
 Enfin, \textit{t-SNE} propose de simplifier les calculs de l'optimisation de $Q$ en utilisant une loi de Student à un degré de liberté, qui est une loi de Cauchy, $f(t)=\frac{1}{\pi(1+t^2)}$.
 
 Trois conséquences de la méthode limitent son utilisation à la seule visualisation de données.
 La réduction de dimensions obtenue n'est pas une fonction.
-Aussi, de nouveaux échantillons ne pourront pas être projetées dans l'espace réduit.
+Aussi, de nouveaux individus ne pourront pas être projetées dans l'espace réduit.
 L'algorithme est stochastique et chaque exécution produit un résultat différent.
 Enfin, les résultats dépendent fortement de la valeur de l'hyper-paramètre \textit{perplexité}.
 
 \begin{figure}[htb]
 	\centering
 	\includegraphics[width=0.95\textwidth,height=\textheight,keepaspectratio]{../Chap4/Figures/visualize_T-SNE_pixel_space.png}
-	\caption{Projection par \textit{t-SNE} à partir de la valeur des pixels des images. L'échelle 1-5 correspond aux niveaux de qualité évalués par les experts humains ; -1 correspond aux pièces non annotées.}
+	\caption{Projection par \textit{t-SNE} à partir de la valeur des pixels des images.}
+	\textit{L'échelle 1-5 correspond aux niveaux de qualité évalués par les experts humains ; -1 correspond aux pièces non annotées.}
 	\label{fig:tSNE}
 \end{figure}
 
@@ -1526,7 +1535,7 @@ La méthode de réduction de l'information \textit{UMAP} est proposée par \cite
 Elle s'appuie sur l'apprentissage de variété (\textit{manifold learning}).
 On cherche, dans l'espace de dimensions initiales, une variété (des surfaces topologiques), pour laquelle les données sont au plus proche de celle-ci.
 
-La variété obtenue est alors une représentation des données dans un espace de dimensions réduites.
+La variété obtenue est alors une représentation des données dans un espace de dimensions réduit.
 Alors que l'ACP réalise une projection dans un espace euclidien, \textit{UMAP} projette les données dans un espace riemannien.
 L'espace riemannien possède les hypothèses de connexité et de complétude, ce qui limite la perte d'informations.
 L'algorithme \textit{UMAP} cherche une variété $\mathbb{V}$ dans cet espace, telle que les données soient situées au plus proches de celle-ci.
@@ -1553,12 +1562,13 @@ Cette démarche est similaire à la minimisation de la divergence de Kullback-Le
 \begin{figure}[hbtp]
 	\centering
 	\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{../Chap4/Figures/visualize_UMAP_pixel_space.png}
-	\caption{Représentation par \textit{UMAP} à partir de la valeur des pixels des images. L'échelle 1-5 correspond aux niveaux de qualité évalués par les experts humains ; -1 correspond aux pièces non annotées.}
+	\caption{Représentation par \textit{UMAP} à partir de la valeur des pixels des images.}
+	\textit{L'échelle 1-5 correspond aux niveaux de qualité évalués par les experts humains ; -1 correspond aux pièces non annotées.}
 	\label{fig:umap}
 \end{figure}
 
 La Figure \ref{fig:umap} présente la représentation en deux dimensions obtenues en appliquant \textit{UMAP} sur la valeur des pixels brutes de l'image.
-En comparaison de \textit{t-SNE}, \textit{UMAP} permet de mettre en évidence la structure globale des données dans les deux dimensions, tout en conservant la structure locale des paquets d'échantillons.
+En comparaison de \textit{t-SNE}, \textit{UMAP} permet de mettre en évidence la structure globale des données dans les deux dimensions, tout en conservant la structure locale des paquets d'individus.
 Les images qui ne contiennent pas de pièces sont séparées, ainsi que le paquet de pièces annotées d'un niveau de qualité 0 (mauvais).
 De plus, le niveau de qualité 1 est séparé.
 Les niveaux 2 à 5 sont représentés dans deux paquets distincts.
@@ -1578,13 +1588,13 @@ Elle est de l'ordre de $\bigO(N \log N)$.
 \subsubsection{Auto-encodeurs variationnels} \label{subsubsec:vae}
 Un auto-encodeur cherche à reproduire la donnée entrée, avec le minimum de paramètres (ou Degrés De Liberté).
 Aucune annotation des données n'est requise.
-C'est une méthode qui permet d'apprendre la représentation des données dans un espace de dimensions réduites (aussi appelé \textit{feature learning} ou \textit{representation learning}).
+C'est une méthode qui permet d'apprendre la représentation des données dans un espace de dimensions réduit (aussi appelé \textit{feature learning} ou \textit{representation learning}).
 En 1987, \citeauthor{lecun_modeles_1987, gallinari_memoires_1987} proposent un réseau auto-encodeur utilisant des réseaux de neurones, afin de supprimer le bruit d'images \cite{lecun_modeles_1987, gallinari_memoires_1987}.
 Dans leurs travaux, ils étudient la capacité du réseau à mémoriser les caractéristiques des images initiales, en fonction de son architecture.
 En parallèle, \citeauthor{ballard_modular_1987} propose un auto-encodeur (appelé dans ce texte \textit{systèmes auto-associatifs}) à trois couches \cite{ballard_modular_1987}.
 Dans ces travaux, les poids des neurones sont ajustés par rétro-propagation du gradient, qui a été récemment proposée.
 
-Un auto-encodeur se compose de deux parties : un encodeur $z = f(x)$ qui compresse l'information initiale dans un espace de dimensions réduites (appelé \textit{espace latent}) et un décodeur $\hat x = g(z)$ qui reconstruit ensuite une approximation de $x$ à partir de $z$.
+Un auto-encodeur se compose de deux parties : un encodeur $z = f(x)$ qui compresse l'information initiale dans un espace de dimensions réduit (appelé \textit{espace latent}) et un décodeur $\hat x = g(z)$ qui reconstruit ensuite une approximation de $x$ à partir de $z$.
 $f$ et $g$ sont généralement des réseaux de convolutions profonds, dont les poids respectifs sont $\mathbf{W}_f$ et $\mathbf{W}_g$.
 La Figure \ref{fig:autoencoder_architecture} présente l'architecture d'un auto-encodeur qui utilise des réseaux de convolutions pour ces fonctions.
 
@@ -1611,7 +1621,7 @@ En revanche, les défauts d'aspect qui nous intéressent sont reproduits.
 Le taux de compression est ici de 120 : $124 \times 124$ pixels $\rightarrow 128$ valeurs.
 À la différence de la compression par ACP, Figure \ref{fig:pca_reconstruction}, la reconstruction ne possède pas d'artefacts.
 En revanche, le coût de calcul de cette méthode est beaucoup plus grand que pour une ACP.
-Il est nécessaire de disposer d'une accélération des calculs massivement parallèle, par exemple sur processeur graphique, pour pouvoir construire un modèle à partir d'un grand nombre d'échantillons.
+Il est nécessaire de disposer d'une accélération des calculs massivement parallèle, par exemple sur processeur graphique, pour pouvoir construire un modèle à partir d'un grand nombre d'individus.
 
 \begin{figure}[hbtp]
 	\centering
@@ -1629,7 +1639,8 @@ Enfin, il est intéressant d'observer qu'un paquet correspondant à une erreur d
 \begin{figure}[hbtp]
 	\centering
 	\includegraphics[width=0.95\textwidth,height=\textheight,keepaspectratio]{../Chap4/Figures/visualize_T-SNE_latent_space.png}
-	\caption{Projection par \textit{t-SNE} à partir des valeurs de l'espace latent $z$ d'un \textit{VAE}. L'échelle 1-5 correspond aux niveaux de qualité évalués par les experts humains ; -1 correspond aux pièces non annotées.}
+	\caption{Projection par \textit{t-SNE} à partir des valeurs de l'espace latent $z$ d'un \textit{VAE}.}
+	\textit{L'échelle 1-5 correspond aux niveaux de qualité évalués par les experts humains ; -1 correspond aux pièces non annotées.}
 	\label{fig:tSNE_ae}
 \end{figure}
 
@@ -1684,7 +1695,7 @@ Cela est dû à la compression élevée et au petit jeu de données dont nous di
 Il est intéressant d'observer des artefacts de couleur bleu, qui correspondent à la présence d'images dans le jeu de données où il n'y pas de pièce, mais où le bras robotique de couleur bleue est présent.
 Le bras robotique est néanmoins très peu présent dans $z$ en comparaison des pièces : le VAE est robuste.
 
-Les réseaux génératifs permettent de palier de manière intéressante au manque de variétés des échantillons dans les petits jeux de données.
+Les réseaux génératifs permettent de palier de manière intéressante au manque de variétés des individus dans les petits jeux de données.
 Cependant, les images générées sont souvent floues, ce qui est souvent dû à la fonction de coût, l'erreur moyenne entre $x$ et $\hat x$, utilisée lors de l'apprentissage.
 En effet, l'erreur moyenne ne permet pas la prise en compte dans $z$ des motifs complexes qui sont peu présents dans le jeu de données.
 Dernièrement, \citeauthor{kingma_introduction_2019} \cite{kingma_introduction_2019} propose une synthèse exhaustive des solutions à cette problématique : construire des modèles plus profonds, ajouter des contraintes plus pertinentes dans la fonction de coût, comme par exemple des tâches de classification auxiliaires, et mettre à jour de manière plus judicieuse les poids lors de l'apprentissage du modèle.
@@ -1694,11 +1705,11 @@ Ce principe permet d'améliorer le réalisme en prenant en compte des motifs com
 Il s'agit des modèles antagonistes génératifs que nous détaillons dans la Section \ref{subsubsec:GAN}.
 
 L'apprentissage d'un modèle VAE est réalisé par descente de gradient stochastique.
-Les poids du modèle sont ajustés sur un sous-ensemble du jeu de données de taille $B$ échantillons (appelé mini-batch), pendant $T$ itérations.
-La complexité de l'apprentissage est de l'ordre de $\bigO(T B^2 D + T B^2 d)$, avec $T$ le nombre d'itérations, $B$ le nombre d'échantillons dans un mini-batch, $D$ la dimension d'un échantillon et $d$ la dimension de l'espace latent.
+Les poids du modèle sont ajustés sur un individu du jeu de données de taille $B$ individus (appelé mini-batch), pendant $T$ itérations.
+La complexité de l'apprentissage est de l'ordre de $\bigO(T B^2 D + T B^2 d)$, avec $T$ le nombre d'itérations, $B$ le nombre d'individus dans un mini-batch, $D$ la dimension d'un individus et $d$ la dimension de l'espace latent.
 De plus, la quantité de mémoire de travail nécessaire au stockage des mini-batch est de l'ordre de  $\bigO(B^2 D)$.
 Ces coûts de calcul sont importants.
-Dans nos expériences, c'est la quantité de mémoire de travail sur le processeur graphique dont nous disposons (11 Giga octets) qui conditionne le nombre d'échantillons par mini-batch (ici, $B=64$ et $D=128^2$), d'où la complexité des calculs ($T=100$, $B=64^2$, $D=128^2$). Nous obtenons une complexité de l'ordre de 7 Milliards d'opérations et une occupation mémoire de l'ordre de 10 Giga octets.
+Dans nos expériences, c'est la quantité de mémoire de travail sur le processeur graphique dont nous disposons (11 gigaoctets) qui conditionne le nombre d'individus par mini-batch (ici, $B=64$ et $D=128^2$), d'où la complexité des calculs ($T=100$, $B=64^2$, $D=128^2$). Nous obtenons une complexité de l'ordre de 7 Milliards d'opérations et une occupation mémoire de l'ordre de 10 gigaoctets.
 La durée de l'apprentissage de notre modèle VAE est d'une heure sur un processeur graphique dédié (\textit{NVIDIA GTX 1080 Ti}).
 Avec les ressources informatiques actuelles, une mise à jour journalière de ce modèle peut être envisagée, lors de son utilisation au sein d'un procédé industriel.
 
@@ -1755,7 +1766,7 @@ Ce travail évalue ces règles avec comme objectif d'encoder des jeux de donnée
 Enfin, le travail montre l'intérêt des \textit{GAN} pour réaliser une classification d'images de manière non-supervisée (pas d'annotation des données d'apprentissage).
 Il s'agit d'utiliser le générateur comme fonction d'extraction des valeurs pertinentes d'une image (espace latent), puis ensuite d'utiliser un classifieur \textit{SVM} \ref{parag:svm} sur ces dimensions de l'espace latent.
 Les performances sont légèrement inférieures à celles obtenues par une approche supervisée, ce qui montre l'intérêt de la méthode puisqu'il n'a pas été nécessaire d'annoter les données pour obtenir ce résultat.
-Le \textit{GAN}, puisqu'il est entrainé pour reconstruire une image à partir des dimensions réduites de l'espace latent, permet également d'extraire l'information pertinente des images.
+Le \textit{GAN}, puisqu'il est entrainé pour reconstruire une image à partir des dimensions réduit de l'espace latent, permet également d'extraire l'information pertinente des images.
 Cette approche est particulièrement intéressante et nous chercherons à l'utiliser afin de répondre aux problèmes industriels où les jeux de données sont petits.
 
 Par la suite, \citeauthor{salimans_improved_2016} \cite{salimans_improved_2016} complètent les règles du modèle \textit{DCGAN}.
@@ -1815,13 +1826,13 @@ La Figure \ref{fig:gan_sampling} montre des images générées à partir de tira
 On observe le meilleur réalisme des images obtenues, en comparaison des résultats donnés par un VAE \ref{fig:vae_sampling}.
 La diversité des défauts est bien représentée. De plus, il est intéressant de remarquer que malgré le très faible nombre d'images représentant un bras robotique dans le jeu de données initial (1 erreur de capture pour 100 images), ces derniers sont représentés avec beaucoup de réalisme dans l'espace latent du générateur.
 Un modèle GAN est peu robuste.
-Il est sensible aux échantillons extrêmes d'un jeu de données.
+Il est sensible aux individus extrêmes d'un jeu de données.
 Dans notre cas, cela peut être un avantage pour modéliser des défauts qui n'apparaissent pas souvent ; mais cela demande également une rigueur dans la construction du jeu de données, pour ne pas introduire d'images erronées, comme ici le bras robotique.
 
 De même que pour le modèle \textit{VAE}, §\ref{subsubsec:vae}, la complexité de l'apprentissage d'un \textit{GAN} est très importante.
 L'apprentissage du modèle est réalisé par descente de gradients stochastiques.
-Les poids du modèle sont ajustés sur un sous-ensemble du jeu de données de taille $B$ échantillons (appelé mini-batch), pendant $T$ itérations.
-La complexité de l'apprentissage est de l'ordre de $\bigO(T B^2 D + T B^2 d)$, avec $T$ le nombre d'itérations, $B$ le nombre d'échantillons dans un mini-batch, $D$ la dimension d'un échantillon et $d$ la dimension de l'espace latent.
+Les poids du modèle sont ajustés sur un échantillon du jeu de données de taille $B$ individus (appelé mini-batch), pendant $T$ itérations.
+La complexité de l'apprentissage est de l'ordre de $\bigO(T B^2 D + T B^2 d)$, avec $T$ le nombre d'itérations, $B$ le nombre d'individus dans un mini-batch, $D$ la dimension d'un échantillon et $d$ la dimension de l'espace latent.
 Nous sommes limités par la capacité de mémoire de travail de notre processeur graphique à $B=64$ et $D=128^2$, d'où la complexité des calculs ($T=5000$, $B=64^2$, $D=128^2$). Nous obtenons une complexité de l'ordre de 350 Milliard d'opérations.
 La durée de l'apprentissage de notre modèle \textit{GAN} est de 10 heures sur un processeur graphique dédié (\textit{NVIDIA GTX 1080 Ti}).
 Avec les ressources informatiques actuelles, seule une mise à jour hebdomadaire de ce modèle peut être envisagée.
@@ -1856,18 +1867,21 @@ Malgré le réalisme de la méthode, il est nécessaire de disposer d'importante
 % Le choix des hyperparamètres est équivalent à l'introduction de prédicat.
 % Il s'agit de trouver, de manière efficiente, le ou les quelques prédicats nécessaires et suffisants, à la construction du modèle optimal.
 
-\smallskip
+\bigskip
+
+\bigskip
 
 \miniconclusion{Synthèse : Construction d'une métrique de la qualité d'une pièce par apprentissage}{
 	Nous avons évalué l'intérêt de différentes méthodes sur notre problématique de construction d'une métrique à partir d'images numériques.
 	
-	Notre contexte industriel limite le nombre d'échantillons dans nos jeux de données d'apprentissage, c'est pourquoi nous nous sommes intéressés aux méthodes d'apprentissage non-supervisés et semi-supervisés. 
+	Notre contexte industriel limite le nombre d'individus dans nos jeux de données d'apprentissage, c'est pourquoi nous nous sommes intéressés aux méthodes d'apprentissage non-supervisés et semi-supervisés. 
 	Elles permettent de dépasser le coût et les biais de l'annotation humaine du jeu de données d'apprentissage.
 	
 	Enfin, pour que le modèle puisse prendre en compte rapidement les ajouts de données, sa mise à jour doit être une opération courte, d'une durée maximale que nous fixons à une heure.
 	Malgré les performances intéressantes des réseaux antagonistes, nous privilégierons une approche par transfert de domaine (§\ref{subsec:transfer_learning}).
 }
 
+\FloatBarrier
 \section{Optimisation automatique des hyper-paramètres d'un modèle} \label{sec:auto_ml}
 Les algorithmes présentés dans la section précédente possèdent plusieurs dizaines d'hyper-paramètres.
 Leur ajustement est souvent crucial pour obtenir des performances satisfaisantes.
@@ -1893,7 +1907,7 @@ Une démarche plus économique est le tirage aléatoire sur la plage de valeurs,
 \begin{figure}[hbtp]
 	\centering
 	\includegraphics[width=0.80\textwidth,height=\textheight,keepaspectratio]{../Chap4/Figures/bergstra_RandomSearch2002.png}
-	\caption{Optimisation d'une fonction à deux variables avec neuf essais. Figure reproduite de \cite{bergstra_random_2012}.}
+	\caption[Optimisation d'une fonction à deux variables avec neuf essais.]{Optimisation d'une fonction à deux variables avec neuf essais. Figure reproduite de \cite{bergstra_random_2012}.}
 	\label{fig:random_search}
 \end{figure}
 
@@ -2011,7 +2025,7 @@ Ce travail montre la pertinence du méta-modèle pour la sélection des essais i
 Enfin, \textit{auto-sklearn} propose de construire un modèle qui agrège plusieurs méthodes différentes en fonction de leurs performances, dans une démarche ensembliste §\ref{parag:bagging}.
 
 La Figure \ref{fig:autosk_result} montre le résultat de l'exploration des multiples classifieurs par \textit{auto-sklearn}.
-Le classifieur le plus performant est ici le \textit{Stochastic Gradient Boosting} §\ref{parag:boosting}, à contrario d'une durée d'apprentissage importante.
+Le classifieur le plus performant est ici le \textit{Stochastic Gradient Boosting} §\ref{parag:boosting}, \textit{a contrario} d'une durée d'apprentissage importante.
 
 \begin{figure}[hbtp]
 	\centering
@@ -2123,7 +2137,7 @@ La méthode \textit{Hyperband} est proposée par \citeauthor{li_hyperband_2016} 
 Elle utilise la démarche d'arrêt prématuré de l'apprentissage §\ref{subsubsec:successive_halving}.
 % https://openreview.net/forum?id=ry18Ww5ee
 L'étude des auteurs démontre que, dans le cas où l'espace des hyper-paramètres est organisé de la pire des façons pour l'algorithme, la recherche d'une solution optimale amènera à un coût d'optimisation 5 fois plus grand qu'avec une recherche aléatoire §\ref{subsec:random_search}.
-À contrarior, dans le cas où l'espace des hyper-paramètres est organisé dans le meilleur cas, la méthode à un coût 10 fois moins grand qu'une recherche aléatoire.
+\textit{A contrario}, dans le cas où l'espace des hyper-paramètres est organisé dans le meilleur cas, la méthode à un coût 10 fois moins grand qu'une recherche aléatoire.
 La méthode utilise également l'apprentissage progressif sur des sous-ensembles des données §\ref{subsec:subsampling}.
 Les auteurs concluent sur la possibilité d'utiliser les plans d'expériences §\ref{subsec:doe} pour sélectionner les configurations d'hyper-paramètres à évaluer en premier.
 % from BOHB:
@@ -2240,6 +2254,10 @@ Dernièrement, \cite{elsken_neural_2018} propose un état de l'art exhaustif de 
 Les dernières avancées s'appuient sur l'apprentissage par renforcement pour proposer une recherche d'architecture efficiente.
 C'est une perspective de recherche importante pour la modélisation par apprentissage.
 
+\bigskip
+
+\bigskip
+
 % \subsection{Conclusion : AutoML pour l'industrie}
 % Robustesse : ablation study
 \miniconclusion{Synthèse : AutoML pour l'industrie}{
@@ -2266,7 +2284,6 @@ C'est une perspective de recherche importante pour la modélisation par apprenti
 % Meta-RL https://lilianweng.github.io/lil-log/2019/06/23/meta-reinforcement-learning.html
 
 \newpage
-
 \section{Conclusion : modélisation par apprentissage pour l'industrie} \label{subsec:metric_learning_conclusion}
 Nous avons choisi dans ce chapitre d'étudier une diversité représentative des méthodes et algorithmes existants pour résoudre le problème du contrôle automatique de la qualité.
 % Maîtriser l'ensemble du vaste domaine de l'apprentissage statistique est un processus difficile qui requière plusieurs années.
@@ -2310,17 +2327,17 @@ Elle nécessite néanmoins le déploiement d'une infrastructure de réseau infor
 		k-moyennes                         & $\bigO(N \log(N))$  & §\ref{subsubsec:kmeans} \\ \hline
 		t-SNE                              & $\bigO(N^2)$        & §\ref{subsubsec:tsne}\\ \hline
 		UMAP                               & $\bigO(N \log N)$   & §\ref{subsubsec:umap}\\ \hline
-		Auto-encodeur variationnel        & $\bigO(T \ D)$, $T$ nb. itérations, $D$ dim. échantillon  & §\ref{subsubsec:vae}\\ \hline
-		Réseaux antagonistes adversaires   & $\bigO(T \ D)$, $T$ nb. itérations, $D$ dim. échantillon & §\ref{subsubsec:GAN}\\ \hline
+		Auto-encodeur variationnel        & $\bigO(T \ D)$, $T$ nb. itérations, $D$ dim. individu  & §\ref{subsubsec:vae}\\ \hline
+		Réseaux antagonistes adversaires   & $\bigO(T \ D)$, $T$ nb. itérations, $D$ dim. individu & §\ref{subsubsec:GAN}\\ \hline
 	\end{tabular}
-	\caption{Complexité de l'apprentissage des méthodes étudiées en fonction du nombre d'échantillons du jeu de données $N$.}
+	\caption{Complexité de l'apprentissage des méthodes étudiées en fonction du nombre d'individus du jeu de données $N$.}
 	\label{tab:overview}
 \end{table}
 
 \paragraph{3.4.2 Vers un modèle robuste de la notion de qualité d'une pièce} \mbox{} \\
 La dernière limite est certainement la plus importante.
-Il s'agit du nombre d'échantillons présent dans le jeu de données.
-Nous disposons actuellement de jeux de données qui contiennent moins de mille échantillons.
+Il s'agit du nombre d'individus présent dans le jeu de données.
+Nous disposons actuellement de jeux de données qui contiennent moins de mille individus.
 L’état de l’art en \textit{Deep Learning}, nous permet d’envisager la quantité de données nécessaire afin de rendre robuste le système, pour toute machine, avec dix mille pièces dans le jeu de données d’apprentissage (le jeu de données \textit{CIFAR-10} \cite{krizhevsky2009learning} propose 6000 images par classes).
 
 La faisabilité du transfert de la modélisation de la qualité apprise sur une machine, vers une autre machine produisant la même pièce, est en cours d’évaluation.
@@ -2336,7 +2353,7 @@ L'interprétation des résultats produite par un modèle est un enjeu important.
 % Gal uncertainity with Dropout
 % [GG16]    Yarin Gal and Zoubin Ghahramani. Dropout as a bayesian approximation: representing model uncertainty in deep learning. In Proceedings of the 33rd International Conference on International Conference on Machine Learning - Volume 48, ICML‘16, 1050–1059. JMLR.org, 2016. URL: http://dl.acm.org/citation.cfm?id=3045390.3045502.
 % [GIG17]   Yarin Gal, Riashat Islam, and Zoubin Ghahramani. Deep Bayesian Active Learning with Image Data. In Proceedings of the 34th International Conference on Machine Learning (ICML-17). 2017.
-Les visualisations par apprentissage non-supervisé permettent dans notre cas d'identifier des paquets d'échantillons similaires.
+Les visualisations par apprentissage non-supervisé permettent dans notre cas d'identifier des paquets d'individus similaires.
 Nous obtenons de 4 à 6 classes sur l'étude de la pièce "boîte noire", ce qui correspondent à différents types de défauts.
 
 Enfin, nous pouvons également envisager la construction d’un modèle de la notion de qualité qui serait robuste à toutes pièces.
@@ -2456,7 +2473,8 @@ Cela rejoint l'objectif de nos travaux de proposer un dispositif de mesure en li
 		]
 		[Semi-supervisé
 		[Appr. par renforcement]
-		[Propagation §\ref{subsubsec:propagation}]
+		[Propagation]
+		% §\ref{subsubsec:propagation}
 		[SVM à transductions]
 		[Multi-instance]
 		[Rés. Siamois §\ref{subsubsec:siamese}]

@@ -4,6 +4,7 @@
 
 \appendix
 \renewcommand\chaptername{Annexe~}
+\addcontentsline{toc}{chapter}{Annexes}
 % \phantomsection
 
 \lhead[\fancyplain{}{\leftmark}]%Pour les pages paires \bfseries
@@ -590,11 +591,69 @@ Pour chaque cycle, une boucle d'optimisation évalue et minimise l'écart à une
 % Le contrôleur ajuste alors les paramètres pour atteindre le modèle de référence.
 Un objectif de réduction du temps de cycle est ajouté grâce à une pénalité temporelle dans la fonction à minimiser.
 Un double objectif est atteint : le temps de cycle est réduit et la variabilité des dimensions des pièces est réduite.
-L'étude conclut qu’une optimisation  multi-paramètres, par exemple sur les caractéristiques dimensionnelles, est possible.
-Les auteurs mettent en valeur l'intérêt de leur méthode par rapport à un ajustement manuel des paramètres du procédé.
-Leur système permet de réduire le nombre d'essais à réaliser pour régler le procédé d'un facteur dix.
+% L'étude conclut qu’une optimisation  multi-paramètres, par exemple sur les caractéristiques dimensionnelles, est possible.
+Les auteurs mettent en valeur l'intérêt de leur méthode qui permet de réduire le nombre d'essais à réaliser pour régler le procédé d'un facteur dix, par rapport à un réglage manuel.
 
 
+\FloatBarrier
+\begingroup
+\clearpage% Manually insert \clearpage
+\let\clearpage\relax% Remove \clearpage functionality
+\vspace*{-4cm}% Insert needed vertical retraction
+\chapter{\large Étude technico-économique du mesurage des caractéristiques du produit}% Regular \chapter
+\endgroup
+\label{Ann:3}
+
+\vspace{-1cm}
+Ce tableau permet de mettre en valeur les moyens compatibles avec les contraintes industrielles.
+Les contraintes majeures sont la durée de la mesure et le coût de la mesure.
+
+\begin{table}[h!]
+	\arrayrulecolor{black}
+	\hspace*{-1,5cm}
+	\begin{tabular}{|l|l|r|r|r|r|r|}
+		\arrayrulecolor{black}
+		\hline
+		Caractéristique & Moyen de mesure & Résolution & Durée & Coût horaire & Coût initial & Coût / pièce \\ \hline
+		\hline
+		\multicolumn{7}{|l|}{Dimensions géométriques} \\ \hline
+		1 dimension & Pied à coulisse + opérateur & 20 µm & 20 s & 15 €/h & 200 € & 12,50 c€/p \\ \hline
+		1 dimension & Comparateur instrumenté & 5 µm & 10 s & 0,20 €/h & 5 000 € & 0,16 c€/p \\ \hline
+		1 dimension & Comparateur laser & 1 µm & 5 s & 0,40 €/h & 10 000 € & 0,33 c€/p \\ \hline
+		\hline
+		Profil & Profilomètre laser & 1 µm & 30 s & 0,80 €/h & 20 000 € & 0,67 c€/p \\ \hline
+		Profil & Microscopie confocale & 0,5 µm & 60 s & 4 €/h & 100 000 € & 3,33 c€/p \\ \hline
+		\hline
+		Surface & Photogrammétrie & 50 µm & 30 s & 0,80 €/h & 20 000 € & 0,67 c€/p \\ \hline
+		Surface & Lumière structurée & 30 µm & 30 s & 4 €/h & 100 000 € & 3,33 c€/p \\ \hline  % ONDULO de Visuol [Visuol 12 ; Surrel 12 ; Surrel 99]
+		Surface & Microscopie confocale & 0,5 µm & 600 s & 40 €/h & 100 000 € & 3,33 c€/p \\ \hline
+		\hline
+		Volume & Profilomètre/tomographie & 10 µm & 60 s & 2 €/h & 50 000 € & 0,16 c€/p \\ \hline
+		Volume & Scanner volumique & 100 µm & 30 s & 2 €/h & 50 000 € & 0,16 c€/p \\ \hline
+		\hline
+		\multicolumn{7}{|l|}{Dimensions et densité} \\ \hline
+		Densité plane projetée & Radiographie & 10 µm & 20 s & 12 €/h & 300 000 € & 9,99 c€/p \\ \hline
+		Densité volumique & Tomographie rayons X & 10 µm & 120 s & 40 €/h & 1 000 000 € & 33,33 c€/p \\ \hline
+		\hline
+		\multicolumn{7}{|l|}{Champ de températures} \\ \hline
+		Champ °C & Thermographie & 1000 µm & 1 s & 0,40 €/h & 10 000 € & 0,33 c€/p \\ \hline
+		Évolution du champ & Thermographie dynamique & 1000 µm & 120 s & 1,20 €/h & 30 000 € & 1,00 c€/p \\ \hline
+		\hline
+		\multicolumn{7}{|l|}{Aspect visuel} \\ \hline
+		Image couleur & Caméra couleur & 200 µm & 1 s & 0,04 €/h & 1 000 € & 0,03 c€/p \\ \hline
+		Réflectance & Dôme de réflectance & 50 µm & 10 s & 0,40 €/h & 10 000 € & 0,33 c€/p \\ \hline
+		\hline
+		\multicolumn{7}{|l|}{Propriétés du matériau} \\ \hline
+		Champ de contraintes & Photoélasticité/polarimétrie & 200 µm & 1 s & 0,10 €/h & 3 000 € & 0,10 c€/p \\ \hline
+		Résilience & Essai Charpi & / & 60 s & 15 €/h & 10 000 € & 12,50 c€/p \\ \hline
+		Dureté & Indentation & / & 120 s & 30 €/h & 10 000 € & 22,50 c€/p \\ \hline
+		Élasticité/Plasticité & Traction/Compression & / & 120 s & 30 €/h & 20 000 € & 22,50 c€/p \\ \hline
+		Composition chimique & Spectromètre (UV-VIS-NIR) & / & 10 s & 0,40 €/h & 10 000 € & 0,33 c€/p \\ \hline
+		Structure cristalline & Diffraction X/polarimétrie & / & 120 s & 30 €/h & 20 000 € & 22,50 c€/p \\ \hline
+	\end{tabular}
+	\caption{Moyens de mesure des caractéristiques d'une pièce.}
+	\label{tab:product_measurements}
+\end{table}
 
 
 \FloatBarrier
@@ -795,6 +854,8 @@ Ces plans sont idéaux pour réaliser une étude de nombreuses variables en peu 
 Nous utiliserons dans notre étude expérimentale un plan L12 de criblage afin de faire varier le procédé avec peu d'essais.
 L'objectif sera de produire des pièces dont les caractéristiques sont les plus variées possibles.
 
+\vspace{1cm}
+
 \paragraph{Plan hypercube latin}\mbox{\label{parag:doe_lhs}} \\
 L'objectif de ce plan est de couvrir la plage de valeurs des variables de manière quasi-aléatoire.
 La méthode de construction de ce plan a été proposée par \citeauthor{mckay_comparison_1979} \cite{mckay_comparison_1979}. % Eglājs in 1977
@@ -822,6 +883,56 @@ Lorsque le nombre de variables est inférieur à $100$, elle permet une réparti
 
 % \paragraph{Plan de Taguchi}\mbox{\label{parag:doe_taguchi}} \\
 % Bad and/or idocratic
+
+\newpage
+\paragraph{Plan d'expérience L12 de criblage}\mbox{} \\
+Nous avons conduit deux expérimentations par plans d'expériences sur des machines industrielles.
+Dans un premier temps, un plan d'expérience de criblage \textit{L12} a été utilisé : 11 variables sur 2 niveaux \cite{plackett_design_1946}.
+L'Annexe \ref{Ann:doe} discute de l'intérêt des plans de criblage.
+Nous avons ajouté deux essais au centre pour étudier la répétabilité du procédé et deux essais de validation.
+La réalisation pratique de ce plan d'expériences a demandé 4 journées de 8 heures.
+
+\vspace{1cm}
+
+% Conditionnal formating table: https://tex.stackexchange.com/a/488568
+\makeatletter
+\newcommand*{\yncellcolor}{}
+\def\yncellcolor\ignorespaces{\@ifnextchar{-}{\cellcolor{cyan!7}}{\@ifnextchar{1}{\cellcolor{orange!10}}{\@ifnextchar{0}{\cellcolor{gray!2}}{}}}}
+\newcolumntype{m}{>{\yncellcolor}c}
+\makeatother
+
+% Please add the following required packages to your document preamble:
+% \usepackage[table,xcdraw]{xcolor}
+% If you use beamer only pass "xcolor=table" option, i.e. \documentclass[xcolor=table]{beamer}
+\begin{table}[h!]
+	\centering
+	\hspace*{-8mm}
+	\arrayrulecolor{black}\begin{tabular}{m|m|m|m|m|m|m|m|m|m|m|m|}
+		\arrayrulecolor{black}
+		% \cline{2-12}
+		\hhline{~-----------}
+		& T-four & T-therm & P-main & v-ouve & C-com & v-inj & C-ouv & t-reta & v-rot & P-ferm & C-dos \\ \hhline{-:=:=:=:=:=:=:=:=:=:=:=} %\hline
+		\multicolumn{1}{|r|}{Essai01} & -1     & -1      & -1     & -1     & -1    & -1    & -1    & -1     & -1    & -1     & -1    \\ \hline
+		\multicolumn{1}{|r|}{Essai02} & -1     & -1      & -1     & -1     & -1    & 1     & 1     & 1      & 1     & 1      & 1     \\ \hline
+		\multicolumn{1}{|r|}{Essai03} & -1     & -1      & 1      & 1      & 1     & -1    & -1    & -1     & 1     & 1      & 1     \\ \hline
+		\multicolumn{1}{|r|}{Essai04} & -1     & 1       & -1     & 1      & 1     & -1    & 1     & 1      & -1    & -1     & 1     \\ \hline
+		\multicolumn{1}{|r|}{Centré1} & 0      & 0       & 0      & 0      & 0     & 0     & 0     & 0      & 0     & 0      & 0     \\ \hline
+		\multicolumn{1}{|r|}{Essai05} & -1     & 1       & 1      & -1     & 1     & 1     & -1    & 1      & -1    & 1      & -1    \\ \hline
+		\multicolumn{1}{|r|}{Essai06} & -1     & 1       & 1      & 1      & -1    & 1     & 1     & -1     & 1     & -1     & -1    \\ \hline
+		\multicolumn{1}{|r|}{Essai07} & 1      & -1      & 1      & 1      & -1    & -1    & 1     & 1      & -1    & 1      & -1    \\ \hline
+		\multicolumn{1}{|r|}{Essai08} & 1      & -1      & 1      & -1     & 1     & 1     & 1     & -1     & -1    & -1     & 1     \\ \hline
+		\multicolumn{1}{|r|}{Centré2} & 0      & 0       & 0      & 0      & 0     & 0     & 0     & 0      & 0     & 0      & 0     \\ \hline
+		\multicolumn{1}{|r|}{Essai09} & 1      & -1      & -1     & 1      & 1     & 1     & -1    & 1      & 1     & 1      & -1    \\ \hline
+		\multicolumn{1}{|r|}{Essai10} & 1      & 1       & 1      & -1     & -1    & -1    & -1    & 1      & 1     & -1     & 1     \\ \hline
+		\multicolumn{1}{|r|}{Essai11} & 1      & 1       & -1     & 1      & -1    & 1     & -1    & -1     & -1    & 1      & 1     \\ \hline
+		\multicolumn{1}{|r|}{Essai12} & 1      & 1       & -1     & -1     & 1     & -1    & 1     & -1     & 1     & 1      & -1    \\ \hline
+		\multicolumn{1}{|r|}{Centré3} & 0      & 0       & 0      & 0      & 0     & 0     & 0     & 0      & 0     & 0      & 0     \\ \hline
+		\multicolumn{1}{|r|}{Test1}   & 1      & 1       & 1      & -1     & -1    & 1     & -1    & -1     & 1     & 1      & -1    \\ \hline
+		\multicolumn{1}{|r|}{Test2}   & -1     & -1      & -1     & 1      & 1     & -1    & 1     & 1      & -1    & -1     & 1     \\ \hline
+	\end{tabular}
+	\caption{Plan de criblage \textit{L12} utilisé.}
+	\label{tab:doe_screening}
+\end{table}
 
 
 \FloatBarrier
@@ -982,7 +1093,7 @@ La Figure \ref{fig:StratifiedKFold} représente l'effet de cette méthode sur un
 \begin{figure}[hbtp]
 	\centering
 	\includegraphics[width=0.7\textwidth,height=0.7\textheight,keepaspectratio]{../Chap4/Figures/sphx_glr_plot_cv_indices_003.png}
-	\caption{\emph{Stratified 4-Folds}. Figure extraite de la \href{https://scikit-learn.org/stable/auto_examples/model_selection/plot_cv_indices.html}{doc \textit{SciKit-Learn}, License BSD 3-clauses}.}
+	\caption[Stratified 4-Folds]{\emph{Stratified 4-Folds}. Figure extraite de la \href{https://scikit-learn.org/stable/auto_examples/model_selection/plot_cv_indices.html}{doc \textit{SciKit-Learn}, License BSD 3-clauses}.}
 	\label{fig:StratifiedKFold}
 \end{figure}
 
@@ -1059,7 +1170,8 @@ Enfin, $\gamma$ pondère l'influence d'un unique échantillon sur l'hyperplan.
 \begin{figure}[hbtp]
 	\centering
 	\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{../Chap4/Figures/Kernel_Machine_Pierre.pdf}
-	\caption{SVM avec \emph{kernel trick} $\varphi$. Figure originale de \href{https://commons.wikimedia.org/wiki/File:Kernel_Machine.png}{Alisneaky \ccLogo \ \textnormal{0}, Wikimedia Commons}.}
+	\caption{SVM avec \emph{kernel trick} $\varphi$.}
+	\textit{Figure originale de \href{https://commons.wikimedia.org/wiki/File:Kernel_Machine.png}{Alisneaky \ccLogo \ \textnormal{0}, Wikimedia Commons}.}
 	\label{fig:svm}
 \end{figure}
 
@@ -1494,6 +1606,30 @@ Les paramètres de l'augmentation du jeu de données dépendent de la connaissan
 Si la connaissance du métier n'est pas certaine, il est préférable d'acquérir un plus grand nombre d'images réelles, plutôt que de générer des données artificielles avec de mauvais a priori.
 
 
+\begingroup
+\clearpage% Manually insert \clearpage
+\let\clearpage\relax% Remove \clearpage functionality
+\vspace*{-4cm}% Insert needed vertical retraction
+\chapter{Résultats de l'extraction de la géométrie d'une pièce à partir de son image thermique}% Regular \chapter
+\endgroup
+\label{Ann:pix2pix}
+
+\vspace{-1cm}
+Cette Annexe est complémentaire de la Section \ref{subsec:thermography} du Chapitre \ref{ch:measure}.
+L'objectif est d'extraire l'information de l'image thermique d'une pièce afin d'obtenir sa géométrie.
+La Figure \ref{fig:gan_results} présente les résultats obtenus sur le jeu de données de validation, qui n'a pas été utilisé pendant l'apprentissage.
+Les résultats montrent que le modèle permet d'obtenir la géométrie à partir de l'image thermique, sur ce cas d'application spécifique.
+
+\vspace{1cm}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=\textwidth]{../Chap2/Figures/sapristi_GAN_thermo_geo_testSet.pdf}
+	\caption[Images générées par le modèle \textit{pix2pix} à partir de l'image thermique.]{Comparaison entre les images générées par le modèle \textit{pix2pix} à partir de l'image thermique et les images "géométriques" réelles pour le jeu de données de validation.}
+	\label{fig:gan_results}
+\end{figure}
+
+
 
 
 \FloatBarrier
@@ -1562,7 +1698,7 @@ La Figure illustre également les contraintes de production : il est indispensab
 		\vspace*{1mm}
 	\end{subfigure}
 	\\
-	\caption{Images capturées lors de l'essai. Image thermique à gauche, puis images polarisés linéairement à 0°, 60°, 120° par rapport à l'éclairage annulaire polarisé.}
+	\caption[Images capturées lors de l'essai "plaque".]{Images capturées lors de l'essai "plaque". Image thermique à gauche, puis images polarisés linéairement à 0°, 60°, 120° par rapport à l'éclairage annulaire polarisé.}
 	\label{fig:po_trial}
 \end{figure}
 
@@ -1621,6 +1757,8 @@ Trois hypothèses restent à vérifier :
 	\item le réseau a sur-appris le jeu de données d'apprentissage et le jeu de données comporte des erreurs d'annotations,
 	\item le réseau n'est pas capable d'extraire l'information pertinente des images des quatre caméras.
 \end{itemize}
+
+\vspace{1cm}
 
 \paragraph{4.2.2.1.2 Courbe ROC} \mbox{} \\
 La Figure \ref{fig:po_roc} présente la courbe ROC obtenue pour le jeu de données de validation de l'essai "plaques".

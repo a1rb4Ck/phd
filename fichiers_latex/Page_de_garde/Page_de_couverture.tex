@@ -15,15 +15,15 @@ Nous proposons un système de contrôle qui est non invasif pour le procédé de
 Les pièces sont contrôlées dès la sortie de la presse à injecter.
 Nous étudierons l'apport de l'imagerie non-conventionnelle.
 La thermographie d'une pièce moulée chaude permet d'obtenir une information sur sa géométrie, qui est complémentaire de l'imagerie conventionnelle.
-La polarimétrie permet de discriminer les défauts de courbure des surfaces qui modifient l'angle de polarisation de la lumière réfléchie, des défauts de la structure de la matière qui diffusent la lumière.
-De plus, les cahiers des charges des produits présentent de plus en plus d'exigences tant sur les géométries complexes que sur l'aspect.
+La polarimétrie permet de discriminer les défauts de courbure des surfaces des défauts de la structure de la matière, car les premiers  modifient l'angle de polarisation de la lumière réfléchie alors que les seconds diffusent la lumière.
+D'autre part, les cahiers des charges des produits présentent de plus en plus d'exigences tant sur les géométries complexes que sur l'aspect.
 Cependant, les caractéristiques d'aspect sont difficiles à formaliser.
 Pour automatiser le contrôle d'aspect, il est nécessaire de modéliser la notion de qualité d'une pièce.
 Afin d'exploiter les mesures réalisées sur les pièces chaudes, notre approche utilise des méthodes d'apprentissage statistique.
 Ainsi, l'expert humain qui connait la notion de qualité d'une pièce transmet son savoir au système, par l'annotation d'un jeu de données d'apprentissage.
 Notre système de contrôle apprend alors une métrique de la qualité d'une pièce, à partir des données brutes issues capteurs.
-Nous avons privilégier une approche par réseaux de convolution profonds (\textit{Deep Learning}) afin d'obtenir les meilleurs performances en justesse de discrimination des pièces conformes.
-La faible quantité d'échantillons annotés disponible dans notre contexte industrielle nous ont amenée à utiliser des méthodes d'apprentissage par transfert de domaine.
+Nous avons privilégié une approche par réseaux de convolution profonds (\textit{Deep Learning}) afin d'obtenir les meilleurs performances en justesse de discrimination des pièces conformes.
+La faible quantité d'échantillons annotés disponible dans notre contexte industriel nous ont amenés à utiliser des méthodes d'apprentissage par transfert de domaine.
 Enfin, afin de répondre à l'ensemble des contraintes, nous avons réalisé l'intégration verticale d'une prototype de dispositif de mesure des pièces et de la solution logicielle de traitement par apprentissage statistique.
 Le dispositif intègre l'imagerie thermique, polarimétrique, l'éclairage et le système de traitement embarqué nécessaire à l'envoi des données sur un serveur d'analyse distant.
 Deux cas d'applications permettent d'évaluer les performances et la viabilité de la solution proposée.
@@ -47,7 +47,7 @@ We will study the contribution of non-conventional imaging.
 Thermography of a hot molded part provides information on its geometry, which is complementary to conventional imaging.
 Polarimetry makes it possible to discriminate curvature defects of surfaces that change the polarization angle of reflected light and defects in the structure of the material that diffuse light.
 Furthermore, specifications on products are more and more tighter.
-Specifications include complex geometric features, as well as appearance features, which are difficult to formalize.
+Specifications include complex geometric features, as well as appearance features.
 However, the appearance characteristics are difficult to formalize.
 To automate aspect control, it is necessary to model the notion of quality of a part.
 In order to exploit the measurements made on the hot parts, our approach uses statistical learning methods.

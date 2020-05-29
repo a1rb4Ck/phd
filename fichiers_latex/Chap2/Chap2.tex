@@ -147,7 +147,7 @@ Nous avons conduit deux expérimentations par plans d'expériences sur des machi
 Dans un premier temps, un plan d'expérience de criblage \textit{L12} a été utilisé : 11 variables sur 2 niveaux \cite{plackett_design_1946}.
 La Section \ref{subsec:doe} précédente discute des constructions possibles de plans d'expériences et de l'intérêt des plans de criblage.
 Nous avons ajouté deux essais au centre pour étudier la répétabilité du procédé et deux essais de validation.
-Notre plan est détaillés dans le Tableau \ref{tab:doe_screening}.
+Notre plan est détaillés en Annexe dans le Tableau \ref{tab:doe_screening}.
 La réalisation pratique de ce plan d'expériences a demandé 4 journées de 8 heures.
 Il a été choisi d'attendre la stabilisation du procédé avant de réaliser les mesures.
 La production de 20 à 40 pièces est requise pour être certain de la stabilité.
@@ -156,51 +156,6 @@ Du point de vue de l'organisation des essais, la contrainte principale est la ca
 Aux vues de la masse d'acier en présence, la montée et la descente en température de l'outillage est très longue.
 C'est pourquoi nous avons ordonné les essais pour réaliser une montée progressive de la température de l'outillage\footnote{En parallèle de ce travail de doctorat, \citeauthor{collomb_2018} a récemment proposé de réduire au maximum la capacité thermique de l'outillage et d'isoler les parois. Cela a permis de réduire le temps de cycle du moulage des composites \cite{collomb_2018}.
 	Il serait intéressant d'étudier cette démarche, par exemple est prenant en compte les déformations de l'outillage sous les contraintes pour l'alléger.}.
-
-\bigskip
-
-\bigskip
-
-% Conditionnal formating table: https://tex.stackexchange.com/a/488568
-\makeatletter
-\newcommand*{\yncellcolor}{}
-\def\yncellcolor\ignorespaces{\@ifnextchar{-}{\cellcolor{cyan!7}}{\@ifnextchar{1}{\cellcolor{orange!10}}{\@ifnextchar{0}{\cellcolor{gray!2}}{}}}}
-\newcolumntype{m}{>{\yncellcolor}c}
-\makeatother
-
-% Please add the following required packages to your document preamble:
-% \usepackage[table,xcdraw]{xcolor}
-% If you use beamer only pass "xcolor=table" option, i.e. \documentclass[xcolor=table]{beamer}
-\begin{table}[hbtp]
-	\centering
-	\hspace*{-8mm}
-	\arrayrulecolor{black}\begin{tabular}{m|m|m|m|m|m|m|m|m|m|m|m|}
-		\arrayrulecolor{black}
-		% \cline{2-12}
-		\hhline{~-----------}
-		& T-four & T-therm & P-main & v-ouve & C-com & v-inj & C-ouv & t-reta & v-rot & P-ferm & C-dos \\ \hhline{-:=:=:=:=:=:=:=:=:=:=:=} %\hline
-		\multicolumn{1}{|r|}{Essai01} & -1     & -1      & -1     & -1     & -1    & -1    & -1    & -1     & -1    & -1     & -1    \\ \hline
-		\multicolumn{1}{|r|}{Essai02} & -1     & -1      & -1     & -1     & -1    & 1     & 1     & 1      & 1     & 1      & 1     \\ \hline
-		\multicolumn{1}{|r|}{Essai03} & -1     & -1      & 1      & 1      & 1     & -1    & -1    & -1     & 1     & 1      & 1     \\ \hline
-		\multicolumn{1}{|r|}{Essai04} & -1     & 1       & -1     & 1      & 1     & -1    & 1     & 1      & -1    & -1     & 1     \\ \hline
-		\multicolumn{1}{|r|}{Centré1} & 0      & 0       & 0      & 0      & 0     & 0     & 0     & 0      & 0     & 0      & 0     \\ \hline
-		\multicolumn{1}{|r|}{Essai05} & -1     & 1       & 1      & -1     & 1     & 1     & -1    & 1      & -1    & 1      & -1    \\ \hline
-		\multicolumn{1}{|r|}{Essai06} & -1     & 1       & 1      & 1      & -1    & 1     & 1     & -1     & 1     & -1     & -1    \\ \hline
-		\multicolumn{1}{|r|}{Essai07} & 1      & -1      & 1      & 1      & -1    & -1    & 1     & 1      & -1    & 1      & -1    \\ \hline
-		\multicolumn{1}{|r|}{Essai08} & 1      & -1      & 1      & -1     & 1     & 1     & 1     & -1     & -1    & -1     & 1     \\ \hline
-		\multicolumn{1}{|r|}{Centré2} & 0      & 0       & 0      & 0      & 0     & 0     & 0     & 0      & 0     & 0      & 0     \\ \hline
-		\multicolumn{1}{|r|}{Essai09} & 1      & -1      & -1     & 1      & 1     & 1     & -1    & 1      & 1     & 1      & -1    \\ \hline
-		\multicolumn{1}{|r|}{Essai10} & 1      & 1       & 1      & -1     & -1    & -1    & -1    & 1      & 1     & -1     & 1     \\ \hline
-		\multicolumn{1}{|r|}{Essai11} & 1      & 1       & -1     & 1      & -1    & 1     & -1    & -1     & -1    & 1      & 1     \\ \hline
-		\multicolumn{1}{|r|}{Essai12} & 1      & 1       & -1     & -1     & 1     & -1    & 1     & -1     & 1     & 1      & -1    \\ \hline
-		\multicolumn{1}{|r|}{Centré3} & 0      & 0       & 0      & 0      & 0     & 0     & 0     & 0      & 0     & 0      & 0     \\ \hline
-		\multicolumn{1}{|r|}{Test1}   & 1      & 1       & 1      & -1     & -1    & 1     & -1    & -1     & 1     & 1      & -1    \\ \hline
-		\multicolumn{1}{|r|}{Test2}   & -1     & -1      & -1     & 1      & 1     & -1    & 1     & 1      & -1    & -1     & 1     \\ \hline
-	\end{tabular}
-	\caption{Plan de criblage \textit{L12} utilisé.}
-	\label{tab:doe_screening}
-\end{table}
-
 
 \newpage
 \section{Évolution des pièces moulées après la sortie du moule}
@@ -235,7 +190,7 @@ De plus, pendant le refroidissement, la géométrie de la pièce se modifie. C'e
 		\includegraphics[width=\textwidth]{../Chap2/Figures/Capture_2019-09-20_12_18_57.png}
 		\caption{Caractéristique de géométrie.}
 	\end{subfigure}
-	\caption{Modèle linéaire entre les caractéristiques des pièces chaudes (30 secondes après production) et des pièces stabilisées (3 jours après production), Logiciel Ellistat $^1$.}
+	\caption[Modèle linéaire entre les caractéristiques des pièces chaudes et des pièces froides.]{Modèle linéaire entre les caractéristiques des pièces chaudes (30 secondes après production) et des pièces stabilisées (3 jours après production), Logiciel Ellistat $^1$.}
 \end{figure}
 % \footnotemark
 \footnotetext{\href{https://ellistat.com/}{Site Internet} de la société Ellistat.}
@@ -271,6 +226,10 @@ C'est pourquoi, les défauts d'aspect qui sont causés par des variations géom�
 L'évolution de la pièce lors du refroidissement est simple à modéliser.
 Les caractéristiques des pièces finales sont proches des caractéristiques des pièces chaudes.
 Notre démarche de mesure des caractéristiques du produit, dès la sortie de la machine, s'appuie sur ce constat.
+
+\bigskip
+
+\bigskip
 
 \bigskip
 
@@ -336,7 +295,7 @@ Il s'agit d'extraire une information pertinente à propos des caractéristiques 
 
 \subsection{Essai expérimental de thermographie des pièces en sortie du moule}
 Nous avons étudié l'intérêt de la mesure thermique des pièces chaudes sur une production de 204 pièces.
-Les paramètres de la machine ont été variés suivant un plan d'expérience de criblage, discuté dans le Chapitre \ref{ch:dataset} §\ref{subsec:l12_doe}.
+Les paramètres de la machine ont été variés suivant un plan d'expériences de criblage, discuté dans le Chapitre \ref{ch:dataset} §\ref{subsec:l12_doe}.
 Nous avons réalisé une mesure par imagerie thermique pour chaque pièce chaude, 10 secondes après la sortie du moule.
 La caméra thermique utilisée était sensible sur une plage de longueur d'ondes de 7,5 à 13 micromètres.
 Le matériau utilisé est un polypropylène automobile, au degré de cristallinité supérieur à 70\%.
@@ -514,7 +473,8 @@ La lumière qui sort du matériau devient isotrope.  % et les direction de sorti
 \begin{figure}[tbhp]
 	\centering
 	\includegraphics[width=\textwidth]{polarized_defect.pdf}
-	\caption{Différentes composantes de réflexion d'un polymère semi-cristallin. (a) réflexion spéculaire, (b) réflexion diffuse, (c) réflexion diffuse sur un défaut structurel du matériau, (d) réflexion spéculaire sur un défaut de forme géométrique. Figure inspirée de \cite{debevec_acquiring_2000}.}
+	\caption{Différentes composantes de réflexion d'un polymère semi-cristallin.}
+	\textit{(a) réflexion spéculaire, (b) réflexion diffuse, (c) réflexion diffuse sur un défaut structurel du matériau, (d) réflexion spéculaire sur un défaut de forme géométrique. Figure inspirée de \cite{debevec_acquiring_2000}}.
 	\label{fig:polarized_defect}.
 \end{figure}
 
@@ -780,7 +740,7 @@ Une perspective de ce travail sera d'évaluer la justesse de notre reconstructio
 
 Dans \citetitle{nagorny_polarimetric_2019}, nous évaluons l'apport de la polarimétrie pour la détection des défauts sur les pièces plastiques \cite{nagorny_polarimetric_2019}.
 Nous réalisons notre étude sur le jeu de donnée de 204 pièces "boîte noires", qui est présenté dans le Chapitre \ref{ch:dataset} §\ref{subsec:l12_doe}.
-Les paramètres de la machine ont été variés suivant un plan d'expérience de criblage ; aussi, le jeu de donnée est composé de pièces qui possèdent une variété de défauts.
+Les paramètres de la machine ont été variés suivant un plan d'expériences de criblage ; aussi, le jeu de donnée est composé de pièces qui possèdent une variété de défauts.
 La qualité de chaque pièce a été évaluée selon la méthode présentée dans le Chapitre \ref{ch:dataset} §\ref{parag:offline_annotation}.
 À partir de cette évaluation, nous définissons deux types de pièces sur notre échelle de qualité : les pièces conformes dont l'indice de qualité est inférieur à 3, et les pièces non-conformes dont l'indice est supérieur.
 Les images enregistrées ont une résolution de $1920 \times 1200$ et nous avons dû sous-échantillonner cette résolution à $331 \times 331$ pixels pour réaliser l'analyse sur notre infrastructure informatique.
@@ -836,7 +796,7 @@ Nous expliquons ce résultat par le fait qu'il existe de l'information suppléme
 De plus, les filtres polarisants pourraient dégrader une partie de cette information issue des trois caméras.
 Enfin, il est possible que notre système à faible coût occasionne un biais pour les données.
 Nous n'avons pas réussi à mettre en évidence de biais.
-Une perspective importante de nos travaux sera de réaliser la même étude à l'aide d'un polarimètre calibré, afin de valider définitivement si c'est la polarimétrie qui apporte de l'information, ou bien les différents points de vues des caméras.
+Une perspective importante de nos travaux sera de réaliser la même étude à l'aide d'un polarimètre calibré, afin de valider définitivement si c'est la polarimétrie qui apporte de l'information, ou bien les différents points de vue des caméras.
 
 \bigskip
 
@@ -1098,7 +1058,8 @@ La Figure \ref{fig:dmd_filtering} présente le filtrage d'une image de pièce no
 \begin{figure}[bht]
 	\centering
 	\includegraphics[width=0.75\textwidth]{../Chap2/Figures/DMD_reconstruction_27modes.png}
-	\caption{(a) Base modale moyenne obtenue par sélection des 27 modes par validation croisée. Reconstruction d'une image (b) d'une pièce conforme et d'une image (c) d'une pièce non-conforme, après description modale à l'aide de la base (a) de 27 modes.}
+	\caption{Reconstruction d'une image après description modale}
+	\textit{(a) Base modale moyenne obtenue par sélection des 27 modes par validation croisée. Reconstruction d'une image (b) d'une pièce conforme et d'une image (c) d'une pièce non-conforme, après description modale à l'aide de la base (a) de 27 modes.}
 	\label{fig:dmd_reconstruction}
 \end{figure}
 

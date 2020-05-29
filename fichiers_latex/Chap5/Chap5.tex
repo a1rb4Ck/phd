@@ -1,0 +1,130 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%                         CHAPITRE 5                            %%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\lhead[\fancyplain{}{\leftmark}]%Pour les pages paires \bfseries
+      {\fancyplain{}{}} %Pour les pages impaires
+\chead[\fancyplain{}{}]%
+      {\fancyplain{}{}}
+\rhead[\fancyplain{}{}]%Pour les pages paires 
+      {\fancyplain{}{\rightmark}}%Pour les pages impaires \bfseries
+\lfoot[\fancyplain{}{}]%
+      {\fancyplain{}{}}
+\cfoot[\fancyplain{}{\thepage}]%\bfseries
+      {\fancyplain{}{\thepage}} %\bfseries
+\rfoot[\fancyplain{}{}]%
+     {\fancyplain{}{\scriptsize}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%                      Start part here                          %%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Conception d'un système de mesure de la Qualité }
+\label{ch:theeye}
+
+%==============================================================================	Résumé du chapitre
+
+\begin{center}
+\rule{0.7\linewidth}{.5pt}
+\begin{minipage}{0.7\linewidth}
+\smallskip
+
+\textit{Résumé du chapitre possible ici.
+}
+
+%\smallskip
+\end{minipage}
+\smallskip
+\rule{0.7\linewidth}{.5pt}
+\end{center}
+
+\minitoc
+\newpage
+
+\begin{raggedright}
+\section{Conception d'un dispositif de mesure adapté aux contraintes industrielles}
+\end{raggedright}
+% Métrologie de la Qualité géométrique et de la Qualité d'aspect.
+% Approche multi-éclairage.
+% Métrologie non-conventionnelle.
+% Qualité d'aspect.
+% Respect des contraintes industrielles : coût, temps de cycle.
+% Contrôle à cent pourcent.
+% Solution bas coût.
+% Simplicité d'utilisation : maximiser l'adoption dans les ateliers, simplifier au maximum la mise en place.
+
+%2.1.2 Viabilité économique du dispositif de métrologie proposé
+%Un prototype fonctionnel a été développé afin de répondre aux exigences de coût et contraintes du procédé. Dans un budget inférieur à cinq milles euros, nous avons intégré un dispositif d’imagerie non invasif dérivé d’une webcam commerciale, un éclairage spécifique, ainsi que les détecteurs nécessaires à l’identification de la présence des pièces. Enfin, nous avons embarqué l’intelligence de traitement dans un ordinateur fanless. Le tout est contenu dans un cube de vingt centimètres, mobile et intégrable rapidement sur toute ligne de production (Figure 2). Une interface utilisateur a été développé afin que l’Expert Qualité supervise l’algorithme d’apprentissage de la notion de qualité.
+
+Poser les hypothèses
+Justifier les choix
+Polarisation pk ?
+Deep Learning pk ?
+Architecture pk ?
+
+A chaque fin de chapitre : ouverture, ce qu'il reste à faire
+
+Brevet \cite{nagorny_dispositif_2019}
+
+\subsection{Imagerie non-conventionnelle pour la mesure non-invasive de la Qualité}
+\blindtext
+
+\subsection{Détection de pièce robuste}
+\blindtext
+
+\section{Solution logicielle}
+\subsection{Architecture logicielle}
+\blindtext
+
+\subsection{Interface Homme-Machine}
+\blindtext
+
+\subsection{Apprentissage de la notion de Qualité}
+%TODO: Eric: masse d'informations
+- Des capteurs partout
+- Des caméras thermiques, mais l'humain n'est pas capable de les exploiter.
+- IA = information synthétisée, exploitée
+
+
+
+\section{Application industrielle}
+
+\subsection{Contrôle de la qualité par apprentissage en industrie}
+\cite{goto_anomaly_2019} T de Hotelling
+\cite{fantinel_visual_2019} driven by features
+\cite{meguenani_deflectometry_2019} Deflectometry Based Inline Inspection of Linearly Moving Plastic Parts
+
+
+\subsection{Résultats obtenues par le dispositif de mesure TheEye}
+-> Perspectives, TheEye, nouveaux champs de recherche :
+- à la Qualité, au suivi en temps réel des dérives de la production, à l'ajustement du procédé
+- à d'autres mesures
+- à d'autres sources d'infos
+- à d'autres produits
+
+-> Perspectives, TheEye, acquisisiton massive de données pour améliorer les modèles :
+- maximiser l'adoption
+- commercialisation pas chère = récupérer un maximum de données pour améliorer les modèles.
+- voir même commercialisation gratuite pour maximiser la récolte de données.
+
+
+
+\begin{raggedright}
+\section{Évaluation de la performance du système de mesure de la Qualité}
+\end{raggedright}
+% TODO: partie 2
+Coût industrielle de la non-qualité
+
+\subsection{Comparaison avec un expert humain}
+% TODO:
+Gage R et R avec expert humain
+
+\subsection{Métrique de confidence industrielle}
+% TODO:
+faux positif, faux négatif
+ppm
+Limite au déploiement : 2-3 x meilleur qu'un humain
+Coût industriel de la non-qualité vs coût du déploiement d'un tel système, fonction de la valeur ajouté du produit
+
+À propos des attaques par exemple adversaire : détecter l'attaque.
