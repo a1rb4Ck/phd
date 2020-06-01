@@ -9,6 +9,76 @@
 <link rel="stylesheet" href="base.min.css"/>
 <link rel="stylesheet" href="fancy.min.css"/>
 <link rel="stylesheet" href="Manuscrit.css"/>
+<style>
+@media only screen and (prefers-color-scheme: dark) {
+  html { background-color: rgb(24, 26, 27) !important; }
+  html, body, input, textarea, select, button { background-color: rgb(24, 26, 27); }
+  html, body, input, textarea, select, button { border-color: rgb(87, 87, 87); color: rgb(232, 230, 227); }
+  a { color: rgb(51, 145, 255); }
+  table { border-color: rgb(76, 76, 76); }
+  ::placeholder { color: rgb(186, 181, 171); }
+  input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill { background-color: rgb(84, 91, 0) !important; color: rgb(232, 230, 227) !important; }
+  ::selection { background-color: rgb(0, 92, 204) !important; color: rgb(255, 255, 255) !important; }
+  .pf { background-color: rgb(24, 26, 27); border-color: initial; }
+  ::selection { background-image: initial; background-color: rgba(0, 128, 128, 0.4); }
+  .it { border-color: initial; background-color: rgba(24, 26, 27, 0); }
+  @media screen {
+    #sidebar { background-color: rgb(47, 50, 54); }
+    #outline a, #outline a:visited, #outline a:hover, #outline a:active { line-height: 1.2; color: rgb(232, 232, 232); }
+    #outline a:hover { color: rgb(0, 204, 255); }
+    #page-container { background-color: rgb(158, 158, 158); }
+    .pf { box-shadow: rgb(51, 51, 51) 1px 1px 3px 1px; }
+  }
+  @media screen {
+    #sidebar { background-color: rgb(48, 51, 53); }
+    #outline a, #outline a:visited, #outline a:hover, #outline a:active { color: rgb(234, 233, 230); }
+    #outline a:hover { color: rgb(51, 214, 255); }
+    #page-container { background-color: rgb(52, 55, 57); }
+    .pf { box-shadow: rgb(48, 51, 54) 1px 1px 3px 1px; }
+  }
+  .sc_ { text-shadow: none; }
+  .sc0 { text-shadow: transparent -0.015em 0px, transparent 0px 0.015em, transparent 0.015em 0px, transparent 0px -0.015em; }
+  @media screen and (-webkit-min-device-pixel-ratio: 0) {
+    .sc_ { -webkit-text-stroke: 0px transparent; }
+    .sc0 { -webkit-text-stroke: 0.015em transparent; text-shadow: none; }
+  }
+  .sc0 { text-shadow: rgba(0, 0, 0, 0) -0.015em 0px, rgba(0, 0, 0, 0) 0px 0.015em, rgba(0, 0, 0, 0) 0.015em 0px, rgba(0, 0, 0, 0) 0px -0.015em; }
+  @media screen and (-webkit-min-device-pixel-ratio: 0) {
+    .sc_ { -webkit-text-stroke-color: transparent; }
+    .sc0 { -webkit-text-stroke-color: transparent; text-shadow: none; }
+  }
+  .fc18 { color: rgb(246, 136, 65); }
+  .fc17 { color: rgb(134, 215, 140); }
+  .fc15 { color: rgb(230, 93, 96); }
+  .fc14 { color: rgb(187, 182, 172); }
+  .fcd { color: rgb(111, 164, 255); }
+  .fc10 { color: rgb(169, 211, 214); }
+  .fcc { color: rgb(254, 164, 81); }
+  .fcb { color: rgb(255, 82, 82); }
+  .fca { color: rgb(231, 229, 225); }
+  .fc8 { color: rgb(220, 217, 212); }
+  .fc13 { color: rgb(220, 217, 212); }
+  .fc11 { color: rgb(255, 255, 255); }
+  .fc7 { color: rgb(255, 89, 89); }
+  .fc19 { color: rgb(121, 171, 215); }
+  .fc6 { color: rgb(247, 87, 128); }
+  .fc4 { color: rgb(186, 181, 171); }
+  .fc12 { color: rgb(197, 193, 184); }
+  .fce { color: rgb(167, 83, 255); }
+  .fc1 { color: rgb(104, 178, 250); }
+  .fc9 { color: rgb(255, 51, 51); }
+  .fc3 { color: rgb(81, 144, 255); }
+  .fc5 { color: rgb(226, 224, 220); }
+  .fc16 { color: rgb(112, 207, 216); }
+  .fc2 { color: rgb(51, 125, 255); }
+  .fcf { color: rgb(112, 255, 113); }
+  .fc0 { color: rgb(232, 230, 227); }
+  ::placeholder { opacity: 0.5 !important; }
+  .bi{
+    filter: invert(0.9) !important;
+  }
+}
+</style>
 <script src="compatibility.min.js"></script>
 <script src="pdf2htmlEX.min.js"></script>
 <script>
