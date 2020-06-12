@@ -1,10 +1,10 @@
 # How to convert from tex to html
 
 ```bash
-pdf2htmlEX --embed cfijo --dest-dir web Manuscrit.pdf
+pdf2htmlEX --embed cfij --dest-dir web Manuscrit.pdf
 ```
 
-Then rename to `Manuscrit.pdf` to `index.html`.
+Then rename to `Manuscrit.html` to `index.html`.
 
 
 # Using Git Worktree to Deploy GitHub Pages
