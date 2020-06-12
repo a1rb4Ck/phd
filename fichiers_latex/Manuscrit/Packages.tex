@@ -285,9 +285,9 @@
 	urlcolor=blue,
 	citecolor=BleuPetrole,
 	filecolor=VertVert,
-	% hyperindex=true,
-	% bookmarks=true, %cre des signets pour Acrobat
-	bookmarksopen=true,
+	hyperindex=true,
+	bookmarks=true, %cre des signets pour Acrobat
+	bookmarksopen=false,
 	pdftitle={Thèse de Doctorat}, %informations apparaissant dans
 	pdfauthor={Pierre Nagorny}, %dans les informations du document
 	pdfsubject={Contrôle automatique non-invasif de la Qualité des produits} % sous Acrobat.
@@ -300,6 +300,19 @@
 %	\or        (Cité page~#2.)%
 %	\else      (Cité pages~#2.)%
 %	\fi}
+\usepackage{bookmark}
+\bookmarksetup{
+	open,
+	numbered,
+	addtohook={%
+		\ifnum\bookmarkget{level}=0 % chapter
+		\bookmarksetup{bold}%
+		\fi
+		\ifnum\bookmarkget{level}=-1 % part
+		\bookmarksetup{color=ocre,bold}%
+		\fi
+	}
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%             Packages pour les encarts de mini-conclusions              %%%%%%
